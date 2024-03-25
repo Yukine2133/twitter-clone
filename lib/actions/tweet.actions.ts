@@ -1,9 +1,9 @@
 "use server";
 
-import { Types, isObjectIdOrHexString, isValidObjectId } from "mongoose";
 import { connectDb } from "../connectDb";
 import { Tweet } from "../models/tweet.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { revalidatePath } from "next/cache";
 
 export const createTweet = async (formData: FormData) => {
   try {
@@ -26,9 +26,20 @@ export const createTweet = async (formData: FormData) => {
       _id: tweet._id.toString(),
     };
     console.log(plainTweet);
+    revalidatePath("/");
     return plainTweet;
   } catch (error) {
     console.error(error);
     return null; // or handle the error as per your requirement
+  }
+};
+
+export const fetchTweets = async () => {
+  try {
+    await connectDb();
+    const tweets = await Tweet.find();
+    return tweets;
+  } catch (error) {
+    console.error(error);
   }
 };
