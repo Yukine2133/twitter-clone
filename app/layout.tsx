@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={`${poppins.className} bg-black text-white`}>
         <main className="grid place-content-center place-items-center grid-cols-3 ">
           <LeftSideBar />
-          <section className="container">
+          <section className="container border-x border-[#2f3336] px-4 h-full">
             <div className="w-full max-w-4xl">{children}</div>
           </section>
           <RightSideBar />

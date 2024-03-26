@@ -7,33 +7,14 @@ import {
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { createTweet, fetchTweets } from "@/lib/actions/tweet.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
+import AddTweet from "@/components/AddTweet";
 
 export default async function Home() {
-  const { getUser } = await getKindeServerSession();
-  const user = await getUser();
   const tweets = await fetchTweets();
 
   return (
     <div className=" ">
-      <LoginLink>Sign in</LoginLink>
-      <RegisterLink>Sign up</RegisterLink>
-      {user && (
-        <Image
-          src={user.picture!}
-          alt={user.given_name!}
-          width={64}
-          height={64}
-        />
-      )}
-      {user && <LogoutLink>Logout </LogoutLink>}
-      <form action={createTweet}>
-        <input
-          type="text"
-          name="text"
-          className="bg-purple-600 p-4 outline-none"
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <AddTweet />
       {tweets?.map(async (tweet) => {
         const owner: any = await fetchUser(tweet.userId);
 
