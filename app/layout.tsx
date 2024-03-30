@@ -22,12 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} bg-black text-white`}>
-        <main className="grid place-content-center place-items-center grid-cols-3 ">
+        <main className="flex  justify-center items-center">
           <LeftSideBar />
-          <section className="container border-x border-[#2f3336] px-4 h-full">
+          <section className="  w-[768px] border-x border-[#2f3336] px-4 h-full ">
             <div className="w-full max-w-4xl">{children}</div>
           </section>
-          <RightSideBar />
+          {/* <RightSideBar /> */}
         </main>
       </body>
     </html>

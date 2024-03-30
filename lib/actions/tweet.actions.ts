@@ -25,7 +25,6 @@ export const createTweet = async (formData: FormData) => {
       ...tweet.toObject(),
       _id: tweet._id.toString(),
     };
-    console.log(plainTweet);
     revalidatePath("/");
     return plainTweet;
   } catch (error) {
