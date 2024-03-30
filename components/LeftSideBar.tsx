@@ -13,7 +13,7 @@ const LeftSideBar = () => {
   const pathname = usePathname();
   const { user } = useKindeBrowserClient();
   return (
-    <div className="fixed  w-64 h-screen left-72 top-1/3 ">
+    <div className="fixed  w-64 h-screen left-96 top-1/3 ">
       <div className="flex w-full flex-col space-y-7  gap-6 px-6">
         {sidebarLinks.map((link) => {
           const isActive =
@@ -46,7 +46,7 @@ const LeftSideBar = () => {
           height={48}
           className="rounded-full"
         />
-        <div className="flex gap-20">
+        <div className="flex gap-10">
           <h2>{user?.given_name}</h2>
           <LogoutLink>Logout</LogoutLink>
         </div>

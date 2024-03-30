@@ -24,8 +24,8 @@ export default function RootLayout({
       <body className={`${poppins.className} bg-black text-white`}>
         <main className="flex  justify-center items-center">
           <LeftSideBar />
-          <section className="  w-[768px] border-x border-[#2f3336] px-4 h-full ">
-            <div className="w-full max-w-4xl">{children}</div>
+          <section className="  w-[648px] border-x border-[#2f3336] px-4 min-h-screen ">
+            <div className="w-full  max-w-4xl">{children}</div>
           </section>
           {/* <RightSideBar /> */}
         </main>
