@@ -42,3 +42,13 @@ export const fetchTweets = async () => {
     console.error(error);
   }
 };
+
+export const deleteTweet = async (id: string) => {
+  try {
+    await connectDb();
+    await Tweet.findByIdAndDelete(id);
+    revalidatePath("/");
+  } catch (error) {
+    console.error(error);
+  }
+};
