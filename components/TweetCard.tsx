@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import MoreButton from "./MoreButton";
+import { fetchTweet } from "@/lib/actions/tweet.actions";
 
 interface TweetProps {
   tweet: {
@@ -13,7 +14,8 @@ interface TweetProps {
   };
 }
 
-const TweetCard = ({ tweet, owner }: TweetProps) => {
+const TweetCard = async ({ tweet, owner }: TweetProps) => {
+  const singleTweet = await fetchTweet(tweet._id);
   return (
     <div className="mt-4 relative pl-3 flex gap-2 items-start">
       <Image
@@ -30,7 +32,7 @@ const TweetCard = ({ tweet, owner }: TweetProps) => {
         <h3 className="">{tweet.text}</h3>
       </div>
       <div className="absolute right-0 ">
-        <MoreButton id={tweet._id.toString()} />
+        <MoreButton tweet={singleTweet} id={tweet._id.toString()} />
       </div>
     </div>
   );
