@@ -30,7 +30,7 @@ const TweetCard = ({ tweet, owner }: TweetProps) => {
         <h3 className="">{tweet.text}</h3>
       </div>
       <div className="absolute right-0 ">
-        <MoreButton id={tweet._id} />
+        <MoreButton id={tweet._id.toString()} />
       </div>
     </div>
   );
