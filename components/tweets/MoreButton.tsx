@@ -1,21 +1,19 @@
 "use client";
 
+// import { addTweetToBookmarks } from "@/lib/actions/bookmarks.actions";
 import { deleteTweet, updateTweet } from "@/lib/actions/tweet.actions";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { useState, useEffect, useRef } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { FiDelete } from "react-icons/fi";
-
-const MoreButton = ({
-  id,
-  tweet,
-}: {
+interface IMoreButton {
   id: string;
   tweet: {
     text: string;
     userId: string;
   };
-}) => {
+}
+const MoreButton = ({ id, tweet }: IMoreButton) => {
   const [isOpen, setIsOpen] = useState(false);
   const [text, setText] = useState(tweet.text);
   const [edit, setEdit] = useState(false);
@@ -67,13 +65,24 @@ const MoreButton = ({
       console.error(error);
     }
   };
-  const handleEdit = async (text: string, id: string) => {
+  const handleEdit = async (text: string, tweetId: any) => {
     try {
+      let id: any;
+      id = tweetId.toString();
       await updateTweet(text, id);
     } catch (error) {
       console.error(error);
     }
   };
+  // const addBookmark = async (tweetId: string) => {
+  //   try {
+  //     let id: any;
+  //     id = tweetId.toString();
+  //     await addTweetToBookmarks(user?.id as any, id);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleEdit(text, id);
@@ -113,6 +122,7 @@ const MoreButton = ({
               </button>
             </>
           )}
+          {/* <button onClick={() => addBookmark(id)}>Bookmark</button> */}
         </div>
       )}
       {edit && (

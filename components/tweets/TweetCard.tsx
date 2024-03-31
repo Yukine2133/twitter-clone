@@ -32,7 +32,7 @@ const TweetCard = async ({ tweet, owner }: TweetProps) => {
         <h3 style={{ overflowWrap: "anywhere" }}>{tweet.text}</h3>
       </div>
       <div className="absolute right-0 ">
-        <MoreButton tweet={singleTweet} id={tweet._id.toString()} />
+        <MoreButton tweet={singleTweet as any} id={tweet._id.toString()} />
       </div>
     </div>
   );

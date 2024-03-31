@@ -42,13 +42,34 @@ export const fetchTweets = async () => {
     console.error(error);
   }
 };
-export const fetchTweet = async (id: string) => {
+
+interface TweetProps {
+  _id: string;
+  text: string;
+  userId: string;
+}
+export const fetchTweet = async (tweetId: string) => {
   try {
     await connectDb();
-    const tweet = await Tweet.findById(id);
-    return tweet;
+
+    const tweet = await Tweet.findById(tweetId);
+
+    if (!tweet) {
+      return null;
+    }
+
+    const { _id, text, userId }: TweetProps = tweet;
+
+    const tweetData = {
+      _id: _id.toString(),
+      text,
+      userId: userId.toString(),
+    };
+
+    return tweetData;
   } catch (error) {
-    console.error(error);
+    console.error("Failed to fetch tweet:", error);
+    return null;
   }
 };
 
