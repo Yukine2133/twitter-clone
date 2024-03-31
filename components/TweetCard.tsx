@@ -26,8 +26,8 @@ const TweetCard = async ({ tweet, owner }: TweetProps) => {
         className="rounded-full object-cover"
       />
       <div>
-        <Link href={`/profile/${owner.username}`}>
-          <h2 className="font-bold">{owner.username}</h2>
+        <Link className="w-fit " href={`/profile/${owner.username}`}>
+          <span className="font-bold bg-red-500">{owner.username}</span>
         </Link>
         <h3 style={{ overflowWrap: "anywhere" }}>{tweet.text}</h3>
       </div>
