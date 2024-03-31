@@ -99,7 +99,7 @@ const MoreButton = ({
               <button
                 onClick={() => {
                   setEdit(!edit);
-                  setIsOpen(false); // Close the dropdown when toggling edit mode
+                  setIsOpen(false);
                 }}
                 className="text-blue-500 flex items-center gap-2"
               >

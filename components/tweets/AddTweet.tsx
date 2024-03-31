@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRef } from "react";
 
 const AddTweet = () => {
-  const { user } = useKindeBrowserClient();
+  const { user, isLoading } = useKindeBrowserClient();
   const ref = useRef<HTMLFormElement>(null);
   return (
     <form
@@ -18,13 +18,17 @@ const AddTweet = () => {
       className="border-y mt-1 p-3 border-[#2f3336]"
     >
       <div className="flex gap-2 mt-1">
-        <Image
-          src={user?.picture!}
-          alt={user?.given_name!}
-          width={34}
-          height={34}
-          className="rounded-full"
-        />
+        {isLoading ? (
+          <div className="rounded-full animate-pulse bg-slate-700 h-12 w-14"></div>
+        ) : (
+          <Image
+            src={user?.picture!}
+            alt={user?.given_name!}
+            width={48}
+            height={48}
+            className="rounded-full"
+          />
+        )}
         <input
           type="text"
           name="text"
