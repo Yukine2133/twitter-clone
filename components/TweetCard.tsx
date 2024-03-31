@@ -29,7 +29,7 @@ const TweetCard = async ({ tweet, owner }: TweetProps) => {
         <Link href={`/profile/${owner.username}`}>
           <h2 className="font-bold">{owner.username}</h2>
         </Link>
-        <h3 className="">{tweet.text}</h3>
+        <h3 style={{ overflowWrap: "anywhere" }}>{tweet.text}</h3>
       </div>
       <div className="absolute right-0 ">
         <MoreButton tweet={singleTweet} id={tweet._id.toString()} />

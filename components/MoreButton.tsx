@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteTweet, updateTweet } from "@/lib/actions/tweet.actions";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { useState, useEffect, useRef } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { FiDelete } from "react-icons/fi";
@@ -12,6 +13,7 @@ const MoreButton = ({
   id: string;
   tweet: {
     text: string;
+    userId: string;
   };
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +21,8 @@ const MoreButton = ({
   const [edit, setEdit] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const { user } = useKindeBrowserClient();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -77,6 +81,8 @@ const MoreButton = ({
     }
   };
 
+  const isOwner = user?.id === tweet.userId;
+
   return (
     <>
       <button
@@ -88,21 +94,25 @@ const MoreButton = ({
       </button>
       {isOpen && (
         <div className="absolute top-0 right-3 p-3">
-          <button
-            onClick={() => {
-              setEdit(!edit);
-              setIsOpen(false); // Close the dropdown when toggling edit mode
-            }}
-            className="text-blue-500 flex items-center gap-2"
-          >
-            <AiFillEdit /> Edit
-          </button>
-          <button
-            onClick={() => handleDelete(id)}
-            className="text-red-500 flex items-center gap-2"
-          >
-            <AiFillDelete /> Delete
-          </button>
+          {isOwner && (
+            <>
+              <button
+                onClick={() => {
+                  setEdit(!edit);
+                  setIsOpen(false); // Close the dropdown when toggling edit mode
+                }}
+                className="text-blue-500 flex items-center gap-2"
+              >
+                <AiFillEdit /> Edit
+              </button>
+              <button
+                onClick={() => handleDelete(id)}
+                className="text-red-500 flex items-center gap-2"
+              >
+                <AiFillDelete /> Delete
+              </button>
+            </>
+          )}
         </div>
       )}
       {edit && (
