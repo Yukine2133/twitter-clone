@@ -48,6 +48,7 @@ interface TweetProps {
   text: string;
   userId: string;
   bookmarks: string[];
+  likes: string[];
 }
 export const fetchTweet = async (tweetId: string) => {
   try {
@@ -59,13 +60,14 @@ export const fetchTweet = async (tweetId: string) => {
       return null;
     }
 
-    const { _id, text, userId, bookmarks }: TweetProps = tweet;
+    const { _id, text, userId, bookmarks, likes }: TweetProps = tweet;
 
     const tweetData = {
       _id: _id.toString(),
       text,
       userId: userId.toString(),
       bookmarks,
+      likes,
     };
 
     return tweetData;
@@ -107,5 +109,75 @@ export const updateTweet = async (text: string, id: string) => {
     return existingTweet;
   } catch (error) {
     return { message: "Failed to update the tweet", error };
+  }
+};
+
+export const bookMarkTweet = async (id: string) => {
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    if (!user) {
+      return { message: "You need to be logged in to bookmark" };
+    }
+
+    await connectDb();
+
+    const existingTweet = await Tweet.findById(id);
+
+    if (!existingTweet) {
+      return { message: "Tweet not found" };
+    }
+
+    const userIndex = existingTweet.bookmarks.indexOf(user.id);
+
+    if (userIndex !== -1) {
+      // If the user has already bookmarked the tweet, remove their bookmark
+      existingTweet.bookmarks.splice(userIndex, 1);
+    } else {
+      // If the user has not bookmarked the tweet, add their bookmark
+      existingTweet.bookmarks.push(user.id);
+    }
+
+    await existingTweet.save();
+    revalidatePath("/");
+  } catch (error) {
+    console.error("Error bookmarking tweet:", error);
+    return { message: "Failed to bookmark the tweet" };
+  }
+};
+
+export const likeTweet = async (id: string) => {
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    if (!user) {
+      return { message: "You need to be logged in to like" };
+    }
+
+    await connectDb();
+
+    const existingTweet = await Tweet.findById(id);
+
+    if (!existingTweet) {
+      return { message: "Tweet not found" };
+    }
+
+    const userIndex = existingTweet.likes.indexOf(user.id);
+
+    if (userIndex !== -1) {
+      // If the user has already bookmarked the tweet, remove their bookmark
+      existingTweet.likes.splice(userIndex, 1);
+    } else {
+      // If the user has not bookmarked the tweet, add their bookmark
+      existingTweet.likes.push(user.id);
+    }
+
+    await existingTweet.save();
+    revalidatePath("/");
+  } catch (error) {
+    console.error("Error liking tweet:", error);
+    return { message: "Failed to liking the tweet" };
   }
 };

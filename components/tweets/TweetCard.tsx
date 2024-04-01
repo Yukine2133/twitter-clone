@@ -29,6 +29,8 @@ const TweetCard = async ({ tweet, owner }: TweetProps) => {
   const singleTweet = await fetchTweet(tweet._id);
   const bookmarks = singleTweet?.bookmarks;
   const isBookmarked = bookmarks?.includes(user?.id as string);
+  const likes = singleTweet?.likes;
+  const isLiked = likes?.includes(user?.id as string);
 
   return (
     <div className="mt-4 py-3 border-y border-[#2f3336] w-full relative  ">
@@ -55,6 +57,7 @@ const TweetCard = async ({ tweet, owner }: TweetProps) => {
       </div>
       <TweetActions
         isBookmarked={isBookmarked as boolean}
+        isLiked={isLiked as boolean}
         id={tweet._id.toString()}
       />
     </div>
