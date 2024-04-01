@@ -1,11 +1,9 @@
 "use client";
 
-// import { addTweetToBookmarks } from "@/lib/actions/bookmarks.actions";
 import { deleteTweet, updateTweet } from "@/lib/actions/tweet.actions";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { useState, useEffect, useRef } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
-import { FiDelete } from "react-icons/fi";
 interface IMoreButton {
   id: string;
   tweet: {
@@ -74,15 +72,7 @@ const MoreButton = ({ id, tweet }: IMoreButton) => {
       console.error(error);
     }
   };
-  // const addBookmark = async (tweetId: string) => {
-  //   try {
-  //     let id: any;
-  //     id = tweetId.toString();
-  //     await addTweetToBookmarks(user?.id as any, id);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleEdit(text, id);
@@ -122,7 +112,6 @@ const MoreButton = ({ id, tweet }: IMoreButton) => {
               </button>
             </>
           )}
-          {/* <button onClick={() => addBookmark(id)}>Bookmark</button> */}
         </div>
       )}
       {edit && (
