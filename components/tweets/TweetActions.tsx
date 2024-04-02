@@ -6,14 +6,29 @@ import { CiHeart } from "react-icons/ci";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { IoMdHeart } from "react-icons/io";
 import { SlBubble } from "react-icons/sl";
+import ReplyModal from "./ReplyModal";
+import { useState } from "react";
+import { TweetProps } from "./TweetCard";
 
-interface TweetActions {
+interface TweetActions extends TweetProps {
   isBookmarked: boolean;
   isLiked: boolean;
   id: string;
 }
 
-const TweetActions = ({ isBookmarked, id, isLiked }: TweetActions) => {
+const TweetActions = ({
+  isBookmarked,
+  id,
+  isLiked,
+  owner,
+  tweet,
+}: TweetActions) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   const addBookmark = async (tweetId: string) => {
     try {
       const id = tweetId.toString();
@@ -40,7 +55,7 @@ const TweetActions = ({ isBookmarked, id, isLiked }: TweetActions) => {
             <FaRegHeart className="text-red-500 text-lg" />
           )}
         </button>
-        <button>
+        <button onClick={toggleModal}>
           <SlBubble />
         </button>
       </div>
@@ -51,6 +66,14 @@ const TweetActions = ({ isBookmarked, id, isLiked }: TweetActions) => {
           <BsBookmark />
         )}
       </button>
+      {isModalOpen && (
+        <ReplyModal
+          owner={owner}
+          tweet={tweet}
+          id={id}
+          toggleModal={toggleModal}
+        />
+      )}
     </div>
   );
 };

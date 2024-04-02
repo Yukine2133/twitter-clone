@@ -6,7 +6,7 @@ import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import TweetActions from "./TweetActions";
 
-interface TweetProps {
+export interface TweetProps {
   tweet: {
     text: string;
     _id: string;
@@ -59,6 +59,8 @@ const TweetCard = async ({ tweet, owner }: TweetProps) => {
         isBookmarked={isBookmarked as boolean}
         isLiked={isLiked as boolean}
         id={tweet._id.toString()}
+        owner={JSON.parse(JSON.stringify(owner))}
+        tweet={JSON.parse(JSON.stringify(tweet))}
       />
     </div>
   );

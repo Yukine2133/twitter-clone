@@ -181,3 +181,50 @@ export const likeTweet = async (id: string) => {
     return { message: "Failed to liking the tweet" };
   }
 };
+
+export const replyTweet = async (formData: FormData, tweetId: string) => {
+  const currentDate = new Date();
+
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  } as const;
+
+  const formattedDate = currentDate.toLocaleString("en-US", options);
+
+  try {
+    const { getUser } = getKindeServerSession();
+    await connectDb();
+    const user = await getUser();
+
+    const existingTweet = await Tweet.findById(tweetId);
+
+    const text = formData.get("text");
+
+    if (!existingTweet) {
+      return { message: "Tweet not found" };
+    }
+
+    if (!user) {
+      return { message: "You need to be authenticated to reply.." };
+    }
+
+    existingTweet.replies = existingTweet.replies || [];
+    existingTweet.replies.push({
+      user: user?.id,
+      text: text,
+      timestamp: formattedDate,
+    });
+
+    await existingTweet.save();
+    revalidatePath(`/${tweetId}`);
+    revalidatePath(`/`);
+  } catch (error) {
+    return { message: "Error adding reply to tweet" };
+  }
+};
