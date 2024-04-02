@@ -49,6 +49,7 @@ interface TweetProps {
   userId: string;
   bookmarks: string[];
   likes: string[];
+  replies: string[];
 }
 export const fetchTweet = async (tweetId: string) => {
   try {
@@ -60,7 +61,7 @@ export const fetchTweet = async (tweetId: string) => {
       return null;
     }
 
-    const { _id, text, userId, bookmarks, likes }: TweetProps = tweet;
+    const { _id, text, userId, bookmarks, likes, replies }: TweetProps = tweet;
 
     const tweetData = {
       _id: _id.toString(),
@@ -68,6 +69,7 @@ export const fetchTweet = async (tweetId: string) => {
       userId: userId.toString(),
       bookmarks,
       likes,
+      replies,
     };
 
     return tweetData;
@@ -179,5 +181,53 @@ export const likeTweet = async (id: string) => {
   } catch (error) {
     console.error("Error liking tweet:", error);
     return { message: "Failed to liking the tweet" };
+  }
+};
+
+export const replyTweet = async (formData: FormData, tweetId: string) => {
+  const currentDate = new Date();
+
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  } as const;
+
+  const formattedDate = currentDate.toLocaleString("en-US", options);
+
+  try {
+    const { getUser } = getKindeServerSession();
+    await connectDb();
+    const user = await getUser();
+
+    const existingTweet = await Tweet.findById(tweetId);
+
+    const text = formData.get("text");
+
+    if (!existingTweet) {
+      return { message: "Tweet not found" };
+    }
+
+    if (!user) {
+      return { message: "You need to be authenticated to reply.." };
+    }
+
+    existingTweet.replies = existingTweet.replies || [];
+    existingTweet.replies.push({
+      user: user?.id,
+      text: text,
+      timestamp: formattedDate,
+    });
+
+    const res = await existingTweet.save();
+    console.log(res);
+    revalidatePath(`/${tweetId}`);
+    revalidatePath(`/`);
+  } catch (error) {
+    return { message: "Error adding reply to tweet" };
   }
 };
