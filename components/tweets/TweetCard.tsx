@@ -19,7 +19,7 @@ export interface TweetProps {
   };
 }
 
-interface SingleTweetProps {
+export interface SingleTweetProps {
   _id: string;
   text: string;
   userId: string;
@@ -63,6 +63,7 @@ const TweetCard = async ({ tweet, owner }: TweetProps) => {
         id={tweet._id.toString()}
         owner={JSON.parse(JSON.stringify(owner))}
         tweet={JSON.parse(JSON.stringify(tweet))}
+        seeMore
       />
     </div>
   );

@@ -9,11 +9,13 @@ import { SlBubble } from "react-icons/sl";
 import ReplyModal from "./ReplyModal";
 import { useState } from "react";
 import { TweetProps } from "./TweetCard";
+import Link from "next/link";
 
 interface TweetActions extends TweetProps {
   isBookmarked: boolean;
   isLiked: boolean;
   id: string;
+  seeMore?: boolean;
 }
 
 const TweetActions = ({
@@ -22,6 +24,7 @@ const TweetActions = ({
   isLiked,
   owner,
   tweet,
+  seeMore,
 }: TweetActions) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -79,13 +82,20 @@ const TweetActions = ({
           </button>
         </div>
       </div>
-      <button className="justify-end flex" onClick={() => addBookmark(id)}>
-        {isBookmarked ? (
-          <BsBookmarkFill className="text-blue-500" />
-        ) : (
-          <BsBookmark />
+      <div className="flex items-center gap-4">
+        <button className="justify-end flex" onClick={() => addBookmark(id)}>
+          {isBookmarked ? (
+            <BsBookmarkFill className="text-blue-500" />
+          ) : (
+            <BsBookmark />
+          )}
+        </button>
+        {seeMore && (
+          <Link className="text-sm" href={`/tweet/${tweet._id}`}>
+            See more
+          </Link>
         )}
-      </button>
+      </div>
       {isModalOpen && (
         <ReplyModal
           owner={owner}

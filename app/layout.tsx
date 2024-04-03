@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} bg-black text-white`}>
+      <body className={`${poppins.className} bg-black text-white `}>
         <main className="flex  justify-center items-center">
           <LeftSideBar />
           <section className="  w-[648px] border-x border-[#2f3336] px-4 min-h-screen ">
