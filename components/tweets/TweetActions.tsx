@@ -45,19 +45,39 @@ const TweetActions = ({
       console.error("Error adding liking:", error);
     }
   };
+
+  const likeCount = tweet.likes.length;
+  const repliesCount = tweet.replies.length;
   return (
     <div className="flex mt-1 justify-between px-8  gap-8">
-      <div className="flex  gap-8 items-center">
-        <button onClick={() => addLike(id)}>
-          {isLiked ? (
-            <FaHeart className="text-red-500 text-lg" />
-          ) : (
-            <FaRegHeart className="text-red-500 text-lg" />
-          )}
-        </button>
-        <button onClick={toggleModal}>
-          <SlBubble />
-        </button>
+      <div className="flex gap-8 items-center">
+        <div className="group">
+          <button
+            className="flex gap-1.5 items-center "
+            onClick={() => addLike(id)}
+          >
+            {isLiked ? (
+              <FaHeart className="text-red-500 text-lg" />
+            ) : (
+              <FaRegHeart className="text-gray-400 group-hover:text-red-500 duration-300 transition-colors   text-lg" />
+            )}
+            <span
+              className={`text-sm font-semibold ${
+                isLiked && "text-red-500"
+              } group-hover:text-red-500 duration-300 transition-colors`}
+            >
+              {likeCount}
+            </span>
+          </button>
+        </div>
+        <div className="group">
+          <button className="flex gap-1.5 items-center" onClick={toggleModal}>
+            <SlBubble className="group-hover:text-blue-400 duration-300 transition-colors" />
+            <span className="text-sm font-semibold group-hover:text-blue-400 duration-300 transition-colors">
+              {repliesCount}
+            </span>
+          </button>
+        </div>
       </div>
       <button className="justify-end flex" onClick={() => addBookmark(id)}>
         {isBookmarked ? (

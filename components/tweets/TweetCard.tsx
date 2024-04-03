@@ -10,6 +10,8 @@ export interface TweetProps {
   tweet: {
     text: string;
     _id: string;
+    likes: string[];
+    replies: string[];
   };
   owner: {
     avatar: string;
