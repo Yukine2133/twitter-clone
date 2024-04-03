@@ -224,7 +224,7 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
     });
 
     await existingTweet.save();
-    revalidatePath(`/${tweetId}`);
+    revalidatePath(`/tweet/${tweetId}`);
     revalidatePath(`/`);
   } catch (error) {
     return { message: "Error adding reply to tweet" };

@@ -1,16 +1,16 @@
 "use client";
 
+import { replyTweet } from "@/lib/actions/tweet.actions";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import Image from "next/image";
 import { useRef } from "react";
 
 interface IReplyForm {
-  action: (arg1: FormData, tweetId: string | any) => void;
   id: string;
-  toggleModal: (arg0: boolean) => void;
+  toggleModal?: (arg0: boolean) => void;
 }
 
-const ReplyForm = ({ action, id, toggleModal }: IReplyForm) => {
+const ReplyForm = ({ id, toggleModal }: IReplyForm) => {
   const { user, isLoading } = useKindeBrowserClient();
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -19,9 +19,9 @@ const ReplyForm = ({ action, id, toggleModal }: IReplyForm) => {
     <form
       ref={formRef}
       action={async (formData) => {
-        await action(formData, id);
+        await replyTweet(formData, id);
         formRef.current?.reset();
-        toggleModal(false);
+        toggleModal && toggleModal(false);
       }}
       className=" mt-1 p-3 "
     >

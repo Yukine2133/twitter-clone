@@ -1,4 +1,6 @@
 import MoreButton from "@/components/tweets/MoreButton";
+import ReplyForm from "@/components/tweets/ReplyForm";
+import ReplyTweets from "@/components/tweets/ReplyTweets";
 import TweetActions from "@/components/tweets/TweetActions";
 import { SingleTweetProps } from "@/components/tweets/TweetCard";
 import { fetchTweet } from "@/lib/actions/tweet.actions";
@@ -57,6 +59,12 @@ const SingleTweet = async ({ params }: { params: { id: string } }) => {
           owner={JSON.parse(JSON.stringify(owner))}
           tweet={JSON.parse(JSON.stringify(singleTweet))}
         />
+      </div>
+      <div className="mt-2 border-b border-[#2f3336]">
+        <ReplyForm id={singleTweet?._id.toString()!} />
+      </div>
+      <div>
+        <ReplyTweets tweet={JSON.parse(JSON.stringify(singleTweet))} />
       </div>
     </div>
   );

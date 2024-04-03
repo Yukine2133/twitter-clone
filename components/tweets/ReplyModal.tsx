@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useRef, useEffect } from "react";
 import { TweetProps } from "./TweetCard";
-import { replyTweet } from "@/lib/actions/tweet.actions";
 import ReplyForm from "./ReplyForm";
 
 interface IReplyModal extends TweetProps {
@@ -49,7 +48,7 @@ const ReplyModal = ({ toggleModal, id, tweet, owner }: IReplyModal) => {
         <h4 className="mt-7 mb-6 ">
           Replying to <span className="font-bold ">{owner.username}</span>
         </h4>
-        <ReplyForm action={replyTweet} id={id} toggleModal={toggleModal} />
+        <ReplyForm id={id} toggleModal={toggleModal} />
       </div>
     </div>
   );
