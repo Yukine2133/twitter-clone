@@ -5,6 +5,7 @@ import TweetActions from "@/components/tweets/TweetActions";
 import { SingleTweetProps } from "@/components/tweets/TweetCard";
 import { fetchTweet } from "@/lib/actions/tweet.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
+import { formattedDate, formattedTime } from "@/lib/formatTimestamp";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 import Image from "next/image";
@@ -36,10 +37,14 @@ const SingleTweet = async ({ params }: { params: { id: string } }) => {
           height={38}
           className="rounded-full object-cover"
         />
-        <div>
+        <div className="flex items-center gap-2">
           <Link href={`/profile/${owner.username}`}>
             <span className="font-bold ">{owner.username}</span>
           </Link>
+          <span className="text-sm text-slate-500">
+            {formattedDate(singleTweet?.createdAt!)},{" "}
+            {formattedTime(singleTweet?.createdAt!)}
+          </span>
         </div>
         <div className="absolute right-0 ">
           <MoreButton

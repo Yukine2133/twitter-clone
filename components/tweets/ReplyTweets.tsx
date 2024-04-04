@@ -1,8 +1,6 @@
 import { fetchUser } from "@/lib/actions/user.actions";
-import TweetCard, { TweetProps } from "./TweetCard";
 import Image from "next/image";
 import Link from "next/link";
-import MoreButton from "./MoreButton";
 
 interface Reply {
   user: string;

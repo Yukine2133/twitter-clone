@@ -50,6 +50,8 @@ interface TweetProps {
   bookmarks: string[];
   likes: string[];
   replies: string[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 export const fetchTweet = async (tweetId: string) => {
   try {
@@ -61,7 +63,16 @@ export const fetchTweet = async (tweetId: string) => {
       return null;
     }
 
-    const { _id, text, userId, bookmarks, likes, replies }: TweetProps = tweet;
+    const {
+      _id,
+      text,
+      userId,
+      bookmarks,
+      likes,
+      replies,
+      createdAt,
+      updatedAt,
+    }: TweetProps = tweet;
 
     const tweetData = {
       _id: _id.toString(),
@@ -70,6 +81,8 @@ export const fetchTweet = async (tweetId: string) => {
       bookmarks,
       likes,
       replies: JSON.parse(JSON.stringify(replies)),
+      createdAt,
+      updatedAt,
     };
 
     return tweetData;
