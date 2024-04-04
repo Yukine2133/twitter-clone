@@ -61,11 +61,10 @@ const SingleTweet = async ({ params }: { params: { id: string } }) => {
         />
       </div>
       <div className="mt-2 border-b border-[#2f3336]">
-        <ReplyForm id={singleTweet?._id.toString()!} />
+        <ReplyForm user={user!} id={singleTweet?._id.toString()!} />
       </div>
-      <div>
-        <ReplyTweets tweet={JSON.parse(JSON.stringify(singleTweet))} />
-      </div>
+
+      <ReplyTweets tweet={JSON.parse(JSON.stringify(singleTweet))} />
     </div>
   );
 };

@@ -13,9 +13,12 @@ import TweetCard from "@/components/tweets/TweetCard";
 export default async function Home() {
   const tweets = await fetchTweets();
 
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
   return (
     <div className=" ">
-      <AddTweet />
+      <AddTweet user={user!} />
       {tweets?.map(async (tweet) => {
         const owner: any = await fetchUser(tweet.userId);
 

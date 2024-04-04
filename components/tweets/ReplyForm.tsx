@@ -2,17 +2,17 @@
 
 import { replyTweet } from "@/lib/actions/tweet.actions";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import Image from "next/image";
 import { useRef } from "react";
 
 interface IReplyForm {
   id: string;
   toggleModal?: (arg0: boolean) => void;
+  user: KindeUser;
 }
 
-const ReplyForm = ({ id, toggleModal }: IReplyForm) => {
-  const { user, isLoading } = useKindeBrowserClient();
-
+const ReplyForm = ({ id, toggleModal, user }: IReplyForm) => {
   const formRef = useRef<HTMLFormElement>(null);
 
   return (
@@ -26,17 +26,14 @@ const ReplyForm = ({ id, toggleModal }: IReplyForm) => {
       className=" mt-1 p-3 "
     >
       <div className="flex gap-2 mt-1">
-        {isLoading ? (
-          <div className="rounded-full animate-pulse bg-slate-700 h-12 w-14"></div>
-        ) : (
-          <Image
-            src={user?.picture!}
-            alt={user?.given_name!}
-            width={48}
-            height={48}
-            className="rounded-full"
-          />
-        )}
+        <Image
+          src={user?.picture!}
+          alt={user?.given_name!}
+          width={48}
+          height={48}
+          className="rounded-full"
+        />
+
         <input
           type="text"
           name="text"

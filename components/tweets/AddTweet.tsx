@@ -2,11 +2,11 @@
 
 import { createTweet } from "@/lib/actions/tweet.actions";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import Image from "next/image";
 import { useRef } from "react";
 
-const AddTweet = () => {
-  const { user, isLoading } = useKindeBrowserClient();
+const AddTweet = ({ user }: { user: KindeUser }) => {
   const ref = useRef<HTMLFormElement>(null);
   return (
     <form
@@ -18,17 +18,14 @@ const AddTweet = () => {
       className="border-y mt-1 p-3 border-[#2f3336]"
     >
       <div className="flex gap-2 mt-1">
-        {isLoading ? (
-          <div className="rounded-full animate-pulse bg-slate-700 h-12 w-14"></div>
-        ) : (
-          <Image
-            src={user?.picture!}
-            alt={user?.given_name!}
-            width={48}
-            height={48}
-            className="rounded-full"
-          />
-        )}
+        <Image
+          src={user?.picture!}
+          alt={user?.given_name!}
+          width={48}
+          height={48}
+          className="rounded-full"
+        />
+
         <input
           type="text"
           name="text"

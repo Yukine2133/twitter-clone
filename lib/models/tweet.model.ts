@@ -6,7 +6,14 @@ const tweetSchema = new mongoose.Schema(
     userId: { type: String, required: true },
     bookmarks: [{ type: String }],
     likes: [{ type: String }],
-    replies: [{ user: String, text: String, timestamp: Date }],
+    replies: [
+      {
+        user: String,
+        text: String,
+        timestamp: Date,
+        likes: [{ type: String }],
+      },
+    ],
   },
   {
     timestamps: true,

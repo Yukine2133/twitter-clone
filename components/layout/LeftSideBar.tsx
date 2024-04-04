@@ -4,14 +4,14 @@ import {
   LogoutLink,
   useKindeBrowserClient,
 } from "@kinde-oss/kinde-auth-nextjs";
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-const LeftSideBar = () => {
+const LeftSideBar = ({ user }: { user: KindeUser }) => {
   const pathname = usePathname();
-  const { user, isLoading } = useKindeBrowserClient();
   return (
     <div className="fixed  w-64 h-screen left-0 2xl:left-80 top-1/3 ">
       <div className="flex w-full flex-col space-y-7  gap-6 px-6">
@@ -39,17 +39,14 @@ const LeftSideBar = () => {
         })}
       </div>
       <div className="flex gap-3 items-center fixed bottom-3">
-        {isLoading ? (
-          <div className="rounded-full animate-pulse bg-slate-700 h-12 w-12"></div>
-        ) : (
-          <Image
-            src={user?.picture!}
-            alt={user?.given_name!}
-            width={48}
-            height={48}
-            className="rounded-full"
-          />
-        )}
+        <Image
+          src={user?.picture!}
+          alt={user?.given_name!}
+          width={48}
+          height={48}
+          className="rounded-full"
+        />
+
         <div className="flex flex-col ">
           <h2>{user?.given_name}</h2>
           <LogoutLink>Logout</LogoutLink>
