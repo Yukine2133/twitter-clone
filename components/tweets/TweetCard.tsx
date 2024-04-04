@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import MoreButton from "./MoreButton";
-import { fetchTweet } from "@/lib/actions/tweet.actions";
+import { deleteTweet, fetchTweet } from "@/lib/actions/tweet.actions";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import TweetActions from "./TweetActions";
+import { Reply } from "./ReplyTweets";
 
 export interface TweetProps {
   tweet: {
@@ -23,6 +24,7 @@ export interface SingleTweetProps {
   _id: string;
   text: string;
   userId: string;
+  replies: Reply[];
 }
 
 const TweetCard = async ({ tweet, owner }: TweetProps) => {
@@ -52,6 +54,7 @@ const TweetCard = async ({ tweet, owner }: TweetProps) => {
         </div>
         <div className="absolute right-0 ">
           <MoreButton
+            action={deleteTweet}
             tweet={singleTweet as SingleTweetProps}
             id={tweet._id.toString()}
           />

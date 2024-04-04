@@ -243,3 +243,30 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
     return { message: "Error adding reply to tweet" };
   }
 };
+
+export const deleteReply = async (tweetId: string, replyId: string) => {
+  try {
+    await connectDb();
+    const tweet = await Tweet.findById(tweetId);
+    if (!tweet) {
+      throw new Error("Tweet not found");
+    }
+
+    // Find the index of the reply to be deleted
+    const replyIndex = tweet.replies.findIndex(
+      (reply: any) => reply._id.toString() === replyId
+    );
+
+    if (replyIndex === -1) {
+      throw new Error("Reply not found");
+    }
+
+    tweet.replies.splice(replyIndex, 1);
+
+    await tweet.save();
+    revalidatePath(`/tweet/${tweetId}`);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
