@@ -1,7 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import MoreButton from "./MoreButton";
-import { deleteTweet, fetchTweet } from "@/lib/actions/tweet.actions";
+import {
+  deleteTweet,
+  fetchTweet,
+  updateTweet,
+} from "@/lib/actions/tweet.actions";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import TweetActions from "./TweetActions";
@@ -67,6 +71,7 @@ const TweetCard = async ({ tweet, owner }: TweetProps) => {
         owner={JSON.parse(JSON.stringify(owner))}
         tweet={JSON.parse(JSON.stringify(tweet))}
         seeMore
+        user={user!}
       />
     </div>
   );

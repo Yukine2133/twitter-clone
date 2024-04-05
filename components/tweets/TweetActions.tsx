@@ -10,12 +10,14 @@ import ReplyModal from "./ReplyModal";
 import { useState } from "react";
 import { TweetProps } from "./TweetCard";
 import Link from "next/link";
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 
 interface TweetActions extends TweetProps {
   isBookmarked: boolean;
   isLiked: boolean;
   id: string;
   seeMore?: boolean;
+  user: KindeUser;
 }
 
 const TweetActions = ({
@@ -25,6 +27,7 @@ const TweetActions = ({
   owner,
   tweet,
   seeMore,
+  user,
 }: TweetActions) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -98,6 +101,7 @@ const TweetActions = ({
       </div>
       {isModalOpen && (
         <ReplyModal
+          user={user!}
           owner={owner}
           tweet={tweet}
           id={id}

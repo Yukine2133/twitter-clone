@@ -3,7 +3,7 @@ import ReplyForm from "@/components/tweets/ReplyForm";
 import ReplyTweets from "@/components/tweets/ReplyTweets";
 import TweetActions from "@/components/tweets/TweetActions";
 import { SingleTweetProps } from "@/components/tweets/TweetCard";
-import { fetchTweet } from "@/lib/actions/tweet.actions";
+import { deleteTweet, fetchTweet } from "@/lib/actions/tweet.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { formattedDate, formattedTime } from "@/lib/formatTimestamp";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -46,18 +46,13 @@ const SingleTweet = async ({ params }: { params: { id: string } }) => {
             {formattedTime(singleTweet?.createdAt!)}
           </span>
         </div>
-        <div className="absolute right-0 ">
-          <MoreButton
-            tweet={singleTweet as SingleTweetProps}
-            id={singleTweet?._id.toString()!}
-          />
-        </div>
       </div>
       <h3 className="pl-5 pt-4" style={{ overflowWrap: "anywhere" }}>
         {singleTweet?.text}
       </h3>
       <div className="mt-5 py-2 border-y border-[#2f3336]">
         <TweetActions
+          user={user!}
           isBookmarked={isBookmarked as boolean}
           isLiked={isLiked as boolean}
           id={singleTweet?._id.toString()!}

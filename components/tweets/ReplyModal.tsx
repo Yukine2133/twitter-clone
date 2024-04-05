@@ -4,13 +4,15 @@ import Link from "next/link";
 import React, { useRef, useEffect } from "react";
 import { TweetProps } from "./TweetCard";
 import ReplyForm from "./ReplyForm";
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 
 interface IReplyModal extends TweetProps {
   toggleModal: (arg0: boolean) => void;
   id: string;
+  user: KindeUser;
 }
 
-const ReplyModal = ({ toggleModal, id, tweet, owner }: IReplyModal) => {
+const ReplyModal = ({ toggleModal, id, tweet, owner, user }: IReplyModal) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -48,7 +50,7 @@ const ReplyModal = ({ toggleModal, id, tweet, owner }: IReplyModal) => {
         <h4 className="mt-7 mb-6 ">
           Replying to <span className="font-bold ">{owner.username}</span>
         </h4>
-        <ReplyForm id={id} toggleModal={toggleModal} />
+        <ReplyForm user={user!} id={id} toggleModal={toggleModal} />
       </div>
     </div>
   );
