@@ -2,7 +2,7 @@ import { fetchUser } from "@/lib/actions/user.actions";
 import Image from "next/image";
 import Link from "next/link";
 import MoreButton from "./MoreButton";
-import { deleteReply } from "@/lib/actions/tweet.actions";
+import { deleteReply, editReply } from "@/lib/actions/tweet.actions";
 
 export interface Reply {
   user: string;
@@ -52,6 +52,7 @@ const ReplyTweets = async ({ tweet }: ReplyTweets) => {
                   replyId={tweet.replies[index]._id}
                   action={deleteReply as any}
                   tweet={tweet as any}
+                  replyTweet={tweet.replies[index].text}
                   id={tweet._id.toString()}
                 />
               </div>

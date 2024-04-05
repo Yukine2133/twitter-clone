@@ -1,8 +1,12 @@
 "use client";
 
-import { deleteTweet, updateTweet } from "@/lib/actions/tweet.actions";
+import {
+  deleteTweet,
+  editReply,
+  updateTweet,
+} from "@/lib/actions/tweet.actions";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { Reply } from "./ReplyTweets";
@@ -15,15 +19,22 @@ interface IMoreButton {
   };
   action: (id: string, replyId?: string) => void;
   replyId?: string;
+  replyTweet?: string;
 }
-const MoreButton = ({ id, tweet, action, replyId }: IMoreButton) => {
+const MoreButton = ({
+  id,
+  tweet,
+  action,
+  replyId,
+  replyTweet,
+}: IMoreButton) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [text, setText] = useState(tweet.text);
+  const pathname = usePathname();
+  const path = "/";
+  const [text, setText] = useState(path ? tweet.text : replyTweet);
   const [edit, setEdit] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
-
-  const pathname = usePathname();
 
   const { user } = useKindeBrowserClient();
 
@@ -63,11 +74,11 @@ const MoreButton = ({ id, tweet, action, replyId }: IMoreButton) => {
     };
   }, [edit]);
 
-  const handleEdit = async (text: string, tweetId: any) => {
+  const handleEdit = async (tweetId: string, text: string) => {
     try {
-      let id: any;
-      id = tweetId.toString();
-      await updateTweet(text, id);
+      path
+        ? await updateTweet(tweetId, text)
+        : editReply(tweetId, text, replyId as string);
     } catch (error) {
       console.error(error);
     }
@@ -75,7 +86,7 @@ const MoreButton = ({ id, tweet, action, replyId }: IMoreButton) => {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleEdit(text, id);
+      handleEdit(id, text as string);
       setEdit(false);
     }
   };
@@ -118,13 +129,13 @@ const MoreButton = ({ id, tweet, action, replyId }: IMoreButton) => {
         </div>
       )}
       {edit && (
-        <div className="absolute top-0 right-6">
+        <div className="absolute  top-0 right-6">
           <input
             type="text"
             ref={inputRef}
             value={text}
             onChange={(e) => setText(e.target.value)}
-            className="bg-transparent border border-gray-800 shadow-sm rounded-md px-2 py-1"
+            className="bg-transparent border border-gray-800 shadow-sm rounded-md p-2"
             onKeyDown={handleKeyDown}
           />
         </div>

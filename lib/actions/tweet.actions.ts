@@ -102,26 +102,24 @@ export const deleteTweet = async (id: string) => {
   }
 };
 
-export const updateTweet = async (text: string, id: string) => {
+export const updateTweet = async (id: string, text: string) => {
   try {
+    await connectDb();
     const { getUser } = getKindeServerSession();
     const user = await getUser();
-
-    await connectDb();
 
     const existingTweet = await Tweet.findById(id);
 
     if (existingTweet.userId != user?.id) {
-      return;
+      return null;
     }
 
-    if (!existingTweet) return { message: "Tweet not found" };
+    if (!existingTweet) return null;
 
     existingTweet.text = text;
 
     await existingTweet.save();
     revalidatePath(`/`);
-    return existingTweet;
   } catch (error) {
     return { message: "Failed to update the tweet", error };
   }
@@ -262,6 +260,36 @@ export const deleteReply = async (tweetId: string, replyId: string) => {
     }
 
     tweet.replies.splice(replyIndex, 1);
+
+    await tweet.save();
+    revalidatePath(`/tweet/${tweetId}`);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const editReply = async (
+  tweetId: string,
+  text: string,
+  replyId: string
+) => {
+  try {
+    await connectDb();
+    const tweet = await Tweet.findById(tweetId);
+    if (!tweet) {
+      throw new Error("Tweet not found");
+    }
+
+    const replyIndex = tweet.replies.findIndex(
+      (reply: any) => reply._id.toString() === replyId
+    );
+
+    if (replyIndex === -1) {
+      throw new Error("Reply not found");
+    }
+
+    tweet.replies[replyIndex].text = text;
 
     await tweet.save();
     revalidatePath(`/tweet/${tweetId}`);
