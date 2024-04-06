@@ -76,7 +76,7 @@ const MoreButton = ({
 
   const handleEdit = async (tweetId: string, text: string) => {
     try {
-      path
+      pathname === `/` && `${`/tweet/${id}`}`
         ? await updateTweet(tweetId, text)
         : editReply(tweetId, text, replyId as string);
     } catch (error) {
