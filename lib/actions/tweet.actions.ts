@@ -160,6 +160,17 @@ export const bookMarkTweet = async (id: string) => {
   }
 };
 
+export const getUserBookmarks = async (userId: string) => {
+  try {
+    const userBookmarks = await Tweet.find({ bookmarks: userId });
+
+    return userBookmarks;
+  } catch (error) {
+    console.error("Error fetching user bookmarks:", error);
+    throw error;
+  }
+};
+
 export const likeTweet = async (id: string) => {
   try {
     const { getUser } = getKindeServerSession();
