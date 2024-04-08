@@ -3,10 +3,18 @@
 import { connectDb } from "../connectDb";
 import { User } from "../models/user.model";
 
-export const fetchUser = async (userId: string) => {
+export const fetchUser = async (
+  userId?: string | null,
+  username?: string | null
+) => {
   try {
     await connectDb();
-    const users = await User.find({ userId });
+    let users;
+    if (username) {
+      users = await User.find({ username });
+    } else {
+      users = await User.find({ userId });
+    }
     if (users.length > 0) {
       return users[0];
     } else {

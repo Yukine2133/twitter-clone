@@ -1,4 +1,5 @@
 "use client";
+import { combineUsername } from "@/lib/combineUsername";
 import { sidebarLinks } from "@/lib/constants";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
@@ -9,6 +10,7 @@ import React from "react";
 
 const LeftSideBar = ({ user }: { user: KindeUser }) => {
   const pathname = usePathname();
+  const fullUsername = combineUsername(user?.given_name, user?.family_name);
   return (
     <div className="fixed  w-64 h-screen left-0 2xl:left-80 top-1/3 ">
       <div className="flex w-full flex-col space-y-7  gap-6 px-6">
@@ -17,7 +19,7 @@ const LeftSideBar = ({ user }: { user: KindeUser }) => {
             (pathname.includes(link.route) && link.route.length > 1) ||
             pathname === link.route;
           if (link.route === "/profile")
-            link.route = `${link.route}/${user?.id}`;
+            link.route = `${link.route}/${fullUsername}`;
           return (
             <Link
               href={link.route}
@@ -45,7 +47,7 @@ const LeftSideBar = ({ user }: { user: KindeUser }) => {
         />
 
         <div className="flex flex-col ">
-          <h2>{user?.given_name}</h2>
+          <h2>{fullUsername}</h2>
           <LogoutLink>Logout</LogoutLink>
         </div>
       </div>
