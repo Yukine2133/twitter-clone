@@ -195,10 +195,10 @@ export const likeTweet = async (id: string) => {
     const userIndex = existingTweet.likes.indexOf(user.id);
 
     if (userIndex !== -1) {
-      // If the user has already bookmarked the tweet, remove their bookmark
+      // If the user has already liked the tweet, remove their like
       existingTweet.likes.splice(userIndex, 1);
     } else {
-      // If the user has not bookmarked the tweet, add their bookmark
+      // If the user has not liked the tweet, add their like
       existingTweet.likes.push(user.id);
     }
 
