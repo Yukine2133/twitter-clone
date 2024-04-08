@@ -1,3 +1,4 @@
+import { combineUsername } from "@/lib/combineUsername";
 import { connectDb } from "@/lib/connectDb";
 import { User } from "@/lib/models/user.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -11,19 +12,17 @@ export async function GET() {
   if (!user || user == null || !user.id)
     throw new Error("something went wrong with authentication" + user);
 
-  let username = user.given_name;
+  let username = combineUsername(user?.given_name, user?.family_name);
 
-  const existingUser = await User.findOne({ username });
-
-  if (existingUser) {
-    let count = 1;
-    let newUsername;
-    do {
-      newUsername = `${username}${count}`;
-      count++;
-    } while (await User.findOne({ username: newUsername }));
-    username = newUsername;
-  }
+  // if (existingUser) {
+  //   let count = 1;
+  //   let newUsername;
+  //   do {
+  //     newUsername = `${username}${count}`;
+  //     count++;
+  //   } while (await User.findOne({ username: newUsername }));
+  //   username = newUsername;
+  // }
 
   let dbUser = await User.findOne({ userId: user.id });
 
