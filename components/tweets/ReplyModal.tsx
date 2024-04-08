@@ -1,4 +1,3 @@
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef, useEffect } from "react";

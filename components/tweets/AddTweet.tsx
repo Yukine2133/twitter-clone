@@ -1,7 +1,6 @@
 "use client";
 
 import { createTweet } from "@/lib/actions/tweet.actions";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import Image from "next/image";
 import { useRef } from "react";

@@ -1,9 +1,3 @@
-import Image from "next/image";
-import {
-  RegisterLink,
-  LoginLink,
-  LogoutLink,
-} from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { fetchTweets } from "@/lib/actions/tweet.actions";
 import { fetchUser } from "@/lib/actions/user.actions";

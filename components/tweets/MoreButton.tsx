@@ -1,12 +1,8 @@
 "use client";
 
-import {
-  deleteTweet,
-  editReply,
-  updateTweet,
-} from "@/lib/actions/tweet.actions";
+import { editReply, updateTweet } from "@/lib/actions/tweet.actions";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { Reply } from "./ReplyTweets";

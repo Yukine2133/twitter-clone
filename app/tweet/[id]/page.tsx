@@ -1,9 +1,7 @@
-import MoreButton from "@/components/tweets/MoreButton";
 import ReplyForm from "@/components/tweets/ReplyForm";
 import ReplyTweets from "@/components/tweets/ReplyTweets";
 import TweetActions from "@/components/tweets/TweetActions";
-import { SingleTweetProps } from "@/components/tweets/TweetCard";
-import { deleteTweet, fetchTweet } from "@/lib/actions/tweet.actions";
+import { fetchTweet } from "@/lib/actions/tweet.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { formattedDate, formattedTime } from "@/lib/formatTimestamp";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";

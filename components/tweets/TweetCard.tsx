@@ -1,12 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import MoreButton from "./MoreButton";
-import {
-  deleteTweet,
-  fetchTweet,
-  updateTweet,
-} from "@/lib/actions/tweet.actions";
-import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
+import { deleteTweet, fetchTweet } from "@/lib/actions/tweet.actions";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import TweetActions from "./TweetActions";
 import { Reply } from "./ReplyTweets";

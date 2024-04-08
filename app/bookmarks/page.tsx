@@ -1,14 +1,5 @@
-import MoreButton from "@/components/tweets/MoreButton";
-import TweetActions from "@/components/tweets/TweetActions";
-import { SingleTweetProps } from "@/components/tweets/TweetCard";
-import {
-  deleteTweet,
-  fetchTweet,
-  getUserBookmarks,
-} from "@/lib/actions/tweet.actions";
+import { getUserBookmarks } from "@/lib/actions/tweet.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
-import Image from "next/image";
-import Link from "next/link";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import BookmarksCard from "@/components/tweets/BookmarksCard";
 
