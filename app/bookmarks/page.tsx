@@ -16,7 +16,13 @@ const Bookmarks = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   const bookmarks = await getUserBookmarks(user?.id as string);
-
+  if (bookmarks?.length === 0) {
+    return (
+      <h1 className="pt-3 text-xl">
+        You haven&apos;t added any tweets to your bookmarks.
+      </h1>
+    );
+  }
   return (
     <>
       {bookmarks?.map(async (tweet) => {

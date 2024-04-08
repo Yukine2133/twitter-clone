@@ -164,6 +164,10 @@ export const getUserBookmarks = async (userId: string) => {
   try {
     const userBookmarks = await Tweet.find({ bookmarks: userId });
 
+    if (!userBookmarks) {
+      return null;
+    }
+
     return userBookmarks;
   } catch (error) {
     console.error("Error fetching user bookmarks:", error);
