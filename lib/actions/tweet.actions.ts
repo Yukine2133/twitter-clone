@@ -15,8 +15,6 @@ export const createTweet = async (formData: FormData) => {
 
     const text = formData.get("text");
 
-    // Check if the userId is a valid ObjectId
-
     const tweet = await Tweet.create({
       userId: userId,
       text,
@@ -29,7 +27,7 @@ export const createTweet = async (formData: FormData) => {
     return plainTweet;
   } catch (error) {
     console.error(error);
-    return null; // or handle the error as per your requirement
+    return null;
   }
 };
 
