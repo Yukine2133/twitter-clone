@@ -14,7 +14,7 @@ interface TweetActions extends TweetProps {
   isBookmarked: boolean;
   isLiked: boolean;
   id: string;
-  seeMore?: boolean;
+  seeTweet?: boolean;
   user: KindeUser;
 }
 
@@ -24,7 +24,7 @@ const TweetActions = ({
   isLiked,
   owner,
   tweet,
-  seeMore,
+  seeTweet,
   user,
 }: TweetActions) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -91,9 +91,9 @@ const TweetActions = ({
             <BsBookmark />
           )}
         </button>
-        {seeMore && (
+        {seeTweet && (
           <Link className="text-sm" href={`/tweet/${tweet._id}`}>
-            See more
+            See Tweet
           </Link>
         )}
       </div>
