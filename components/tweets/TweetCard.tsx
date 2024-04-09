@@ -2,9 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import TweetActions from "./TweetActions";
-import { fetchTweet } from "@/actions/tweet.actions";
+import { deleteTweet, fetchTweet } from "@/actions/tweet.actions";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { TweetProps } from "@/types/tweet.type";
+import { SingleTweetProps, TweetProps } from "@/types/tweet.type";
+import MoreButton from "./MoreButton";
 
 const TweetCard = async ({ tweet, owner }: TweetProps) => {
   const { getUser } = getKindeServerSession();
@@ -30,6 +31,13 @@ const TweetCard = async ({ tweet, owner }: TweetProps) => {
           </Link>
           <h3 style={{ overflowWrap: "anywhere" }}>{tweet.text}</h3>
         </div>
+        <div className="absolute right-0 ">
+          <MoreButton
+            action={deleteTweet}
+            tweet={singleTweet as SingleTweetProps}
+            id={tweet._id.toString()}
+          />
+        </div>
       </div>
       <TweetActions
         isBookmarked={isBookmarked as boolean}
@@ -37,7 +45,7 @@ const TweetCard = async ({ tweet, owner }: TweetProps) => {
         id={tweet._id.toString()}
         owner={JSON.parse(JSON.stringify(owner))}
         tweet={JSON.parse(JSON.stringify(tweet))}
-        seeMore
+        seeTweet
         user={user!}
       />
     </div>
