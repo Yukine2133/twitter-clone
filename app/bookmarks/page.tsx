@@ -1,7 +1,7 @@
 import { getUserBookmarks } from "@/lib/actions/tweet.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import BookmarksCard from "@/components/tweets/BookmarksCard";
+import TweetCard from "@/components/tweets/TweetCard";
 
 const Bookmarks = async () => {
   const { getUser } = getKindeServerSession();
@@ -19,7 +19,7 @@ const Bookmarks = async () => {
       {bookmarks?.map(async (tweet) => {
         const owner: any = await fetchUser(tweet.userId);
 
-        return <BookmarksCard tweet={tweet} owner={owner} key={tweet._id} />;
+        return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
       })}
     </>
   );

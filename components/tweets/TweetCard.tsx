@@ -1,30 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import MoreButton from "./MoreButton";
-import { deleteTweet, fetchTweet } from "@/lib/actions/tweet.actions";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import React from "react";
 import TweetActions from "./TweetActions";
-import { Reply } from "./ReplyTweets";
-
-export interface TweetProps {
-  tweet: {
-    text: string;
-    _id: string;
-    likes: string[];
-    replies: string[];
-  };
-  owner: {
-    avatar: string;
-    username: string;
-  };
-}
-
-export interface SingleTweetProps {
-  _id: string;
-  text: string;
-  userId: string;
-  replies: Reply[];
-}
+import { fetchTweet } from "@/lib/actions/tweet.actions";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { TweetProps } from "@/types/tweet.type";
 
 const TweetCard = async ({ tweet, owner }: TweetProps) => {
   const { getUser } = getKindeServerSession();
@@ -34,10 +14,9 @@ const TweetCard = async ({ tweet, owner }: TweetProps) => {
   const isBookmarked = bookmarks?.includes(user?.id as string);
   const likes = singleTweet?.likes;
   const isLiked = likes?.includes(user?.id as string);
-
   return (
-    <div className="mt-4 py-3 border-y border-[#2f3336] w-full relative  ">
-      <div className="flex  gap-2 items-start">
+    <div className="mt-4 py-3 border-y border-[#2f3336] w-full relative">
+      <div className="flex gap-2 items-start">
         <Image
           src={owner.avatar}
           alt={owner.username}
@@ -47,16 +26,9 @@ const TweetCard = async ({ tweet, owner }: TweetProps) => {
         />
         <div>
           <Link href={`/profile/${owner.username}`}>
-            <span className="font-bold ">{owner.username}</span>
+            <span className="font-bold">{owner.username}</span>
           </Link>
           <h3 style={{ overflowWrap: "anywhere" }}>{tweet.text}</h3>
-        </div>
-        <div className="absolute right-0 ">
-          <MoreButton
-            action={deleteTweet}
-            tweet={singleTweet as SingleTweetProps}
-            id={tweet._id.toString()}
-          />
         </div>
       </div>
       <TweetActions
