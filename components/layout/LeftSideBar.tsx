@@ -1,6 +1,6 @@
 "use client";
-import { combineUsername } from "@/lib/combineUsername";
-import { sidebarLinks } from "@/lib/constants";
+import { combineUsername } from "@/utils/combineUsername";
+import { sidebarLinks } from "@/utils/constants";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import Image from "next/image";

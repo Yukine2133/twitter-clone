@@ -1,9 +1,9 @@
 import ReplyForm from "@/components/tweets/ReplyForm";
 import ReplyTweets from "@/components/tweets/ReplyTweets";
 import TweetActions from "@/components/tweets/TweetActions";
-import { fetchTweet } from "@/lib/actions/tweet.actions";
-import { fetchUser } from "@/lib/actions/user.actions";
-import { formattedDate, formattedTime } from "@/lib/formatTimestamp";
+import { fetchTweet } from "@/actions/tweet.actions";
+import { fetchUser } from "@/actions/user.actions";
+import { formattedDate, formattedTime } from "@/utils/formatTimestamp";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 import Image from "next/image";

@@ -1,6 +1,6 @@
-import { combineUsername } from "@/lib/combineUsername";
-import { connectDb } from "@/lib/connectDb";
-import { User } from "@/lib/models/user.model";
+import { combineUsername } from "@/utils/combineUsername";
+import { connectDb } from "@/utils/connectDb";
+import { User } from "@/models/user.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 

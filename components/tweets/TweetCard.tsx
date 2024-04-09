@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import TweetActions from "./TweetActions";
-import { fetchTweet } from "@/lib/actions/tweet.actions";
+import { fetchTweet } from "@/actions/tweet.actions";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { TweetProps } from "@/types/tweet.type";
 

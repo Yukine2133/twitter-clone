@@ -1,6 +1,6 @@
 "use server";
 
-import { connectDb } from "../connectDb";
+import { connectDb } from "../utils/connectDb";
 import { Tweet } from "../models/tweet.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";

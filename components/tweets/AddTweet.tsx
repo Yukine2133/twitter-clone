@@ -1,6 +1,6 @@
 "use client";
 
-import { createTweet } from "@/lib/actions/tweet.actions";
+import { createTweet } from "@/actions/tweet.actions";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import Image from "next/image";
 import { useRef } from "react";
@@ -38,7 +38,7 @@ const AddTweet = ({ user }: { user: KindeUser }) => {
           className="bg-blue-500 rounded-full px-3 py-1  font-semibold "
           type="submit"
         >
-          Post
+          Tweet
         </button>
       </div>
     </form>

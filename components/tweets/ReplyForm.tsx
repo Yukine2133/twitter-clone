@@ -1,6 +1,6 @@
 "use client";
 
-import { replyTweet } from "@/lib/actions/tweet.actions";
+import { replyTweet } from "@/actions/tweet.actions";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import Image from "next/image";
 import { useRef } from "react";

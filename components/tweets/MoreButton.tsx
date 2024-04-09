@@ -1,6 +1,6 @@
 "use client";
 
-import { editReply, updateTweet } from "@/lib/actions/tweet.actions";
+import { editReply, updateTweet } from "@/actions/tweet.actions";
 import { Reply } from "@/types/tweet.type";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { usePathname } from "next/navigation";

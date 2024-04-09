@@ -1,8 +1,8 @@
-import { fetchUser } from "@/lib/actions/user.actions";
+import { fetchUser } from "@/actions/user.actions";
 import Image from "next/image";
 import Link from "next/link";
 import MoreButton from "./MoreButton";
-import { deleteReply } from "@/lib/actions/tweet.actions";
+import { deleteReply } from "@/actions/tweet.actions";
 import { Reply } from "@/types/tweet.type";
 
 interface ReplyTweets {

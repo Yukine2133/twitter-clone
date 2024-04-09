@@ -1,6 +1,6 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { fetchTweets } from "@/lib/actions/tweet.actions";
-import { fetchUser } from "@/lib/actions/user.actions";
+import { fetchTweets } from "@/actions/tweet.actions";
+import { fetchUser } from "@/actions/user.actions";
 import AddTweet from "@/components/tweets/AddTweet";
 import TweetCard from "@/components/tweets/TweetCard";
 

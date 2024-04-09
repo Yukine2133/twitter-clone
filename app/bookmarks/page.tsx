@@ -1,5 +1,5 @@
-import { getUserBookmarks } from "@/lib/actions/tweet.actions";
-import { fetchUser } from "@/lib/actions/user.actions";
+import { getUserBookmarks } from "@/actions/tweet.actions";
+import { fetchUser } from "@/actions/user.actions";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import TweetCard from "@/components/tweets/TweetCard";
 
