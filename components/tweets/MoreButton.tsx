@@ -1,11 +1,12 @@
 "use client";
 
 import { editReply, updateTweet } from "@/lib/actions/tweet.actions";
+import { Reply } from "@/types/tweet.type";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
-import { Reply } from "./ReplyTweets";
+
 interface IMoreButton {
   id: string;
   tweet: {

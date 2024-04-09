@@ -2,15 +2,13 @@
 
 import { bookMarkTweet, likeTweet } from "@/lib/actions/tweet.actions";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
-import { CiHeart } from "react-icons/ci";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { IoMdHeart } from "react-icons/io";
 import { SlBubble } from "react-icons/sl";
 import ReplyModal from "./ReplyModal";
 import { useState } from "react";
-import { TweetProps } from "./TweetCard";
 import Link from "next/link";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
+import { TweetProps } from "@/types/tweet.type";
 
 interface TweetActions extends TweetProps {
   isBookmarked: boolean;

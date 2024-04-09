@@ -2,13 +2,8 @@ import { fetchUser } from "@/lib/actions/user.actions";
 import Image from "next/image";
 import Link from "next/link";
 import MoreButton from "./MoreButton";
-import { deleteReply, editReply } from "@/lib/actions/tweet.actions";
-
-export interface Reply {
-  user: string;
-  text: string;
-  _id: string;
-}
+import { deleteReply } from "@/lib/actions/tweet.actions";
+import { Reply } from "@/types/tweet.type";
 
 interface ReplyTweets {
   tweet: {

@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef, useEffect } from "react";
-import { TweetProps } from "./TweetCard";
 import ReplyForm from "./ReplyForm";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
+import { TweetProps } from "@/types/tweet.type";
 
 interface IReplyModal extends TweetProps {
   toggleModal: (arg0: boolean) => void;
