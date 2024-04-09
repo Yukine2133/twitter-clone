@@ -93,7 +93,15 @@ export const fetchTweet = async (tweetId: string) => {
 export const deleteTweet = async (id: string) => {
   try {
     await connectDb();
-    await Tweet.findByIdAndDelete(id);
+
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    const tweet = await Tweet.findByIdAndDelete(id);
+
+    if (tweet.userId != user?.id) {
+      return null;
+    }
     revalidatePath("/");
   } catch (error) {
     console.error(error);
