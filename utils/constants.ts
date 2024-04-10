@@ -4,11 +4,7 @@ export const sidebarLinks = [
     route: "/",
     label: "Home",
   },
-  {
-    imgURL: "/messages.png",
-    route: "/messages",
-    label: "Messages",
-  },
+
   {
     imgURL: "/bookmarks.png",
     route: "/bookmarks",
