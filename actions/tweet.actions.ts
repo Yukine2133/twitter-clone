@@ -20,7 +20,7 @@ export const createTweet = async (formData: FormData) => {
     }
 
     if (!text) {
-      return { message: "You need at least 3 characters to tweet." };
+      return { message: "Tweet must be at least 2 characters long." };
     }
 
     const tweet = await Tweet.create({
@@ -258,7 +258,7 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
     }
 
     if (!text) {
-      return { message: " You need at least 3 characters to reply." };
+      return { message: "Reply must be at least 2 characters long" };
     }
 
     if (!user) {

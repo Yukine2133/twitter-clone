@@ -2,6 +2,7 @@
 
 import { createTweet } from "@/actions/tweet.actions";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
+import { z } from "zod";
 import Image from "next/image";
 import { useRef } from "react";
 import { toast } from "react-toastify";
@@ -10,19 +11,38 @@ const AddTweet = ({ user }: { user: KindeUser }) => {
   const ref = useRef<HTMLFormElement>(null);
 
   const addTweet = async (formData: FormData) => {
-    const res = await createTweet(formData);
-    if (res.message) {
-      toast.error(res.message);
-    } else {
-      toast.success("Tweet was created.");
+    try {
+      const tweetText = formData.get("text") as string;
+      const tweetTextSchema = z
+        .string()
+        .min(2, "Tweet must be at least 2 characters long")
+        .max(280, "Tweet must not exceed the 280 characters limit");
+      tweetTextSchema.parse(tweetText);
+
+      const res = await createTweet(formData);
+      if (res.message) {
+        toast.error(res.message);
+      } else {
+        toast.success("Tweet was created.");
+      }
+      ref.current?.reset();
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errorMessage = error.errors[0].message;
+        toast.error(errorMessage);
+      } else {
+        console.error(error);
+        toast.error("An unexpected error occurred.");
+      }
     }
-    ref.current?.reset();
   };
+
   return (
     <form
       ref={ref}
-      action={async (formData) => {
-        addTweet(formData);
+      onSubmit={(event) => {
+        event.preventDefault();
+        addTweet(new FormData(event.currentTarget));
       }}
       className="border-y mt-1 p-3 border-[#2f3336]"
     >

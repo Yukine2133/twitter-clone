@@ -5,6 +5,7 @@ import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import Image from "next/image";
 import { useRef } from "react";
 import { toast } from "react-toastify";
+import * as z from "zod";
 
 interface IReplyForm {
   id: string;
@@ -15,19 +16,39 @@ interface IReplyForm {
 const ReplyForm = ({ id, toggleModal, user }: IReplyForm) => {
   const formRef = useRef<HTMLFormElement>(null);
 
-  const handleReplyTweet = async (formData: FormData) => {
-    const res = await replyTweet(formData, id);
-    if (res?.message) {
-      toast.error(res.message);
-    } else {
-      toast.success("Reply was added.");
+  const handleReplyTweet = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+
+    try {
+      const text = formData.get("text") as string;
+      const textSchema = z
+        .string()
+        .min(2, "Reply must be at least 2 characters long")
+        .max(280, "Reply must not exceed the 280 characters limit");
+      textSchema.parse(text);
+
+      const res = await replyTweet(formData, id);
+      if (res?.message) {
+        toast.error(res.message);
+      } else {
+        toast.success("Reply was added.");
+      }
+      formRef.current?.reset();
+      toggleModal && toggleModal(false);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errorMessage = error.errors[0].message;
+        toast.error(errorMessage);
+      } else {
+        console.error(error);
+        toast.error("An unexpected error occurred.");
+      }
     }
-    formRef.current?.reset();
-    toggleModal && toggleModal(false);
   };
 
   return (
-    <form ref={formRef} action={handleReplyTweet} className=" mt-1 p-3 ">
+    <form onSubmit={handleReplyTweet} ref={formRef} className=" mt-1 p-3 ">
       <div className="flex gap-2 mt-1">
         <Image
           src={user?.picture!}
