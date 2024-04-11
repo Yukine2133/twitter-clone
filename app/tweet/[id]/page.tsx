@@ -15,6 +15,7 @@ const SingleTweet = async ({ params }: { params: { id: string } }) => {
   const user = await getUser();
   const id = params.id;
   const singleTweet = await fetchTweet(id);
+
   const owner = await fetchUser(singleTweet?.userId!);
 
   const bookmarks = singleTweet?.bookmarks;

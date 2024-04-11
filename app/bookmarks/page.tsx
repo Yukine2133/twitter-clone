@@ -2,11 +2,13 @@ import { getUserBookmarks } from "@/actions/tweet.actions";
 import { fetchUser } from "@/actions/user.actions";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import TweetCard from "@/components/tweets/TweetCard";
+import { toast } from "react-toastify";
 
 const Bookmarks = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   const bookmarks = await getUserBookmarks(user?.id as string);
+
   if (bookmarks?.length === 0) {
     return (
       <h1 className="pt-3 text-xl">
@@ -14,6 +16,7 @@ const Bookmarks = async () => {
       </h1>
     );
   }
+
   return (
     <>
       {bookmarks?.map(async (tweet) => {

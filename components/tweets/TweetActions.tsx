@@ -9,6 +9,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import { TweetProps } from "@/types/tweet.type";
+import { toast } from "react-toastify";
 
 interface TweetActions extends TweetProps {
   isBookmarked: boolean;
@@ -36,7 +37,10 @@ const TweetActions = ({
   const addBookmark = async (tweetId: string) => {
     try {
       const id = tweetId.toString();
-      await bookMarkTweet(id);
+      const res = await bookMarkTweet(id);
+      if (res?.message) {
+        toast.error(res.message);
+      }
     } catch (error) {
       console.error("Error adding bookmark:", error);
     }
@@ -44,7 +48,10 @@ const TweetActions = ({
   const addLike = async (tweetId: string) => {
     try {
       const id = tweetId.toString();
-      await likeTweet(id);
+      const res = await likeTweet(id);
+      if (res?.message) {
+        toast.error(res.message);
+      }
     } catch (error) {
       console.error("Error adding liking:", error);
     }

@@ -4,6 +4,7 @@ import { replyTweet } from "@/actions/tweet.actions";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import Image from "next/image";
 import { useRef } from "react";
+import { toast } from "react-toastify";
 
 interface IReplyForm {
   id: string;
@@ -14,16 +15,19 @@ interface IReplyForm {
 const ReplyForm = ({ id, toggleModal, user }: IReplyForm) => {
   const formRef = useRef<HTMLFormElement>(null);
 
+  const handleReplyTweet = async (formData: FormData) => {
+    const res = await replyTweet(formData, id);
+    if (res?.message) {
+      toast.error(res.message);
+    } else {
+      toast.success("Reply was added.");
+    }
+    formRef.current?.reset();
+    toggleModal && toggleModal(false);
+  };
+
   return (
-    <form
-      ref={formRef}
-      action={async (formData) => {
-        await replyTweet(formData, id);
-        formRef.current?.reset();
-        toggleModal && toggleModal(false);
-      }}
-      className=" mt-1 p-3 "
-    >
+    <form ref={formRef} action={handleReplyTweet} className=" mt-1 p-3 ">
       <div className="flex gap-2 mt-1">
         <Image
           src={user?.picture!}

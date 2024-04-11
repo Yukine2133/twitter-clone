@@ -1,12 +1,18 @@
 "use client";
 
-import { editReply, updateTweet } from "@/actions/tweet.actions";
+import {
+  deleteReply,
+  deleteTweet,
+  editReply,
+  updateTweet,
+} from "@/actions/tweet.actions";
 import { Reply } from "@/types/tweet.type";
 import { combineUsername } from "@/utils/combineUsername";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 interface IMoreButton {
   id: string;
@@ -85,19 +91,66 @@ const MoreButton = ({
         pathname === "/bookmarks" ||
         pathname === "/"
       ) {
-        await updateTweet(tweetId, text);
+        const res = await updateTweet(tweetId, text);
+        if (res?.message) {
+          toast.error(res.message);
+        } else {
+          toast.success("Tweet was updated.");
+        }
       } else {
-        editReply(tweetId, text, replyId as string);
+        const res = await editReply(tweetId, text, replyId as string);
+        if (res?.message) {
+          toast.error(res.message);
+        } else {
+          toast.success("Reply was updated.");
+        }
       }
     } catch (error) {
-      console.error(error);
+      toast.error(String(error));
     }
   };
+
+  // const handleEdit = async (tweetId: string, text: string) => {
+  //   try {
+  //     // pathname === `/` && `${`/tweet/${id}`}` && `${`/profile/${fullUsername}`}`
+  //     //   ? await updateTweet(tweetId, text)
+  //     //   : editReply(tweetId, text, replyId as string);
+  //     if (
+  //       pathname === `/profile/${fullUsername}` ||
+  //       pathname === "/bookmarks" ||
+  //       pathname === "/"
+  //     ) {
+  //       await updateTweet(tweetId, text);
+  //     } else {
+  //       editReply(tweetId, text, replyId as string);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleEdit(id, text as string);
       setEdit(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (replyId) {
+      const res = await deleteReply(id, replyId);
+      if (res?.message) {
+        toast.error(res?.message);
+      } else {
+        toast.success("Reply was deleted.");
+      }
+    } else {
+      const res = await deleteTweet(id);
+      if (res?.message) {
+        toast.error(res.message);
+      } else {
+        toast.success("Tweet was deleted.");
+      }
     }
   };
 
@@ -130,9 +183,7 @@ const MoreButton = ({
                     <AiFillEdit /> Edit
                   </button>
                   <button
-                    onClick={
-                      replyId ? () => action(id, replyId) : () => action(id)
-                    }
+                    onClick={handleDelete}
                     className="text-red-500 flex items-center gap-2"
                   >
                     <AiFillDelete /> Delete

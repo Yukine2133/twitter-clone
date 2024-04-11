@@ -15,6 +15,14 @@ export const createTweet = async (formData: FormData) => {
 
     const text = formData.get("text");
 
+    if (!user) {
+      return { message: "You need to be logged in to tweet." };
+    }
+
+    if (!text) {
+      return { message: "You need at least 3 characters to tweet." };
+    }
+
     const tweet = await Tweet.create({
       userId: userId,
       text,
@@ -27,7 +35,7 @@ export const createTweet = async (formData: FormData) => {
     return plainTweet;
   } catch (error) {
     console.error(error);
-    return null;
+    return { message: "Failed to add tweet. Please try again" };
   }
 };
 
@@ -38,6 +46,7 @@ export const fetchTweets = async () => {
     return tweets;
   } catch (error) {
     console.error(error);
+    return null;
   }
 };
 
@@ -56,10 +65,6 @@ export const fetchTweet = async (tweetId: string) => {
     await connectDb();
 
     const tweet = await Tweet.findById(tweetId);
-
-    if (!tweet) {
-      return null;
-    }
 
     const {
       _id,
@@ -85,7 +90,6 @@ export const fetchTweet = async (tweetId: string) => {
 
     return tweetData;
   } catch (error) {
-    console.error("Failed to fetch tweet:", error);
     return null;
   }
 };
@@ -97,14 +101,21 @@ export const deleteTweet = async (id: string) => {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
+    if (!user) {
+      return { message: "You need to be logged in to update tweet." };
+    }
+
     const tweet = await Tweet.findByIdAndDelete(id);
 
+    if (!tweet) return { message: "Tweet not found." };
+
     if (tweet.userId != user?.id) {
-      return null;
+      return { message: "You cannot delete someone else's tweet." };
     }
     revalidatePath("/");
   } catch (error) {
     console.error(error);
+    return { message: "Failed to delete tweet. Please try again." };
   }
 };
 
@@ -114,20 +125,23 @@ export const updateTweet = async (id: string, text: string) => {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
+    if (!user) {
+      return { message: "You need to be logged in to update tweet." };
+    }
     const existingTweet = await Tweet.findById(id);
 
     if (existingTweet.userId != user?.id) {
-      return null;
+      return { message: "You cannot edit someone else's tweet." };
     }
 
-    if (!existingTweet) return null;
+    if (!existingTweet) return { message: "This tweet does not exist." };
 
     existingTweet.text = text;
 
     await existingTweet.save();
     revalidatePath(`/`);
   } catch (error) {
-    return { message: "Failed to update the tweet", error };
+    return { message: "Failed to update the tweet. Please try again." };
   }
 };
 
@@ -162,12 +176,13 @@ export const bookMarkTweet = async (id: string) => {
     revalidatePath("/");
   } catch (error) {
     console.error("Error bookmarking tweet:", error);
-    return { message: "Failed to bookmark the tweet" };
+    return { message: "Failed to bookmark the tweet. Please try again." };
   }
 };
 
 export const getUserBookmarks = async (userId: string) => {
   try {
+    await connectDb();
     const userBookmarks = await Tweet.find({ bookmarks: userId });
 
     if (!userBookmarks) {
@@ -176,8 +191,7 @@ export const getUserBookmarks = async (userId: string) => {
 
     return userBookmarks;
   } catch (error) {
-    console.error("Error fetching user bookmarks:", error);
-    throw error;
+    return null;
   }
 };
 
@@ -187,7 +201,7 @@ export const likeTweet = async (id: string) => {
     const user = await getUser();
 
     if (!user) {
-      return { message: "You need to be logged in to like" };
+      return { message: "You need to be logged in to like a tweet." };
     }
 
     await connectDb();
@@ -195,7 +209,7 @@ export const likeTweet = async (id: string) => {
     const existingTweet = await Tweet.findById(id);
 
     if (!existingTweet) {
-      return { message: "Tweet not found" };
+      return { message: "Tweet not found." };
     }
 
     const userIndex = existingTweet.likes.indexOf(user.id);
@@ -211,8 +225,7 @@ export const likeTweet = async (id: string) => {
     await existingTweet.save();
     revalidatePath("/");
   } catch (error) {
-    console.error("Error liking tweet:", error);
-    return { message: "Failed to liking the tweet" };
+    return { message: "Failed to like the tweet. Please try again." };
   }
 };
 
@@ -244,8 +257,12 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
       return { message: "Tweet not found" };
     }
 
+    if (!text) {
+      return { message: " You need at least 3 characters to reply." };
+    }
+
     if (!user) {
-      return { message: "You need to be authenticated to reply.." };
+      return { message: "You need to be logged in to reply." };
     }
 
     existingTweet.replies = existingTweet.replies || [];
@@ -259,16 +276,24 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
     revalidatePath(`/tweet/${tweetId}`);
     revalidatePath(`/`);
   } catch (error) {
-    return { message: "Error adding reply to tweet" };
+    return { message: "Error adding reply to tweet. Please try again." };
   }
 };
 
 export const deleteReply = async (tweetId: string, replyId: string) => {
   try {
     await connectDb();
+
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    if (!user) {
+      return { message: "You need to be logged in to delete the reply" };
+    }
+
     const tweet = await Tweet.findById(tweetId);
     if (!tweet) {
-      throw new Error("Tweet not found");
+      throw new Error("Tweet not found.");
     }
 
     // Find the index of the reply to be deleted
@@ -276,17 +301,19 @@ export const deleteReply = async (tweetId: string, replyId: string) => {
       (reply: any) => reply._id.toString() === replyId
     );
 
-    if (replyIndex === -1) {
-      throw new Error("Reply not found");
+    const owner = tweet.replies.findIndex(
+      (reply: any) => reply.user.toString() === user.id
+    );
+    if (owner !== -1) {
+      tweet.replies.splice(replyIndex, 1);
+    } else {
+      return { message: "You cannot delete someone else's reply." };
     }
-
-    tweet.replies.splice(replyIndex, 1);
 
     await tweet.save();
     revalidatePath(`/tweet/${tweetId}`);
   } catch (error) {
-    console.error(error);
-    throw error;
+    return { message: "Failed to delete reply. Please try again." };
   }
 };
 
@@ -297,9 +324,16 @@ export const editReply = async (
 ) => {
   try {
     await connectDb();
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    if (!user) {
+      return { message: "You need to be logged in to edit the reply" };
+    }
+
     const tweet = await Tweet.findById(tweetId);
     if (!tweet) {
-      throw new Error("Tweet not found");
+      return { message: "Tweet not found" };
     }
 
     const replyIndex = tweet.replies.findIndex(
@@ -307,15 +341,21 @@ export const editReply = async (
     );
 
     if (replyIndex === -1) {
-      throw new Error("Reply not found");
+      return { message: "Reply not found" };
     }
 
-    tweet.replies[replyIndex].text = text;
+    const owner = tweet.replies.findIndex(
+      (reply: any) => reply.user.toString() === user.id
+    );
+    if (owner !== -1) {
+      tweet.replies[replyIndex].text = text;
+    } else {
+      return { message: "You cannot edit someone else's reply." };
+    }
 
     await tweet.save();
     revalidatePath(`/tweet/${tweetId}`);
   } catch (error) {
-    console.error(error);
-    throw error;
+    return { message: "Failed to edit the reply. Please try again.", error };
   }
 };

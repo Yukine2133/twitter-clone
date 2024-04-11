@@ -4,15 +4,25 @@ import { createTweet } from "@/actions/tweet.actions";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import Image from "next/image";
 import { useRef } from "react";
+import { toast } from "react-toastify";
 
 const AddTweet = ({ user }: { user: KindeUser }) => {
   const ref = useRef<HTMLFormElement>(null);
+
+  const addTweet = async (formData: FormData) => {
+    const res = await createTweet(formData);
+    if (res.message) {
+      toast.error(res.message);
+    } else {
+      toast.success("Tweet was created.");
+    }
+    ref.current?.reset();
+  };
   return (
     <form
       ref={ref}
       action={async (formData) => {
-        await createTweet(formData);
-        ref.current?.reset();
+        addTweet(formData);
       }}
       className="border-y mt-1 p-3 border-[#2f3336]"
     >
