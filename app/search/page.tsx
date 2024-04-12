@@ -13,6 +13,15 @@ const SearchPage = async ({
   if (!tweets) {
     return null;
   }
+
+  if (!query) {
+    return (
+      <div className="mt-2">
+        <SearchInput />
+        <h2 className="mt-4 text-lg">Enter a search query to see results</h2>
+      </div>
+    );
+  }
   return (
     <div className="mt-2 ">
       <SearchInput />
