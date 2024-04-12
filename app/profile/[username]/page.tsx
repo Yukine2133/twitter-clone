@@ -2,6 +2,8 @@ import TweetCard from "@/components/tweets/TweetCard";
 import { fetchUser, fetchUserTweets } from "@/actions/user.actions";
 import Image from "next/image";
 import GoBackButton from "@/utils/GoBackButton";
+import FollowButton from "@/components/buttons/FollowButton";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 const ProfilePage = async ({
   params,
@@ -10,9 +12,17 @@ const ProfilePage = async ({
     username: string;
   };
 }) => {
+  const { getUser } = getKindeServerSession();
+  const currentSessionUser = await getUser();
   const username = params.username;
   const user = await fetchUser(undefined, username);
+  const currentUser = await fetchUser(currentSessionUser?.id);
   const tweets = await fetchUserTweets(user.userId);
+
+  const followers = user.followers;
+  const following = user.following;
+
+  const isFollowing = followers?.includes(currentSessionUser?.id as string);
 
   if (!user)
     return (
@@ -28,6 +38,7 @@ const ProfilePage = async ({
       </h2>
     );
   }
+
   return (
     <div>
       <div className=" mb-10 flex items-center">
@@ -45,7 +56,19 @@ const ProfilePage = async ({
           width={78}
           height={78}
         />
-        <h2 className="font-semibold text-lg mt-1">{user.username}</h2>
+        <div className="flex items-center my-2 gap-4 ">
+          <h2 className="font-semibold text-lg">{user.username}</h2>
+          <h4 className="text-slate-500">{followers.length} Followers</h4>
+          <h4 className="text-slate-500">{following.length} Following</h4>
+        </div>
+        <div className="mt-2">
+          <FollowButton
+            username={username}
+            isFollowing={isFollowing}
+            userId={user.id}
+            currentUserId={currentUser.id}
+          />
+        </div>
       </div>
 
       {tweets?.length > 0 && (

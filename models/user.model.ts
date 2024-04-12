@@ -7,6 +7,8 @@ const userSchema = new mongoose.Schema({
   },
   avatar: String,
   userId: String,
+  followers: [{ type: String }],
+  following: [{ type: String }],
 });
 
 export const User =
