@@ -24,12 +24,9 @@ const ProfilePage = async ({
 
   const isFollowing = followers?.includes(currentSessionUser?.id as string);
 
-  if (!user)
-    return (
-      <h1 className="text-xl pt-3">
-        User with this username {username} does not exist.{" "}
-      </h1>
-    );
+  if (!user) {
+    throw new Error("User doesn't exist.");
+  }
 
   if (!tweets) {
     return (
@@ -62,12 +59,14 @@ const ProfilePage = async ({
           <h4 className="text-slate-500">{following.length} Following</h4>
         </div>
         <div className="mt-2">
-          <FollowButton
-            username={username}
-            isFollowing={isFollowing}
-            userId={user.id}
-            currentUserId={currentUser.id}
-          />
+          {currentSessionUser ? null : (
+            <FollowButton
+              username={username}
+              isFollowing={isFollowing}
+              userId={user.id}
+              currentUserId={currentUser.id}
+            />
+          )}
         </div>
       </div>
 

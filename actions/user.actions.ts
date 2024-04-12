@@ -55,13 +55,17 @@ export const followUser = async (
       return { message: "You need to be logged in to follow a user." };
     }
 
+    // Check if the userId is the same as the currentUserId
+    if (userId === currentUserId) {
+      return { message: "You cannot follow yourself." };
+    }
+
     // Find the user to follow by the provided userId
     const existingUser = await User.findById(userId);
 
     if (!existingUser) {
       return { message: "User not found." };
     }
-    console.log(currentUserId);
     // Ensure that user.id is the correct _id of the current user
     const currentUser = await User.findById(currentUserId);
 

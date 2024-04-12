@@ -1,6 +1,7 @@
 "use client";
 
 import { followUser } from "@/actions/user.actions";
+import { toast } from "react-toastify";
 
 const FollowButton = ({
   userId,
@@ -13,10 +14,20 @@ const FollowButton = ({
   username: string;
   currentUserId: string;
 }) => {
+  const handleFollowUser = async () => {
+    try {
+      const res = await followUser(userId, username, currentUserId);
+      if (res?.message) {
+        toast.error(res.message);
+      }
+    } catch (error) {
+      toast.error(String(error));
+    }
+  };
   return (
     <button
       className="bg-blue-500 p-2 font-bold rounded-full text-white"
-      onClick={async () => await followUser(userId, username, currentUserId)}
+      onClick={handleFollowUser}
     >
       {isFollowing ? "Following" : "Follow"}
     </button>
