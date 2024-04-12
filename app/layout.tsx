@@ -41,7 +41,7 @@ export default async function RootLayout({
           <section className="  w-[648px] border-x border-[#2f3336] px-4 min-h-screen ">
             <div className="w-full  max-w-4xl">{children}</div>
           </section>
-          {/* <RightSideBar /> */}
+          <RightSideBar />
         </main>
       </body>
     </html>

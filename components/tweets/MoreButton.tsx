@@ -89,7 +89,8 @@ const MoreButton = ({
       if (
         pathname === `/profile/${fullUsername}` ||
         pathname === "/bookmarks" ||
-        pathname === "/"
+        pathname === "/" ||
+        pathname === "/search"
       ) {
         const res = await updateTweet(tweetId, text);
         if (res?.message) {

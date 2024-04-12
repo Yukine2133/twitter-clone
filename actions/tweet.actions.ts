@@ -359,3 +359,16 @@ export const editReply = async (
     return { message: "Failed to edit the reply. Please try again.", error };
   }
 };
+
+export const searchTweets = async (q: string | null) => {
+  try {
+    await connectDb();
+    const tweets = await Tweet.find({
+      text: { $regex: new RegExp(q || "", "i") },
+    });
+
+    return tweets;
+  } catch (error) {
+    console.error(error);
+  }
+};
