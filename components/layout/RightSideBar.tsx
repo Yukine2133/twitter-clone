@@ -7,7 +7,7 @@ const RightSideBar = () => {
   const pathname = usePathname();
   if (pathname != "/search") {
     return (
-      <div className="fixed w-64 top-6 h-screen right-56 ">
+      <div className="fixed w-64 top-6 h-screen right-10 hidden xl:block min-[1640px]:right-56 ">
         <SearchInput />
       </div>
     );

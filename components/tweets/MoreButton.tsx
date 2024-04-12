@@ -171,7 +171,7 @@ const MoreButton = ({
             &#10247;
           </button>
           {isOpen && (
-            <div className="absolute top-0 right-3 p-3">
+            <div className="absolute -top-9 right-3 p-3">
               {isOwner && (
                 <>
                   <button

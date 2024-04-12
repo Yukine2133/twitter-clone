@@ -6,7 +6,7 @@ import { useState } from "react";
 const SearchInput = () => {
   const search = useSearchParams();
   const [searchQuery, setSearchQuery] = useState<string | null>(
-    search ? search.get("q") : ""
+    search ? search.get("q") : null
   );
   const router = useRouter();
 

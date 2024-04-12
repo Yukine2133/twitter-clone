@@ -6,6 +6,7 @@ import RightSideBar from "@/components/layout/RightSideBar";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import BottomBar from "@/components/layout/BottomBar";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -38,8 +39,9 @@ export default async function RootLayout({
         />
         <main className="flex  justify-center items-center">
           <LeftSideBar user={user!} />
-          <section className="  w-[648px] border-x border-[#2f3336] px-4 min-h-screen ">
-            <div className="w-full  max-w-4xl">{children}</div>
+          <section className="w-[648px] relative border-x border-[#2f3336]  min-h-screen ">
+            <div className="w-full px-4  max-w-4xl">{children}</div>
+            <BottomBar user={user!} />
           </section>
           <RightSideBar />
         </main>
