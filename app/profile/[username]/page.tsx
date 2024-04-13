@@ -23,10 +23,6 @@ const ProfilePage = async ({
   const followers = user.followers;
   const following = user.following;
 
-  // const firstUser = followers[1];
-
-  // const followUser = await fetchUser(firstUser);
-
   const followersOfTheUser = await Promise.all(
     followers.map(async (follower: any) => await fetchUser(follower))
   );

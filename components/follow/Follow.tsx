@@ -25,26 +25,6 @@ const Follow = ({ following, followers, followersOfTheUser }: IFollow) => {
 
   const ref = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   const body = document.querySelector("body");
-  //   const handleScroll = (event: WheelEvent) => {
-  //     if (isOpen) {
-  //       event.preventDefault();
-  //     }
-  //   };
-
-  //   if (isOpen) {
-  //     body?.classList.add("overflow-hidden");
-  //     document.addEventListener("wheel", handleScroll, { passive: false });
-  //   } else {
-  //     body?.classList.remove("overflow-hidden");
-  //     document.removeEventListener("wheel", handleScroll);
-  //   }
-
-  //   return () => {
-  //     document.removeEventListener("wheel", handleScroll);
-  //   };
-  // }, [isOpen]);
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
