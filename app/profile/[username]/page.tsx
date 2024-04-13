@@ -59,7 +59,7 @@ const ProfilePage = async ({
           <h4 className="text-slate-500">{following.length} Following</h4>
         </div>
         <div className="mt-2">
-          {currentSessionUser ? null : (
+          {currentSessionUser?.id === user.userId ? null : (
             <FollowButton
               username={username}
               isFollowing={isFollowing}
