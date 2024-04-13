@@ -4,6 +4,7 @@ import Image from "next/image";
 import GoBackButton from "@/utils/GoBackButton";
 import FollowButton from "@/components/buttons/FollowButton";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import Follow from "@/components/follow/Follow";
 
 const ProfilePage = async ({
   params,
@@ -21,6 +22,14 @@ const ProfilePage = async ({
 
   const followers = user.followers;
   const following = user.following;
+
+  // const firstUser = followers[1];
+
+  // const followUser = await fetchUser(firstUser);
+
+  const followersOfTheUser = await Promise.all(
+    followers.map(async (follower: any) => await fetchUser(follower))
+  );
 
   const isFollowing = followers?.includes(currentSessionUser?.id as string);
 
@@ -55,8 +64,11 @@ const ProfilePage = async ({
         />
         <div className="flex items-center my-2 gap-4 ">
           <h2 className="font-semibold text-lg">{user.username}</h2>
-          <h4 className="text-slate-500">{followers.length} Followers</h4>
-          <h4 className="text-slate-500">{following.length} Following</h4>
+          <Follow
+            followersOfTheUser={JSON.parse(JSON.stringify(followersOfTheUser))}
+            followers={followers}
+            following={following}
+          />
         </div>
         <div className="mt-2">
           {currentSessionUser?.id === user.userId ? null : (
