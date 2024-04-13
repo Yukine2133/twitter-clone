@@ -1,20 +1,18 @@
 "use client";
 
-import { combineUsername } from "@/utils/combineUsername";
+import { User } from "@/types/user.interface";
 import { sidebarLinks } from "@/utils/constants";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
-import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import Image from "next/image";
 import Link from "next/link";
 
-const BottomBar = ({ user }: { user: KindeUser }) => {
-  const fullUsername = combineUsername(user?.given_name, user?.family_name);
+const BottomBar = ({ user }: { user: User }) => {
   return (
     <div className="fixed z-10 bg-black  px-4 border-t border-[#2f3336] w-full min-[800px]:hidden bottom-0 left-0 ">
       <div className="flex justify-between w-full p-1 items-center   sm:pl-6">
         {sidebarLinks.map((link) => {
           if (link.route === "/profile")
-            link.route = `${link.route}/${fullUsername}`;
+            link.route = `${link.route}/${user.username}`;
           return (
             <Link
               href={link.route}
@@ -33,8 +31,8 @@ const BottomBar = ({ user }: { user: KindeUser }) => {
         })}
         <div className="flex items-center gap-2">
           <Image
-            src={user?.picture!}
-            alt={user?.given_name!}
+            src={user?.avatar!}
+            alt={user?.username!}
             width={32}
             height={32}
             className="rounded-full"

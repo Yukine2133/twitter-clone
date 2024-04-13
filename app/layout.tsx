@@ -7,6 +7,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BottomBar from "@/components/layout/BottomBar";
+import { fetchUser } from "@/actions/user.actions";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -24,7 +25,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const currentUser = await getUser();
+  const user = await fetchUser(currentUser?.id);
   return (
     <html suppressHydrationWarning={true} lang="en">
       <body className={`${poppins.className} bg-black text-white `}>
