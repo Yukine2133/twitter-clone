@@ -4,10 +4,10 @@ import React from "react";
 import TweetActions from "./TweetActions";
 import { deleteTweet, fetchTweet } from "@/actions/tweet.actions";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { SingleTweetProps, TweetProps } from "@/types/tweet.type";
+import { ISingleTweetProps, ITweetProps } from "@/types/tweet.interface";
 import MoreButton from "./MoreButton";
 
-const TweetCard = async ({ tweet, owner }: TweetProps) => {
+const TweetCard = async ({ tweet, owner }: ITweetProps) => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   const singleTweet = await fetchTweet(tweet._id);
@@ -34,7 +34,7 @@ const TweetCard = async ({ tweet, owner }: TweetProps) => {
         <div className="absolute right-0 ">
           <MoreButton
             action={deleteTweet}
-            tweet={singleTweet as SingleTweetProps}
+            tweet={singleTweet as ISingleTweetProps}
             id={tweet._id.toString()}
           />
         </div>

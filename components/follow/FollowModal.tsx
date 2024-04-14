@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 
-interface FollowModal {
+interface IFollowModal {
   setIsOpenFollowers: (arg0: boolean) => void;
   setIsOpenFollowing: (arg0: boolean) => void;
   isOpenFollowers: boolean;
@@ -21,7 +21,7 @@ const FollowModal = ({
   follow,
   isFollowers,
   username,
-}: FollowModal) => {
+}: IFollowModal) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

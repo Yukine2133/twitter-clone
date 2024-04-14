@@ -8,10 +8,10 @@ import ReplyModal from "./ReplyModal";
 import { useState } from "react";
 import Link from "next/link";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
-import { TweetProps } from "@/types/tweet.type";
+import { ITweetProps } from "@/types/tweet.interface";
 import { toast } from "react-toastify";
 
-interface TweetActions extends TweetProps {
+interface TweetActions extends ITweetProps {
   isBookmarked: boolean;
   isLiked: boolean;
   id: string;

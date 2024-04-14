@@ -50,7 +50,7 @@ export const fetchTweets = async () => {
   }
 };
 
-interface TweetProps {
+interface ITweetProps {
   _id: string;
   text: string;
   userId: string;
@@ -75,7 +75,7 @@ export const fetchTweet = async (tweetId: string) => {
       replies,
       createdAt,
       updatedAt,
-    }: TweetProps = tweet;
+    }: ITweetProps = tweet;
 
     const tweetData = {
       _id: _id.toString(),

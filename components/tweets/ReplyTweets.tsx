@@ -3,14 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import MoreButton from "./MoreButton";
 import { deleteReply } from "@/actions/tweet.actions";
-import { Reply } from "@/types/tweet.type";
+import { IReply } from "@/types/tweet.interface";
 
 interface ReplyTweets {
   tweet: {
     text: string;
     _id: string;
     likes: string[];
-    replies: Reply[];
+    replies: IReply[];
   };
 }
 

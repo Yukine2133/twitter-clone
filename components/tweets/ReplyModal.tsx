@@ -3,9 +3,9 @@ import Link from "next/link";
 import React, { useRef, useEffect } from "react";
 import ReplyForm from "./ReplyForm";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
-import { TweetProps } from "@/types/tweet.type";
+import { ITweetProps } from "@/types/tweet.interface";
 
-interface IReplyModal extends TweetProps {
+interface IReplyModal extends ITweetProps {
   toggleModal: (arg0: boolean) => void;
   id: string;
   user: KindeUser;

@@ -1,4 +1,4 @@
-export interface TweetProps {
+export interface ITweetProps {
   tweet: {
     text: string;
     _id: string;
@@ -11,14 +11,14 @@ export interface TweetProps {
   };
 }
 
-export interface SingleTweetProps {
+export interface ISingleTweetProps {
   _id: string;
   text: string;
   userId: string;
-  replies: Reply[];
+  replies: IReply[];
 }
 
-export interface Reply {
+export interface IReply {
   user: string;
   text: string;
   _id: string;
