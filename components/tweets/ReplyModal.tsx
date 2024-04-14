@@ -9,10 +9,40 @@ interface IReplyModal extends ITweetProps {
   toggleModal: (arg0: boolean) => void;
   id: string;
   user: KindeUser;
+  isModalOpen: boolean;
 }
 
-const ReplyModal = ({ toggleModal, id, tweet, owner, user }: IReplyModal) => {
+const ReplyModal = ({
+  toggleModal,
+  id,
+  tweet,
+  owner,
+  user,
+  isModalOpen,
+}: IReplyModal) => {
   const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = (event: WheelEvent) => {
+      if (ref.current && ref.current.contains(event.target as Node)) {
+        event.stopPropagation();
+      }
+    };
+
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+      document.addEventListener("wheel", handleScroll, { passive: false });
+    } else {
+      document.body.style.overflow = "auto";
+      document.removeEventListener("wheel", handleScroll);
+    }
+
+    // Cleanup function to remove overflow class when unmounting or modal is closed
+    return () => {
+      document.body.style.overflow = "auto"; // Reset overflow style
+      document.removeEventListener("wheel", handleScroll);
+    };
+  }, [isModalOpen]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -30,7 +60,10 @@ const ReplyModal = ({ toggleModal, id, tweet, owner, user }: IReplyModal) => {
 
   return (
     <div className="fixed  top-0 left-0 z-50 w-full h-full bg-gray-800 bg-opacity-80 flex justify-center items-center">
-      <div ref={ref} className="bg-black shadow-sm w-[700px] rounded-lg p-8">
+      <div
+        ref={ref}
+        className="bg-black shadow-sm w-[700px] rounded-lg mx-2 md:mx-0 p-5 md:p-8"
+      >
         <div className="flex  gap-2 items-start">
           <Image
             src={owner.avatar}

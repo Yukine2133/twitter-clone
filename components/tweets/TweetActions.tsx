@@ -111,6 +111,7 @@ const TweetActions = ({
           tweet={tweet}
           id={id}
           toggleModal={toggleModal}
+          isModalOpen={isModalOpen}
         />
       )}
     </div>
