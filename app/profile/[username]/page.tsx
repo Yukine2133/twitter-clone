@@ -27,8 +27,6 @@ const ProfilePage = async ({
   const followers = user.followers;
   const following = user.following;
 
-  // const currentUserFollowing = currentUser.following;
-
   const followersOfTheUser = await Promise.all(
     followers.map(async (follower: any) => await fetchUser(follower))
   );
@@ -102,7 +100,11 @@ const ProfilePage = async ({
       )}
 
       {tweets.length === 0 && (
-        <h2 className="mt-16 text-lg">User has not added any tweets yet.</h2>
+        <h2 className="mt-16 text-lg">
+          {currentSessionUser?.id === user.userId
+            ? `You have not added any tweets yet.`
+            : `${user.username} has not added any tweets yet.`}
+        </h2>
       )}
     </div>
   );
