@@ -9,21 +9,34 @@ import { revalidatePath } from "next/cache";
 
 export const fetchUser = async (
   userId?: string | null,
-  username?: string | null
+  username?: string | null,
+  id?: string | null
 ) => {
   try {
     await connectDb();
     let users;
     if (username) {
       users = await User.find({ username });
-    } else {
+    } else if (userId) {
       users = await User.find({ userId });
+    } else if (id) {
+      users = await User.findById(id);
     }
     if (users.length > 0) {
       return users[0];
     } else {
       return null;
     }
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+export const fetchUserById = async (id: string | null) => {
+  try {
+    await connectDb();
+    const user = await User.findById(id);
+    return user;
   } catch (error) {
     console.log(error);
     return null;

@@ -1,5 +1,9 @@
 import TweetCard from "@/components/tweets/TweetCard";
-import { fetchUser, fetchUserTweets } from "@/actions/user.actions";
+import {
+  fetchUser,
+  fetchUserById,
+  fetchUserTweets,
+} from "@/actions/user.actions";
 import Image from "next/image";
 import GoBackButton from "@/utils/GoBackButton";
 import FollowButton from "@/components/buttons/FollowButton";
@@ -23,8 +27,13 @@ const ProfilePage = async ({
   const followers = user.followers;
   const following = user.following;
 
+  // const currentUserFollowing = currentUser.following;
+
   const followersOfTheUser = await Promise.all(
     followers.map(async (follower: any) => await fetchUser(follower))
+  );
+  const followingsOfTheUser = await Promise.all(
+    following.map(async (following: any) => await fetchUserById(following))
   );
 
   const isFollowing = followers?.includes(currentSessionUser?.id as string);
@@ -62,8 +71,12 @@ const ProfilePage = async ({
           <h2 className="font-semibold text-lg">{user.username}</h2>
           <Follow
             followersOfTheUser={JSON.parse(JSON.stringify(followersOfTheUser))}
+            followingsOfTheUser={JSON.parse(
+              JSON.stringify(followingsOfTheUser)
+            )}
             followers={followers}
             following={following}
+            username={user.username}
           />
         </div>
         <div className="mt-2">
@@ -71,8 +84,8 @@ const ProfilePage = async ({
             <FollowButton
               username={username}
               isFollowing={isFollowing}
-              userId={user.id}
-              currentUserId={currentUser.id}
+              userId={user.id.toString()}
+              currentUserId={currentUser.id.toString()}
             />
           )}
         </div>
