@@ -6,7 +6,7 @@ import {
   editReply,
   updateTweet,
 } from "@/actions/tweet.actions";
-import { Reply } from "@/types/tweet.type";
+import { IReply } from "@/types/tweet.interface";
 import { combineUsername } from "@/utils/combineUsername";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { usePathname } from "next/navigation";
@@ -19,7 +19,7 @@ interface IMoreButton {
   tweet: {
     text: string;
     userId: string;
-    replies: Reply[];
+    replies: IReply[];
   };
   action: (id: string, replyId?: string) => void;
   replyId?: string;
@@ -83,9 +83,6 @@ const MoreButton = ({
 
   const handleEdit = async (tweetId: string, text: string) => {
     try {
-      // pathname === `/` && `${`/tweet/${id}`}` && `${`/profile/${fullUsername}`}`
-      //   ? await updateTweet(tweetId, text)
-      //   : editReply(tweetId, text, replyId as string);
       if (
         pathname === `/profile/${fullUsername}` ||
         pathname === "/bookmarks" ||
@@ -110,25 +107,6 @@ const MoreButton = ({
       toast.error(String(error));
     }
   };
-
-  // const handleEdit = async (tweetId: string, text: string) => {
-  //   try {
-  //     // pathname === `/` && `${`/tweet/${id}`}` && `${`/profile/${fullUsername}`}`
-  //     //   ? await updateTweet(tweetId, text)
-  //     //   : editReply(tweetId, text, replyId as string);
-  //     if (
-  //       pathname === `/profile/${fullUsername}` ||
-  //       pathname === "/bookmarks" ||
-  //       pathname === "/"
-  //     ) {
-  //       await updateTweet(tweetId, text);
-  //     } else {
-  //       editReply(tweetId, text, replyId as string);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
