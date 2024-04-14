@@ -38,7 +38,7 @@ const LeftSideBar = ({ user }: { user: User }) => {
           );
         })}
       </div>
-      <div className="flex pl-5 gap-3  items-center fixed bottom-3">
+      <div className="flex flex-col lg:flex-row pl-5 lg:gap-3  lg:items-center fixed bottom-3">
         <Image
           src={user?.avatar!}
           alt={user?.username!}
@@ -46,6 +46,7 @@ const LeftSideBar = ({ user }: { user: User }) => {
           height={48}
           className="rounded-full"
         />
+        <LogoutLink className="lg:hidden">Logout</LogoutLink>
 
         <div className=" flex-col hidden lg:flex ">
           <h2>{user.username}</h2>
