@@ -230,20 +230,6 @@ export const likeTweet = async (id: string) => {
 };
 
 export const replyTweet = async (formData: FormData, tweetId: string) => {
-  const currentDate = new Date();
-
-  const options = {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  } as const;
-
-  const formattedDate = currentDate.toLocaleString("en-US", options);
-
   try {
     const { getUser } = getKindeServerSession();
     await connectDb();
@@ -269,7 +255,6 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
     existingTweet.replies.push({
       user: user?.id,
       text: text,
-      timestamp: formattedDate,
     });
 
     await existingTweet.save();
