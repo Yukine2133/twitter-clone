@@ -1,24 +1,25 @@
-import { searchTweets } from "@/actions/tweet.actions";
-import { fetchUser } from "@/actions/user.actions";
+import { searchUsers } from "@/actions/user.actions";
 import SearchInput from "@/components/search/SearchInput";
-import TweetCard from "@/components/tweets/TweetCard";
+import UserCard from "@/components/search/UserCard";
 import Link from "next/link";
 
-const SearchPage = async ({
+const SearchUsers = async ({
   searchParams,
 }: {
   searchParams: { q: string | null };
 }) => {
   const query = searchParams.q;
-  const tweets = await searchTweets(query);
-  if (!tweets) {
+
+  const users = await searchUsers(query);
+
+  if (!users) {
     return null;
   }
 
   if (!query) {
     return (
       <div className="mt-2">
-        <SearchInput path="search" />
+        <SearchInput path="search/tabs/users" />
         <div className="mt-2 flex justify-around ">
           <Link href="/search">Tweets</Link>
           <Link href={"/search/tabs/users"}>Users</Link>
@@ -29,30 +30,28 @@ const SearchPage = async ({
   }
   return (
     <div className="mt-2 ">
-      <SearchInput path="search" />
+      <SearchInput path="search/tabs/users" />
       <div className="mt-2 flex justify-around ">
         <Link href="/search">Tweets</Link>
         <Link href={"/search/tabs/users"}>Users</Link>
       </div>
 
-      {tweets.length === 0 ? (
+      {users.length === 0 ? (
         <h2 className="mt-2 text-lg">
           No results for{" "}
           <span className="font-semibold">&quot;{query}&quot;</span>{" "}
         </h2>
       ) : (
-        <h2 className="mt-2 text-lg">
+        <h2 className="mt-2 text-lg mb-2">
           Results for <span className="font-semibold">&quot;{query}&quot;</span>
         </h2>
       )}
 
-      {tweets.map(async (tweet) => {
-        const owner: any = await fetchUser(tweet.userId);
-
-        return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
+      {users.map((user) => {
+        return <UserCard user={user} key={user._id} />;
       })}
     </div>
   );
 };
 
-export default SearchPage;
+export default SearchUsers;

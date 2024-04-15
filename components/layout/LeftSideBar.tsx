@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@/types/user.interface";
+import { IUser } from "@/types/user.interface";
 
 import { sidebarLinks } from "@/utils/constants";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
@@ -9,7 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const LeftSideBar = ({ user }: { user: User }) => {
+const LeftSideBar = ({ user }: { user: IUser }) => {
   const pathname = usePathname();
 
   return (

@@ -1,12 +1,12 @@
 "use client";
 
-import { User } from "@/types/user.interface";
+import { IUser } from "@/types/user.interface";
 import { sidebarLinks } from "@/utils/constants";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 import Image from "next/image";
 import Link from "next/link";
 
-const BottomBar = ({ user }: { user: User }) => {
+const BottomBar = ({ user }: { user: IUser }) => {
   return (
     <div className="fixed z-10 bg-black  px-4 border-t border-[#2f3336] w-full min-[800px]:hidden bottom-0 left-0 ">
       <div className="flex justify-between w-full p-1 items-center   sm:pl-6">

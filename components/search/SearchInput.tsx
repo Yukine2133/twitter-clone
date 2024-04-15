@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-const SearchInput = () => {
+const SearchInput = ({ path }: { path: string }) => {
   const search = useSearchParams();
   const [searchQuery, setSearchQuery] = useState<string | null>(
     search ? search.get("q") : null
@@ -19,7 +19,7 @@ const SearchInput = () => {
 
     const encodedSearchQuery = encodeURI(searchQuery);
     if (encodedSearchQuery) {
-      router.push(`/search?q=${encodedSearchQuery}`);
+      router.push(`/${path}?q=${encodedSearchQuery}`);
     } else {
       router.push("/");
     }

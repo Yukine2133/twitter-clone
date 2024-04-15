@@ -111,3 +111,16 @@ export const followUser = async (
     console.error(error);
   }
 };
+
+export const searchUsers = async (q: string | null) => {
+  try {
+    await connectDb();
+    const users = await User.find({
+      username: { $regex: new RegExp(q || "", "i") },
+    });
+
+    return users;
+  } catch (error) {
+    console.error(error);
+  }
+};

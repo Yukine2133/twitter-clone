@@ -1,9 +1,7 @@
 "use client";
 
-import { User } from "@/types/user.interface";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import { IUser } from "@/types/user.interface";
+import React, { useState } from "react";
 import FollowModal from "./FollowModal";
 
 interface IFollow {
@@ -13,8 +11,8 @@ interface IFollow {
   followers: {
     length: number;
   };
-  followersOfTheUser: User[];
-  followingsOfTheUser: User[];
+  followersOfTheUser: IUser[];
+  followingsOfTheUser: IUser[];
   username: string;
 }
 
