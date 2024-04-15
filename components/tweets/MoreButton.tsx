@@ -96,7 +96,12 @@ const MoreButton = ({
           toast.success("Tweet was updated.");
         }
       } else {
-        const res = await editReply(tweetId, text, replyId as string);
+        const res = await editReply(
+          tweetId,
+          text,
+          replyId as string,
+          imageUrl as string
+        );
         if (res?.message) {
           toast.error(res.message);
         } else {

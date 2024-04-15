@@ -313,7 +313,8 @@ export const deleteReply = async (tweetId: string, replyId: string) => {
 export const editReply = async (
   tweetId: string,
   text: string,
-  replyId: string
+  replyId: string,
+  image: string
 ) => {
   try {
     await connectDb();
@@ -342,6 +343,7 @@ export const editReply = async (
     );
     if (owner !== -1) {
       tweet.replies[replyIndex].text = text;
+      tweet.replies[replyIndex].image = image;
     } else {
       return { message: "You cannot edit someone else's reply." };
     }
