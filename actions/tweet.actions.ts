@@ -244,6 +244,7 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
     const existingTweet = await Tweet.findById(tweetId);
 
     const text = formData.get("text");
+    const image = formData.get("image");
 
     if (!existingTweet) {
       return { message: "Tweet not found" };
@@ -261,6 +262,7 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
     existingTweet.replies.push({
       user: user?.id,
       text: text,
+      image,
     });
 
     await existingTweet.save();

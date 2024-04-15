@@ -11,6 +11,7 @@ const tweetSchema = new mongoose.Schema(
       {
         user: String,
         text: String,
+        image: String,
       },
     ],
   },

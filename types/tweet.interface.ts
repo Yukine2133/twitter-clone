@@ -24,4 +24,5 @@ export interface IReply {
   user: string;
   text: string;
   _id: string;
+  image: string;
 }

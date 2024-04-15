@@ -41,6 +41,15 @@ const ReplyTweets = async ({ tweet }: ReplyTweets) => {
                 <h3 style={{ overflowWrap: "anywhere" }}>
                   {tweet.replies[index].text!}
                 </h3>
+                {tweet.replies[index].image && (
+                  <Image
+                    src={tweet.replies[index].image}
+                    alt="User Image"
+                    width={400}
+                    height={400}
+                    className="object-cover mt-2 "
+                  />
+                )}
               </div>
               <div className="absolute right-0 ">
                 <MoreButton
