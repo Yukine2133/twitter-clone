@@ -30,6 +30,15 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
             <span className="font-bold">{owner.username}</span>
           </Link>
           <h3 style={{ overflowWrap: "anywhere" }}>{tweet.text}</h3>
+          {tweet.image && (
+            <Image
+              src={tweet.image}
+              alt="User Image"
+              width={400}
+              height={400}
+              className="object-cover"
+            />
+          )}
         </div>
         <div className="absolute right-0 ">
           <MoreButton

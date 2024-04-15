@@ -46,9 +46,18 @@ const SingleTweet = async ({ params }: { params: { id: string } }) => {
           </span>
         </div>
       </div>
-      <h3 className="pl-5 pt-4" style={{ overflowWrap: "anywhere" }}>
+      <h3 className="pl-5 pt-4 mb-2" style={{ overflowWrap: "anywhere" }}>
         {singleTweet?.text}
       </h3>
+      {singleTweet?.image && (
+        <Image
+          src={singleTweet.image}
+          alt="User Image"
+          width={500}
+          height={400}
+          className="object-cover"
+        />
+      )}
       <div className="mt-5 py-2 border-y border-[#2f3336]">
         <TweetActions
           user={user!}
