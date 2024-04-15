@@ -1,14 +1,15 @@
-import { User } from "@/types/user.interface";
+import { IUser } from "@/types/user.interface";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
+import UserCard from "../search/UserCard";
 
 interface IFollowModal {
   setIsOpenFollowers: (arg0: boolean) => void;
   setIsOpenFollowing: (arg0: boolean) => void;
   isOpenFollowers: boolean;
   isOpenFollowing: boolean;
-  follow: User[];
+  follow: IUser[];
   isFollowers: boolean;
   username: string;
 }
@@ -80,20 +81,7 @@ const FollowModal = ({
         className="bg-black shadow-sm w-[500px] max-h-[500px] overflow-y-auto rounded-lg mx-2 md:mx-0 p-6"
       >
         {follow.map((follower) => (
-          <div key={follower.userId} className="flex  gap-2 items-center mb-4">
-            <Image
-              src={follower.avatar}
-              alt={follower.username}
-              width={38}
-              height={38}
-              className="rounded-full object-cover"
-            />
-            <div>
-              <Link href={`/profile/${follower.username}`}>
-                <span className="font-bold ">{follower.username}</span>
-              </Link>
-            </div>
-          </div>
+          <UserCard key={follower.username} user={follower} />
         ))}
         {follow.length === 0 && (
           <h5 className="text-lg font-semibold">
