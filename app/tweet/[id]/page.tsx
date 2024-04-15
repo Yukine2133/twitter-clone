@@ -41,8 +41,8 @@ const SingleTweet = async ({ params }: { params: { id: string } }) => {
             <span className="font-bold ">{owner.username}</span>
           </Link>
           <span className="text-sm text-slate-500">
-            {formattedDate(singleTweet?.createdAt!)},{" "}
-            {formattedTime(singleTweet?.createdAt!)}
+            {formattedDate(singleTweet?.updatedAt!)},{" "}
+            {formattedTime(singleTweet?.updatedAt!)}
           </span>
         </div>
       </div>
