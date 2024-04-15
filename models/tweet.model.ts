@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const tweetSchema = new mongoose.Schema(
   {
     text: { type: String, required: true },
+    image: { type: String },
     userId: { type: String, required: true },
     bookmarks: [{ type: String }],
     likes: [{ type: String }],

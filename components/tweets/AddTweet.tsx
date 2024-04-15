@@ -6,10 +6,17 @@ import { z } from "zod";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
+import {
+  UploadButton,
+  UploadDropzone,
+  useUploadThing,
+} from "@/utils/lib/uploadthing";
 
 const AddTweet = ({ user }: { user: KindeUser }) => {
   const ref = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   const addTweet = async (formData: FormData) => {
     try {
@@ -21,6 +28,9 @@ const AddTweet = ({ user }: { user: KindeUser }) => {
         .max(280, "Tweet must not exceed the 280 characters limit");
       tweetTextSchema.parse(tweetText);
 
+      // Append image URL to the form data
+      formData.append("image", imageUrl || "");
+
       const res = await createTweet(formData);
       if (res.message) {
         toast.error(res.message);
@@ -28,6 +38,7 @@ const AddTweet = ({ user }: { user: KindeUser }) => {
         toast.success("Tweet was created.");
       }
       ref.current?.reset();
+      setImageUrl(null);
     } catch (error) {
       if (error instanceof z.ZodError) {
         const errorMessage = error.errors[0].message;
@@ -67,7 +78,9 @@ const AddTweet = ({ user }: { user: KindeUser }) => {
         />
       </div>
       <div className="mt-2 flex justify-between items-end px-6">
-        <button>Image</button>
+        <button type="button" onClick={() => setIsOpen(!isOpen)}>
+          <Image src="/image.png" alt="Image icon" width={20} height={20} />
+        </button>
         <button
           disabled={loading}
           className="bg-blue-500 rounded-full px-3 py-1  font-semibold "
@@ -76,6 +89,25 @@ const AddTweet = ({ user }: { user: KindeUser }) => {
           Tweet
         </button>
       </div>
+      {isOpen && (
+        <div className="fixed  top-0 left-0 z-50 w-full h-full bg-gray-800 bg-opacity-80 flex justify-center items-center">
+          <div className="bg-black shadow-sm w-[700px] rounded-lg mx-2 md:mx-0 p-5 md:p-8">
+            <UploadDropzone
+              endpoint={"media"}
+              onClientUploadComplete={(res) => {
+                if (res?.[0].url) {
+                  setImageUrl(res[0].url);
+                  setIsOpen(false);
+                  toast.success("Image was added successfully.");
+                }
+              }}
+              onUploadError={(error: Error) => {
+                console.error("Ooops something is wrong", error);
+              }}
+            />
+          </div>
+        </div>
+      )}
     </form>
   );
 };

@@ -4,6 +4,7 @@ export interface ITweetProps {
     _id: string;
     likes: string[];
     replies: string[];
+    image: string;
   };
   owner: {
     avatar: string;
@@ -15,6 +16,7 @@ export interface ISingleTweetProps {
   _id: string;
   text: string;
   userId: string;
+  image: string;
   replies: IReply[];
 }
 

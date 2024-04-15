@@ -14,6 +14,7 @@ export const createTweet = async (formData: FormData) => {
     const userId = user?.id;
 
     const text = formData.get("text");
+    const image = formData.get("image");
 
     if (!user) {
       return { message: "You need to be logged in to tweet." };
@@ -26,6 +27,7 @@ export const createTweet = async (formData: FormData) => {
     const tweet = await Tweet.create({
       userId: userId,
       text,
+      image,
     });
     const plainTweet = {
       ...tweet.toObject(),
@@ -59,6 +61,7 @@ interface ITweetProps {
   replies: string[];
   createdAt: Date;
   updatedAt: Date;
+  image: string;
 }
 export const fetchTweet = async (tweetId: string) => {
   try {
@@ -75,6 +78,7 @@ export const fetchTweet = async (tweetId: string) => {
       replies,
       createdAt,
       updatedAt,
+      image,
     }: ITweetProps = tweet;
 
     const tweetData = {
@@ -86,6 +90,7 @@ export const fetchTweet = async (tweetId: string) => {
       replies: JSON.parse(JSON.stringify(replies)),
       createdAt,
       updatedAt,
+      image,
     };
 
     return tweetData;

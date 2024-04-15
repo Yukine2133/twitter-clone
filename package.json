@@ -10,12 +10,14 @@
   },
   "dependencies": {
     "@kinde-oss/kinde-auth-nextjs": "^2.2.0",
+    "@uploadthing/react": "^6.4.4",
     "mongoose": "^8.2.3",
     "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.0.1",
     "react-toastify": "^10.0.5",
+    "uploadthing": "^6.9.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
