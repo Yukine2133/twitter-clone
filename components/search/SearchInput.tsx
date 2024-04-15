@@ -34,7 +34,7 @@ const SearchInput = ({ path }: { path: string }) => {
         value={searchQuery || ""}
         onChange={(event) => setSearchQuery(event.target.value)}
         placeholder="Search"
-        className="p-2 bg-transparent outline-none  text-sm lg:text-base"
+        className="p-2 bg-transparent outline-none w-full text-sm lg:text-base"
       />
     </form>
   );
