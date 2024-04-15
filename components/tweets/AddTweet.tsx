@@ -6,11 +6,7 @@ import { z } from "zod";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
-import {
-  UploadButton,
-  UploadDropzone,
-  useUploadThing,
-} from "@/utils/lib/uploadthing";
+import { UploadDropzone } from "@/utils/lib/uploadthing";
 
 const AddTweet = ({ user }: { user: KindeUser }) => {
   const ref = useRef<HTMLFormElement>(null);
@@ -108,7 +104,7 @@ const AddTweet = ({ user }: { user: KindeUser }) => {
                 }
               }}
               onUploadError={(error: Error) => {
-                console.error("Ooops something is wrong", error);
+                toast.error(String(error));
               }}
             />
           </div>

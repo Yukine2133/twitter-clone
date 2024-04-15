@@ -8,6 +8,7 @@ import {
 } from "@/actions/tweet.actions";
 import { IReply } from "@/types/tweet.interface";
 import { combineUsername } from "@/utils/combineUsername";
+import { UploadDropzone } from "@/utils/lib/uploadthing";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
@@ -37,8 +38,10 @@ const MoreButton = ({
   const [text, setText] = useState(replyTweet ? replyTweet : tweet.text);
 
   const [edit, setEdit] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
   const buttonRef = useRef<HTMLButtonElement | null>(null);
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const divRef = useRef<HTMLInputElement | null>(null);
 
   const { user } = useKindeBrowserClient();
 
@@ -64,10 +67,7 @@ const MoreButton = ({
 
   useEffect(() => {
     const handleClickOutsideEdit = (event: MouseEvent) => {
-      if (
-        inputRef.current &&
-        !inputRef.current.contains(event.target as Node)
-      ) {
+      if (divRef.current && !divRef.current.contains(event.target as Node)) {
         setEdit(false);
       }
     };
@@ -89,7 +89,7 @@ const MoreButton = ({
         pathname === "/" ||
         pathname === "/search"
       ) {
-        const res = await updateTweet(tweetId, text);
+        const res = await updateTweet(tweetId, text, imageUrl as string);
         if (res?.message) {
           toast.error(res.message);
         } else {
@@ -108,11 +108,9 @@ const MoreButton = ({
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleEdit(id, text as string);
-      setEdit(false);
-    }
+  const handleSubmit = () => {
+    handleEdit(id, text as string);
+    setEdit(false);
   };
 
   const handleDelete = async () => {
@@ -172,15 +170,39 @@ const MoreButton = ({
             </div>
           )}
           {edit && (
-            <div className="absolute  top-0 right-6">
-              <input
-                type="text"
-                ref={inputRef}
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                className="bg-transparent border border-gray-800 shadow-sm rounded-md p-2"
-                onKeyDown={handleKeyDown}
-              />
+            // <div className="absolute  top-0 right-6">
+
+            // </div>
+            <div className="fixed  top-0 left-0 z-50 w-full h-full bg-gray-800 bg-opacity-80 flex justify-center items-center">
+              <div
+                ref={divRef}
+                className="bg-black shadow-sm w-[700px] rounded-lg mx-2 md:mx-0 p-5 md:p-8"
+              >
+                <input
+                  type="text"
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  className="bg-transparent border border-gray-800 shadow-sm rounded-md flex justify-center w-1/2 mx-auto p-2"
+                />
+                <UploadDropzone
+                  endpoint={"media"}
+                  onClientUploadComplete={(res) => {
+                    if (res?.[0].url) {
+                      setImageUrl(res[0].url);
+                      toast.success("Image was added successfully.");
+                    }
+                  }}
+                  onUploadError={(error: Error) => {
+                    toast.error(String(error));
+                  }}
+                />
+                <button
+                  onClick={handleSubmit}
+                  className="px-3 py-2 rounded-md flex justify-center mx-auto  bg-blue-600"
+                >
+                  Submit
+                </button>
+              </div>
             </div>
           )}
         </>
