@@ -3,7 +3,7 @@
 import { replyTweet } from "@/actions/tweet.actions";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import * as z from "zod";
 
@@ -15,12 +15,14 @@ interface IReplyForm {
 
 const ReplyForm = ({ id, toggleModal, user }: IReplyForm) => {
   const formRef = useRef<HTMLFormElement>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleReplyTweet = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
     try {
+      setLoading(true);
       const text = formData.get("text") as string;
       const textSchema = z
         .string()
@@ -44,6 +46,8 @@ const ReplyForm = ({ id, toggleModal, user }: IReplyForm) => {
         console.error(error);
         toast.error("An unexpected error occurred.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -68,6 +72,7 @@ const ReplyForm = ({ id, toggleModal, user }: IReplyForm) => {
       <div className="mt-2 flex justify-between items-end px-6">
         <button>Image</button>
         <button
+          disabled={loading}
           className="bg-blue-500 rounded-full px-3 py-1  font-semibold "
           type="submit"
         >

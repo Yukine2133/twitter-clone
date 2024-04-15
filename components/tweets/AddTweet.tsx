@@ -4,14 +4,16 @@ import { createTweet } from "@/actions/tweet.actions";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import { z } from "zod";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 const AddTweet = ({ user }: { user: KindeUser }) => {
   const ref = useRef<HTMLFormElement>(null);
+  const [loading, setLoading] = useState(false);
 
   const addTweet = async (formData: FormData) => {
     try {
+      setLoading(true);
       const tweetText = formData.get("text") as string;
       const tweetTextSchema = z
         .string()
@@ -34,6 +36,8 @@ const AddTweet = ({ user }: { user: KindeUser }) => {
         console.error(error);
         toast.error("An unexpected error occurred.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,6 +69,7 @@ const AddTweet = ({ user }: { user: KindeUser }) => {
       <div className="mt-2 flex justify-between items-end px-6">
         <button>Image</button>
         <button
+          disabled={loading}
           className="bg-blue-500 rounded-full px-3 py-1  font-semibold "
           type="submit"
         >
