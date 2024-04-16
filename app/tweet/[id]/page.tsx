@@ -38,7 +38,7 @@ const SingleTweet = async ({ params }: { params: { id: string } }) => {
   const isLiked = likes?.includes(user?.id as string);
 
   return (
-    <div className="p-3 relative">
+    <div className="p-3 relative ">
       <div className="flex   gap-2 items-center">
         <Image
           src={owner.avatar}

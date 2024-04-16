@@ -42,7 +42,9 @@ export default async function RootLayout({
         <main className="flex  justify-center items-center">
           <LeftSideBar user={JSON.parse(JSON.stringify(user))} />
           <section className="w-[648px] relative border-x border-[#2f3336]  min-h-screen ">
-            <div className="w-full md:px-4  max-w-4xl">{children}</div>
+            <div className="w-full mb-10 min-[800px]:mb-0 px-2 md:px-4  max-w-4xl">
+              {children}
+            </div>
             <BottomBar user={JSON.parse(JSON.stringify(user))} />
           </section>
           <RightSideBar />

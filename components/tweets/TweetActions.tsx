@@ -60,7 +60,7 @@ const TweetActions = ({
   const likeCount = tweet.likes.length;
   const repliesCount = tweet.replies.length;
   return (
-    <div className="flex mt-1 justify-between px-8  gap-8">
+    <div className="flex mt-2 justify-between px-8  gap-8">
       <div className="flex gap-8 items-center">
         <div className="group">
           <button
