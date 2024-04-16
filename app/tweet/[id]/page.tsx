@@ -9,6 +9,17 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { id: string };
+}) => {
+  const tweet = await fetchTweet(params.id);
+  return {
+    title: tweet?.text,
+  };
+};
+
 const SingleTweet = async ({ params }: { params: { id: string } }) => {
   const { getUser } = getKindeServerSession();
 

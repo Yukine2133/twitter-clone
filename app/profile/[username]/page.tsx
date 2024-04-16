@@ -10,6 +10,17 @@ import FollowButton from "@/components/buttons/FollowButton";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Follow from "@/components/follow/Follow";
 
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { username: string };
+}) => {
+  const user = await fetchUser(undefined, params.username);
+  return {
+    title: user.username,
+  };
+};
+
 const ProfilePage = async ({
   params,
 }: {

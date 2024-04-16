@@ -2,6 +2,19 @@ import { searchUsers } from "@/actions/user.actions";
 import UserCard from "@/components/search/UserCard";
 import SearchResults from "@/components/search/SearchResults";
 
+export const generateMetadata = async ({
+  searchParams,
+}: {
+  searchParams: { q: string | null };
+}) => {
+  if (!searchParams.q) {
+    return { title: "Explore" };
+  }
+  return {
+    title: `${searchParams.q} - Search`,
+  };
+};
+
 const SearchUsers = async ({
   searchParams,
 }: {

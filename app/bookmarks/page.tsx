@@ -2,6 +2,12 @@ import { getUserBookmarks } from "@/actions/tweet.actions";
 import { fetchUser } from "@/actions/user.actions";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import TweetCard from "@/components/tweets/TweetCard";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Bookmarks",
+  description: "Tweeter Bookmarks",
+};
 
 const Bookmarks = async () => {
   const { getUser } = getKindeServerSession();

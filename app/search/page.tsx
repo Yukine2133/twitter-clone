@@ -2,6 +2,20 @@ import { searchTweets } from "@/actions/tweet.actions";
 import { fetchUser } from "@/actions/user.actions";
 import TweetCard from "@/components/tweets/TweetCard";
 import SearchResults from "@/components/search/SearchResults";
+import { Metadata } from "next";
+
+export const generateMetadata = async ({
+  searchParams,
+}: {
+  searchParams: { q: string | null };
+}) => {
+  if (!searchParams.q) {
+    return { title: "Explore " };
+  }
+  return {
+    title: `${searchParams.q} - Search`,
+  };
+};
 
 const SearchPage = async ({
   searchParams,
