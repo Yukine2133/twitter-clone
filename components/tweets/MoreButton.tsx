@@ -183,8 +183,7 @@ const MoreButton = ({
                 ref={divRef}
                 className="bg-black shadow-sm w-[700px] rounded-lg mx-2 md:mx-0 p-5 md:p-8"
               >
-                <input
-                  type="text"
+                <textarea
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   className="bg-transparent border border-gray-800 shadow-sm rounded-md flex justify-center w-1/2 mx-auto p-2"
