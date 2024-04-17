@@ -9,12 +9,17 @@ import MoreButton from "./MoreButton";
 
 const TweetCard = async ({ tweet, owner }: ITweetProps) => {
   const { getUser } = getKindeServerSession();
+
   const user = await getUser();
-  const singleTweet = await fetchTweet(tweet._id);
-  const bookmarks = singleTweet?.bookmarks;
+
+  // console.log(tweet);
+
+  // const singleTweet = await fetchTweet(tweet._id);
+  const bookmarks = tweet?.bookmarks;
   const isBookmarked = bookmarks?.includes(user?.id as string);
-  const likes = singleTweet?.likes;
+  const likes = tweet?.likes;
   const isLiked = likes?.includes(user?.id as string);
+
   return (
     <div className="mt-4 py-3 border-y border-[#2f3336] w-full relative">
       <div className="flex gap-2 items-start">
@@ -43,7 +48,7 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
         <div className="absolute right-0 ">
           <MoreButton
             action={deleteTweet}
-            tweet={singleTweet as ISingleTweetProps}
+            tweet={JSON.parse(JSON.stringify(tweet))}
             id={tweet._id.toString()}
           />
         </div>

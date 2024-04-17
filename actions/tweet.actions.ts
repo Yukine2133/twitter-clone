@@ -37,7 +37,6 @@ export const createTweet = async (formData: FormData) => {
     return plainTweet;
   } catch (error) {
     console.error(error);
-    return { message: "Failed to add tweet. Please try again" };
   }
 };
 
@@ -48,7 +47,6 @@ export const fetchTweets = async () => {
     return tweets;
   } catch (error) {
     console.error(error);
-    return null;
   }
 };
 
@@ -95,7 +93,7 @@ export const fetchTweet = async (tweetId: string) => {
 
     return tweetData;
   } catch (error) {
-    return null;
+    console.error(error);
   }
 };
 
@@ -120,7 +118,6 @@ export const deleteTweet = async (id: string) => {
     revalidatePath("/");
   } catch (error) {
     console.error(error);
-    return { message: "Failed to delete tweet. Please try again." };
   }
 };
 
@@ -147,7 +144,7 @@ export const updateTweet = async (id: string, text: string, image: string) => {
     await existingTweet.save();
     revalidatePath(`/`);
   } catch (error) {
-    return { message: "Failed to update the tweet. Please try again." };
+    console.error(error);
   }
 };
 
@@ -181,8 +178,7 @@ export const bookMarkTweet = async (id: string) => {
     await existingTweet.save();
     revalidatePath("/");
   } catch (error) {
-    console.error("Error bookmarking tweet:", error);
-    return { message: "Failed to bookmark the tweet. Please try again." };
+    console.error(error);
   }
 };
 
@@ -197,7 +193,7 @@ export const getUserBookmarks = async (userId: string) => {
 
     return userBookmarks;
   } catch (error) {
-    return null;
+    console.error(error);
   }
 };
 
@@ -231,7 +227,7 @@ export const likeTweet = async (id: string) => {
     await existingTweet.save();
     revalidatePath("/");
   } catch (error) {
-    return { message: "Failed to like the tweet. Please try again." };
+    console.error(error);
   }
 };
 
@@ -269,7 +265,7 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
     revalidatePath(`/tweet/${tweetId}`);
     revalidatePath(`/`);
   } catch (error) {
-    return { message: "Error adding reply to tweet. Please try again." };
+    console.error(error);
   }
 };
 
@@ -306,7 +302,7 @@ export const deleteReply = async (tweetId: string, replyId: string) => {
     await tweet.save();
     revalidatePath(`/tweet/${tweetId}`);
   } catch (error) {
-    return { message: "Failed to delete reply. Please try again." };
+    console.error(error);
   }
 };
 
@@ -351,7 +347,7 @@ export const editReply = async (
     await tweet.save();
     revalidatePath(`/tweet/${tweetId}`);
   } catch (error) {
-    return { message: "Failed to edit the reply. Please try again.", error };
+    console.error(error);
   }
 };
 

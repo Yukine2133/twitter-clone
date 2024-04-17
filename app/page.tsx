@@ -13,11 +13,12 @@ export default async function Home() {
   return (
     <div className=" ">
       <AddTweet user={user!} />
-      {tweets?.map(async (tweet) => {
-        const owner: any = await fetchUser(tweet.userId);
+      {tweets &&
+        tweets?.map(async (tweet) => {
+          const owner: any = await fetchUser(tweet.userId);
 
-        return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
-      })}
+          return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
+        })}
     </div>
   );
 }

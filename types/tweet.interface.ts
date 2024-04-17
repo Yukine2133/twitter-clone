@@ -5,6 +5,7 @@ export interface ITweetProps {
     likes: string[];
     replies: string[];
     image: string;
+    bookmarks: string[];
   };
   owner: {
     avatar: string;

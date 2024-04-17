@@ -22,14 +22,13 @@ export const fetchUser = async (
     } else if (id) {
       users = await User.findById(id);
     }
-    if (users.length > 0) {
+    if (users) {
       return users[0];
     } else {
       return null;
     }
   } catch (error) {
     console.log(error);
-    return null;
   }
 };
 export const fetchUserById = async (id: string | null) => {
@@ -39,7 +38,6 @@ export const fetchUserById = async (id: string | null) => {
     return user;
   } catch (error) {
     console.log(error);
-    return null;
   }
 };
 
@@ -50,7 +48,6 @@ export const fetchUserTweets = async (userId?: string | null) => {
     return tweets;
   } catch (error) {
     console.log(error);
-    return null;
   }
 };
 

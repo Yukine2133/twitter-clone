@@ -24,9 +24,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { getUser } = getKindeServerSession();
-  const currentUser = await getUser();
-  const user = await fetchUser(currentUser?.id);
+  // const { getUser } = getKindeServerSession();
+  // const currentUser = await getUser();
+  // const user = await fetchUser(currentUser?.id);
+  const user = {};
   return (
     <html suppressHydrationWarning={true} lang="en">
       <body className={`${poppins.className} bg-black text-white `}>
