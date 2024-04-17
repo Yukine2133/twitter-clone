@@ -45,6 +45,7 @@ const AddTweet = ({ user }: { user: KindeUser }) => {
       }
     } finally {
       setLoading(false);
+      setImageUrl(null);
     }
   };
 

@@ -52,6 +52,7 @@ const ReplyForm = ({ id, toggleModal, user }: IReplyForm) => {
       }
     } finally {
       setLoading(false);
+      setImageUrl(null);
     }
   };
 
