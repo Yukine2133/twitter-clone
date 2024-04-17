@@ -24,10 +24,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const { getUser } = getKindeServerSession();
-  // const currentUser = await getUser();
-  // const user = await fetchUser(currentUser?.id);
-  const user = {};
   return (
     <html suppressHydrationWarning={true} lang="en">
       <body className={`${poppins.className} bg-black text-white `}>
@@ -41,12 +37,12 @@ export default async function RootLayout({
           theme="dark"
         />
         <main className="flex  justify-center items-center">
-          <LeftSideBar user={JSON.parse(JSON.stringify(user))} />
+          <LeftSideBar />
           <section className="w-[648px] relative border-x border-[#2f3336]  min-h-screen ">
             <div className="w-full mb-10 min-[800px]:mb-0 px-2 md:px-4  max-w-4xl">
               {children}
             </div>
-            <BottomBar user={JSON.parse(JSON.stringify(user))} />
+            <BottomBar />
           </section>
           <RightSideBar />
         </main>
