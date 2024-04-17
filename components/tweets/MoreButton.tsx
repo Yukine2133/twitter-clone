@@ -83,7 +83,12 @@ const MoreButton = ({
 
   const handleEdit = async (tweetId: string, text: string) => {
     try {
-      if (tweetId || text) {
+      if (
+        pathname === `/profile/${fullUsername}` ||
+        pathname === "/bookmarks" ||
+        pathname === "/" ||
+        pathname === "/search"
+      ) {
         const res = await updateTweet(tweetId, text, imageUrl as string);
         if (res?.message) {
           toast.error(res.message);
