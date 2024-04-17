@@ -45,6 +45,6 @@ export async function GET() {
     return redirect("https://twitter-clone-213.vercel.app");
   } catch (error) {
     console.error(error);
-    return new Response("Internal Server Error", { status: 500 });
+    // return new Response("Internal Server Error", { status: 500 });
   }
 }
