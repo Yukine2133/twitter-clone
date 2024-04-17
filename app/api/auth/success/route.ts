@@ -24,10 +24,7 @@ export async function GET() {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
-    if (!user || user == null || !user.id)
-      throw new Error("something went wrong with authentication" + user);
-
-    let username = combineUsername(user?.given_name, user?.family_name);
+    let username = combineUsername(user?.given_name!, user?.family_name!);
 
     // Check if the username consists of English letters and numbers
     if (!isValidUsername(username)) {
@@ -35,13 +32,13 @@ export async function GET() {
       username = getUsernameFromEmail(user?.email);
     }
 
-    let dbUser = await User.findOne({ userId: user.id });
+    let dbUser = await User.findOne({ userId: user?.id });
 
     if (!dbUser) {
       dbUser = await User.create({
         username,
-        avatar: user.picture,
-        userId: user.id,
+        avatar: user?.picture,
+        userId: user?.id,
       });
     }
 
