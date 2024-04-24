@@ -23,7 +23,14 @@ export const fetchUser = async (
       users = await User.findById(id);
     }
     if (users) {
-      return users[0];
+      const { username, avatar, userId, _id } = users[0];
+      const plainUser = {
+        username,
+        avatar,
+        userId: userId.toString(),
+        _id: _id?.toString(),
+      };
+      return plainUser;
     } else {
       return null;
     }
