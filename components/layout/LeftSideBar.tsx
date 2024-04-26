@@ -28,26 +28,34 @@ const LeftSideBar = () => {
   }, [user?.id]);
 
   return (
-    <div className=" fixed max-[799px]:hidden  w-64 h-screen left-0 2xl:left-72 top-1/3 ">
+    <div className="mt-10  max-[799px]:hidden max-[799px]:mt-0    ">
       <div className="flex w-full flex-col space-y-7  gap-6 px-6">
         {sidebarLinks.map((link) => {
+          let { Icon, SolidIcon, disabled, route } = link;
           const isActive =
-            (pathname.includes(link.route) && link.route.length > 1) ||
-            pathname === link.route;
-          if (link.route === "/profile" && currentUser?.username)
-            link.route = `${link.route}/${currentUser.username}`;
+            (pathname.includes(route) && route.length > 1) ||
+            pathname === route;
+          if (route === "/profile" && currentUser?.username)
+            route = `${route}/${currentUser.username}`;
           return (
             <Link
               href={link.route}
               key={link.label}
-              className={`flex items-center gap-3 ${isActive && "font-bold"}`}
+              className={`flex items-center text-xl gap-3 ${
+                disabled && "cursor-not-allowed"
+              } ${isActive && "font-bold"}`}
             >
-              <Image
-                src={link.imgURL}
-                alt={link.label}
-                width={24}
-                height={24}
-              />
+              {/* <HeroIcon
+                className={"h-6 w-6"}
+                iconName={link.imgUrl}
+                solid={isActive}
+              /> */}
+              {isActive ? (
+                <SolidIcon className="h-7 w-7" />
+              ) : (
+                <Icon className="h-7 w-7" />
+              )}
+              {/* <SolidIcon /> */}
               <p className="text-light-1 max-lg:hidden">{link.label}</p>
             </Link>
           );

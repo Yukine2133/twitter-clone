@@ -50,6 +50,10 @@ export const fetchUserTweets = async (userId?: string | null) => {
   try {
     await connectDb();
     const tweets = await Tweet.find({ userId });
+
+    if (!tweets) {
+      throw new Error("Failed to fetch tweets.");
+    }
     return tweets;
   } catch (error) {
     console.log(error);

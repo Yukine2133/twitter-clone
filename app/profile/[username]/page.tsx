@@ -32,6 +32,10 @@ const ProfilePage = async ({
   const currentSessionUser = await getUser();
   const username = params.username;
   const user = await fetchUser(undefined, username);
+
+  if (!user) {
+    throw new Error("User doesn't exist.");
+  }
   const currentUser = await fetchUser(currentSessionUser?.id);
   const tweets = await fetchUserTweets(user.userId);
 
@@ -46,10 +50,6 @@ const ProfilePage = async ({
   );
 
   const isFollowing = followers?.includes(currentSessionUser?.id as string);
-
-  if (!user) {
-    throw new Error("User doesn't exist.");
-  }
 
   if (!tweets) {
     return (
@@ -93,8 +93,8 @@ const ProfilePage = async ({
             <FollowButton
               username={username}
               isFollowing={isFollowing}
-              userId={user.id.toString()}
-              currentUserId={currentUser.id.toString()}
+              userId={user._id.toString()}
+              currentUserId={currentUser._id.toString()}
             />
           )}
         </div>
@@ -122,4 +122,3 @@ const ProfilePage = async ({
 };
 
 export default ProfilePage;
-//

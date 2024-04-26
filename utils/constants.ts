@@ -1,23 +1,56 @@
+import {
+  Bars3BottomLeftIcon,
+  BellIcon,
+  BookmarkIcon,
+  HashtagIcon,
+  HomeIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/outline";
+import * as SolidIcons from "@heroicons/react/24/solid";
+
+const SolidHomeIcon = SolidIcons.HomeIcon as any;
+const SolidHashTagIcon = SolidIcons.HashtagIcon as any;
+const SolidBookmarkIcon = SolidIcons.BookmarkIcon as any;
+const SolidUserCircleIcon = SolidIcons.UserCircleIcon as any;
+const SolidBellIcon = SolidIcons.BellIcon as any;
+const SolidBars3BottomLeftIcon = SolidIcons.Bars3BottomLeftIcon as any;
+
 export const sidebarLinks = [
   {
-    imgURL: "/home.png",
+    Icon: HomeIcon,
+    SolidIcon: SolidHomeIcon,
     route: "/",
     label: "Home",
   },
   {
-    imgURL: "/explore.png",
+    Icon: HashtagIcon,
+    SolidIcon: SolidHashTagIcon,
     route: "/search",
     label: "Explore",
   },
-
   {
-    imgURL: "/bookmarks.png",
+    Icon: BellIcon,
+    SolidIcon: SolidBellIcon,
+    route: "/notification",
+    label: "Notifications",
+    disabled: true,
+  },
+  {
+    Icon: BookmarkIcon,
+    SolidIcon: SolidBookmarkIcon,
     route: "/bookmarks",
     label: "Bookmarks",
   },
-
   {
-    imgURL: "/profile.png",
+    Icon: Bars3BottomLeftIcon,
+    SolidIcon: SolidBars3BottomLeftIcon,
+    route: "/lists",
+    label: "Lists",
+    disabled: true,
+  },
+  {
+    Icon: UserCircleIcon,
+    SolidIcon: SolidUserCircleIcon,
     route: "/profile",
     label: "Profile",
   },

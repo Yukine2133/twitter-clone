@@ -9,11 +9,14 @@ import {
 } from "@kinde-oss/kinde-auth-nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const BottomBar = () => {
   const [currentUser, setCurrentUser] = useState<IUser | null>(null);
   const { user } = useKindeBrowserClient();
+
+  const pathname = usePathname();
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -25,27 +28,31 @@ const BottomBar = () => {
 
   return (
     <div className="fixed z-10 bg-black  px-4 border-t border-[#2f3336] w-full min-[800px]:hidden bottom-0 left-0 ">
-      <div className="flex justify-between w-full p-1 items-center   sm:pl-6">
+      <div className="flex justify-between w-full p-1 items-center  sm:pl-6">
         {sidebarLinks.map((link) => {
-          if (link.route === "/profile" && currentUser)
-            link.route = `${link.route}/${currentUser.username}`;
+          let { Icon, SolidIcon, disabled, route } = link;
+
+          const isActive =
+            (pathname.includes(route) && route.length > 1) ||
+            pathname === route;
+
+          if (route === "/profile" && currentUser)
+            route = `${route}/${currentUser.username}`;
           return (
             <Link
-              href={link.route}
+              href={route}
               key={link.label}
-              className={`flex items-center gap-3 `}
+              className={`flex items-center  `}
             >
-              <Image
-                src={link.imgURL}
-                alt={link.label}
-                width={24}
-                height={26}
-              />
-              <p className="text-light-1 max-lg:hidden">{link.label}</p>
+              {/* If is active render Solid Icons */}
+              {isActive && !disabled && <SolidIcon className="h-7 w-7" />}
+
+              {/* If not active and not disabled render Outlined Icons */}
+              {!isActive && !disabled && <Icon className="h-7 w-7" />}
             </Link>
           );
         })}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           {currentUser ? (
             <Image
               src={currentUser?.avatar!}
