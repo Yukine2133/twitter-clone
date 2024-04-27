@@ -36,6 +36,35 @@ export const fetchUser = async (
     console.log(error);
   }
 };
+
+export const updateUser = async ({ userId, avatar, name, username }: any) => {
+  try {
+    await connectDb();
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    if (!user) {
+      return { message: "You need to be logged in to update the profile." };
+    }
+    const existingUser = await User.findOne({ userId });
+
+    if (existingUser.userId != user?.id) {
+      return { message: "You cannot edit someone else's profile." };
+    }
+
+    if (!existingUser) return { message: "This tweet does not exist." };
+
+    existingUser.username = username;
+    existingUser.displayName = name;
+    existingUser.avatar = avatar;
+
+    await existingUser.save();
+    revalidatePath(`/profile/${existingUser.username}`);
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
 export const fetchUserById = async (id: string | null) => {
   try {
     await connectDb();
