@@ -38,7 +38,7 @@ export default async function RootLayout({
         />
         <main className="flex  gap-0 lg:gap-4  justify-center ">
           <LeftSideBar />
-          <section className="w-[648px] relative border-x border-[#2f3336]  min-h-screen ">
+          <section className="w-[648px]  border-x border-[#2f3336]  min-h-screen ">
             <div className="w-full mb-10 min-[800px]:mb-0 px-2 md:px-4  max-w-4xl">
               {children}
             </div>
