@@ -6,6 +6,7 @@ import { deleteTweet, fetchTweet } from "@/actions/tweet.actions";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ISingleTweetProps, ITweetProps } from "@/types/tweet.interface";
 import MoreButton from "./MoreButton";
+import { fetchUser } from "@/actions/user.actions";
 
 const TweetCard = async ({ tweet, owner }: ITweetProps) => {
   const { getUser } = getKindeServerSession();
@@ -15,6 +16,8 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
   // console.log(tweet);
 
   // const singleTweet = await fetchTweet(tweet._id);
+
+  const currentUser = await fetchUser(user?.id);
   const bookmarks = tweet?.bookmarks;
   const isBookmarked = bookmarks?.includes(user?.id as string);
   const likes = tweet?.likes;
@@ -60,7 +63,7 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
         owner={JSON.parse(JSON.stringify(owner))}
         tweet={JSON.parse(JSON.stringify(tweet))}
         seeTweet
-        user={user!}
+        user={currentUser!}
       />
     </div>
   );

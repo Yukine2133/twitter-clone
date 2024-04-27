@@ -12,7 +12,7 @@ const TweetForm = ({
   id,
   toggleModal,
 }: {
-  user: KindeUser;
+  user: any;
   id?: string;
   toggleModal?: (arg0: boolean) => void;
 }) => {
@@ -44,8 +44,8 @@ const TweetForm = ({
         res = await createTweet(formData);
       }
 
-      if (res.message) {
-        toast.error(res.message);
+      if (res.error) {
+        toast.error(res.error);
       } else {
         toast.success(id ? "Reply was added." : "Tweet was created.");
       }
@@ -75,8 +75,8 @@ const TweetForm = ({
     >
       <div className="flex gap-2 mt-1">
         <Image
-          src={user?.picture!}
-          alt={user?.given_name!}
+          src={user?.avatar!}
+          alt={user?.username!}
           width={48}
           height={48}
           className="rounded-full"

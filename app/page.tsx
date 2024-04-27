@@ -11,9 +11,11 @@ export default async function Home() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
+  const currentUser = await fetchUser(user?.id);
+
   return (
     <div className=" ">
-      <TweetForm user={user!} />
+      <TweetForm user={currentUser!} />
       {tweets &&
         tweets?.map(async (tweet) => {
           const owner: any = await fetchUser(tweet.userId);

@@ -17,11 +17,11 @@ export const createTweet = async (formData: FormData) => {
     const image = formData.get("image");
 
     if (!user) {
-      return { message: "You need to be logged in to tweet." };
+      return { error: "You need to be logged in to tweet." };
     }
 
     if (!text) {
-      return { message: "Tweet must be at least 2 characters long." };
+      return { error: "Tweet must be at least 2 characters long." };
     }
 
     const tweet = await Tweet.create({
@@ -243,15 +243,15 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
     const image = formData.get("image");
 
     if (!existingTweet) {
-      return { message: "Tweet not found" };
+      return { error: "Tweet not found" };
     }
 
     if (!text) {
-      return { message: "Reply must be at least 2 characters long" };
+      return { error: "Reply must be at least 2 characters long" };
     }
 
     if (!user) {
-      return { message: "You need to be logged in to reply." };
+      return { error: "You need to be logged in to reply." };
     }
 
     existingTweet.replies = existingTweet.replies || [];
@@ -264,8 +264,10 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
     await existingTweet.save();
     revalidatePath(`/tweet/${tweetId}`);
     revalidatePath(`/`);
+    return { message: "Reply was created" };
   } catch (error) {
     console.error(error);
+    return { error: "An unexpected error occurred." };
   }
 };
 

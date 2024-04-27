@@ -8,6 +8,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 import Image from "next/image";
 import Link from "next/link";
+import TweetForm from "@/components/tweets/TweetForm";
 
 export const generateMetadata = async ({
   params,
@@ -28,6 +29,7 @@ const SingleTweet = async ({ params }: { params: { id: string } }) => {
   const singleTweet = await fetchTweet(id);
 
   const owner = await fetchUser(singleTweet?.userId!);
+  const currentUser = await fetchUser(user?.id);
 
   const bookmarks = singleTweet?.bookmarks;
 
@@ -71,7 +73,7 @@ const SingleTweet = async ({ params }: { params: { id: string } }) => {
       )}
       <div className="mt-5 py-2 border-y border-[#2f3336]">
         <TweetActions
-          user={user!}
+          user={currentUser!}
           isBookmarked={isBookmarked as boolean}
           isLiked={isLiked as boolean}
           id={singleTweet?._id.toString()!}
@@ -80,7 +82,7 @@ const SingleTweet = async ({ params }: { params: { id: string } }) => {
         />
       </div>
       <div className="mt-2 border-b border-[#2f3336]">
-        <ReplyForm user={user!} id={singleTweet?._id.toString()!} />
+        <TweetForm user={currentUser!} id={singleTweet?._id.toString()!} />
       </div>
 
       <ReplyTweets tweet={JSON.parse(JSON.stringify(singleTweet))} />

@@ -10,13 +10,16 @@ import Link from "next/link";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import { ITweetProps } from "@/types/tweet.interface";
 import { toast } from "react-toastify";
+import Modal from "./Modal";
+import Image from "next/image";
+import TweetForm from "./TweetForm";
 
 interface TweetActions extends ITweetProps {
   isBookmarked: boolean;
   isLiked: boolean;
   id: string;
   seeTweet?: boolean;
-  user: KindeUser;
+  user: any;
 }
 
 const TweetActions = ({
@@ -105,14 +108,35 @@ const TweetActions = ({
         )}
       </div>
       {isModalOpen && (
-        <ReplyModal
-          user={user!}
-          owner={owner}
-          tweet={tweet}
-          id={id}
-          toggleModal={toggleModal}
-          isModalOpen={isModalOpen}
-        />
+        // <ReplyModal
+        //   user={user!}
+        //   owner={owner}
+        //   tweet={tweet}
+        //   id={id}
+        //   toggleModal={toggleModal}
+        //   isModalOpen={isModalOpen}
+        // />
+        <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>
+          <div className="flex  gap-2 items-start">
+            <Image
+              src={owner.avatar}
+              alt={owner.username}
+              width={46}
+              height={46}
+              className="rounded-full object-cover"
+            />
+            <div>
+              <Link href={`/profile/${owner.username}`}>
+                <span className="font-bold ">{owner.username}</span>
+              </Link>
+              <h3 style={{ overflowWrap: "anywhere" }}>{tweet.text}</h3>
+            </div>
+          </div>
+          <h4 className="mt-7 mb-6 ">
+            Replying to <span className="font-bold ">{owner.username}</span>
+          </h4>
+          <TweetForm user={user!} id={id} toggleModal={toggleModal} />
+        </Modal>
       )}
     </div>
   );
