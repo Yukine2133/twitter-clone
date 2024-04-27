@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 import { z } from "zod";
 import { UploadDropzone } from "@/utils/lib/uploadthing";
-import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import { createTweet, replyTweet } from "@/actions/tweet.actions";
 
 const TweetForm = ({
@@ -71,7 +70,7 @@ const TweetForm = ({
     <form
       ref={ref}
       onSubmit={handleSubmit}
-      className={` mt-1 p-3 ${!id && "border-y border-[#2f3336]"} `} // If id property not passed then apply border
+      className={` mt-1 p-3 ${!id && "border-b border-[#2f3336]"} `} // If id property not passed then apply border
     >
       <div className="flex gap-2 mt-1">
         <Image
@@ -94,7 +93,7 @@ const TweetForm = ({
         </button>
         <button
           disabled={loading}
-          className="bg-blue-500 rounded-full px-3 py-1  font-semibold "
+          className="bg-blue-500 rounded-full px-3 py-1 hover:opacity-80   font-semibold "
           type="submit"
         >
           {id ? "Reply" : "Tweet"}
