@@ -9,6 +9,7 @@ import GoBackButton from "@/utils/GoBackButton";
 import FollowButton from "@/components/buttons/FollowButton";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Follow from "@/components/follow/Follow";
+import UpdateProfileButton from "@/components/buttons/UpdateProfileButton";
 
 export const generateMetadata = async ({
   params,
@@ -76,17 +77,22 @@ const ProfilePage = async ({
           width={78}
           height={78}
         />
-        <div className="flex items-center my-2 gap-4 ">
-          <h2 className="font-semibold text-lg">{user.username}</h2>
-          <Follow
-            followersOfTheUser={JSON.parse(JSON.stringify(followersOfTheUser))}
-            followingsOfTheUser={JSON.parse(
-              JSON.stringify(followingsOfTheUser)
-            )}
-            followers={followers}
-            following={following}
-            username={user.username}
-          />
+        <div className="flex justify-between items-center my-2 ">
+          <div className="flex items-center gap-4">
+            <h2 className="font-semibold text-lg">{user.username}</h2>
+            <Follow
+              followersOfTheUser={JSON.parse(
+                JSON.stringify(followersOfTheUser)
+              )}
+              followingsOfTheUser={JSON.parse(
+                JSON.stringify(followingsOfTheUser)
+              )}
+              followers={followers}
+              following={following}
+              username={user.username}
+            />
+          </div>
+          <UpdateProfileButton user={user} />
         </div>
         <div className="mt-2">
           {currentSessionUser?.id === user.userId ? null : (
