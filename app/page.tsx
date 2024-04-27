@@ -3,6 +3,7 @@ import { fetchTweets } from "@/actions/tweet.actions";
 import { fetchUser } from "@/actions/user.actions";
 import AddTweet from "@/components/tweets/AddTweet";
 import TweetCard from "@/components/tweets/TweetCard";
+import TweetForm from "@/components/tweets/TweetForm";
 
 export default async function Home() {
   const tweets = await fetchTweets();
@@ -12,7 +13,7 @@ export default async function Home() {
 
   return (
     <div className=" ">
-      <AddTweet user={user!} />
+      <TweetForm user={user!} />
       {tweets &&
         tweets?.map(async (tweet) => {
           const owner: any = await fetchUser(tweet.userId);

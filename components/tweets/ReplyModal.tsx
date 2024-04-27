@@ -4,6 +4,7 @@ import React, { useRef, useEffect } from "react";
 import ReplyForm from "./ReplyForm";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import { ITweetProps } from "@/types/tweet.interface";
+import TweetForm from "./TweetForm";
 
 interface IReplyModal extends ITweetProps {
   toggleModal: (arg0: boolean) => void;
@@ -68,8 +69,8 @@ const ReplyModal = ({
           <Image
             src={owner.avatar}
             alt={owner.username}
-            width={38}
-            height={38}
+            width={46}
+            height={46}
             className="rounded-full object-cover"
           />
           <div>
@@ -82,7 +83,8 @@ const ReplyModal = ({
         <h4 className="mt-7 mb-6 ">
           Replying to <span className="font-bold ">{owner.username}</span>
         </h4>
-        <ReplyForm user={user!} id={id} toggleModal={toggleModal} />
+        {/* <ReplyForm user={user!} id={id} toggleModal={toggleModal} /> */}
+        <TweetForm user={user!} id={id} toggleModal={toggleModal} />
       </div>
     </div>
   );
