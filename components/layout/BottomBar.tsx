@@ -36,8 +36,8 @@ const BottomBar = () => {
             (pathname.includes(route) && route.length > 1) ||
             pathname === route;
 
-          if (route === "/profile" && currentUser)
-            route = `${route}/${currentUser.username}`;
+          if (link.route === "/profile" && currentUser)
+            link.route = `${link.route}/${currentUser.username}`;
           return (
             <Link
               href={route}

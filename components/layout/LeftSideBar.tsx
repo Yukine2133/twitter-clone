@@ -35,8 +35,8 @@ const LeftSideBar = () => {
           const isActive =
             (pathname.includes(route) && route.length > 1) ||
             pathname === route;
-          if (route === "/profile" && currentUser?.username)
-            route = `${route}/${currentUser.username}`;
+          if (link.route === "/profile" && currentUser?.username)
+            link.route = `${link.route}/${currentUser.username}`;
           return (
             <Link
               href={link.route}
