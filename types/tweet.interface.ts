@@ -1,16 +1,20 @@
+import { IUser } from "./user.interface";
+
 export interface ITweetProps {
-  tweet: {
-    text: string;
-    _id: string;
-    likes: string[];
-    replies: string[];
-    image: string;
-    bookmarks: string[];
-  };
-  owner: {
-    avatar: string;
-    username: string;
-  };
+  tweet: ITweet;
+  owner: IUser;
+}
+
+export interface ITweet {
+  _id: string;
+  text: string;
+  userId: string;
+  bookmarks: string[];
+  likes: string[];
+  replies: string[];
+  createdAt: Date;
+  updatedAt: Date;
+  image: string;
 }
 
 export interface ISingleTweetProps {

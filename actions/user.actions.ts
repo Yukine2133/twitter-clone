@@ -6,6 +6,7 @@ import { connectDb } from "../utils/connectDb";
 import { User } from "../models/user.model";
 import { Tweet } from "../models/tweet.model";
 import { revalidatePath } from "next/cache";
+import { IUser } from "@/types/user.interface";
 
 export const fetchUser = async (
   userId?: string | null,
@@ -43,7 +44,7 @@ export const updateUser = async ({
   location,
   avatar,
   name,
-}: any) => {
+}: Omit<IUser, "displayName" | "username" | "_id"> & { name: string }) => {
   try {
     await connectDb();
     const { getUser } = getKindeServerSession();

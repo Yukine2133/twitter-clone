@@ -4,10 +4,8 @@ import { bookMarkTweet, likeTweet } from "@/actions/tweet.actions";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { SlBubble } from "react-icons/sl";
-import ReplyModal from "./ReplyModal";
 import { useState } from "react";
 import Link from "next/link";
-import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import { ITweetProps } from "@/types/tweet.interface";
 import { toast } from "react-toastify";
 import Modal from "./Modal";
@@ -108,14 +106,6 @@ const TweetActions = ({
         )}
       </div>
       {isModalOpen && (
-        // <ReplyModal
-        //   user={user!}
-        //   owner={owner}
-        //   tweet={tweet}
-        //   id={id}
-        //   toggleModal={toggleModal}
-        //   isModalOpen={isModalOpen}
-        // />
         <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>
           <div className="flex  gap-2 items-start">
             <Image

@@ -7,9 +7,9 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 import { UploadButton } from "@/utils/lib/uploadthing";
 import { updateUser } from "@/actions/user.actions";
-import { useRouter } from "next/navigation";
+import { IUser } from "@/types/user.interface";
 
-const UpdateProfileButton = ({ user }: any) => {
+const UpdateProfileButton = ({ user }: { user: IUser }) => {
   const [name, setName] = useState(user.displayName ? user.displayName : "");
   const [bio, setBio] = useState(user.bio ? user.bio : "");
   const [location, setLocation] = useState(user.location ? user.location : "");

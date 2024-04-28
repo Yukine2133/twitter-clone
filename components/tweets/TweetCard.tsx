@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import TweetActions from "./TweetActions";
-import { deleteTweet, fetchTweet } from "@/actions/tweet.actions";
+import { deleteTweet } from "@/actions/tweet.actions";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { ISingleTweetProps, ITweetProps } from "@/types/tweet.interface";
+import { ITweetProps } from "@/types/tweet.interface";
 import MoreButton from "./MoreButton";
 import { fetchUser } from "@/actions/user.actions";
 
@@ -12,10 +12,6 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
   const { getUser } = getKindeServerSession();
 
   const user = await getUser();
-
-  // console.log(tweet);
-
-  // const singleTweet = await fetchTweet(tweet._id);
 
   const currentUser = await fetchUser(user?.id);
   const bookmarks = tweet?.bookmarks;
@@ -50,7 +46,6 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
         </div>
         <div className="absolute right-0 ">
           <MoreButton
-            action={deleteTweet}
             tweet={JSON.parse(JSON.stringify(tweet))}
             id={tweet._id.toString()}
           />

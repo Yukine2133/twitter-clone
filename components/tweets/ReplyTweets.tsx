@@ -54,7 +54,6 @@ const ReplyTweets = async ({ tweet }: ReplyTweets) => {
               <div className="absolute right-0 ">
                 <MoreButton
                   replyId={tweet.replies[index]._id}
-                  action={deleteReply as any}
                   tweet={tweet as any}
                   replyTweet={tweet.replies[index].text}
                   id={tweet._id.toString()}

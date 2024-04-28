@@ -3,6 +3,8 @@ import { fetchUser } from "@/actions/user.actions";
 import TweetCard from "@/components/tweets/TweetCard";
 import SearchResults from "@/components/search/SearchResults";
 import { Metadata } from "next";
+import { IUser } from "@/types/user.interface";
+import { ITweet } from "@/types/tweet.interface";
 
 export const generateMetadata = async ({
   searchParams,
@@ -25,8 +27,8 @@ const SearchPage = async ({
   const query = searchParams.q;
   const tweets = await searchTweets(query);
 
-  const renderTweetResult = async (tweet: any) => {
-    const owner: any = await fetchUser(tweet.userId);
+  const renderTweetResult = async (tweet: ITweet) => {
+    const owner: IUser = await fetchUser(tweet.userId);
     return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
   };
 

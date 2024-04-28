@@ -3,4 +3,7 @@ export interface IUser {
   avatar: string;
   userId: string;
   _id: string;
+  location: string;
+  displayName: string;
+  bio: string;
 }

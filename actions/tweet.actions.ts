@@ -4,6 +4,7 @@ import { connectDb } from "../utils/connectDb";
 import { Tweet } from "../models/tweet.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
+import { ITweet } from "@/types/tweet.interface";
 
 export const createTweet = async (formData: FormData) => {
   try {
@@ -50,17 +51,6 @@ export const fetchTweets = async () => {
   }
 };
 
-interface ITweetProps {
-  _id: string;
-  text: string;
-  userId: string;
-  bookmarks: string[];
-  likes: string[];
-  replies: string[];
-  createdAt: Date;
-  updatedAt: Date;
-  image: string;
-}
 export const fetchTweet = async (tweetId: string) => {
   try {
     await connectDb();
@@ -77,7 +67,7 @@ export const fetchTweet = async (tweetId: string) => {
       createdAt,
       updatedAt,
       image,
-    }: ITweetProps = tweet;
+    }: ITweet = tweet;
 
     const tweetData = {
       _id: _id.toString(),

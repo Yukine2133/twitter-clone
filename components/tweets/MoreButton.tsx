@@ -22,17 +22,10 @@ interface IMoreButton {
     userId: string;
     replies: IReply[];
   };
-  action: (id: string, replyId?: string) => void;
   replyId?: string;
   replyTweet?: string;
 }
-const MoreButton = ({
-  id,
-  tweet,
-  action,
-  replyId,
-  replyTweet,
-}: IMoreButton) => {
+const MoreButton = ({ id, tweet, replyId, replyTweet }: IMoreButton) => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const [text, setText] = useState(replyTweet ? replyTweet : tweet.text);
@@ -175,9 +168,6 @@ const MoreButton = ({
             </div>
           )}
           {edit && (
-            // <div className="absolute  top-0 right-6">
-
-            // </div>
             <div className="fixed  top-0 left-0 z-50 w-full h-full bg-gray-800 bg-opacity-80 flex justify-center items-center">
               <div
                 ref={divRef}

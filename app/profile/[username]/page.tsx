@@ -10,6 +10,8 @@ import FollowButton from "@/components/buttons/FollowButton";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Follow from "@/components/follow/Follow";
 import UpdateProfileButton from "@/components/buttons/UpdateProfileButton";
+import { IUser } from "@/types/user.interface";
+import { ITweet } from "@/types/tweet.interface";
 
 export const generateMetadata = async ({
   params,
@@ -44,10 +46,10 @@ const ProfilePage = async ({
   const following = user.following;
 
   const followersOfTheUser = await Promise.all(
-    followers.map(async (follower: any) => await fetchUser(follower))
+    followers.map(async (follower: string) => await fetchUser(follower))
   );
   const followingsOfTheUser = await Promise.all(
-    following.map(async (following: any) => await fetchUserById(following))
+    following.map(async (following: string) => await fetchUserById(following))
   );
 
   const isFollowing = followers?.includes(currentSessionUser?.id as string);
@@ -112,7 +114,7 @@ const ProfilePage = async ({
         <>
           <h4 className="mt-10"> Tweets:</h4>
 
-          {tweets.map((tweet) => (
+          {tweets.map((tweet: ITweet) => (
             <TweetCard key={tweet._id} tweet={tweet} owner={user} />
           ))}
         </>

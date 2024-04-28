@@ -1,39 +1,23 @@
 "use client";
 
-import { fetchUser } from "@/actions/user.actions";
-import { IUser } from "@/types/user.interface";
-
 import { sidebarLinks } from "@/utils/constants";
-import {
-  LogoutLink,
-  useKindeBrowserClient,
-} from "@kinde-oss/kinde-auth-nextjs";
+import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TweetForm from "../tweets/TweetForm";
 import Modal from "../tweets/Modal";
+import { IUser } from "@/types/user.interface";
 
-const LeftSideBar = ({ currentUser }: any) => {
+const LeftSideBar = ({ currentUser }: { currentUser: IUser }) => {
   const pathname = usePathname();
-  // const [currentUser, setCurrentUser] = useState<IUser | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // const { user } = useKindeBrowserClient();
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-
-  // useEffect(() => {
-  //   const fetchCurrentUser = async () => {
-  //     const res = await fetchUser(user?.id);
-  //     setCurrentUser(JSON.parse(JSON.stringify(res)));
-  //   };
-  //   fetchCurrentUser();
-  // }, [user?.id]);
 
   return (
     <>
@@ -54,11 +38,6 @@ const LeftSideBar = ({ currentUser }: any) => {
                   disabled && "cursor-not-allowed"
                 } ${isActive && "font-bold"}`}
               >
-                {/* <HeroIcon
-                className={"h-6 w-6"}
-                iconName={link.imgUrl}
-                solid={isActive}
-              /> */}
                 {isActive ? (
                   <SolidIcon className="h-7 w-7" />
                 ) : (

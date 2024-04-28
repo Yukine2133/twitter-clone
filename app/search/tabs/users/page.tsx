@@ -1,6 +1,7 @@
 import { searchUsers } from "@/actions/user.actions";
 import UserCard from "@/components/search/UserCard";
 import SearchResults from "@/components/search/SearchResults";
+import { IUser } from "@/types/user.interface";
 
 export const generateMetadata = async ({
   searchParams,
@@ -23,7 +24,7 @@ const SearchUsers = async ({
   const query = searchParams.q;
   const users = await searchUsers(query);
 
-  const renderUserResult = (user: any) => {
+  const renderUserResult = (user: IUser) => {
     return <UserCard user={user} key={user._id} />;
   };
 
