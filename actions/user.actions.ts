@@ -58,7 +58,7 @@ export const updateUser = async ({
       return { message: "You cannot edit someone else's profile." };
     }
 
-    if (!existingUser) return { message: "This tweet does not exist." };
+    if (!existingUser) return { message: "This User does not exist." };
 
     existingUser.displayName = name;
     existingUser.avatar = avatar;

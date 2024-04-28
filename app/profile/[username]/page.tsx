@@ -60,6 +60,8 @@ const ProfilePage = async ({
     );
   }
 
+  const isOwner = user.userId === currentUser.userId;
+
   return (
     <div>
       <div className=" mb-10 flex items-center">
@@ -92,10 +94,10 @@ const ProfilePage = async ({
               username={user.username}
             />
           </div>
-          <UpdateProfileButton user={user} />
+          {isOwner && <UpdateProfileButton user={user} />}
         </div>
         <div className="mt-2">
-          {currentSessionUser?.id === user.userId ? null : (
+          {isOwner ? null : (
             <FollowButton
               username={username}
               isFollowing={isFollowing}
