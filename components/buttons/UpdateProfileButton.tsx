@@ -7,6 +7,7 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 import { UploadButton } from "@/utils/lib/uploadthing";
 import { updateUser } from "@/actions/user.actions";
+import { useRouter } from "next/navigation";
 
 const UpdateProfileButton = ({ user }: any) => {
   const [username, setUsername] = useState(user.username ? user.username : "");
@@ -15,6 +16,8 @@ const UpdateProfileButton = ({ user }: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const userId = user.userId;
+
+  const router = useRouter();
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -34,6 +37,10 @@ const UpdateProfileButton = ({ user }: any) => {
       }
 
       await updateUser({ userId, username, avatar, name });
+
+      if (username !== user.username) {
+        router.push(`/profile/${username}`);
+      }
 
       setIsModalOpen(false);
     } catch (error) {
