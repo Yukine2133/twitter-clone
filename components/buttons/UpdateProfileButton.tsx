@@ -10,14 +10,13 @@ import { updateUser } from "@/actions/user.actions";
 import { useRouter } from "next/navigation";
 
 const UpdateProfileButton = ({ user }: any) => {
-  const [username, setUsername] = useState(user.username ? user.username : "");
   const [name, setName] = useState(user.displayName ? user.displayName : "");
+  const [bio, setBio] = useState(user.bio ? user.bio : "");
+  const [location, setLocation] = useState(user.location ? user.location : "");
   const [avatar, setAvatar] = useState(user.avatar ? user.avatar : "");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const userId = user.userId;
-
-  const router = useRouter();
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -27,20 +26,7 @@ const UpdateProfileButton = ({ user }: any) => {
     try {
       e.preventDefault();
 
-      // Validate username
-      const usernameRegex = /^[a-zA-Z0-9]+$/;
-      if (!usernameRegex.test(username)) {
-        toast.error(
-          "Username can only contain English letters and numbers without spaces."
-        );
-        return;
-      }
-
-      await updateUser({ userId, username, avatar, name });
-
-      if (username !== user.username) {
-        router.push(`/profile/${username}`);
-      }
+      await updateUser({ userId, location, bio, avatar, name });
 
       setIsModalOpen(false);
     } catch (error) {
@@ -85,7 +71,7 @@ const UpdateProfileButton = ({ user }: any) => {
                 />
               </div>
             </div>
-            <div className="flex flex-col mb-3">
+            <div className="flex flex-col">
               <label className="mb-2 text-lg">Display name:</label>
               <input
                 value={name}
@@ -93,12 +79,20 @@ const UpdateProfileButton = ({ user }: any) => {
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
-            <div className="flex flex-col ">
-              <label className="mb-2 text-lg">Username:</label>
-              <input
-                value={username}
+            <div className="flex flex-col my-3 ">
+              <label className="mb-2 text-lg">Bio:</label>
+              <textarea
+                value={bio}
                 className="bg-[#3b3b3b] outline-none rounded-md p-2"
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setBio(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col ">
+              <label className="mb-2 text-lg">Location:</label>
+              <input
+                value={location}
+                className="bg-[#3b3b3b] outline-none rounded-md p-2"
+                onChange={(e) => setLocation(e.target.value)}
               />
             </div>
 

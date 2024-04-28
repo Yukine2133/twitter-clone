@@ -37,7 +37,13 @@ export const fetchUser = async (
   }
 };
 
-export const updateUser = async ({ userId, avatar, name, username }: any) => {
+export const updateUser = async ({
+  userId,
+  bio,
+  location,
+  avatar,
+  name,
+}: any) => {
   try {
     await connectDb();
     const { getUser } = getKindeServerSession();
@@ -54,9 +60,10 @@ export const updateUser = async ({ userId, avatar, name, username }: any) => {
 
     if (!existingUser) return { message: "This tweet does not exist." };
 
-    existingUser.username = username;
     existingUser.displayName = name;
     existingUser.avatar = avatar;
+    existingUser.bio = bio;
+    existingUser.location = location;
 
     await existingUser.save();
     revalidatePath(`/profile/${existingUser.username}`);
