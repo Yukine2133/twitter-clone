@@ -232,10 +232,6 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
       return { error: "Tweet not found" };
     }
 
-    if (!text) {
-      return { error: "Reply must be at least 2 characters long" };
-    }
-
     if (!user) {
       return { error: "You need to be logged in to reply." };
     }
