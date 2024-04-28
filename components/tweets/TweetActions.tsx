@@ -1,9 +1,7 @@
 "use client";
 
 import { bookMarkTweet, likeTweet } from "@/actions/tweet.actions";
-import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { SlBubble } from "react-icons/sl";
+
 import { useState } from "react";
 import Link from "next/link";
 import { ITweetProps } from "@/types/tweet.interface";
@@ -11,6 +9,12 @@ import { toast } from "react-toastify";
 import Modal from "./Modal";
 import Image from "next/image";
 import TweetForm from "./TweetForm";
+import {
+  BookmarkIcon,
+  ChatBubbleOvalLeftIcon,
+  HeartIcon,
+} from "@heroicons/react/24/outline";
+import * as solid from "@heroicons/react/24/solid";
 
 interface TweetActions extends ITweetProps {
   isBookmarked: boolean;
@@ -29,6 +33,8 @@ const TweetActions = ({
   seeTweet,
   user,
 }: TweetActions) => {
+  const SolidHeartIcon = solid.HeartIcon;
+  const SolidBookmarkIcon = solid.BookmarkIcon;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
@@ -69,9 +75,9 @@ const TweetActions = ({
             onClick={() => addLike(id)}
           >
             {isLiked ? (
-              <FaHeart className="text-red-500 text-lg" />
+              <SolidHeartIcon className="text-red-500 h-5 w-5 text-lg" />
             ) : (
-              <FaRegHeart className="text-gray-400 group-hover:text-red-500 duration-300 transition-colors   text-lg" />
+              <HeartIcon className="text-gray-200 h-5 w-5 group-hover:text-red-500 duration-300 transition-colors   text-lg" />
             )}
             <span
               className={`text-sm font-semibold ${
@@ -84,7 +90,7 @@ const TweetActions = ({
         </div>
         <div className="group">
           <button className="flex gap-1.5 items-center" onClick={toggleModal}>
-            <SlBubble className="group-hover:text-blue-400 duration-300 transition-colors" />
+            <ChatBubbleOvalLeftIcon className="group-hover:text-blue-400 duration-300 transition-colors h-5 w-5" />
             <span className="text-sm font-semibold group-hover:text-blue-400 duration-300 transition-colors">
               {repliesCount}
             </span>
@@ -94,9 +100,9 @@ const TweetActions = ({
       <div className="flex items-center gap-4">
         <button className="justify-end flex" onClick={() => addBookmark(id)}>
           {isBookmarked ? (
-            <BsBookmarkFill className="text-blue-500" />
+            <SolidBookmarkIcon className="text-blue-500 h-5 w-5" />
           ) : (
-            <BsBookmark />
+            <BookmarkIcon className="h-5 w-5" />
           )}
         </button>
         {seeTweet && (

@@ -9,10 +9,10 @@ import {
 import { IReply } from "@/types/tweet.interface";
 import { combineUsername } from "@/utils/combineUsername";
 import { UploadDropzone } from "@/utils/lib/uploadthing";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 interface IMoreButton {
@@ -155,13 +155,13 @@ const MoreButton = ({ id, tweet, replyId, replyTweet }: IMoreButton) => {
                     }}
                     className="text-blue-500 flex items-center gap-2"
                   >
-                    <AiFillEdit /> Edit
+                    <PencilIcon className="h-5 w-5" /> Edit
                   </button>
                   <button
                     onClick={handleDelete}
                     className="text-red-500 flex items-center gap-2"
                   >
-                    <AiFillDelete /> Delete
+                    <TrashIcon className="h-5 w-5" /> Delete
                   </button>
                 </>
               )}

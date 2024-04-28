@@ -40,7 +40,7 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
               alt="User Image"
               width={400}
               height={400}
-              className="object-cover"
+              className="object-cover rounded-lg"
             />
           )}
         </div>

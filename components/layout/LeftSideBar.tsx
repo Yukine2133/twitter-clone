@@ -22,7 +22,7 @@ const LeftSideBar = ({ currentUser }: { currentUser: IUser }) => {
   return (
     <>
       <div className="mt-10  max-[799px]:hidden max-[799px]:mt-0    ">
-        <div className="flex w-full flex-col space-y-6  gap-6 px-6">
+        <div className="flex w-full flex-col space-y-4  gap-6 px-6">
           {sidebarLinks.map((link) => {
             let { Icon, SolidIcon, disabled, route } = link;
             const isActive =
