@@ -6,6 +6,7 @@ import { z } from "zod";
 import { UploadDropzone } from "@/utils/lib/uploadthing";
 import { createTweet, replyTweet } from "@/actions/tweet.actions";
 import { PhotoIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import ReactTextareaAutosize from "react-textarea-autosize";
 
 const TweetForm = ({
   user,
@@ -81,7 +82,7 @@ const TweetForm = ({
       onSubmit={handleSubmit}
       className={` mt-1 p-3 ${!id && "border-b border-[#2f3336]"} `} // If id property not passed then apply border
     >
-      <div className="flex gap-2 mt-1">
+      <div className="flex items-start gap-2 mt-1">
         <Image
           src={user?.avatar!}
           alt={user?.username!}
@@ -89,11 +90,12 @@ const TweetForm = ({
           height={48}
           className="rounded-full"
         />
-        <input
-          type="text"
+        <ReactTextareaAutosize
           name="text"
+          maxRows={4}
+          wrap="soft"
           placeholder={id ? "Post your reply" : "What is happening?!"}
-          className="bg-transparent  placeholder:text-zinc-600 outline-none w-full"
+          className="bg-transparent overflow-auto  resize-none placeholder:text-zinc-600 outline-none w-full"
         />
       </div>
       {imageUrl && (
@@ -112,7 +114,6 @@ const TweetForm = ({
       )}
       <div className="mt-2 flex justify-between items-end px-6">
         <button type="button" onClick={() => setIsOpen(!isOpen)}>
-          {/* <Image src="/image.png" alt="Image icon" width={20} height={20} />*/}
           <PhotoIcon className="h-5 w-5 text-blue-500" />
         </button>
         <button
