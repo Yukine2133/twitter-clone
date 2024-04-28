@@ -26,13 +26,20 @@ const UpdateProfileButton = ({ user }: any) => {
     try {
       e.preventDefault();
 
-      await updateUser({ userId, location, bio, avatar, name });
+      const res = await updateUser({ userId, location, bio, avatar, name });
+
+      if (res?.message) {
+        toast.error(res.message);
+      } else {
+        toast.success("Profile was updated successfully");
+      }
 
       setIsModalOpen(false);
     } catch (error) {
       toast.error(String(error));
     }
   };
+
   return (
     <>
       <button
