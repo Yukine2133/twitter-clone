@@ -16,24 +16,24 @@ import { useEffect, useState } from "react";
 import TweetForm from "../tweets/TweetForm";
 import Modal from "../tweets/Modal";
 
-const LeftSideBar = () => {
+const LeftSideBar = ({ currentUser }: any) => {
   const pathname = usePathname();
-  const [currentUser, setCurrentUser] = useState<IUser | null>(null);
+  // const [currentUser, setCurrentUser] = useState<IUser | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { user } = useKindeBrowserClient();
+  // const { user } = useKindeBrowserClient();
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      const res = await fetchUser(user?.id);
-      setCurrentUser(JSON.parse(JSON.stringify(res)));
-    };
-    fetchCurrentUser();
-  }, [user?.id]);
+  // useEffect(() => {
+  //   const fetchCurrentUser = async () => {
+  //     const res = await fetchUser(user?.id);
+  //     setCurrentUser(JSON.parse(JSON.stringify(res)));
+  //   };
+  //   fetchCurrentUser();
+  // }, [user?.id]);
 
   return (
     <>

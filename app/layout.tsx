@@ -24,6 +24,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  const currentUser = await fetchUser(user?.id);
   return (
     <html suppressHydrationWarning={true} lang="en">
       <body className={`${poppins.className} bg-black text-white `}>
@@ -37,12 +41,12 @@ export default async function RootLayout({
           theme="dark"
         />
         <main className="flex  gap-0 lg:gap-4  justify-center ">
-          <LeftSideBar />
+          <LeftSideBar currentUser={currentUser} />
           <section className="w-[648px]  border-x border-[#2f3336]  min-h-screen ">
             <div className="w-full mb-10 min-[800px]:mb-0 px-2 md:px-4  max-w-4xl">
               {children}
             </div>
-            <BottomBar />
+            <BottomBar currentUser={currentUser} />
           </section>
           <RightSideBar />
         </main>

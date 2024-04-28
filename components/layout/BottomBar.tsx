@@ -12,19 +12,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const BottomBar = () => {
-  const [currentUser, setCurrentUser] = useState<IUser | null>(null);
-  const { user } = useKindeBrowserClient();
+const BottomBar = ({ currentUser }: any) => {
+  // const [currentUser, setCurrentUser] = useState<IUser | null>(null);
+  // const { user } = useKindeBrowserClient();
 
   const pathname = usePathname();
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      const res = await fetchUser(user?.id);
-      setCurrentUser(JSON.parse(JSON.stringify(res)));
-    };
-    fetchCurrentUser();
-  }, [user?.id]);
+  // useEffect(() => {
+  //   const fetchCurrentUser = async () => {
+  //     const res = await fetchUser(user?.id);
+  //     setCurrentUser(JSON.parse(JSON.stringify(res)));
+  //   };
+  //   fetchCurrentUser();
+  // }, [user?.id]);
 
   return (
     <div className="fixed z-10 bg-black  px-4 border-t border-[#2f3336] w-full min-[800px]:hidden bottom-0 left-0 ">
