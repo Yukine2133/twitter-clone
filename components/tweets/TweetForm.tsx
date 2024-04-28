@@ -5,6 +5,7 @@ import Image from "next/image";
 import { z } from "zod";
 import { UploadDropzone } from "@/utils/lib/uploadthing";
 import { createTweet, replyTweet } from "@/actions/tweet.actions";
+import { PhotoIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const TweetForm = ({
   user,
@@ -27,14 +28,23 @@ const TweetForm = ({
     try {
       setLoading(true);
       const tweetText = formData.get("text") as string;
-      const tweetTextSchema = z
-        .string()
-        .min(2, "Tweet must be at least 2 characters long")
-        .max(280, "Tweet must not exceed the 280 characters limit");
-      tweetTextSchema.parse(tweetText);
-
-      // Append image URL to the form data
       formData.append("image", imageUrl || "");
+
+      const hasImageUrl = !!imageUrl;
+
+      // If there's neither text nor image, throw an error
+      if (!tweetText && !hasImageUrl) {
+        throw new Error("Tweet must contain text or an image.");
+      }
+
+      // If there's text, validate it
+      if (tweetText && tweetText.trim().length > 0) {
+        const tweetTextSchema = z
+          .string()
+          .min(2, "Tweet must be at least 2 characters long")
+          .max(280, "Tweet must not exceed the 280 characters limit");
+        tweetTextSchema.parse(tweetText);
+      }
 
       let res;
       if (id) {
@@ -57,8 +67,7 @@ const TweetForm = ({
         const errorMessage = error.errors[0].message;
         toast.error(errorMessage);
       } else {
-        console.error(error);
-        toast.error("An unexpected error occurred.");
+        toast.error(String(error));
       }
     } finally {
       setLoading(false);
@@ -87,9 +96,24 @@ const TweetForm = ({
           className="bg-transparent  placeholder:text-zinc-600 outline-none w-full"
         />
       </div>
+      {imageUrl && (
+        <div className="mt-4 relative flex justify-center items-center">
+          <button className="absolute top-0 left-8">
+            <XMarkIcon onClick={() => setImageUrl(null)} className="h-5 w-5" />
+          </button>
+          <Image
+            className="rounded-lg w-fit object-cover"
+            src={imageUrl}
+            alt="Uploaded image "
+            width={300}
+            height={300}
+          />
+        </div>
+      )}
       <div className="mt-2 flex justify-between items-end px-6">
         <button type="button" onClick={() => setIsOpen(!isOpen)}>
-          <Image src="/image.png" alt="Image icon" width={20} height={20} />
+          {/* <Image src="/image.png" alt="Image icon" width={20} height={20} />*/}
+          <PhotoIcon className="h-5 w-5 text-blue-500" />
         </button>
         <button
           disabled={loading}

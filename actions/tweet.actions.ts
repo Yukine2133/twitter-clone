@@ -21,10 +21,6 @@ export const createTweet = async (formData: FormData) => {
       return { error: "You need to be logged in to tweet." };
     }
 
-    if (!text) {
-      return { error: "Tweet must be at least 2 characters long." };
-    }
-
     const tweet = await Tweet.create({
       userId: userId,
       text,
