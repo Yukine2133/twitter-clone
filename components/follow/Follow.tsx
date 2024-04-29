@@ -29,16 +29,16 @@ const Follow = ({
   return (
     <>
       <button
-        onClick={() => setIsOpenFollowers(!isOpenFollowers)}
-        className="text-slate-500 hover:underline decoration-white cursor-pointer"
-      >
-        {followers.length} Followers
-      </button>
-      <button
         onClick={() => setIsOpenFollowing(!isOpenFollowing)}
         className="text-slate-500 hover:underline decoration-white cursor-pointer"
       >
-        {following.length} Following
+        <span className="text-gray-300">{following.length}</span> Following
+      </button>
+      <button
+        onClick={() => setIsOpenFollowers(!isOpenFollowers)}
+        className="text-gray-500 hover:underline decoration-white cursor-pointer"
+      >
+        <span className="text-gray-300">{followers.length}</span> Followers
       </button>
       {isOpenFollowers && (
         <FollowModal

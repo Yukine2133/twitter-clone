@@ -61,7 +61,7 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
     <>
       <button
         onClick={toggleModal}
-        className="bg-white text-black py-1 px-3 rounded-full"
+        className="bg-transparent text-white border font-semibold py-1 px-3 rounded-full"
       >
         Update Profile
       </button>

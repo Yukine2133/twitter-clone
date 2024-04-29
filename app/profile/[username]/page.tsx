@@ -12,6 +12,11 @@ import Follow from "@/components/follow/Follow";
 import UpdateProfileButton from "@/components/buttons/UpdateProfileButton";
 import { IUser } from "@/types/user.interface";
 import { ITweet } from "@/types/tweet.interface";
+import {
+  CalendarDaysIcon,
+  MapIcon,
+  MapPinIcon,
+} from "@heroicons/react/24/outline";
 
 export const generateMetadata = async ({
   params,
@@ -62,6 +67,13 @@ const ProfilePage = async ({
     );
   }
 
+  const formatJoinedDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const month = date.toLocaleString("default", { month: "long" });
+    const year = date.getFullYear();
+    return `Joined ${month} ${year}`;
+  };
+
   const isOwner = user.userId === currentUser.userId;
 
   return (
@@ -69,7 +81,7 @@ const ProfilePage = async ({
       <div className=" mb-10 flex items-center">
         <GoBackButton />
         <div className="pl-6">
-          <h3 className="font-semibold text-lg">{user.username}</h3>
+          <h3 className="font-semibold text-lg mt-1">{user.displayName}</h3>
           <h4 className="text-slate-500 text-sm">{tweets.length} Tweets</h4>
         </div>
       </div>
@@ -78,12 +90,32 @@ const ProfilePage = async ({
           className="rounded-full"
           src={user.avatar}
           alt={user.username}
-          width={78}
-          height={78}
+          width={100}
+          height={100}
         />
         <div className="flex justify-between items-center my-2 ">
           <div className="flex items-center gap-4">
             <h2 className="font-semibold text-lg">{user.username}</h2>
+          </div>
+          {isOwner && <UpdateProfileButton user={user} />}
+        </div>
+        <div className="space-y-2">
+          <h3>{user.bio}</h3>
+
+          <div className="flex items-center gap-4">
+            {user.location && (
+              <div className="flex items-center gap-1  text-gray-500">
+                <MapPinIcon className="h-5 w-5" />
+                <h3>{user.location}</h3>
+              </div>
+            )}
+            <div className="text-gray-500 flex items-center gap-2">
+              <CalendarDaysIcon className="h-5 w-5" />
+              <h3>{formatJoinedDate(user.createdAt)}</h3>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
             <Follow
               followersOfTheUser={JSON.parse(
                 JSON.stringify(followersOfTheUser)
@@ -96,7 +128,6 @@ const ProfilePage = async ({
               username={user.username}
             />
           </div>
-          {isOwner && <UpdateProfileButton user={user} />}
         </div>
         <div className="mt-2">
           {isOwner ? null : (
