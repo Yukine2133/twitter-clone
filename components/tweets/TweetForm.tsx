@@ -3,10 +3,12 @@ import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import Image from "next/image";
 import { z } from "zod";
+
 import { UploadDropzone } from "@/utils/lib/uploadthing";
 import { createTweet, replyTweet } from "@/actions/tweet.actions";
 import { PhotoIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import ReactTextareaAutosize from "react-textarea-autosize";
+import { tweetTextSchema } from "@/utils/lib/validation";
 
 const TweetForm = ({
   user,
@@ -40,10 +42,6 @@ const TweetForm = ({
 
       // If there's text, validate it
       if (tweetText && tweetText.trim().length > 0) {
-        const tweetTextSchema = z
-          .string()
-          .min(2, "Tweet must be at least 2 characters long")
-          .max(280, "Tweet must not exceed the 280 characters limit");
         tweetTextSchema.parse(tweetText);
       }
 
@@ -92,7 +90,8 @@ const TweetForm = ({
         />
         <ReactTextareaAutosize
           name="text"
-          maxRows={4}
+          maxRows={6}
+          maxLength={280}
           wrap="soft"
           placeholder={id ? "Post your reply" : "What is happening?!"}
           className="bg-transparent overflow-auto  resize-none placeholder:text-zinc-600 outline-none w-full"

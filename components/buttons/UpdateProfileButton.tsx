@@ -2,12 +2,15 @@
 
 import { FormEvent, useState } from "react";
 import Modal from "../tweets/Modal";
+import { z } from "zod";
 import Image from "next/image";
 
 import { toast } from "react-toastify";
 import { UploadButton } from "@/utils/lib/uploadthing";
 import { updateUser } from "@/actions/user.actions";
 import { IUser } from "@/types/user.interface";
+import { bioSchema, locationSchema, nameSchema } from "@/utils/lib/validation";
+import ReactTextareaAutosize from "react-textarea-autosize";
 
 const UpdateProfileButton = ({ user }: { user: IUser }) => {
   const [name, setName] = useState(user.displayName ? user.displayName : "");
@@ -26,6 +29,15 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
     try {
       e.preventDefault();
 
+      // Validate name
+      nameSchema.parse(name);
+
+      // Validate bio
+      bioSchema.parse(bio);
+
+      // Validate location
+      locationSchema.parse(location);
+
       const res = await updateUser({ userId, location, bio, avatar, name });
 
       if (res?.message) {
@@ -36,7 +48,12 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
 
       setIsModalOpen(false);
     } catch (error) {
-      toast.error(String(error));
+      if (error instanceof z.ZodError) {
+        const errorMessage = error.errors[0].message;
+        toast.error(errorMessage);
+      } else {
+        toast.error(String(error));
+      }
     }
   };
 
@@ -79,28 +96,47 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
               </div>
             </div>
             <div className="flex flex-col">
-              <label className="mb-2 text-lg">Display name:</label>
-              <input
-                value={name}
-                className="bg-[#3b3b3b] outline-none rounded-md p-2"
-                onChange={(e) => setName(e.target.value)}
-              />
+              <div className="rounded-md relative p-2 border  border-[#3b3b3b]   w-full">
+                <label className="mb-2 text-stone-500">Display name:</label>
+                <input
+                  maxLength={50}
+                  value={name}
+                  className="bg-transparent mt-2 w-full outline-none   "
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <p className="absolute right-1 text-sm text-gray-400 top-1  ">
+                  {name.length}/50
+                </p>
+              </div>
             </div>
             <div className="flex flex-col my-3 ">
-              <label className="mb-2 text-lg">Bio:</label>
-              <textarea
-                value={bio}
-                className="bg-[#3b3b3b] outline-none rounded-md p-2"
-                onChange={(e) => setBio(e.target.value)}
-              />
+              <div className="rounded-md relative p-2 border  border-[#3b3b3b]   w-full">
+                <label className="mb-2 text-stone-500">Bio:</label>
+                <ReactTextareaAutosize
+                  value={bio}
+                  rows={1}
+                  maxLength={160}
+                  className="bg-transparent mt-2 w-full resize-none outline-none   "
+                  onChange={(e) => setBio(e.target.value)}
+                />{" "}
+                <p className="absolute right-1 text-sm text-gray-400 top-1  ">
+                  {bio.length}/160
+                </p>
+              </div>
             </div>
             <div className="flex flex-col ">
-              <label className="mb-2 text-lg">Location:</label>
-              <input
-                value={location}
-                className="bg-[#3b3b3b] outline-none rounded-md p-2"
-                onChange={(e) => setLocation(e.target.value)}
-              />
+              <div className="rounded-md relative p-2 border  border-[#3b3b3b]   w-full">
+                <label className="mb-2 text-stone-500">Location:</label>
+                <input
+                  maxLength={30}
+                  value={location}
+                  className="bg-transparent w-full mt-2  outline-none relative  "
+                  onChange={(e) => setLocation(e.target.value)}
+                />
+                <p className="absolute right-1 text-sm text-gray-400 top-1  ">
+                  {location.length}/30
+                </p>
+              </div>
             </div>
 
             <button
