@@ -36,15 +36,16 @@ export async function GET() {
 
     if (!dbUser) {
       dbUser = await User.create({
+        displayName: `${user?.given_name ?? ""} ${user?.family_name ?? ""}`,
         username,
         avatar: user?.picture,
         userId: user?.id,
       });
     }
 
-    return redirect("https://twitter-clone-213.vercel.app");
+    return redirect("http://localhost:3000");
   } catch (error) {
     console.error(error);
-    return new Response(redirect("https://twitter-clone-213.vercel.app"));
+    return new Response(redirect("http://localhost:3000"));
   }
 }
