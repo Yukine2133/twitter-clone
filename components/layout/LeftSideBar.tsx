@@ -14,6 +14,7 @@ import {
   ArrowRightStartOnRectangleIcon,
   EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
+import useClickOutside from "@/utils/lib/hooks/useClickOutisde";
 
 const LeftSideBar = ({ currentUser }: { currentUser: IUser }) => {
   const pathname = usePathname();
@@ -26,41 +27,43 @@ const LeftSideBar = ({ currentUser }: { currentUser: IUser }) => {
     setIsModalOpen(!isModalOpen);
   };
 
-  useEffect(() => {
-    const handleScroll = (event: WheelEvent) => {
-      if (ref.current && ref.current.contains(event.target as Node)) {
-        event.stopPropagation();
-      }
-    };
+  useClickOutside(isEllipsisOpen, setIsEllipsisOpen, ref);
 
-    if (isEllipsisOpen) {
-      document.body.style.overflow = "hidden";
-      document.addEventListener("wheel", handleScroll, { passive: false });
-    } else {
-      document.body.style.overflow = "auto";
-      document.removeEventListener("wheel", handleScroll);
-    }
+  // useEffect(() => {
+  //   const handleScroll = (event: WheelEvent) => {
+  //     if (ref.current && ref.current.contains(event.target as Node)) {
+  //       event.stopPropagation();
+  //     }
+  //   };
 
-    // Cleanup function to remove overflow class when unmounting or modal is closed
-    return () => {
-      document.body.style.overflow = "auto"; // Reset overflow style
-      document.removeEventListener("wheel", handleScroll);
-    };
-  }, [isEllipsisOpen]);
+  //   if (isEllipsisOpen) {
+  //     document.body.style.overflow = "hidden";
+  //     document.addEventListener("wheel", handleScroll, { passive: false });
+  //   } else {
+  //     document.body.style.overflow = "auto";
+  //     document.removeEventListener("wheel", handleScroll);
+  //   }
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        setIsEllipsisOpen(false);
-      }
-    };
+  //   // Cleanup function to remove overflow class when unmounting or modal is closed
+  //   return () => {
+  //     document.body.style.overflow = "auto"; // Reset overflow style
+  //     document.removeEventListener("wheel", handleScroll);
+  //   };
+  // }, [isEllipsisOpen]);
 
-    document.addEventListener("mousedown", handleClickOutside);
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (ref.current && !ref.current.contains(event.target as Node)) {
+  //       setIsEllipsisOpen(false);
+  //     }
+  //   };
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  //   document.addEventListener("mousedown", handleClickOutside);
+
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
 
   return (
     <>
