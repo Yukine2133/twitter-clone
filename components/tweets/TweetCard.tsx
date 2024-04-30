@@ -7,6 +7,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ITweetProps } from "@/types/tweet.interface";
 import MoreButton from "./MoreButton";
 import { fetchUser } from "@/actions/user.actions";
+import { formatCreatedAt } from "@/utils/formatTimestamp";
 
 const TweetCard = async ({ tweet, owner }: ITweetProps) => {
   const { getUser } = getKindeServerSession();
@@ -30,9 +31,21 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
           className="rounded-full object-cover"
         />
         <div>
-          <Link href={`/profile/${owner.username}`}>
-            <span className="font-bold">{owner.username}</span>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              className="flex items-center gap-2"
+              href={`/profile/${owner.username}`}
+            >
+              <span className="font-semibold">{owner.displayName}</span>
+              <span className="text-gray-500 text-[15px]">
+                @{owner.username}
+              </span>
+            </Link>
+            <div className="flex text-gray-500 text-[15px] items-center gap-1">
+              <span>&middot;</span>
+              <span>{formatCreatedAt(tweet.createdAt)}</span>
+            </div>
+          </div>
           <h3 style={{ overflowWrap: "anywhere" }}>{tweet.text}</h3>
           {tweet.image && (
             <Image
@@ -40,11 +53,11 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
               alt="User Image"
               width={400}
               height={400}
-              className="object-cover rounded-lg"
+              className="object-cover rounded-lg mt-1"
             />
           )}
           {tweet.video && (
-            <video className="rounded-lg" controls src={tweet.video} />
+            <video className="rounded-lg mt-1" controls src={tweet.video} />
           )}
         </div>
         <div className="absolute right-0 ">
