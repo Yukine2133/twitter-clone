@@ -9,8 +9,7 @@ import GoBackButton from "@/utils/GoBackButton";
 import FollowButton from "@/components/buttons/FollowButton";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Follow from "@/components/follow/Follow";
-import UpdateProfileButton from "@/components/buttons/UpdateProfileButton";
-import { IUser } from "@/types/user.interface";
+import EditProfileButton from "@/components/buttons/EditProfileButton";
 import { ITweet } from "@/types/tweet.interface";
 import {
   CalendarDaysIcon,
@@ -94,12 +93,13 @@ const ProfilePage = async ({
           height={100}
         />
         <div className="flex justify-between items-center my-2 ">
-          <div className="flex items-center gap-4">
-            <h2 className="font-semibold text-lg">{user.username}</h2>
+          <div className="mt-4 ">
+            <h2 className="font-semibold text-lg mb-1">{user.displayName}</h2>
+            <h2 className=" text-gray-500">@{user.username}</h2>
           </div>
-          {isOwner && <UpdateProfileButton user={user} />}
+          {isOwner && <EditProfileButton user={user} />}
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 ">
           <h3>{user.bio}</h3>
 
           <div className="flex items-center gap-4">
@@ -152,11 +152,12 @@ const ProfilePage = async ({
       )}
 
       {tweets.length === 0 && (
-        <h2 className="mt-16 text-lg">
-          {currentSessionUser?.id === user.userId
-            ? `You have not added any tweets yet.`
-            : `${user.username} has not added any tweets yet.`}
-        </h2>
+        <div className="text-center mt-16 ">
+          <h2 className="text-3xl font-semibold ">{`@${user.username} hasn't tweeted.`}</h2>
+          <p className="text-zinc-500 mt-2">
+            When they do, their Tweets will show up here.
+          </p>
+        </div>
       )}
     </div>
   );
