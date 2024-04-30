@@ -15,6 +15,7 @@ export interface ITweet {
   createdAt: Date;
   updatedAt: Date;
   image: string;
+  video: string;
 }
 
 export interface ISingleTweetProps {
@@ -30,4 +31,5 @@ export interface IReply {
   text: string;
   _id: string;
   image: string;
+  video: string;
 }

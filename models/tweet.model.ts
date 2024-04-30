@@ -4,6 +4,7 @@ const tweetSchema = new mongoose.Schema(
   {
     text: { type: String },
     image: { type: String },
+    video: { type: String },
     userId: { type: String, required: true },
     bookmarks: [{ type: String }],
     likes: [{ type: String }],
@@ -12,6 +13,7 @@ const tweetSchema = new mongoose.Schema(
         user: String,
         text: String,
         image: String,
+        video: String,
       },
     ],
   },

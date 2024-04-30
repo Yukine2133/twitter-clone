@@ -6,9 +6,14 @@ import { z } from "zod";
 
 import { UploadDropzone } from "@/utils/lib/uploadthing";
 import { createTweet, replyTweet } from "@/actions/tweet.actions";
-import { PhotoIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  PhotoIcon,
+  VideoCameraIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { tweetTextSchema } from "@/utils/lib/validation";
+import Modal from "./Modal";
 
 const TweetForm = ({
   user,
@@ -22,7 +27,9 @@ const TweetForm = ({
   const ref = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenVideo, setIsOpenVideo] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -32,11 +39,13 @@ const TweetForm = ({
       setLoading(true);
       const tweetText = formData.get("text") as string;
       formData.append("image", imageUrl || "");
+      formData.append("video", videoUrl || "");
 
       const hasImageUrl = !!imageUrl;
+      const hasVideoUrl = !!videoUrl;
 
       // If there's neither text nor image, throw an error
-      if (!tweetText && !hasImageUrl) {
+      if (!tweetText && !hasImageUrl && !hasVideoUrl) {
         throw new Error("Tweet must contain text or an image.");
       }
 
@@ -71,6 +80,7 @@ const TweetForm = ({
     } finally {
       setLoading(false);
       setImageUrl(null);
+      setVideoUrl(null);
     }
   };
 
@@ -111,10 +121,29 @@ const TweetForm = ({
           />
         </div>
       )}
+      {videoUrl && (
+        <div className="mt-4 relative flex justify-center items-center">
+          <button className="absolute top-0 left-2">
+            <XMarkIcon onClick={() => setVideoUrl(null)} className="h-5 w-5" />
+          </button>
+          <video
+            className="rounded-lg "
+            width={500}
+            height={500}
+            controls
+            src={videoUrl}
+          />
+        </div>
+      )}
       <div className="mt-2 flex justify-between items-end px-6">
-        <button type="button" onClick={() => setIsOpen(!isOpen)}>
-          <PhotoIcon className="h-5 w-5 text-blue-500" />
-        </button>
+        <div className="flex gap-2 items-center">
+          <button type="button" onClick={() => setIsOpen(!isOpen)}>
+            <PhotoIcon className="h-5 w-5 text-blue-500" />
+          </button>
+          <button type="button" onClick={() => setIsOpenVideo(true)}>
+            <VideoCameraIcon className="h-5 w-5 text-blue-500" />
+          </button>
+        </div>
         <button
           disabled={loading}
           className="bg-blue-500 rounded-full px-3 py-1 hover:opacity-80   font-semibold "
@@ -124,29 +153,38 @@ const TweetForm = ({
         </button>
       </div>
       {isOpen && (
-        <div className="fixed  top-0 left-0 z-50 w-full h-full bg-gray-800 bg-opacity-80 flex justify-center items-center">
-          <div className="bg-black shadow-sm w-[700px] rounded-lg mx-2 md:mx-0 p-5 md:p-8">
-            <h6
-              className="cursor-pointer text-slate-500 flex justify-end"
-              onClick={() => setIsOpen(false)}
-            >
-              X
-            </h6>
-            <UploadDropzone
-              endpoint={"media"}
-              onClientUploadComplete={(res) => {
-                if (res?.[0].url) {
-                  setImageUrl(res[0].url);
-                  setIsOpen(false);
-                  toast.success("Image was added successfully.");
-                }
-              }}
-              onUploadError={(error: Error) => {
-                toast.error(String(error));
-              }}
-            />
-          </div>
-        </div>
+        <Modal isModalOpen={isOpen} toggleModal={setIsOpen}>
+          <UploadDropzone
+            endpoint={"media"}
+            onClientUploadComplete={(res) => {
+              if (res?.[0].url) {
+                setImageUrl(res[0].url);
+                setIsOpen(false);
+                toast.success("Image was added successfully.");
+              }
+            }}
+            onUploadError={(error: Error) => {
+              toast.error(String(error));
+            }}
+          />
+        </Modal>
+      )}
+      {isOpenVideo && (
+        <Modal isModalOpen={isOpenVideo} toggleModal={setIsOpenVideo}>
+          <UploadDropzone
+            endpoint={"video"}
+            onClientUploadComplete={(res) => {
+              if (res?.[0].url) {
+                setVideoUrl(res[0].url);
+                setIsOpenVideo(false);
+                toast.success("Video was added successfully.");
+              }
+            }}
+            onUploadError={(error: Error) => {
+              toast.error(String(error));
+            }}
+          />
+        </Modal>
       )}
     </form>
   );

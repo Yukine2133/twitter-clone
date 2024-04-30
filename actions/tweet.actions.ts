@@ -16,6 +16,7 @@ export const createTweet = async (formData: FormData) => {
 
     const text = formData.get("text");
     const image = formData.get("image");
+    const video = formData.get("video");
 
     if (!user) {
       return { error: "You need to be logged in to tweet." };
@@ -25,6 +26,7 @@ export const createTweet = async (formData: FormData) => {
       userId: userId,
       text,
       image,
+      video,
     });
     const plainTweet = {
       ...tweet.toObject(),
@@ -63,6 +65,7 @@ export const fetchTweet = async (tweetId: string) => {
       createdAt,
       updatedAt,
       image,
+      video,
     }: ITweet = tweet;
 
     const tweetData = {
@@ -75,6 +78,7 @@ export const fetchTweet = async (tweetId: string) => {
       createdAt,
       updatedAt,
       image,
+      video,
     };
 
     return tweetData;
@@ -227,6 +231,7 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
 
     const text = formData.get("text");
     const image = formData.get("image");
+    const video = formData.get("video");
 
     if (!existingTweet) {
       return { error: "Tweet not found" };
@@ -241,6 +246,7 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
       user: user?.id,
       text: text,
       image,
+      video,
     });
 
     await existingTweet.save();

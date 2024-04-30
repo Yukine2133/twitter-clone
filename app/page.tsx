@@ -22,11 +22,7 @@ export default async function Home() {
         tweets?.map(async (tweet: ITweet) => {
           const owner: IUser = await fetchUser(tweet.userId);
 
-          return (
-            <Link href={`/tweet/${tweet._id}`} key={tweet._id}>
-              <TweetCard tweet={tweet} owner={owner} />
-            </Link>
-          );
+          return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
         })}
     </div>
   );

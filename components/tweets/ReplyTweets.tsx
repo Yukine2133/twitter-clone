@@ -2,7 +2,6 @@ import { fetchUser } from "@/actions/user.actions";
 import Image from "next/image";
 import Link from "next/link";
 import MoreButton from "./MoreButton";
-import { deleteReply } from "@/actions/tweet.actions";
 import { IReply } from "@/types/tweet.interface";
 
 interface ReplyTweets {
@@ -47,7 +46,14 @@ const ReplyTweets = async ({ tweet }: ReplyTweets) => {
                     alt="User Image"
                     width={400}
                     height={400}
-                    className="object-cover mt-2 "
+                    className="object-cover mt-2 rounded-lg "
+                  />
+                )}
+                {tweet.replies[index].video && (
+                  <video
+                    className="rounded-lg"
+                    controls
+                    src={tweet.replies[index].video}
                   />
                 )}
               </div>

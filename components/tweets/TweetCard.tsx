@@ -43,6 +43,9 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
               className="object-cover rounded-lg"
             />
           )}
+          {tweet.video && (
+            <video className="rounded-lg" controls src={tweet.video} />
+          )}
         </div>
         <div className="absolute right-0 ">
           <MoreButton
@@ -58,6 +61,7 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
         owner={JSON.parse(JSON.stringify(owner))}
         tweet={JSON.parse(JSON.stringify(tweet))}
         user={currentUser!}
+        seeTweet
       />
     </div>
   );
