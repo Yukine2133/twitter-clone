@@ -5,6 +5,7 @@ import TweetCard from "@/components/tweets/TweetCard";
 import TweetForm from "@/components/tweets/TweetForm";
 import { IUser } from "@/types/user.interface";
 import { ITweet } from "@/types/tweet.interface";
+import Link from "next/link";
 
 export default async function Home() {
   const tweets = await fetchTweets();
@@ -21,7 +22,11 @@ export default async function Home() {
         tweets?.map(async (tweet: ITweet) => {
           const owner: IUser = await fetchUser(tweet.userId);
 
-          return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
+          return (
+            <Link href={`/tweet/${tweet._id}`} key={tweet._id}>
+              <TweetCard tweet={tweet} owner={owner} />
+            </Link>
+          );
         })}
     </div>
   );

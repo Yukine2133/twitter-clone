@@ -28,6 +28,7 @@ export default async function RootLayout({
   const user = await getUser();
 
   const currentUser = await fetchUser(user?.id);
+  // const currentUser = {};
   return (
     <html suppressHydrationWarning={true} lang="en">
       <body className={`${poppins.className} bg-black text-white `}>

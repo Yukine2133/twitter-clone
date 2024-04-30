@@ -57,7 +57,6 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
         id={tweet._id.toString()}
         owner={JSON.parse(JSON.stringify(owner))}
         tweet={JSON.parse(JSON.stringify(tweet))}
-        seeTweet
         user={currentUser!}
       />
     </div>

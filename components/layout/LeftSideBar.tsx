@@ -13,6 +13,7 @@ import { IUser } from "@/types/user.interface";
 import {
   ArrowRightStartOnRectangleIcon,
   EllipsisHorizontalIcon,
+  PencilIcon,
 } from "@heroicons/react/24/outline";
 import useClickOutside from "@/utils/lib/hooks/useClickOutisde";
 
@@ -28,42 +29,6 @@ const LeftSideBar = ({ currentUser }: { currentUser: IUser }) => {
   };
 
   useClickOutside(isEllipsisOpen, setIsEllipsisOpen, ref);
-
-  // useEffect(() => {
-  //   const handleScroll = (event: WheelEvent) => {
-  //     if (ref.current && ref.current.contains(event.target as Node)) {
-  //       event.stopPropagation();
-  //     }
-  //   };
-
-  //   if (isEllipsisOpen) {
-  //     document.body.style.overflow = "hidden";
-  //     document.addEventListener("wheel", handleScroll, { passive: false });
-  //   } else {
-  //     document.body.style.overflow = "auto";
-  //     document.removeEventListener("wheel", handleScroll);
-  //   }
-
-  //   // Cleanup function to remove overflow class when unmounting or modal is closed
-  //   return () => {
-  //     document.body.style.overflow = "auto"; // Reset overflow style
-  //     document.removeEventListener("wheel", handleScroll);
-  //   };
-  // }, [isEllipsisOpen]);
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (ref.current && !ref.current.contains(event.target as Node)) {
-  //       setIsEllipsisOpen(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
 
   return (
     <>
@@ -96,9 +61,15 @@ const LeftSideBar = ({ currentUser }: { currentUser: IUser }) => {
           })}
           <button
             onClick={toggleModal}
-            className="bg-blue-500 rounded-full px-3 py-3 hover:opacity-80  font-semibold"
+            className="bg-blue-500 rounded-full px-3 py-3 hover:opacity-80 hidden lg:block  font-semibold"
           >
             Tweet
+          </button>
+          <button
+            onClick={toggleModal}
+            className="bg-blue-500 rounded-full px-3 py-3 hover:opacity-80 lg:hidden   "
+          >
+            <PencilIcon className="h-5 w-5" />
           </button>
         </div>
         <div className="flex flex-col lg:flex-row ml-5 px-3 transition-colors duration-150 py-1 lg:gap-3 hover:bg-[#1c1c1c] rounded-full lg:items-center fixed bottom-3">
@@ -108,9 +79,17 @@ const LeftSideBar = ({ currentUser }: { currentUser: IUser }) => {
             width={48}
             height={48}
             className="rounded-full"
+            onClick={() => setIsEllipsisOpen(!isEllipsisOpen)}
           />
-
-          <LogoutLink className="lg:hidden">Logout</LogoutLink>
+          {isEllipsisOpen && (
+            <div
+              ref={ref}
+              className="absolute -top-14 -right-4 flex gap-2 bg-black shadow-sm p-3 shadow-white "
+            >
+              <ArrowRightStartOnRectangleIcon className="h-5 w-5" />
+              <LogoutLink>Logout</LogoutLink>
+            </div>
+          )}
 
           <div className="items-center gap-2 relative  hidden lg:flex ">
             <div>
