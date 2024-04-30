@@ -16,6 +16,7 @@ import {
   MapIcon,
   MapPinIcon,
 } from "@heroicons/react/24/outline";
+import { formatJoinedDate } from "@/utils/formatTimestamp";
 
 export const generateMetadata = async ({
   params,
@@ -65,13 +66,6 @@ const ProfilePage = async ({
       </h2>
     );
   }
-
-  const formatJoinedDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const month = date.toLocaleString("default", { month: "long" });
-    const year = date.getFullYear();
-    return `Joined ${month} ${year}`;
-  };
 
   const isOwner = user.userId === currentUser.userId;
 

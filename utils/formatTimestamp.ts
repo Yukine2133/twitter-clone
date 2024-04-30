@@ -1,21 +1,5 @@
 import { formatDistanceToNow } from "date-fns";
 
-export const formattedDate = (timestamp: Date) => {
-  return new Date(timestamp).toLocaleDateString(undefined, {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-};
-
-export const formattedTime = (timestamp: Date) => {
-  return new Date(timestamp).toLocaleTimeString(undefined, {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  });
-};
-
 export const formatCreatedAt = (createdAt: Date) => {
   const currentDate = new Date();
   const tweetDate = new Date(createdAt);
@@ -37,4 +21,27 @@ export const formatCreatedAt = (createdAt: Date) => {
 
   // More than a day ago
   return formatDistanceToNow(tweetDate, { addSuffix: true });
+};
+
+export const formatJoinedDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getFullYear();
+  return `Joined ${month} ${year}`;
+};
+
+export const formatDate = (createdAt: Date) => {
+  const options = {
+    hour: "numeric",
+    minute: "numeric",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  };
+
+  const formattedDate = new Date(createdAt).toLocaleString(
+    "en-US",
+    options as any
+  );
+  return formattedDate.replace(",", " ·");
 };

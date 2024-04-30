@@ -2,12 +2,13 @@ import ReplyTweets from "@/components/tweets/ReplyTweets";
 import TweetActions from "@/components/tweets/TweetActions";
 import { fetchTweet } from "@/actions/tweet.actions";
 import { fetchUser } from "@/actions/user.actions";
-import { formattedDate, formattedTime } from "@/utils/formatTimestamp";
+
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 import Image from "next/image";
 import Link from "next/link";
 import TweetForm from "@/components/tweets/TweetForm";
+import { formatDate } from "@/utils/formatTimestamp";
 
 export const generateMetadata = async ({
   params,
@@ -40,27 +41,28 @@ const SingleTweet = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="p-3 relative ">
-      <div className="flex   gap-2 items-center">
+      <div className="flex   gap-4 items-center">
         <Image
           src={owner.avatar}
           alt={owner.username}
-          width={38}
-          height={38}
+          width={48}
+          height={48}
           className="rounded-full object-cover"
         />
-        <div className="flex items-center gap-2">
-          <Link href={`/profile/${owner.username}`}>
-            <span className="font-bold ">{owner.username}</span>
-          </Link>
-          <span className="text-sm text-slate-500">
-            {formattedDate(singleTweet?.createdAt!)},{" "}
-            {formattedTime(singleTweet?.createdAt!)}
-          </span>
-        </div>
+        <Link className="flex  flex-col " href={`/profile/${owner.username}`}>
+          <span className="font-semibold ">{owner.displayName}</span>
+          <span className="text-gray-500 ">@{owner.username}</span>
+        </Link>
       </div>
-      <h3 className="pl-5 pt-4 mb-2" style={{ overflowWrap: "anywhere" }}>
+      <h3
+        className="pl-5 pt-4 mb-2 text-lg"
+        style={{ overflowWrap: "anywhere" }}
+      >
         {singleTweet?.text}
       </h3>
+      <span className="text-gray-500 text-[15px]">
+        {formatDate(singleTweet?.createdAt as Date)}
+      </span>
       {singleTweet?.image && (
         <Image
           src={singleTweet.image}
