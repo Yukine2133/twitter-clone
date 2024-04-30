@@ -1,8 +1,7 @@
 import { IUser } from "@/types/user.interface";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import UserCard from "../search/UserCard";
+import useClickOutside from "@/utils/lib/hooks/useClickOutisde";
 
 interface IFollowModal {
   setIsOpenFollowers: (arg0: boolean) => void;
@@ -25,51 +24,8 @@ const FollowModal = ({
 }: IFollowModal) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleScroll = (event: WheelEvent) => {
-      if (ref.current && ref.current.contains(event.target as Node)) {
-        event.stopPropagation();
-      }
-    };
-
-    if (isOpenFollowers || isOpenFollowing) {
-      document.body.style.overflow = "hidden";
-      document.addEventListener("wheel", handleScroll, { passive: false });
-    } else {
-      document.body.style.overflow = "auto";
-      document.removeEventListener("wheel", handleScroll);
-    }
-
-    // Cleanup function to remove overflow class when unmounting or modal is closed
-    return () => {
-      document.body.style.overflow = "auto"; // Reset overflow style
-      document.removeEventListener("wheel", handleScroll);
-    };
-  }, [isOpenFollowers, isOpenFollowing]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleClickOutside = (event: MouseEvent) => {
-    if (ref.current && !ref.current.contains(event.target as Node)) {
-      setIsOpenFollowers(false);
-      setIsOpenFollowing(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [handleClickOutside]);
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [handleClickOutside]);
+  useClickOutside(isOpenFollowers, setIsOpenFollowers, ref);
+  useClickOutside(isOpenFollowing, setIsOpenFollowing, ref);
 
   return (
     <div
