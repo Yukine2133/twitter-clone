@@ -5,6 +5,7 @@ import { Tweet } from "../models/tweet.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 import { ITweet } from "@/types/tweet.interface";
+import { Reply } from "@/models/reply.model";
 
 export const createTweet = async (formData: FormData) => {
   try {
@@ -53,32 +54,14 @@ export const fetchTweet = async (tweetId: string) => {
   try {
     await connectDb();
 
-    const tweet = await Tweet.findById(tweetId);
+    const tweet = await Tweet.findById(tweetId).populate("replies");
 
-    const {
-      _id,
-      text,
-      userId,
-      bookmarks,
-      likes,
-      replies,
-      createdAt,
-      updatedAt,
-      image,
-      video,
-    }: ITweet = tweet;
+    const { _id, userId }: ITweet = tweet;
 
     const tweetData = {
+      ...tweet.toObject(),
       _id: _id.toString(),
-      text,
       userId: userId.toString(),
-      bookmarks,
-      likes,
-      replies: JSON.parse(JSON.stringify(replies)),
-      createdAt,
-      updatedAt,
-      image,
-      video,
     };
 
     return tweetData;
@@ -241,18 +224,39 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
       return { error: "You need to be logged in to reply." };
     }
 
-    existingTweet.replies = existingTweet.replies || [];
-    existingTweet.replies.push({
-      user: user?.id,
+    // Create a new reply instance
+    const reply = new Reply({
+      tweetId: tweetId,
+      userId: user.id,
       text: text,
-      image,
-      video,
+      image: image,
+      video: video,
     });
 
+    await reply.save();
+
+    // Add the reply reference to the tweet
+    existingTweet.replies = existingTweet.replies || [];
+    existingTweet.replies.push(reply._id);
     await existingTweet.save();
+
     revalidatePath(`/tweet/${tweetId}`);
     revalidatePath(`/`);
+
     return { message: "Reply was created" };
+  } catch (error) {
+    console.error(error);
+    return { error: "An unexpected error occurred." };
+  }
+};
+
+export const fetchTweetReplies = async (tweetId: string) => {
+  try {
+    await connectDb();
+
+    const replies = await Reply.find({ tweetId });
+
+    return replies;
   } catch (error) {
     console.error(error);
     return { error: "An unexpected error occurred." };
@@ -270,26 +274,23 @@ export const deleteReply = async (tweetId: string, replyId: string) => {
       return { message: "You need to be logged in to delete the reply" };
     }
 
+    const reply = await Reply.findByIdAndDelete(replyId);
+    if (!reply) {
+      throw new Error("Reply not found.");
+    }
+
+    // Remove the reference to the deleted reply from the associated tweet
     const tweet = await Tweet.findById(tweetId);
+
     if (!tweet) {
       throw new Error("Tweet not found.");
     }
-
-    // Find the index of the reply to be deleted
-    const replyIndex = tweet.replies.findIndex(
-      (reply: any) => reply._id.toString() === replyId
-    );
-
-    const owner = tweet.replies.findIndex(
-      (reply: any) => reply.user.toString() === user.id
-    );
-    if (owner !== -1) {
+    const replyIndex = tweet.replies.indexOf(replyId);
+    if (replyIndex !== -1) {
       tweet.replies.splice(replyIndex, 1);
-    } else {
-      return { message: "You cannot delete someone else's reply." };
     }
-
     await tweet.save();
+
     revalidatePath(`/tweet/${tweetId}`);
   } catch (error) {
     console.error(error);
@@ -297,9 +298,9 @@ export const deleteReply = async (tweetId: string, replyId: string) => {
 };
 
 export const editReply = async (
+  replyId: string,
   tweetId: string,
   text: string,
-  replyId: string,
   image: string
 ) => {
   try {
@@ -311,30 +312,18 @@ export const editReply = async (
       return { message: "You need to be logged in to edit the reply" };
     }
 
-    const tweet = await Tweet.findById(tweetId);
-    if (!tweet) {
-      return { message: "Tweet not found" };
+    const reply = await Reply.findById(replyId);
+
+    if (reply.userId != user?.id) {
+      return { message: "You cannot edit someone else's tweet." };
     }
 
-    const replyIndex = tweet.replies.findIndex(
-      (reply: any) => reply._id.toString() === replyId
-    );
+    if (!reply) return { message: "This reply does not exist." };
 
-    if (replyIndex === -1) {
-      return { message: "Reply not found" };
-    }
+    reply.text = text;
+    reply.image = image;
 
-    const owner = tweet.replies.findIndex(
-      (reply: any) => reply.user.toString() === user.id
-    );
-    if (owner !== -1) {
-      tweet.replies[replyIndex].text = text;
-      tweet.replies[replyIndex].image = image;
-    } else {
-      return { message: "You cannot edit someone else's reply." };
-    }
-
-    await tweet.save();
+    await reply.save();
     revalidatePath(`/tweet/${tweetId}`);
   } catch (error) {
     console.error(error);

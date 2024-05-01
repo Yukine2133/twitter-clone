@@ -90,7 +90,10 @@ const SingleTweet = async ({ params }: { params: { id: string } }) => {
         <TweetForm user={currentUser!} id={singleTweet?._id.toString()!} />
       </div>
 
-      <ReplyTweets tweet={JSON.parse(JSON.stringify(singleTweet))} />
+      <ReplyTweets
+        tweet={JSON.parse(JSON.stringify(singleTweet))}
+        tweetId={singleTweet?._id.toString() as string}
+      />
     </div>
   );
 };

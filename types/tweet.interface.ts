@@ -27,9 +27,12 @@ export interface ISingleTweetProps {
 }
 
 export interface IReply {
-  user: string;
+  userId: string;
   text: string;
   _id: string;
   image: string;
   video: string;
+  tweetId: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

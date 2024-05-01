@@ -3,26 +3,36 @@ import Image from "next/image";
 import Link from "next/link";
 import MoreButton from "./MoreButton";
 import { IReply } from "@/types/tweet.interface";
+import { fetchTweetReplies } from "@/actions/tweet.actions";
+import { IUser } from "@/types/user.interface";
+import { toast } from "react-toastify";
 
-interface ReplyTweets {
-  tweet: {
-    text: string;
-    _id: string;
-    likes: string[];
-    replies: IReply[];
-  };
-}
+const ReplyTweets = async ({
+  tweetId,
+  tweet,
+}: {
+  tweetId: string;
+  tweet: any;
+}) => {
+  const replies = await fetchTweetReplies(tweetId);
 
-const ReplyTweets = async ({ tweet }: ReplyTweets) => {
-  const owner = await Promise.all(
-    tweet.replies.map(async (reply: any) => await fetchUser(reply.user))
-  );
+  // Fix: Property 'map' does not exist on type 'any[] | { error: string; }'.
+  if (!Array.isArray(replies)) {
+    toast.error("Error fetching replies:");
+    return null;
+  }
+
+  if (!replies) {
+    return null;
+  }
+
   return (
-    <div>
-      {owner.map((owner, index) => {
+    <>
+      {replies.map(async (reply: IReply) => {
+        const owner: IUser = await fetchUser(reply.userId);
         return (
           <div
-            key={index}
+            key={reply._id}
             className="mt-3 py-3 border-y border-[#2f3336] w-full relative  "
           >
             <div className="flex  gap-2 items-start">
@@ -37,31 +47,26 @@ const ReplyTweets = async ({ tweet }: ReplyTweets) => {
                 <Link href={`/profile/${owner.username}`}>
                   <span className="font-bold ">{owner.username}</span>
                 </Link>
-                <h3 style={{ overflowWrap: "anywhere" }}>
-                  {tweet.replies[index].text!}
-                </h3>
-                {tweet.replies[index].image && (
+                <h3 style={{ overflowWrap: "anywhere" }}>{reply.text}</h3>
+                {reply.image && (
                   <Image
-                    src={tweet.replies[index].image}
+                    src={reply.image}
                     alt="User Image"
                     width={400}
                     height={400}
                     className="object-cover mt-2 rounded-lg "
                   />
                 )}
-                {tweet.replies[index].video && (
-                  <video
-                    className="rounded-lg"
-                    controls
-                    src={tweet.replies[index].video}
-                  />
+                {reply.video && (
+                  <video className="rounded-lg" controls src={reply.video} />
                 )}
               </div>
               <div className="absolute right-0 ">
                 <MoreButton
-                  replyId={tweet.replies[index]._id}
-                  tweet={tweet as any}
-                  replyTweet={tweet.replies[index].text}
+                  replyId={reply._id.toString()}
+                  tweet={JSON.parse(JSON.stringify(tweet))}
+                  reply={JSON.parse(JSON.stringify(reply))}
+                  replyTweet={reply.text}
                   id={tweet._id.toString()}
                 />
               </div>
@@ -69,7 +74,7 @@ const ReplyTweets = async ({ tweet }: ReplyTweets) => {
           </div>
         );
       })}
-    </div>
+    </>
   );
 };
 

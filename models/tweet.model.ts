@@ -8,14 +8,7 @@ const tweetSchema = new mongoose.Schema(
     userId: { type: String, required: true },
     bookmarks: [{ type: String }],
     likes: [{ type: String }],
-    replies: [
-      {
-        user: String,
-        text: String,
-        image: String,
-        video: String,
-      },
-    ],
+    replies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reply" }],
   },
   {
     timestamps: true,
@@ -23,4 +16,4 @@ const tweetSchema = new mongoose.Schema(
 );
 
 export const Tweet =
-  mongoose.models.Tweets || mongoose.model("Tweets", tweetSchema);
+  mongoose.models.Tweet || mongoose.model("Tweet", tweetSchema);

@@ -21,11 +21,13 @@ interface IMoreButton {
     text: string;
     userId: string;
     replies: IReply[];
+    _id: string;
   };
+  reply: IReply;
   replyId?: string;
   replyTweet?: string;
 }
-const MoreButton = ({ id, tweet, replyId, replyTweet }: IMoreButton) => {
+const MoreButton = ({ id, reply, tweet, replyId, replyTweet }: IMoreButton) => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const [text, setText] = useState(replyTweet ? replyTweet : tweet.text);
@@ -90,9 +92,9 @@ const MoreButton = ({ id, tweet, replyId, replyTweet }: IMoreButton) => {
         }
       } else {
         const res = await editReply(
+          replyId as string,
           tweetId,
           text,
-          replyId as string,
           imageUrl as string
         );
         if (res?.message) {
@@ -129,9 +131,7 @@ const MoreButton = ({ id, tweet, replyId, replyTweet }: IMoreButton) => {
     }
   };
 
-  const isOwner =
-    user?.id === tweet.userId ||
-    tweet.replies.some((reply: any) => user?.id === reply.user);
+  const isOwner = user?.id === tweet.userId || reply?.userId;
 
   return (
     <>

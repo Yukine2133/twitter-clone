@@ -65,6 +65,7 @@ const TweetActions = ({
   };
 
   const likeCount = tweet.likes.length;
+  // const repliesCount = tweet.replies.length;
   const repliesCount = tweet.replies.length;
   return (
     <div className="flex mt-2 justify-between px-8  gap-8">
