@@ -60,9 +60,7 @@ const SingleTweet = async ({ params }: { params: { id: string } }) => {
       >
         {singleTweet?.text}
       </h3>
-      <span className="text-gray-500 text-[15px]">
-        {formatDate(singleTweet?.createdAt as Date)}
-      </span>
+
       {singleTweet?.image && (
         <Image
           src={singleTweet.image}
@@ -72,6 +70,12 @@ const SingleTweet = async ({ params }: { params: { id: string } }) => {
           className="object-cover"
         />
       )}
+      {singleTweet?.video && (
+        <video src={singleTweet.video} className="rounded-lg mt-1" controls />
+      )}
+      <span className="text-gray-500 text-[15px]">
+        {formatDate(singleTweet?.createdAt as Date)}
+      </span>
       <div className="mt-5 py-2 border-y border-[#2f3336]">
         <TweetActions
           user={currentUser!}
