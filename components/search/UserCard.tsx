@@ -13,8 +13,9 @@ const UserCard = ({ user }: { user: IUser }) => {
         className="rounded-full object-cover"
       />
       <div>
-        <Link href={`/profile/${user.username}`}>
-          <span className="font-bold ">{user.username}</span>
+        <Link className="flex flex-col" href={`/profile/${user.username}`}>
+          <span className="font-bold ">{user.displayName}</span>
+          <span className="text-gray-500 ">@{user.username}</span>
         </Link>
       </div>
     </div>

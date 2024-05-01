@@ -72,7 +72,7 @@ const LeftSideBar = ({ currentUser }: { currentUser: IUser }) => {
             <PencilIcon className="h-5 w-5" />
           </button>
         </div>
-        <div className="flex flex-col lg:flex-row ml-5 px-3 transition-colors duration-150 py-1 lg:gap-3 hover:bg-[#1c1c1c] rounded-full lg:items-center fixed bottom-3">
+        <div className="flex flex-col lg:flex-row  px-3 transition-colors duration-150 py-1 lg:gap-3 hover:bg-[#1c1c1c] rounded-full lg:items-center fixed bottom-3">
           <Image
             src={currentUser?.avatar!}
             alt={currentUser?.username!}
@@ -84,7 +84,7 @@ const LeftSideBar = ({ currentUser }: { currentUser: IUser }) => {
           {isEllipsisOpen && (
             <div
               ref={ref}
-              className="absolute -top-14 -right-4 flex gap-2 bg-black shadow-sm p-3 shadow-white "
+              className="absolute -top-14 lg:hidden -right-4 flex gap-2 bg-black shadow-sm p-3 shadow-white "
             >
               <ArrowRightStartOnRectangleIcon className="h-5 w-5" />
               <LogoutLink>Logout</LogoutLink>

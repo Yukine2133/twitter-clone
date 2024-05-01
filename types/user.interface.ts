@@ -6,4 +6,6 @@ export interface IUser {
   location: string;
   displayName: string;
   bio: string;
+  followers: string[];
+  following: string[];
 }

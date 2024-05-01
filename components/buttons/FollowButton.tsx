@@ -14,6 +14,7 @@ const FollowButton = ({
   username: string;
   currentUserId: string;
 }) => {
+  const isNotOwner = userId != currentUserId;
   const handleFollowUser = async () => {
     try {
       const res = await followUser(userId, username, currentUserId);
@@ -24,14 +25,17 @@ const FollowButton = ({
       toast.error(String(error));
     }
   };
-  return (
-    <button
-      className="bg-blue-500 p-2 font-bold rounded-full text-white"
-      onClick={handleFollowUser}
-    >
-      {isFollowing ? "Following" : "Follow"}
-    </button>
-  );
+
+  if (isNotOwner) {
+    return (
+      <button
+        className="bg-white text-black py-2 px-3 font-semibold rounded-full "
+        onClick={handleFollowUser}
+      >
+        {isFollowing ? "Following" : "Follow"}
+      </button>
+    );
+  }
 };
 
 export default FollowButton;

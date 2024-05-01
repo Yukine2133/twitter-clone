@@ -38,6 +38,18 @@ export const fetchUser = async (
   }
 };
 
+export const fetchUsers = async (currentUserId: string) => {
+  try {
+    await connectDb();
+
+    // Fetch all users except the current user
+    const users = await User.find({ _id: { $ne: currentUserId } });
+    return users;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const updateUser = async ({
   userId,
   bio,

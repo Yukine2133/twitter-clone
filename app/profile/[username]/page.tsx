@@ -124,14 +124,12 @@ const ProfilePage = async ({
           </div>
         </div>
         <div className="mt-2">
-          {isOwner ? null : (
-            <FollowButton
-              username={username}
-              isFollowing={isFollowing}
-              userId={user._id.toString()}
-              currentUserId={currentUser._id.toString()}
-            />
-          )}
+          <FollowButton
+            username={username}
+            isFollowing={isFollowing}
+            userId={user._id.toString()}
+            currentUserId={currentUser._id.toString()}
+          />
         </div>
       </div>
 
