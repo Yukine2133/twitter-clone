@@ -23,7 +23,7 @@ interface IMoreButton {
     replies: IReply[];
     _id: string;
   };
-  reply: IReply;
+  reply?: IReply;
   replyId?: string;
   replyTweet?: string;
 }

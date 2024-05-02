@@ -5,7 +5,6 @@ import TweetCard from "@/components/tweets/TweetCard";
 import TweetForm from "@/components/tweets/TweetForm";
 import { IUser } from "@/types/user.interface";
 import { ITweet } from "@/types/tweet.interface";
-import Link from "next/link";
 
 export default async function Home() {
   const tweets = await fetchTweets();

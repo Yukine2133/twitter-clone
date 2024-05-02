@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import TweetActions from "./TweetActions";
-import { deleteTweet } from "@/actions/tweet.actions";
+import { deleteTweet, fetchLikesForTweet } from "@/actions/tweet.actions";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ITweetProps } from "@/types/tweet.interface";
 import MoreButton from "./MoreButton";
@@ -17,8 +17,14 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
   const currentUser = await fetchUser(user?.id);
   const bookmarks = tweet?.bookmarks;
   const isBookmarked = bookmarks?.includes(user?.id as string);
-  const likes = tweet?.likes;
-  const isLiked = likes?.includes(user?.id as string);
+  const likesData = await fetchLikesForTweet(tweet._id);
+
+  const likes = Array.isArray(likesData) ? likesData : [];
+
+  // Check if the user's ID is included in the likes array
+  const isLiked = likes.some(
+    (like: { userId: string }) => like.userId === user?.id
+  );
 
   return (
     <div className="mt-4 py-3 border-y border-[#2f3336] w-full relative">

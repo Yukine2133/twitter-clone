@@ -7,7 +7,7 @@ const tweetSchema = new mongoose.Schema(
     video: { type: String },
     userId: { type: String, required: true },
     bookmarks: [{ type: String }],
-    likes: [{ type: String }],
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Like" }],
     replies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reply" }],
   },
   {
