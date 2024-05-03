@@ -10,6 +10,11 @@ import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
+import Modal from "./Modal";
+import ReactTextareaAutosize from "react-textarea-autosize";
+import { tweetTextSchema } from "@/utils/lib/validation";
+import { z } from "zod";
+import Image from "next/image";
 
 interface IMoreButton {
   id: string;
@@ -18,6 +23,7 @@ interface IMoreButton {
     userId: string;
     replies: IReply[];
     _id: string;
+    image: string;
   };
   reply?: IReply;
   replyId?: string;
@@ -26,10 +32,14 @@ interface IMoreButton {
 const MoreButton = ({ id, reply, tweet, replyId, replyTweet }: IMoreButton) => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  const [text, setText] = useState(replyTweet ? replyTweet : tweet.text);
+  const [text, setText] = useState<string | null>(
+    replyTweet ? replyTweet : tweet.text
+  );
 
   const [edit, setEdit] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(
+    replyTweet ? (reply?.image as string) : tweet.image
+  );
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const divRef = useRef<HTMLInputElement | null>(null);
@@ -80,6 +90,15 @@ const MoreButton = ({ id, reply, tweet, replyId, replyTweet }: IMoreButton) => {
         pathname === "/" ||
         pathname === "/search"
       ) {
+        // If there's neither text nor image, throw an error
+        if (!text && !imageUrl) {
+          throw new Error("Tweet must contain text or an image.");
+        }
+
+        // If there's text, validate it
+        if (text && text.trim().length > 0) {
+          tweetTextSchema.parse(text);
+        }
         const res = await updateTweet(tweetId, text, imageUrl as string);
         if (res?.message) {
           toast.error(res.message);
@@ -99,14 +118,19 @@ const MoreButton = ({ id, reply, tweet, replyId, replyTweet }: IMoreButton) => {
           toast.success("Reply was updated.");
         }
       }
+      setEdit(false);
     } catch (error) {
-      toast.error(String(error));
+      if (error instanceof z.ZodError) {
+        const errorMessage = error.errors[0].message;
+        toast.error(errorMessage);
+      } else {
+        toast.error(String(error));
+      }
     }
   };
 
   const handleSubmit = () => {
     handleEdit(id, text as string);
-    setEdit(false);
   };
 
   const handleDelete = async () => {
@@ -164,36 +188,43 @@ const MoreButton = ({ id, reply, tweet, replyId, replyTweet }: IMoreButton) => {
             </div>
           )}
           {edit && (
-            <div className="fixed  top-0 left-0 z-50 w-full h-full bg-gray-800 bg-opacity-80 flex justify-center items-center">
-              <div
-                ref={divRef}
-                className="bg-black shadow-sm w-[700px] rounded-lg mx-2 md:mx-0 p-5 md:p-8"
+            <Modal isModalOpen={edit} toggleModal={setEdit}>
+              <ReactTextareaAutosize
+                maxRows={6}
+                value={text as string}
+                maxLength={280}
+                wrap="soft"
+                onChange={(e) => setText(e.target.value)}
+                className="bg-transparent border border-gray-800 shadow-sm rounded-md flex justify-center w-full mx-auto p-2"
+              />
+              <UploadDropzone
+                endpoint={"media"}
+                onClientUploadComplete={(res) => {
+                  if (res?.[0].url) {
+                    setImageUrl(res[0].url);
+                    toast.success("Image was added successfully.");
+                  }
+                }}
+                onUploadError={(error: Error) => {
+                  toast.error(String(error));
+                }}
+              />
+              {imageUrl && (
+                <Image
+                  src={imageUrl}
+                  alt="Uploaded image"
+                  width={250}
+                  height={250}
+                  className="rounded-lg mx-auto mb-6"
+                />
+              )}
+              <button
+                onClick={handleSubmit}
+                className="px-3 py-2 rounded-md flex justify-center mx-auto  bg-blue-600"
               >
-                <textarea
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                  className="bg-transparent border border-gray-800 shadow-sm rounded-md flex justify-center w-1/2 mx-auto p-2"
-                />
-                <UploadDropzone
-                  endpoint={"media"}
-                  onClientUploadComplete={(res) => {
-                    if (res?.[0].url) {
-                      setImageUrl(res[0].url);
-                      toast.success("Image was added successfully.");
-                    }
-                  }}
-                  onUploadError={(error: Error) => {
-                    toast.error(String(error));
-                  }}
-                />
-                <button
-                  onClick={handleSubmit}
-                  className="px-3 py-2 rounded-md flex justify-center mx-auto  bg-blue-600"
-                >
-                  Submit
-                </button>
-              </div>
-            </div>
+                Submit
+              </button>
+            </Modal>
           )}
         </>
       )}
