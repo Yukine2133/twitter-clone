@@ -162,6 +162,7 @@ export const followUser = async (
     await currentUser.save();
 
     revalidatePath(`/profile/${username}`);
+    revalidatePath(`/`);
   } catch (error) {
     console.error(error);
   }

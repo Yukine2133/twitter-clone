@@ -1,35 +1,52 @@
-import { fetchUser, fetchUsers } from "@/actions/user.actions";
-import { IUser } from "@/types/user.interface";
+"use client";
+
+import { useEffect, useState } from "react";
 import UserCard from "../search/UserCard";
 import FollowButton from "../buttons/FollowButton";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { shuffleArray } from "@/utils/shuffleArray";
+import { fetchUser, fetchUsers } from "@/actions/user.actions";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 
-const FollowSuggestions = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+const FollowSuggestions = () => {
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [randomUsers, setRandomUsers] = useState<any>([]);
 
-  const currentUser = await fetchUser(user?.id);
+  const { user } = useKindeBrowserClient();
 
-  const users = await fetchUsers(currentUser?._id as string);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const currentUserData = await fetchUser(user?.id);
+        setCurrentUser(currentUserData);
 
-  const shuffledUsers = shuffleArray(users as IUser[]);
-  const randomUsers = shuffledUsers.slice(0, 3);
+        const usersData: any = await fetchUsers(currentUserData?._id);
+        const shuffledUsers = shuffleArray(usersData);
+        const randomUsersData: any = shuffledUsers.slice(0, 3);
+
+        setRandomUsers(randomUsersData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [user?.id]);
 
   return (
     <div className="bg-[#16181c] w-80 mt-4 px-4 py-2 rounded-lg">
       <h4 className="text-xl font-semibold mb-4">Who to follow</h4>
-      {randomUsers.map((randomUser) => {
+      {randomUsers.map((randomUser: any) => {
         const isFollowing = randomUser.followers?.includes(user?.id as string);
 
         return (
           <div
-            className="flex items-center justify-between "
+            className="flex items-center justify-between"
             key={randomUser._id}
           >
-            <UserCard user={JSON.parse(JSON.stringify(randomUser))} />
+            <UserCard user={randomUser} />
             <FollowButton
-              currentUserId={currentUser._id}
+              currentUserId={currentUser?._id}
               isFollowing={isFollowing}
               userId={randomUser._id.toString()}
               username={randomUser.username}

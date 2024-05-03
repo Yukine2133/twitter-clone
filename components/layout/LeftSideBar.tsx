@@ -1,7 +1,10 @@
 "use client";
 
 import { sidebarLinks } from "@/utils/constants";
-import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
+import {
+  LogoutLink,
+  useKindeBrowserClient,
+} from "@kinde-oss/kinde-auth-nextjs";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -16,8 +19,9 @@ import {
   PencilIcon,
 } from "@heroicons/react/24/outline";
 import useClickOutside from "@/utils/lib/hooks/useClickOutisde";
+import { fetchUser } from "@/actions/user.actions";
 
-const LeftSideBar = ({ currentUser }: { currentUser: IUser }) => {
+const LeftSideBar = () => {
   const pathname = usePathname();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEllipsisOpen, setIsEllipsisOpen] = useState(false);
@@ -29,6 +33,17 @@ const LeftSideBar = ({ currentUser }: { currentUser: IUser }) => {
   };
 
   useClickOutside(isEllipsisOpen, setIsEllipsisOpen, ref);
+
+  const [currentUser, setCurrentUser] = useState<IUser | null>(null);
+  const { user } = useKindeBrowserClient();
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      const res = await fetchUser(user?.id);
+      setCurrentUser(JSON.parse(JSON.stringify(res)));
+    };
+    fetchCurrentUser();
+  }, [user?.id]);
 
   return (
     <>
@@ -93,8 +108,8 @@ const LeftSideBar = ({ currentUser }: { currentUser: IUser }) => {
 
           <div className="items-center gap-2 relative  hidden lg:flex ">
             <div>
-              <h2 className="font-semibold">{currentUser.displayName}</h2>
-              <h2 className="text-gray-500">@{currentUser.username}</h2>
+              <h2 className="font-semibold">{currentUser?.displayName}</h2>
+              <h2 className="text-gray-500">@{currentUser?.username}</h2>
             </div>
             <button onClick={() => setIsEllipsisOpen(!isEllipsisOpen)}>
               <EllipsisHorizontalIcon className="h-5 w-5" />

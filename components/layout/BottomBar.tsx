@@ -1,14 +1,30 @@
 "use client";
 
+import { fetchUser } from "@/actions/user.actions";
 import { IUser } from "@/types/user.interface";
 import { sidebarLinks } from "@/utils/constants";
-import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
+import {
+  LogoutLink,
+  useKindeBrowserClient,
+} from "@kinde-oss/kinde-auth-nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
-const BottomBar = ({ currentUser }: { currentUser: IUser }) => {
+const BottomBar = () => {
   const pathname = usePathname();
+
+  const [currentUser, setCurrentUser] = useState<IUser | null>(null);
+  const { user } = useKindeBrowserClient();
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      const res = await fetchUser(user?.id);
+      setCurrentUser(JSON.parse(JSON.stringify(res)));
+    };
+    fetchCurrentUser();
+  }, [user?.id]);
 
   return (
     <div className="fixed z-10 bg-black  px-4 border-t border-[#2f3336] w-full min-[800px]:hidden bottom-0 left-0 ">
