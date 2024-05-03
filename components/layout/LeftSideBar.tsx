@@ -108,7 +108,9 @@ const LeftSideBar = () => {
 
           <div className="items-center gap-2 relative  hidden lg:flex ">
             <div>
-              <h2 className="font-semibold">{currentUser?.displayName}</h2>
+              <h2 className="font-semibold truncate w-[125px]">
+                {currentUser?.displayName}
+              </h2>
               <h2 className="text-gray-500">@{currentUser?.username}</h2>
             </div>
             <button onClick={() => setIsEllipsisOpen(!isEllipsisOpen)}>
