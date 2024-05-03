@@ -1,7 +1,5 @@
 "use client";
 
-import { bookMarkTweet, likeTweet } from "@/actions/tweet.actions";
-
 import { useState } from "react";
 import Link from "next/link";
 import { ITweetProps } from "@/types/tweet.interface";
@@ -15,6 +13,8 @@ import {
   HeartIcon,
 } from "@heroicons/react/24/outline";
 import * as solid from "@heroicons/react/24/solid";
+import { likeTweet } from "@/actions/like.actions";
+import { bookMarkTweet } from "@/actions/bookmark.actions";
 
 interface TweetActions extends ITweetProps {
   isBookmarked: boolean;

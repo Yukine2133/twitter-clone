@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import MoreButton from "./MoreButton";
 import { IReply } from "@/types/tweet.interface";
-import { fetchTweetReplies } from "@/actions/tweet.actions";
 import { IUser } from "@/types/user.interface";
 import { toast } from "react-toastify";
+import { fetchTweetReplies } from "@/actions/reply.actions";
 
 const ReplyTweets = async ({
   tweetId,

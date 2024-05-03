@@ -5,7 +5,7 @@ import Image from "next/image";
 import { z } from "zod";
 
 import { UploadDropzone } from "@/utils/lib/uploadthing";
-import { createTweet, replyTweet } from "@/actions/tweet.actions";
+import { createTweet } from "@/actions/tweet.actions";
 import {
   PhotoIcon,
   VideoCameraIcon,
@@ -14,6 +14,7 @@ import {
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { tweetTextSchema } from "@/utils/lib/validation";
 import Modal from "./Modal";
+import { replyTweet } from "@/actions/reply.actions";
 
 const TweetForm = ({
   user,

@@ -1,11 +1,7 @@
 "use client";
 
-import {
-  deleteReply,
-  deleteTweet,
-  editReply,
-  updateTweet,
-} from "@/actions/tweet.actions";
+import { deleteReply, editReply } from "@/actions/reply.actions";
+import { deleteTweet, updateTweet } from "@/actions/tweet.actions";
 import { IReply } from "@/types/tweet.interface";
 import { combineUsername } from "@/utils/combineUsername";
 import { UploadDropzone } from "@/utils/lib/uploadthing";

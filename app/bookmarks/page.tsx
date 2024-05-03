@@ -1,10 +1,10 @@
-import { getUserBookmarks } from "@/actions/tweet.actions";
 import { fetchUser } from "@/actions/user.actions";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import TweetCard from "@/components/tweets/TweetCard";
 import { Metadata } from "next";
 import { IUser } from "@/types/user.interface";
 import { ITweet } from "@/types/tweet.interface";
+import { getUserBookmarks } from "@/actions/bookmark.actions";
 
 export const metadata: Metadata = {
   title: "Bookmarks",

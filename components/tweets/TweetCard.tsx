@@ -2,12 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import TweetActions from "./TweetActions";
-import { deleteTweet, fetchLikesForTweet } from "@/actions/tweet.actions";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ITweetProps } from "@/types/tweet.interface";
 import MoreButton from "./MoreButton";
 import { fetchUser } from "@/actions/user.actions";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
+import { fetchLikesForTweet } from "@/actions/like.actions";
 
 const TweetCard = async ({ tweet, owner }: ITweetProps) => {
   const { getUser } = getKindeServerSession();
