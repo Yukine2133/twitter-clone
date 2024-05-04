@@ -8,4 +8,5 @@ export interface IUser {
   bio: string;
   followers: string[];
   following: string[];
+  createdAt: string;
 }

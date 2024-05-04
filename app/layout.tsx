@@ -3,7 +3,6 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import LeftSideBar from "@/components/layout/LeftSideBar";
 import RightSideBar from "@/components/layout/RightSideBar";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BottomBar from "@/components/layout/BottomBar";

@@ -1,5 +1,4 @@
 import { fetchUser } from "@/actions/user.actions";
-import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 import Image from "next/image";
