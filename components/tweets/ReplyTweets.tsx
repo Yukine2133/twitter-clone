@@ -1,7 +1,7 @@
 import { fetchUser } from "@/actions/user.actions";
 import Image from "next/image";
 import Link from "next/link";
-import MoreButton from "./MoreButton";
+import MoreButton from "../moreButton/MoreButton";
 import { IReply } from "@/types/tweet.interface";
 import { IUser } from "@/types/user.interface";
 import { toast } from "react-toastify";

@@ -36,3 +36,11 @@ export interface IReply {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IMoreButtonProps {
+  id: string;
+  tweet: ITweet;
+  reply?: IReply;
+  replyId?: string;
+  replyTweet?: string;
+}

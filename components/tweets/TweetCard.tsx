@@ -4,7 +4,7 @@ import React from "react";
 import TweetActions from "./TweetActions";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ITweetProps } from "@/types/tweet.interface";
-import MoreButton from "./MoreButton";
+import MoreButton from "../moreButton/MoreButton";
 import { fetchUser } from "@/actions/user.actions";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
 import { fetchLikesForTweet } from "@/actions/like.actions";
