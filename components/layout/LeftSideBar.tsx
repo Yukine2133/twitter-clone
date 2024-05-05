@@ -4,7 +4,7 @@ import { sidebarLinks } from "@/utils/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import TweetForm from "../tweets/TweetForm";
+import TweetForm from "../tweets/tweetForm/TweetForm";
 import Modal from "../tweets/Modal";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import useFetchCurrentUser from "@/utils/lib/hooks/useFetchCurrentUser";

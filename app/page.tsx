@@ -2,7 +2,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { fetchTweets } from "@/actions/tweet.actions";
 import { fetchUser } from "@/actions/user.actions";
 import TweetCard from "@/components/tweets/TweetCard";
-import TweetForm from "@/components/tweets/TweetForm";
+import TweetForm from "@/components/tweets/tweetForm/TweetForm";
 import { IUser } from "@/types/user.interface";
 import { ITweet } from "@/types/tweet.interface";
 

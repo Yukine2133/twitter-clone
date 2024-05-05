@@ -6,7 +6,7 @@ import { ITweetProps } from "@/types/tweet.interface";
 import { toast } from "react-toastify";
 import Modal from "./Modal";
 import Image from "next/image";
-import TweetForm from "./TweetForm";
+import TweetForm from "./tweetForm/TweetForm";
 import {
   BookmarkIcon,
   ChatBubbleOvalLeftIcon,

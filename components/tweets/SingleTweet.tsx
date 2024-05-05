@@ -4,7 +4,7 @@ import ReplyTweets from "@/components/tweets/ReplyTweets";
 import TweetActions from "@/components/tweets/TweetActions";
 import Image from "next/image";
 import Link from "next/link";
-import TweetForm from "@/components/tweets/TweetForm";
+import TweetForm from "@/components/tweets/tweetForm/TweetForm";
 import { formatDate } from "@/utils/formatTimestamp";
 
 interface SingleTweetProps {
@@ -50,11 +50,15 @@ const SingleTweet = ({
           alt="User Image"
           width={500}
           height={400}
-          className="object-cover"
+          className="object-cover mb-2"
         />
       )}
       {singleTweet?.video && (
-        <video src={singleTweet.video} className="rounded-lg mt-1" controls />
+        <video
+          src={singleTweet.video}
+          className="rounded-lg mt-1 mb-2"
+          controls
+        />
       )}
       <span className="text-gray-500 text-[15px]">
         {formatDate(singleTweet?.createdAt as Date)}

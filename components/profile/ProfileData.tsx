@@ -1,7 +1,7 @@
 import Image from "next/image";
 import TweetCard from "@/components/tweets/TweetCard";
 
-import GoBackButton from "@/utils/GoBackButton";
+import GoBackButton from "@/components/buttons/GoBackButton";
 import FollowButton from "@/components/buttons/FollowButton";
 import Follow from "@/components/follow/Follow";
 import EditProfileButton from "@/components/buttons/EditProfileButton";

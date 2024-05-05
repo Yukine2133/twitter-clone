@@ -1,90 +1,49 @@
 "use client";
-import { useRef, useState } from "react";
+
+import { RefObject } from "react";
 import { toast } from "react-toastify";
 import Image from "next/image";
-import { z } from "zod";
-
 import { UploadDropzone } from "@/utils/lib/uploadthing";
-import { createTweet } from "@/actions/tweet.actions";
 import {
   PhotoIcon,
   VideoCameraIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import ReactTextareaAutosize from "react-textarea-autosize";
-import { tweetTextSchema } from "@/utils/lib/validation";
-import Modal from "./Modal";
-import { replyTweet } from "@/actions/reply.actions";
+import Modal from "../Modal";
+import { IUser } from "@/types/user.interface";
 
-const TweetForm = ({
+interface ITweetFormUIProps {
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  ref: RefObject<HTMLFormElement>;
+  imageUrl: string | null;
+  setImageUrl: (arg0: string | null) => void;
+  videoUrl: string | null;
+  setVideoUrl: (arg0: string | null) => void;
+  setIsOpen: (arg0: boolean) => void;
+  isOpen: boolean;
+  setIsOpenVideo: (arg0: boolean) => void;
+  isOpenVideo: boolean;
+  loading: boolean;
+  user: IUser;
+  id: string | undefined;
+}
+
+const TweetFormUI = ({
+  ref,
+  handleSubmit,
+  imageUrl,
+  setImageUrl,
+  videoUrl,
+  setVideoUrl,
+  setIsOpen,
+  isOpen,
+  setIsOpenVideo,
+  isOpenVideo,
+  loading,
   user,
   id,
-  toggleModal,
-}: {
-  user: any;
-  id?: string;
-  toggleModal?: (arg0: boolean) => void;
-}) => {
-  const ref = useRef<HTMLFormElement>(null);
-  const [loading, setLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenVideo, setIsOpenVideo] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [videoUrl, setVideoUrl] = useState<string | null>(null);
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-
-    try {
-      setLoading(true);
-      const tweetText = formData.get("text") as string;
-      formData.append("image", imageUrl || "");
-      formData.append("video", videoUrl || "");
-
-      const hasImageUrl = !!imageUrl;
-      const hasVideoUrl = !!videoUrl;
-
-      // If there's neither text nor image, throw an error
-      if (!tweetText && !hasImageUrl && !hasVideoUrl) {
-        throw new Error("Tweet must contain text or an image.");
-      }
-
-      // If there's text, validate it
-      if (tweetText && tweetText.trim().length > 0) {
-        tweetTextSchema.parse(tweetText);
-      }
-
-      let res;
-      if (id) {
-        res = await replyTweet(formData, id);
-      } else {
-        res = await createTweet(formData);
-      }
-
-      if (res.error) {
-        toast.error(res.error);
-      } else {
-        toast.success(id ? "Reply was added." : "Tweet was created.");
-      }
-
-      ref.current?.reset();
-      setImageUrl(null);
-      toggleModal && toggleModal(false);
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const errorMessage = error.errors[0].message;
-        toast.error(errorMessage);
-      } else {
-        toast.error(String(error));
-      }
-    } finally {
-      setLoading(false);
-      setImageUrl(null);
-      setVideoUrl(null);
-    }
-  };
-
+}: ITweetFormUIProps) => {
   return (
     <form
       ref={ref}
@@ -191,4 +150,4 @@ const TweetForm = ({
   );
 };
 
-export default TweetForm;
+export default TweetFormUI;
