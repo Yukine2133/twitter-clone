@@ -58,6 +58,9 @@ const useTweetFormLogic = ({
       } else {
         toast.success(id ? "Reply was added." : "Tweet was created.");
       }
+      ref.current?.reset();
+      setText(null);
+      toggleModal && toggleModal(false);
     } catch (error) {
       if (error instanceof z.ZodError) {
         const errorMessage = error.errors[0].message;
@@ -69,9 +72,6 @@ const useTweetFormLogic = ({
       setLoading(false);
       setImageUrl(null);
       setVideoUrl(null);
-      ref.current?.reset();
-      setText(null);
-      toggleModal && toggleModal(false);
     }
   };
 

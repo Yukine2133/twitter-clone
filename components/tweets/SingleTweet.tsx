@@ -62,7 +62,7 @@ const SingleTweet = ({
           alt="User Image"
           width={500}
           height={400}
-          className="object-cover mb-2"
+          className="object-cover rounded-lg mb-2"
         />
       )}
       {singleTweet?.video && (

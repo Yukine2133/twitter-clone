@@ -1,4 +1,4 @@
-import { formatDistanceToNow } from "date-fns";
+import { format } from "date-fns";
 
 export const formatCreatedAt = (createdAt: Date) => {
   const currentDate = new Date();
@@ -7,20 +7,26 @@ export const formatCreatedAt = (createdAt: Date) => {
   const differenceInMilliseconds = currentDate.getTime() - tweetDate.getTime();
   const differenceInSeconds = Math.floor(differenceInMilliseconds / 1000);
 
-  // Less than an hour ago
-  if (differenceInSeconds < 3600) {
-    const minutes = Math.floor(differenceInSeconds / 60);
-    return `${minutes}m`;
+  // Less than a minute ago
+  if (differenceInSeconds < 60) {
+    return `${differenceInSeconds}s`;
   }
 
   // Less than a day ago
   if (differenceInSeconds < 86400) {
+    // Less than an hour ago
+    if (differenceInSeconds < 3600) {
+      const minutes = Math.floor(differenceInSeconds / 60);
+      return `${minutes}m`;
+    }
+
+    // Less than a day ago
     const hours = Math.floor(differenceInSeconds / 3600);
     return `${hours}h`;
   }
 
   // More than a day ago
-  return formatDistanceToNow(tweetDate, { addSuffix: true });
+  return format(tweetDate, "d MMM");
 };
 
 export const formatJoinedDate = (dateString: string) => {
