@@ -43,7 +43,7 @@ export const createTweet = async (formData: FormData) => {
 export const fetchTweets = async () => {
   try {
     await connectDb();
-    const tweets = await Tweet.find();
+    const tweets = await Tweet.find().sort({ createdAt: -1 }); // Sort in the descending order
     return tweets;
   } catch (error) {
     console.error(error);

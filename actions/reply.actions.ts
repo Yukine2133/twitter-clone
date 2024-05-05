@@ -56,7 +56,7 @@ export const fetchTweetReplies = async (tweetId: string) => {
   try {
     await connectDb();
 
-    const replies = await Reply.find({ tweetId });
+    const replies = await Reply.find({ tweetId }).sort({ createdAt: -1 }); // sort in the descending order
 
     return replies;
   } catch (error) {

@@ -42,7 +42,9 @@ export const bookMarkTweet = async (id: string) => {
 export const getUserBookmarks = async (userId: string) => {
   try {
     await connectDb();
-    const userBookmarks = await Tweet.find({ bookmarks: userId });
+    const userBookmarks = await Tweet.find({ bookmarks: userId }).sort({
+      createdAt: -1,
+    });
 
     if (!userBookmarks) {
       return null;
