@@ -58,7 +58,6 @@ const useTweetFormLogic = ({
       } else {
         toast.success(id ? "Reply was added." : "Tweet was created.");
       }
-      setText(null);
     } catch (error) {
       if (error instanceof z.ZodError) {
         const errorMessage = error.errors[0].message;

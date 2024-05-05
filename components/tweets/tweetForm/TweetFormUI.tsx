@@ -64,7 +64,7 @@ const TweetFormUI = ({
         />
         <ReactTextareaAutosize
           onChange={(e) => setText(e.target.value)}
-          value={text}
+          value={text || ""}
           maxRows={6}
           maxLength={280}
           wrap="soft"
