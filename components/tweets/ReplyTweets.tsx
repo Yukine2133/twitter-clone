@@ -6,6 +6,7 @@ import { IReply } from "@/types/tweet.interface";
 import { IUser } from "@/types/user.interface";
 import { toast } from "react-toastify";
 import { fetchTweetReplies } from "@/actions/reply.actions";
+import { formatCreatedAt } from "@/utils/formatTimestamp";
 
 const ReplyTweets = async ({
   tweetId,
@@ -44,9 +45,15 @@ const ReplyTweets = async ({
                 className="rounded-full object-cover"
               />
               <div>
-                <Link href={`/profile/${owner.username}`}>
-                  <span className="font-bold ">{owner.username}</span>
-                </Link>
+                <div className="flex items-center gap-2 t">
+                  <Link href={`/profile/${owner.username}`}>
+                    <span className="font-bold ">{owner.username}</span>
+                  </Link>
+                  <div className="flex text-gray-500 text-sm items-center gap-1">
+                    <span>&middot;</span>
+                    <span>{formatCreatedAt(reply.createdAt)}</span>
+                  </div>
+                </div>
                 <h3 style={{ overflowWrap: "anywhere" }}>{reply.text}</h3>
                 {reply.image && (
                   <Image
