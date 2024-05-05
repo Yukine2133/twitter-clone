@@ -1,3 +1,4 @@
+import { fetchUserRetweets } from "@/actions/retweet.actions";
 import {
   fetchUser,
   fetchUserById,
@@ -17,6 +18,8 @@ const useGetProfileData = async (profileUsername: string) => {
   }
   const currentUser = await fetchUser(currentSessionUser?.id);
   const tweets = await fetchUserTweets(user.userId);
+
+  const retweets = await fetchUserRetweets();
 
   const followers = user.followers;
   const following = user.following;
@@ -42,6 +45,7 @@ const useGetProfileData = async (profileUsername: string) => {
     isFollowing,
     isOwner,
     user,
+    retweets,
   };
 };
 

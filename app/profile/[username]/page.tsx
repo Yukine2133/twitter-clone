@@ -31,6 +31,7 @@ const ProfilePage = async ({
     isFollowing,
     isOwner,
     user,
+    retweets,
   } = await useGetProfileData(params.username);
 
   if (!tweets) {
@@ -53,6 +54,7 @@ const ProfilePage = async ({
       username={username}
       isFollowing={isFollowing}
       currentUser={currentUser}
+      retweets={retweets}
     />
   );
 };

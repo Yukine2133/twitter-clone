@@ -8,6 +8,7 @@ import Modal from "./Modal";
 import Image from "next/image";
 import TweetForm from "./tweetForm/TweetForm";
 import {
+  ArrowPathRoundedSquareIcon,
   BookmarkIcon,
   ChatBubbleOvalLeftIcon,
   HeartIcon,
@@ -15,6 +16,7 @@ import {
 import * as solid from "@heroicons/react/24/solid";
 import { likeTweet } from "@/actions/like.actions";
 import { bookMarkTweet } from "@/actions/bookmark.actions";
+import { saveRetweet } from "@/actions/retweet.actions";
 
 interface TweetActions extends ITweetProps {
   isBookmarked: boolean;
@@ -64,13 +66,26 @@ const TweetActions = ({
     }
   };
 
+  const addRetweet = async (tweetId: string) => {
+    try {
+      const id = tweetId.toString();
+      const res = await saveRetweet(id);
+      // if (res?.message) {
+      //   toast.error(res.message);
+      // }
+    } catch (error) {
+      // toast.error("Error Retweeting");
+      console.error(error);
+    }
+  };
+
   const likeCount = tweet.likes.length;
-  // const repliesCount = tweet.replies.length;
   const repliesCount = tweet.replies.length;
+  const retweetsCount = tweet.retweets.length;
   return (
     <div className="flex mt-2 justify-between px-8  gap-8">
-      <div className="flex gap-8 items-center">
-        <div className="group">
+      <div className="flex gap-8 items-center text-gray-500">
+        <div className="group  ">
           <button
             className="flex gap-1.5 items-center "
             onClick={() => addLike(id)}
@@ -78,14 +93,14 @@ const TweetActions = ({
             {isLiked ? (
               <SolidHeartIcon className="text-red-500 h-5 w-5 text-lg" />
             ) : (
-              <HeartIcon className="text-gray-200 h-5 w-5 group-hover:text-red-500 duration-300 transition-colors   text-lg" />
+              <HeartIcon className=" h-5 w-5 group-hover:text-red-500 duration-300 transition-colors   text-lg" />
             )}
             <span
               className={`text-sm font-semibold ${
                 isLiked && "text-red-500"
               } group-hover:text-red-500 duration-300 transition-colors`}
             >
-              {likeCount}
+              {likeCount > 0 ? likeCount : ""}
             </span>
           </button>
         </div>
@@ -93,7 +108,18 @@ const TweetActions = ({
           <button className="flex gap-1.5 items-center" onClick={toggleModal}>
             <ChatBubbleOvalLeftIcon className="group-hover:text-blue-400 duration-300 transition-colors h-5 w-5" />
             <span className="text-sm font-semibold group-hover:text-blue-400 duration-300 transition-colors">
-              {repliesCount}
+              {repliesCount > 0 ? repliesCount : ""}
+            </span>
+          </button>
+        </div>
+        <div className="group">
+          <button
+            className="flex gap-1.5 items-center"
+            onClick={() => addRetweet(id)}
+          >
+            <ArrowPathRoundedSquareIcon className="group-hover:text-green-400 duration-300 transition-colors h-5 w-5" />
+            <span className="text-sm font-semibold group-hover:text-green-400 duration-300 transition-colors">
+              {retweetsCount > 0 ? retweetsCount : ""}
             </span>
           </button>
         </div>

@@ -9,6 +9,7 @@ import { ITweet } from "@/types/tweet.interface";
 import { CalendarDaysIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { formatJoinedDate } from "@/utils/formatTimestamp";
 import { IUser } from "@/types/user.interface";
+import { fetchUser } from "@/actions/user.actions";
 
 interface ProfileDataProps {
   user: IUser;
@@ -21,6 +22,7 @@ interface ProfileDataProps {
   username: string;
   isFollowing: boolean;
   currentUser: IUser;
+  retweets: string[];
 }
 
 const ProfileData = ({
@@ -34,6 +36,7 @@ const ProfileData = ({
   username,
   isFollowing,
   currentUser,
+  retweets,
 }: ProfileDataProps) => {
   return (
     <div>
@@ -109,9 +112,21 @@ const ProfileData = ({
         </>
       )}
 
-      {tweets.length === 0 && (
-        <div className="text-center mt-16 ">
-          <h2 className="text-3xl font-semibold ">{`@${user.username} hasn't tweeted.`}</h2>
+      {retweets?.length > 0 && (
+        <>
+          <h4 className="mt-10">Retweets:</h4>
+          {retweets.map(async (retweet: any) => {
+            const owner = await fetchUser(retweet.userId);
+            return (
+              <TweetCard key={retweet._id} tweet={retweet} owner={owner} />
+            );
+          })}
+        </>
+      )}
+
+      {tweets.length === 0 && retweets.length === 0 && (
+        <div className="text-center mt-16">
+          <h2 className="text-3xl font-semibold">{`@${user.username} hasn't tweeted.`}</h2>
           <p className="text-zinc-500 mt-2">
             When they do, their Tweets will show up here.
           </p>

@@ -9,6 +9,7 @@ const tweetSchema = new mongoose.Schema(
     bookmarks: [{ type: String }],
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Like" }],
     replies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reply" }],
+    retweets: [{ type: mongoose.Schema.Types.ObjectId, ref: "Retweet" }],
   },
   {
     timestamps: true,

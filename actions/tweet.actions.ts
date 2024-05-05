@@ -5,7 +5,6 @@ import { Tweet } from "../models/tweet.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 import { ITweet } from "@/types/tweet.interface";
-import { Reply } from "@/models/reply.model";
 
 export const createTweet = async (formData: FormData) => {
   try {

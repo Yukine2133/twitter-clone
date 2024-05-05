@@ -12,6 +12,7 @@ export interface ITweet {
   bookmarks: string[];
   likes: string[];
   replies: string[];
+  retweets: string[];
   createdAt: Date;
   updatedAt: Date;
   image: string;
