@@ -114,7 +114,7 @@ const ProfileData = ({
 
       {retweets?.length > 0 && (
         <>
-          <h4 className="mt-10">Retweets:</h4>
+          <h4 className="mt-10">Retweeted:</h4>
           {retweets.map(async (retweet: any) => {
             const owner = await fetchUser(retweet.userId);
             return (

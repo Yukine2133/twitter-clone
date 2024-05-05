@@ -60,3 +60,17 @@ export const fetchUserRetweets = async () => {
     throw new Error("Error while fetching user retweets: ");
   }
 };
+
+export const fetchRetweetsForTweet = async (tweetId: string) => {
+  try {
+    await connectDb();
+
+    // Find all retweets for the given tweet ID
+    const retweets = await Retweet.find({ tweetId });
+
+    return retweets;
+  } catch (error) {
+    console.error(error);
+    return { error: "An unexpected error occurred." };
+  }
+};

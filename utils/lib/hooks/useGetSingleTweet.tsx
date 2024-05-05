@@ -3,6 +3,7 @@ import { fetchUser } from "@/actions/user.actions";
 
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import useFetchLikesForTweet from "./useFetchLikesForTweet";
+import useFetchRetweetsForTweet from "./useFetchRetweetsForTweet";
 
 const useGetSingleTweet = async (paramsId: string) => {
   const { getUser } = getKindeServerSession();
@@ -19,8 +20,16 @@ const useGetSingleTweet = async (paramsId: string) => {
   const isBookmarked = bookmarks?.includes(user?.id as string);
 
   const isLiked = await useFetchLikesForTweet(singleTweet._id, user?.id);
+  const isRetweeted = await useFetchRetweetsForTweet(singleTweet._id, user?.id);
 
-  return { owner, singleTweet, currentUser, isBookmarked, isLiked };
+  return {
+    owner,
+    singleTweet,
+    currentUser,
+    isBookmarked,
+    isLiked,
+    isRetweeted,
+  };
 };
 
 export default useGetSingleTweet;

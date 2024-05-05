@@ -15,6 +15,7 @@ interface SingleTweetProps {
   singleTweet: ITweet;
   isBookmarked: boolean;
   isLiked: boolean;
+  isRetweeted: boolean;
 }
 
 const SingleTweet = ({
@@ -23,6 +24,7 @@ const SingleTweet = ({
   currentUser,
   isBookmarked,
   isLiked,
+  isRetweeted,
 }: SingleTweetProps) => {
   return (
     <div className="p-3 relative ">
@@ -77,7 +79,7 @@ const SingleTweet = ({
         {formatDate(singleTweet?.createdAt as Date)}
       </span>
 
-      <div className="mt-5 py-2 border-y border-[#2f3336]">
+      <div className="mt-5 py-2 border-y border-[#2fP3336]">
         <TweetActions
           user={currentUser!}
           isBookmarked={isBookmarked as boolean}
@@ -85,6 +87,7 @@ const SingleTweet = ({
           id={singleTweet?._id.toString()!}
           owner={JSON.parse(JSON.stringify(owner))}
           tweet={JSON.parse(JSON.stringify(singleTweet))}
+          isRetweeted={isRetweeted}
         />
       </div>
       <div className="mt-2 border-b border-[#2f3336]">

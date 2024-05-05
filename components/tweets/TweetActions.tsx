@@ -24,6 +24,7 @@ interface TweetActions extends ITweetProps {
   id: string;
   seeTweet?: boolean;
   user: any;
+  isRetweeted: boolean;
 }
 
 const TweetActions = ({
@@ -34,6 +35,7 @@ const TweetActions = ({
   tweet,
   user,
   seeTweet,
+  isRetweeted,
 }: TweetActions) => {
   const SolidHeartIcon = solid.HeartIcon;
   const SolidBookmarkIcon = solid.BookmarkIcon;
@@ -91,13 +93,14 @@ const TweetActions = ({
             onClick={() => addLike(id)}
           >
             {isLiked ? (
-              <SolidHeartIcon className="text-red-500 h-5 w-5 text-lg" />
+              <SolidHeartIcon className="text-red-500 group-hover:text-gray-500 duration-300 transition-colors h-5 w-5 text-lg" />
             ) : (
               <HeartIcon className=" h-5 w-5 group-hover:text-red-500 duration-300 transition-colors   text-lg" />
             )}
             <span
               className={`text-sm font-semibold ${
-                isLiked && "text-red-500"
+                isLiked &&
+                "text-red-500 group-hover:text-gray-500 duration-300 transition-colors "
               } group-hover:text-red-500 duration-300 transition-colors`}
             >
               {likeCount > 0 ? likeCount : ""}
@@ -117,8 +120,20 @@ const TweetActions = ({
             className="flex gap-1.5 items-center"
             onClick={() => addRetweet(id)}
           >
-            <ArrowPathRoundedSquareIcon className="group-hover:text-green-400 duration-300 transition-colors h-5 w-5" />
-            <span className="text-sm font-semibold group-hover:text-green-400 duration-300 transition-colors">
+            <ArrowPathRoundedSquareIcon
+              className={`${
+                isRetweeted
+                  ? "text-green-400 text-sm font-semibold group-hover:text-gray-500 duration-300 transition-colors h-5 w-5 "
+                  : "group-hover:text-green-400 duration-300 transition-colors h-5 w-5"
+              } `}
+            />
+            <span
+              className={`${
+                isRetweeted
+                  ? "text-green-400 text-sm font-semibold group-hover:text-gray-500 duration-300 transition-colors"
+                  : "text-sm font-semibold group-hover:text-green-400 duration-300 transition-colors"
+              }`}
+            >
               {retweetsCount > 0 ? retweetsCount : ""}
             </span>
           </button>

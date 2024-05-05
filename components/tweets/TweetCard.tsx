@@ -8,6 +8,7 @@ import MoreButton from "../buttons/moreButton/MoreButton";
 import { fetchUser } from "@/actions/user.actions";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
 import useFetchLikesForTweet from "@/utils/lib/hooks/useFetchLikesForTweet";
+import useFetchRetweetsForTweet from "@/utils/lib/hooks/useFetchRetweetsForTweet";
 
 const TweetCard = async ({ tweet, owner }: ITweetProps) => {
   const { getUser } = getKindeServerSession();
@@ -19,6 +20,7 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
   const isBookmarked = bookmarks?.includes(user?.id as string);
 
   const isLiked = await useFetchLikesForTweet(tweet._id, user?.id);
+  const isRetweeted = await useFetchRetweetsForTweet(tweet._id, user?.id);
 
   return (
     <div className="mt-4 py-3 border-y border-[#2f3336] w-full relative">
@@ -70,6 +72,7 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
       <TweetActions
         isBookmarked={isBookmarked as boolean}
         isLiked={isLiked as boolean}
+        isRetweeted={isRetweeted}
         id={tweet._id.toString()}
         owner={JSON.parse(JSON.stringify(owner))}
         tweet={JSON.parse(JSON.stringify(tweet))}

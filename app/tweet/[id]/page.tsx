@@ -14,8 +14,14 @@ export const generateMetadata = async ({
 };
 
 const SingleTweetPage = async ({ params }: { params: { id: string } }) => {
-  const { owner, singleTweet, currentUser, isBookmarked, isLiked } =
-    await useGetSingleTweet(params.id);
+  const {
+    owner,
+    singleTweet,
+    currentUser,
+    isBookmarked,
+    isLiked,
+    isRetweeted,
+  } = await useGetSingleTweet(params.id);
   return (
     <SingleTweet
       owner={owner}
@@ -23,6 +29,7 @@ const SingleTweetPage = async ({ params }: { params: { id: string } }) => {
       currentUser={currentUser}
       isBookmarked={isBookmarked}
       isLiked={isLiked}
+      isRetweeted={isRetweeted}
     />
   );
 };
