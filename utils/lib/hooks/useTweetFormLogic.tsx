@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { RefObject, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { z } from "zod";
 import { createTweet } from "@/actions/tweet.actions";
@@ -10,11 +10,12 @@ import { replyTweet } from "@/actions/reply.actions";
 const useTweetFormLogic = ({
   toggleModal,
   id,
+  ref,
 }: {
   toggleModal?: (arg0: boolean) => void;
   id?: string;
+  ref: RefObject<HTMLFormElement>;
 }) => {
-  const ref = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenVideo, setIsOpenVideo] = useState(false);

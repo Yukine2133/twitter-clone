@@ -3,6 +3,7 @@
 import useTweetFormLogic from "@/utils/lib/hooks/useTweetFormLogic";
 import { IUser } from "@/types/user.interface";
 import TweetFormUI from "./TweetFormUI";
+import { useRef } from "react";
 
 const TweetForm = ({
   user,
@@ -13,8 +14,9 @@ const TweetForm = ({
   id?: string;
   toggleModal?: (arg0: boolean) => void;
 }) => {
+  const ref = useRef<HTMLFormElement>(null);
+
   const {
-    ref,
     handleSubmit,
     imageUrl,
     setImageUrl,
@@ -27,7 +29,7 @@ const TweetForm = ({
     loading,
     text,
     setText,
-  } = useTweetFormLogic({ toggleModal, id });
+  } = useTweetFormLogic({ toggleModal, id, ref });
 
   return (
     <TweetFormUI
