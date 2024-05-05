@@ -1,11 +1,4 @@
-import {
-  fetchUser,
-  fetchUserById,
-  fetchUserTweets,
-} from "@/actions/user.actions";
-
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-
+import { fetchUser } from "@/actions/user.actions";
 import ProfileData from "@/components/profile/ProfileData";
 import useGetProfileData from "@/utils/lib/hooks/useGetProfileData";
 
