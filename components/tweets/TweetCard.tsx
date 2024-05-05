@@ -7,7 +7,7 @@ import { ITweetProps } from "@/types/tweet.interface";
 import MoreButton from "../moreButton/MoreButton";
 import { fetchUser } from "@/actions/user.actions";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
-import { fetchLikesForTweet } from "@/actions/like.actions";
+import useFetchLikesForTweet from "@/utils/lib/hooks/useFetchLikesForTweet";
 
 const TweetCard = async ({ tweet, owner }: ITweetProps) => {
   const { getUser } = getKindeServerSession();
@@ -17,14 +17,8 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
   const currentUser = await fetchUser(user?.id);
   const bookmarks = tweet?.bookmarks;
   const isBookmarked = bookmarks?.includes(user?.id as string);
-  const likesData = await fetchLikesForTweet(tweet._id);
 
-  const likes = Array.isArray(likesData) ? likesData : [];
-
-  // Check if the user's ID is included in the likes array
-  const isLiked = likes.some(
-    (like: { userId: string }) => like.userId === user?.id
-  );
+  const isLiked = await useFetchLikesForTweet(tweet._id, user?.id);
 
   return (
     <div className="mt-4 py-3 border-y border-[#2f3336] w-full relative">

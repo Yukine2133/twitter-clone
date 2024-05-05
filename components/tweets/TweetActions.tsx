@@ -103,7 +103,7 @@ const TweetActions = ({
           {isBookmarked ? (
             <SolidBookmarkIcon className="text-blue-500 h-5 w-5" />
           ) : (
-            <BookmarkIcon className="h-5 w-5" />
+            <BookmarkIcon className="h-5 w-5 hover:text-blue-500 transition-colors duration-300" />
           )}
         </button>
         {seeTweet && (
