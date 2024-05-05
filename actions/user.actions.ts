@@ -44,7 +44,10 @@ export const updateUser = async ({
   location,
   avatar,
   name,
-}: Omit<IUser, "displayName" | "username" | "_id"> & { name: string }) => {
+}: Omit<
+  IUser,
+  "displayName" | "username" | "_id" | "followers" | "following" | "createdAt"
+> & { name: string }) => {
   try {
     await connectDb();
     const { getUser } = getKindeServerSession();

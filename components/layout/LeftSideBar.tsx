@@ -1,17 +1,13 @@
 "use client";
 
 import { sidebarLinks } from "@/utils/constants";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TweetForm from "../tweets/TweetForm";
 import Modal from "../tweets/Modal";
-import { IUser } from "@/types/user.interface";
 import { PencilIcon } from "@heroicons/react/24/outline";
-
-import { fetchUser } from "@/actions/user.actions";
+import useFetchCurrentUser from "@/utils/lib/hooks/useFetchCurrentUser";
 
 const LeftSideBar = () => {
   const pathname = usePathname();
@@ -21,16 +17,7 @@ const LeftSideBar = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const [currentUser, setCurrentUser] = useState<IUser | null>(null);
-  const { user } = useKindeBrowserClient();
-
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      const res = await fetchUser(user?.id);
-      setCurrentUser(JSON.parse(JSON.stringify(res)));
-    };
-    fetchCurrentUser();
-  }, [user?.id]);
+  const currentUser = useFetchCurrentUser();
 
   return (
     <>
