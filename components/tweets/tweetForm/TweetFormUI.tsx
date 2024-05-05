@@ -20,6 +20,8 @@ interface ITweetFormUIProps {
   setImageUrl: (arg0: string | null) => void;
   videoUrl: string | null;
   setVideoUrl: (arg0: string | null) => void;
+  text: string | null;
+  setText: (arg0: string | null) => void;
   setIsOpen: (arg0: boolean) => void;
   isOpen: boolean;
   setIsOpenVideo: (arg0: boolean) => void;
@@ -43,6 +45,8 @@ const TweetFormUI = ({
   loading,
   user,
   id,
+  text,
+  setText,
 }: ITweetFormUIProps) => {
   return (
     <form
@@ -59,7 +63,8 @@ const TweetFormUI = ({
           className="rounded-full"
         />
         <ReactTextareaAutosize
-          name="text"
+          onChange={(e) => setText(e.target.value)}
+          value={text}
           maxRows={6}
           maxLength={280}
           wrap="soft"

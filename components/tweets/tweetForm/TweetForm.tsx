@@ -25,6 +25,8 @@ const TweetForm = ({
     setIsOpenVideo,
     isOpenVideo,
     loading,
+    text,
+    setText,
   } = useTweetFormLogic({ toggleModal, id });
 
   return (
@@ -42,6 +44,8 @@ const TweetForm = ({
       setIsOpenVideo={setIsOpenVideo}
       ref={ref}
       user={user}
+      text={text}
+      setText={setText}
     />
   );
 };

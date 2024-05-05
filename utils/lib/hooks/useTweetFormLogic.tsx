@@ -20,6 +20,7 @@ const useTweetFormLogic = ({
   const [isOpenVideo, setIsOpenVideo] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [text, setText] = useState<string | null>(null);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,7 +28,8 @@ const useTweetFormLogic = ({
 
     try {
       setLoading(true);
-      const tweetText = formData.get("text") as string;
+      // const tweetText = formData.get("text") as string;
+      formData.append("text", text || "");
       formData.append("image", imageUrl || "");
       formData.append("video", videoUrl || "");
 
@@ -35,13 +37,13 @@ const useTweetFormLogic = ({
       const hasVideoUrl = !!videoUrl;
 
       // If there's neither text nor image, throw an error
-      if (!tweetText && !hasImageUrl && !hasVideoUrl) {
+      if (!text && !hasImageUrl && !hasVideoUrl) {
         throw new Error("Tweet must contain text or an image.");
       }
 
       // If there's text, validate it
-      if (tweetText && tweetText.trim().length > 0) {
-        tweetTextSchema.parse(tweetText);
+      if (text && text.trim().length > 0) {
+        tweetTextSchema.parse(text);
       }
 
       let res;
@@ -56,10 +58,7 @@ const useTweetFormLogic = ({
       } else {
         toast.success(id ? "Reply was added." : "Tweet was created.");
       }
-
-      ref.current?.reset();
-      setImageUrl(null);
-      toggleModal && toggleModal(false);
+      setText(null);
     } catch (error) {
       if (error instanceof z.ZodError) {
         const errorMessage = error.errors[0].message;
@@ -71,6 +70,9 @@ const useTweetFormLogic = ({
       setLoading(false);
       setImageUrl(null);
       setVideoUrl(null);
+      ref.current?.reset();
+      setText(null);
+      toggleModal && toggleModal(false);
     }
   };
 
@@ -86,6 +88,8 @@ const useTweetFormLogic = ({
     setIsOpenVideo,
     isOpenVideo,
     loading,
+    setText,
+    text,
   };
 };
 
