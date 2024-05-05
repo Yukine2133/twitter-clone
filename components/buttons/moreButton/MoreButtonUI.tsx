@@ -2,7 +2,7 @@
 import { UploadDropzone } from "@/utils/lib/uploadthing";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";
-import Modal from "../tweets/Modal";
+import Modal from "../../tweets/Modal";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import Image from "next/image";
 import { MutableRefObject, Ref } from "react";
@@ -43,7 +43,7 @@ const MoreButtonUI = ({
           <button
             ref={buttonRef}
             onClick={() => setIsOpen(!isOpen)}
-            className="rotate-90 relative"
+            className="rotate-90 text-gray-500 hover:text-blue-400 duration-300 transition-colors relative"
           >
             &#10247;
           </button>

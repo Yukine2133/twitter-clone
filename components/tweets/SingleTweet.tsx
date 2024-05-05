@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import TweetForm from "@/components/tweets/tweetForm/TweetForm";
 import { formatDate } from "@/utils/formatTimestamp";
+import MoreButton from "../buttons/moreButton/MoreButton";
+import GoBackButton from "../buttons/GoBackButton";
 
 interface SingleTweetProps {
   owner: IUser;
@@ -24,7 +26,11 @@ const SingleTweet = ({
 }: SingleTweetProps) => {
   return (
     <div className="p-3 relative ">
-      <div className="flex   gap-4 items-center">
+      <div className="flex items-center gap-4 mb-4">
+        <GoBackButton />
+        <h2 className="text-xl font-semibold ">Tweet</h2>
+      </div>
+      <div className="flex relative  gap-3 items-center">
         <Image
           src={owner.avatar}
           alt={owner.username}
@@ -36,6 +42,12 @@ const SingleTweet = ({
           <span className="font-semibold ">{owner.displayName}</span>
           <span className="text-gray-500 ">@{owner.username}</span>
         </Link>
+        <div className="absolute right-0  ">
+          <MoreButton
+            tweet={JSON.parse(JSON.stringify(singleTweet))}
+            id={singleTweet._id.toString()}
+          />
+        </div>
       </div>
       <h3
         className="pl-5 pt-4 mb-2 text-lg"
@@ -60,9 +72,11 @@ const SingleTweet = ({
           controls
         />
       )}
+
       <span className="text-gray-500 text-[15px]">
         {formatDate(singleTweet?.createdAt as Date)}
       </span>
+
       <div className="mt-5 py-2 border-y border-[#2f3336]">
         <TweetActions
           user={currentUser!}

@@ -55,12 +55,19 @@ const useMoreButtonLogic = ({
 
   const handleEdit = async (tweetId: string, text: string) => {
     try {
-      if (
-        pathname === `/profile/${fullUsername}` ||
-        pathname === "/bookmarks" ||
-        pathname === "/" ||
-        pathname === "/search"
-      ) {
+      if (replyId) {
+        const res = await editReply(
+          replyId as string,
+          tweetId,
+          text,
+          imageUrl as string
+        );
+        if (res?.message) {
+          toast.error(res.message);
+        } else {
+          toast.success("Reply was updated.");
+        }
+      } else {
         // If there's neither text nor image, throw an error
         if (!text && !imageUrl) {
           throw new Error("Tweet must contain text or an image.");
@@ -75,18 +82,6 @@ const useMoreButtonLogic = ({
           toast.error(res.message);
         } else {
           toast.success("Tweet was updated.");
-        }
-      } else {
-        const res = await editReply(
-          replyId as string,
-          tweetId,
-          text,
-          imageUrl as string
-        );
-        if (res?.message) {
-          toast.error(res.message);
-        } else {
-          toast.success("Reply was updated.");
         }
       }
       setEdit(false);
