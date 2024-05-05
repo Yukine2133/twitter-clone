@@ -1,4 +1,3 @@
-import { ITweetProps } from "@/types/tweet.interface";
 import useClickOutside from "@/utils/lib/hooks/useClickOutisde";
 import React, { useRef, useEffect, ReactNode } from "react";
 
@@ -16,7 +15,7 @@ const Modal = ({ isModalOpen, toggleModal, children }: IModalProps) => {
   return (
     <>
       {isModalOpen && (
-        <div className="fixed top-0 left-0 z-50 w-full h-full bg-gray-800 bg-opacity-80 flex justify-center items-center">
+        <div className="fixed top-0 left-0 z-50 w-full h-full bg-gray-800 bg-opacity-80 flex justify-center items-center overflow-y-scroll">
           <div
             ref={ref}
             className="bg-black shadow-sm w-[700px] rounded-lg mx-2 md:mx-0 p-5 md:p-8"

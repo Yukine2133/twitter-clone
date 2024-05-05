@@ -9,4 +9,5 @@ export interface IUser {
   followers: string[];
   following: string[];
   createdAt: string;
+  backgroundImage: string;
 }

@@ -11,12 +11,16 @@ import { updateUser } from "@/actions/user.actions";
 import { IUser } from "@/types/user.interface";
 import { bioSchema, locationSchema, nameSchema } from "@/utils/lib/validation";
 import ReactTextareaAutosize from "react-textarea-autosize";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 const UpdateProfileButton = ({ user }: { user: IUser }) => {
   const [name, setName] = useState(user.displayName ? user.displayName : "");
   const [bio, setBio] = useState(user.bio ? user.bio : "");
   const [location, setLocation] = useState(user.location ? user.location : "");
   const [avatar, setAvatar] = useState(user.avatar ? user.avatar : "");
+  const [backgroundImage, setBackgroundImage] = useState(
+    user.backgroundImage ? user.backgroundImage : ""
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const userId = user.userId;
@@ -38,7 +42,14 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
       // Validate location
       locationSchema.parse(location);
 
-      const res = await updateUser({ userId, location, bio, avatar, name });
+      const res = await updateUser({
+        userId,
+        location,
+        bio,
+        avatar,
+        name,
+        backgroundImage,
+      });
 
       if (res?.message) {
         toast.error(res.message);
@@ -68,14 +79,51 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
 
       {isModalOpen && (
         <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>
-          <form onSubmit={handleSubmit} className="mt-8 text-start">
+          <form
+            onSubmit={handleSubmit}
+            className="relative text-start mt-10 sm:mt-0 "
+          >
+            <button onClick={toggleModal} className="absolute right-0">
+              <XMarkIcon className="w-5 h-5" />
+            </button>
+            <div className="mb-4 ">
+              <label className="text-lg  ">Background Image:</label>
+              <div className="flex flex-col justify-center items-center gap-2">
+                {backgroundImage ? (
+                  <Image
+                    className="object-cover w-full h-48 md:h-56  mt-2 "
+                    src={backgroundImage}
+                    alt="Background Image"
+                    width={350}
+                    height={350}
+                  />
+                ) : (
+                  <div className="w-full mt-2 h-48 md:h-56  bg-[#333639]" />
+                )}
+                <UploadButton
+                  className="pt-4"
+                  endpoint={`media`}
+                  onClientUploadComplete={(res: any) => {
+                    if (res?.[0].url) {
+                      setBackgroundImage(res[0].url);
+                    }
+                  }}
+                  onUploadError={(error: Error) => {
+                    toast.error(
+                      `Something went wrong when uploading the image: ${error.message}`
+                    );
+                  }}
+                />
+              </div>
+            </div>
+
             <div className="mb-4">
               <label className="text-lg">Avatar:</label>
               <div className="flex justify-center items-center gap-2">
                 <Image
                   className="rounded-full w-auto "
                   src={avatar}
-                  alt={user.username}
+                  alt="User Avatar"
                   width={72}
                   height={72}
                 />
@@ -141,7 +189,7 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
 
             <button
               type="submit"
-              className="mt-12 mx-auto flex justify-center bg-white text-black p-2 rounded-md"
+              className="mt-6 mx-auto flex justify-center bg-white text-black p-2 rounded-md"
             >
               Complete
             </button>

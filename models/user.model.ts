@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema(
     bio: String,
     location: String,
     avatar: String,
+    backgroundImage: String,
     userId: String,
     followers: [{ type: String }],
     following: [{ type: String }],

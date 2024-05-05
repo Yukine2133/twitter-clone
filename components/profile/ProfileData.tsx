@@ -40,21 +40,34 @@ const ProfileData = ({
 }: ProfileDataProps) => {
   return (
     <div>
-      <div className=" mb-10 flex items-center">
+      <div className="mb-2 flex items-center">
         <GoBackButton />
         <div className="pl-6">
           <h3 className="font-semibold text-lg mt-1">{user.displayName}</h3>
           <h4 className="text-slate-500 text-sm">{tweets.length} Tweets</h4>
         </div>
       </div>
-      <div>
+      <div className=" relative ">
+        {user.backgroundImage ? (
+          <Image
+            src={user.backgroundImage}
+            alt="Background image"
+            width={300}
+            height={20}
+            className="w-full h-48 md:h-56  object-cover"
+          />
+        ) : (
+          <div className="w-full h-48 md:h-56  bg-[#333639] object-cover" />
+        )}
         <Image
-          className="rounded-full"
+          className="rounded-full absolute top-[65%] md:top-[75%] "
           src={user.avatar}
           alt={user.username}
-          width={100}
-          height={100}
+          width={125}
+          height={125}
         />
+      </div>
+      <div className="mt-[70px]">
         <div className="flex justify-between items-center my-2 ">
           <div className="mt-4 ">
             <h2 className="font-semibold text-lg mb-1">{user.displayName}</h2>
