@@ -9,7 +9,11 @@ export const formatCreatedAt = (createdAt: Date) => {
 
   // Less than a minute ago
   if (differenceInSeconds < 60) {
-    return `${differenceInSeconds}s`;
+    if (differenceInSeconds === 0) {
+      return "now";
+    } else {
+      return `${differenceInSeconds}s`;
+    }
   }
 
   // Less than a day ago
