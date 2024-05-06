@@ -72,12 +72,11 @@ const TweetActions = ({
     try {
       const id = tweetId.toString();
       const res = await saveRetweet(id);
-      // if (res?.message) {
-      //   toast.error(res.message);
-      // }
+      if (res?.message) {
+        toast.error(res.message);
+      }
     } catch (error) {
-      // toast.error("Error Retweeting");
-      console.error(error);
+      toast.error("Error Retweeting.");
     }
   };
 

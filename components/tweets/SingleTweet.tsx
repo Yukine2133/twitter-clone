@@ -79,7 +79,7 @@ const SingleTweet = ({
         {formatDate(singleTweet?.createdAt as Date)}
       </span>
 
-      <div className="mt-5 py-2 border-y border-[#2fP3336]">
+      <div className="mt-5 py-2 border-y border-[#2f3336]">
         <TweetActions
           user={currentUser!}
           isBookmarked={isBookmarked as boolean}

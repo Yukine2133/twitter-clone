@@ -20,6 +20,10 @@ export const saveRetweet = async (tweetId: string) => {
 
     const tweetToUpdate = await Tweet.findById(tweetId);
 
+    if (!tweetToUpdate) {
+      return { message: "Tweet doesn't exist." };
+    }
+
     if (existingRetweet) {
       // Remove the retweet and update tweet's retweet count
       await existingRetweet.deleteOne();
