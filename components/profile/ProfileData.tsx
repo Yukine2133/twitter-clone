@@ -6,10 +6,15 @@ import FollowButton from "@/components/buttons/FollowButton";
 import Follow from "@/components/follow/Follow";
 import EditProfileButton from "@/components/buttons/EditProfileButton";
 import { ITweet } from "@/types/tweet.interface";
-import { CalendarDaysIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import {
+  CalendarDaysIcon,
+  EnvelopeIcon,
+  MapPinIcon,
+} from "@heroicons/react/24/outline";
 import { formatJoinedDate } from "@/utils/formatTimestamp";
 import { IUser } from "@/types/user.interface";
 import { fetchUser } from "@/actions/user.actions";
+import Link from "next/link";
 
 interface ProfileDataProps {
   user: IUser;
@@ -67,13 +72,29 @@ const ProfileData = ({
           height={125}
         />
       </div>
-      <div className="mt-[70px]">
+      <div className="mt-4 gap-4 flex items-center justify-end ">
+        {!isOwner && (
+          <Link
+            className="p-2 border border-[#38444d] rounded-full bg-"
+            href={`/messages/${username}`}
+          >
+            <EnvelopeIcon className="h-6 w-6" />
+          </Link>
+        )}
+        <FollowButton
+          username={username}
+          isFollowing={isFollowing}
+          userId={user._id.toString()}
+          currentUserId={currentUser._id.toString()}
+        />
+        {isOwner && <EditProfileButton user={user} />}
+      </div>
+      <div className="mt-5">
         <div className="flex justify-between items-center my-2 ">
           <div className="mt-4 ">
             <h2 className="font-semibold text-lg mb-1">{user.displayName}</h2>
             <h2 className=" text-gray-500">@{user.username}</h2>
           </div>
-          {isOwner && <EditProfileButton user={user} />}
         </div>
         <div className="space-y-2 ">
           <h3>{user.bio}</h3>
@@ -105,14 +126,6 @@ const ProfileData = ({
             />
           </div>
         </div>
-        <div className="mt-2">
-          <FollowButton
-            username={username}
-            isFollowing={isFollowing}
-            userId={user._id.toString()}
-            currentUserId={currentUser._id.toString()}
-          />
-        </div>
       </div>
 
       {tweets?.length > 0 && (
@@ -128,12 +141,13 @@ const ProfileData = ({
       {retweets?.length > 0 && (
         <>
           <h4 className="mt-10">Retweeted:</h4>
-          {retweets.map(async (retweet: any) => {
-            const owner = await fetchUser(retweet.userId);
-            return (
-              <TweetCard key={retweet._id} tweet={retweet} owner={owner} />
-            );
-          })}
+          {retweets &&
+            retweets.map(async (retweet: any) => {
+              const owner = await fetchUser(retweet.userId);
+              return (
+                <TweetCard key={retweet._id} tweet={retweet} owner={owner} />
+              );
+            })}
         </>
       )}
 

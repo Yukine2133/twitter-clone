@@ -2,6 +2,7 @@ import {
   Bars3BottomLeftIcon,
   BellIcon,
   BookmarkIcon,
+  EnvelopeIcon,
   HashtagIcon,
   HomeIcon,
   UserCircleIcon,
@@ -14,6 +15,7 @@ const SolidBookmarkIcon = SolidIcons.BookmarkIcon as any;
 const SolidUserCircleIcon = SolidIcons.UserCircleIcon as any;
 const SolidBellIcon = SolidIcons.BellIcon as any;
 const SolidBars3BottomLeftIcon = SolidIcons.Bars3BottomLeftIcon as any;
+const SolidEnvelope = SolidIcons.EnvelopeIcon as any;
 
 export const sidebarLinks = [
   {
@@ -34,6 +36,12 @@ export const sidebarLinks = [
     route: "/notification",
     label: "Notifications",
     disabled: true,
+  },
+  {
+    Icon: EnvelopeIcon,
+    SolidIcon: SolidEnvelope,
+    route: "/messages",
+    label: "Messages",
   },
   {
     Icon: BookmarkIcon,
