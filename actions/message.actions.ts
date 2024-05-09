@@ -1,8 +1,11 @@
+"use server";
+
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Message } from "@/models/message.model";
 import { connectDb } from "@/utils/connectDb";
+import { fetchUser } from "./user.actions";
 
-export const sendMessage = async (recipientId: string, content: string) => {
+export const sendMessage = async (recipientId: string, formData: FormData) => {
   try {
     await connectDb();
 
@@ -10,15 +13,17 @@ export const sendMessage = async (recipientId: string, content: string) => {
 
     const user = await getUser();
 
+    const currentUser = await fetchUser(user?.id);
+
+    const content = formData.get("content");
+
     const message = new Message({
-      sender: user?.id,
+      sender: currentUser._id,
       recipient: recipientId,
       content: content,
     });
 
-    const savedMessage = await message.save();
-
-    return savedMessage;
+    await message.save();
   } catch (error) {
     throw new Error(`Failed to send message: ${error}`);
   }

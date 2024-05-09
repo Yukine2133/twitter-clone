@@ -1,4 +1,7 @@
+"use server";
+
 import { fetchUser } from "@/actions/user.actions";
+import MessageForm from "@/components/messages/MessageForm";
 import Image from "next/image";
 
 const MessageWithTheUser = async ({
@@ -26,16 +29,7 @@ const MessageWithTheUser = async ({
           <h2 className=" text-gray-500 text-sm">@{recipient.username}</h2>
         </div>
       </div>
-      <div className="mt-20 ">
-        <h2>jopka</h2>
-
-        <div className="fixed bottom-4">
-          <input
-            className="bg-[#202327] placeholder:text-zinc-500"
-            placeholder="Send a message"
-          />
-        </div>
-      </div>
+      <MessageForm recipientUserId={recipient._id} />
     </div>
   );
 };
