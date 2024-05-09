@@ -1,5 +1,6 @@
 "use server";
 
+import { getMessages } from "@/actions/message.actions";
 import { fetchUser } from "@/actions/user.actions";
 import MessageForm from "@/components/messages/MessageForm";
 import Image from "next/image";
@@ -13,6 +14,9 @@ const MessageWithTheUser = async ({
 }) => {
   const username = params.username;
   const recipient = await fetchUser(undefined, username);
+  const getConversationMessages = await getMessages(recipient._id);
+
+  console.log(getConversationMessages);
 
   return (
     <div className=" h-[5000px]">
@@ -29,6 +33,11 @@ const MessageWithTheUser = async ({
           <h2 className=" text-gray-500 text-sm">@{recipient.username}</h2>
         </div>
       </div>
+      {getConversationMessages.map((message) => (
+        <div key={message._id}>
+          <h1>{message.content}</h1>
+        </div>
+      ))}
       <MessageForm recipientUserId={recipient._id} />
     </div>
   );
