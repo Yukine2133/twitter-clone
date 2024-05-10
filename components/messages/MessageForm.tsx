@@ -3,6 +3,7 @@
 import { sendMessage } from "@/actions/message.actions";
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
+import ReactTextareaAutosize from "react-textarea-autosize";
 
 const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
   const [content, setContent] = useState<string>("");
@@ -20,15 +21,16 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
   };
 
   return (
-    <div className="fixed bottom-4 border-t border-[#2f3336] w-[620px] pt-4">
+    <div className="fixed bottom-0 bg-black border-t border-[#2f3336] w-[620px] py-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-[#202327] flex justify-between items-center w-full rounded-xl p-3"
+        className="bg-[#202327] flex gap-2 justify-between items-center w-full rounded-xl p-3"
       >
-        <input
+        <ReactTextareaAutosize
+          maxRows={6}
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="bg-transparent outline-none w-full placeholder:text-zinc-500"
+          className="bg-transparent outline-none w-full resize-none placeholder:text-zinc-500"
           placeholder="Send a message"
         />
         <button type="submit">
