@@ -5,6 +5,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { getMessages } from "@/actions/message.actions";
 import { fetchUser } from "@/actions/user.actions";
 import MessageForm from "@/components/messages/MessageForm";
+import GoBackButton from "@/components/buttons/GoBackButton";
 
 const MessageWithTheUser = async ({
   params,
@@ -22,8 +23,10 @@ const MessageWithTheUser = async ({
   const messages = (await getMessages(recipient._id)) as IMessage[];
 
   return (
-    <div className="h-[5000px]">
-      <div className="flex bg-black border-b pb-2 border-[#2f3336] w-[620px] fixed top-0 items-center gap-3 pt-4">
+    <div className="mb-20">
+      <div className=" bg-black border-b pb-2 border-[#2f3336] w-[620px] fixed top-0  pt-4 flex items-center gap-3">
+        <GoBackButton />
+
         <Image
           src={recipient.avatar}
           alt="Recipient avatar"
