@@ -33,10 +33,22 @@ export const sendMessage = async (recipientId: string, formData: FormData) => {
 
 export const getMessages = async (userId: string) => {
   try {
-    // Retrieve messages where the user is either the sender or the recipient
+    const { getUser } = getKindeServerSession();
+
+    const user = await getUser();
+
+    const currentUser = await fetchUser(user?.id);
+    // Retrieve messages where the user is either the sender or the recipient,
+    // and where the sender matches the specified senderId
     const messages = await Message.find({
-      $or: [{ sender: userId }, { recipient: userId }],
-    }).sort({ createdAt: 1 }); // Sort messages by createdAt timestamp in ascending order
+      $or: [
+        { sender: userId, recipient: currentUser._id },
+        { sender: currentUser._id, recipient: userId },
+      ],
+    })
+      .sort({ createdAt: 1 }) // Sort messages by createdAt timestamp in ascending order
+      .populate("sender");
+
     return messages;
   } catch (error) {
     console.error("Error fetching messages:", error);
