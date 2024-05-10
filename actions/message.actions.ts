@@ -59,3 +59,14 @@ export const getMessages = async (userId: string) => {
     return { message: "Failed to fetch messages" };
   }
 };
+
+export const deleteMessage = async (messageId: string) => {
+  try {
+    await connectDb();
+
+    const res = await Message.findByIdAndDelete(messageId);
+    revalidatePath("/messages");
+  } catch (error) {
+    return { message: "Failed to delete message" };
+  }
+};

@@ -6,6 +6,7 @@ import { getMessages } from "@/actions/message.actions";
 import { fetchUser } from "@/actions/user.actions";
 import MessageForm from "@/components/messages/MessageForm";
 import GoBackButton from "@/components/buttons/GoBackButton";
+import DeleteMessageButton from "@/components/buttons/DeleteMessageButton";
 
 const MessageWithTheUser = async ({
   params,
@@ -54,6 +55,9 @@ const MessageWithTheUser = async ({
             >
               <div className={messageClassName}>
                 <h1 style={{ overflowWrap: "anywhere" }}>{message.content}</h1>
+                <DeleteMessageButton
+                  messageId={message._id.toString() as string}
+                />
               </div>
             </div>
           );
