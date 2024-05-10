@@ -4,6 +4,7 @@ import { sendMessage } from "@/actions/message.actions";
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
 import ReactTextareaAutosize from "react-textarea-autosize";
+import { toast } from "react-toastify";
 
 const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
   const [content, setContent] = useState<string>("");
@@ -13,7 +14,10 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
     const formData = new FormData(e.currentTarget);
     try {
       formData.append("content", content);
-      await sendMessage(recipientUserId, formData);
+      const res = await sendMessage(recipientUserId, formData);
+      if (res?.message) {
+        toast.error(res.message);
+      }
       setContent("");
     } catch (error) {
       console.error("Error sending message:", error);

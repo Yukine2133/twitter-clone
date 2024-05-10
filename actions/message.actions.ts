@@ -18,6 +18,10 @@ export const sendMessage = async (recipientId: string, formData: FormData) => {
 
     const content = formData.get("content");
 
+    if (!content) {
+      return { message: "You cannot send an empty message." };
+    }
+
     const message = new Message({
       sender: currentUser._id,
       recipient: recipientId,
@@ -27,7 +31,7 @@ export const sendMessage = async (recipientId: string, formData: FormData) => {
     await message.save();
     revalidatePath("/messages");
   } catch (error) {
-    throw new Error(`Failed to send message: ${error}`);
+    return { message: `Failed to send message: ${error}` };
   }
 };
 
@@ -52,6 +56,6 @@ export const getMessages = async (userId: string) => {
     return messages;
   } catch (error) {
     console.error("Error fetching messages:", error);
-    throw new Error("Failed to fetch messages");
+    return { message: "Failed to fetch messages" };
   }
 };
