@@ -87,3 +87,31 @@ export const deleteMessage = async (messageId: string) => {
     return { message: "Failed to delete message." };
   }
 };
+
+export const editMessage = async (messageId: string, content: string) => {
+  try {
+    await connectDb();
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    if (!user) {
+      return { message: "You need to be logged in to update message." };
+    }
+    const existingMessage = await Message.findById(messageId).populate(
+      "sender"
+    );
+
+    if (existingMessage.sender.userId != user?.id) {
+      return { message: "You cannot edit someone else's message." };
+    }
+
+    if (!existingMessage) return { message: "Message not found" };
+
+    existingMessage.content = content;
+
+    await existingMessage.save();
+    revalidatePath(`/`);
+  } catch (error) {
+    console.error(error);
+  }
+};
