@@ -15,7 +15,7 @@ import Image from "next/image";
 
 const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
   const [content, setContent] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -36,9 +36,10 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
       }
 
       setContent("");
-      setImageUrl(null);
     } catch (error) {
       console.error("Error sending message:", error);
+    } finally {
+      setImageUrl("");
     }
   };
 
