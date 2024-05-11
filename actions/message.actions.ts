@@ -64,9 +64,26 @@ export const deleteMessage = async (messageId: string) => {
   try {
     await connectDb();
 
-    const res = await Message.findByIdAndDelete(messageId);
+    const { getUser } = getKindeServerSession();
+    const currentUser = await getUser();
+
+    const message = await Message.findById(messageId).populate("sender");
+
+    if (!message) {
+      return { message: "Message not found." };
+    }
+
+    if (message.sender.userId !== currentUser?.id) {
+      return {
+        message: "You can only delete your own messages.",
+      };
+    }
+
+    await Message.findByIdAndDelete(messageId);
+
     revalidatePath("/messages");
   } catch (error) {
-    return { message: "Failed to delete message" };
+    console.error("Error deleting message:", error);
+    return { message: "Failed to delete message." };
   }
 };

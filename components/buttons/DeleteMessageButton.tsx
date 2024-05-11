@@ -2,11 +2,17 @@
 
 import { deleteMessage } from "@/actions/message.actions";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import { toast } from "react-toastify";
 
 const DeleteMessageButton = ({ messageId }: { messageId: string }) => {
   const handleClick = async () => {
     try {
-      await deleteMessage(messageId);
+      const res = await deleteMessage(messageId);
+      if (res?.message) {
+        toast.error(res.message);
+      } else {
+        toast.success("Message deleted successfully");
+      }
     } catch (error) {
       console.error(error);
     }
