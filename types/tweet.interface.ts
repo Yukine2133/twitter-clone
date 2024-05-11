@@ -1,3 +1,4 @@
+import { IMessage } from "./message.interface";
 import { IUser } from "./user.interface";
 
 export interface ITweetProps {
@@ -39,9 +40,11 @@ export interface IReply {
 }
 
 export interface IMoreButtonProps {
-  id: string;
-  tweet: ITweet;
+  id?: string;
+  tweet?: ITweet;
   reply?: IReply;
   replyId?: string;
   replyTweet?: string;
+  messageId?: string;
+  message?: IMessage;
 }

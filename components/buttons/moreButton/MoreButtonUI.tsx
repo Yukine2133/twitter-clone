@@ -20,6 +20,7 @@ interface IMoreButtonUIProps {
   setImageUrl: (arg0: string) => void;
   imageUrl: string | null;
   handleSubmit: () => void;
+  messageId: string | undefined;
 }
 
 const MoreButtonUI = ({
@@ -35,6 +36,7 @@ const MoreButtonUI = ({
   setImageUrl,
   handleSubmit,
   imageUrl,
+  messageId,
 }: IMoreButtonUIProps) => {
   return (
     <>
@@ -48,7 +50,13 @@ const MoreButtonUI = ({
             &#10247;
           </button>
           {isOpen && (
-            <div className="absolute -top-9 right-3 p-3">
+            <div
+              className={`${
+                messageId
+                  ? "top-4 -left-10 z-10 bg-black  "
+                  : " -top-9 right-3 "
+              } absolute p-3  `}
+            >
               {isOwner && (
                 <>
                   <button

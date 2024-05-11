@@ -1,4 +1,3 @@
-import { IUser } from "@/types/user.interface";
 import { IMessage } from "@/types/message.interface";
 import Image from "next/image";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -6,7 +5,7 @@ import { getMessages } from "@/actions/message.actions";
 import { fetchUser } from "@/actions/user.actions";
 import MessageForm from "@/components/messages/MessageForm";
 import GoBackButton from "@/components/buttons/GoBackButton";
-import DeleteMessageButton from "@/components/buttons/DeleteMessageButton";
+import MoreButton from "@/components/buttons/moreButton/MoreButton";
 
 const MessageWithTheUser = async ({
   params,
@@ -55,9 +54,12 @@ const MessageWithTheUser = async ({
             >
               <div className={messageClassName}>
                 <h1 style={{ overflowWrap: "anywhere" }}>{message.content}</h1>
-                <DeleteMessageButton
-                  messageId={message._id.toString() as string}
-                />
+                <div className="relative ">
+                  <MoreButton
+                    messageId={message._id.toString() as string}
+                    message={JSON.parse(JSON.stringify(message))}
+                  />
+                </div>
               </div>
             </div>
           );

@@ -10,6 +10,7 @@ import { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import { tweetTextSchema } from "@/utils/lib/validation";
 import { z } from "zod";
+import { deleteMessage, editMessage } from "@/actions/message.actions";
 
 const useMoreButtonLogic = ({
   id,
@@ -17,24 +18,26 @@ const useMoreButtonLogic = ({
   tweet,
   replyId,
   replyTweet,
+  messageId,
+  message,
 }: IMoreButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
   const [text, setText] = useState<string | null>(
-    replyTweet ? replyTweet : tweet.text
+    replyTweet
+      ? replyTweet
+      : message
+      ? message.content
+      : (tweet?.text as string)
   );
 
   const [edit, setEdit] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(
-    replyTweet ? (reply?.image as string) : tweet.image
+    replyTweet ? (reply?.image as string) : (tweet?.image as string)
   );
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   const { user } = useKindeBrowserClient();
-
-  const fullUsername =
-    user && combineUsername(user?.given_name, user?.family_name);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -55,6 +58,7 @@ const useMoreButtonLogic = ({
 
   const handleEdit = async (tweetId: string, text: string) => {
     try {
+      // If the replyId passed, edit the reply
       if (replyId) {
         const res = await editReply(
           replyId as string,
@@ -67,7 +71,17 @@ const useMoreButtonLogic = ({
         } else {
           toast.success("Reply was updated.");
         }
+      } else if (messageId) {
+        // If the MessageId passed, edit the message
+        const res = await editMessage(messageId, text);
+        if (res?.message) {
+          toast.error(res.message);
+        } else {
+          toast.success("Message was updated.");
+        }
       } else {
+        // If there's neither replyId nor messageId, edit the tweet
+
         // If there's neither text nor image, throw an error
         if (!text && !imageUrl) {
           throw new Error("Tweet must contain text or an image.");
@@ -96,19 +110,33 @@ const useMoreButtonLogic = ({
   };
 
   const handleSubmit = () => {
-    handleEdit(id, text as string);
+    handleEdit(id as string, text as string);
   };
 
   const handleDelete = async () => {
+    // If the replyId passed, delete the reply
     if (replyId) {
-      const res = await deleteReply(id, replyId);
+      const res = await deleteReply(id as string, replyId);
       if (res?.message) {
         toast.error(res?.message);
       } else {
         toast.success("Reply was deleted.");
       }
+    } else if (messageId) {
+      // If the messageId passed, delete the message
+      try {
+        const res = await deleteMessage(messageId);
+        if (res?.message) {
+          toast.error(res.message);
+        } else {
+          toast.success("Message deleted successfully");
+        }
+      } catch (error) {
+        console.error(error);
+      }
     } else {
-      const res = await deleteTweet(id);
+      // If there's neither replyId nor messageId, delete the tweet
+      const res = await deleteTweet(id as string);
       if (res?.message) {
         toast.error(res.message);
       } else {
@@ -117,7 +145,9 @@ const useMoreButtonLogic = ({
     }
   };
 
-  const isOwner = user?.id === tweet.userId || reply?.userId;
+  const isOwner =
+    user?.id === tweet?.userId || reply?.userId || message?.sender.userId;
+
   return {
     isOwner,
     buttonRef,

@@ -10,6 +10,8 @@ const MoreButton = ({
   tweet,
   replyId,
   replyTweet,
+  messageId,
+  message,
 }: IMoreButtonProps) => {
   const {
     isOwner,
@@ -24,7 +26,15 @@ const MoreButton = ({
     setImageUrl,
     handleSubmit,
     imageUrl,
-  } = useMoreButtonLogic({ id, reply, tweet, replyId, replyTweet });
+  } = useMoreButtonLogic({
+    id,
+    reply,
+    tweet,
+    replyId,
+    replyTweet,
+    messageId,
+    message,
+  });
   return (
     <MoreButtonUI
       isOwner={isOwner}
@@ -39,6 +49,7 @@ const MoreButton = ({
       imageUrl={imageUrl}
       setImageUrl={setImageUrl}
       handleSubmit={handleSubmit}
+      messageId={messageId}
     />
   );
 };
