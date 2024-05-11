@@ -2,7 +2,6 @@ import { searchTweets } from "@/actions/tweet.actions";
 import { fetchUser } from "@/actions/user.actions";
 import TweetCard from "@/components/tweets/TweetCard";
 import SearchResults from "@/components/search/SearchResults";
-import { Metadata } from "next";
 import { IUser } from "@/types/user.interface";
 import { ITweet } from "@/types/tweet.interface";
 

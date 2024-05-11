@@ -42,23 +42,43 @@ const MessageWithTheUser = async ({
       <div className="mt-20">
         {messages.map((message: IMessage) => {
           const isCurrentUserSender = message.sender.userId === currentUser?.id;
-          const messageClassName = `bg-blue-500 max-w-[290px]  rounded-xl px-2 py-1 my-2 text-[15px] ${
-            isCurrentUserSender ? "ml-auto" : "bg-zinc-900"
-          }`;
           return (
             <div
-              className={`flex ${
+              className={`flex   ${
                 isCurrentUserSender ? "justify-end" : "justify-start"
               }`}
               key={message._id}
             >
-              <div className={messageClassName}>
-                <h1 style={{ overflowWrap: "anywhere" }}>{message.content}</h1>
-                <div className="relative ">
-                  <MoreButton
-                    messageId={message._id.toString() as string}
-                    message={JSON.parse(JSON.stringify(message))}
+              <div>
+                {message.image && (
+                  <Image
+                    src={message.image}
+                    alt="Image"
+                    width={270}
+                    height={270}
+                    className={`rounded-lg flex justify-end ${
+                      isCurrentUserSender ? "ml-auto" : ""
+                    }`}
                   />
+                )}
+                <div className="flex items-center   gap-2">
+                  <div className="relative ">
+                    {isCurrentUserSender && (
+                      <MoreButton
+                        messageId={message._id.toString() as string}
+                        message={JSON.parse(JSON.stringify(message))}
+                      />
+                    )}
+                  </div>
+                  <div
+                    className={`bg-blue-500 max-w-[290px]  rounded-xl px-2 py-1 my-2 text-[15px] ${
+                      isCurrentUserSender ? "ml-auto" : "bg-zinc-900"
+                    }`}
+                  >
+                    <h1 style={{ overflowWrap: "anywhere" }}>
+                      {message.content}
+                    </h1>
+                  </div>
                 </div>
               </div>
             </div>

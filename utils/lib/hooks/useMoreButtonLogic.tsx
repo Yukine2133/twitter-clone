@@ -32,7 +32,11 @@ const useMoreButtonLogic = ({
 
   const [edit, setEdit] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(
-    replyTweet ? (reply?.image as string) : (tweet?.image as string)
+    replyTweet
+      ? (reply?.image as string)
+      : message
+      ? message.image
+      : (tweet?.image as string)
   );
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -73,7 +77,7 @@ const useMoreButtonLogic = ({
         }
       } else if (messageId) {
         // If the MessageId passed, edit the message
-        const res = await editMessage(messageId, text);
+        const res = await editMessage(messageId, text, imageUrl as string);
         if (res?.message) {
           toast.error(res.message);
         } else {
@@ -144,7 +148,6 @@ const useMoreButtonLogic = ({
       }
     }
   };
-
   const isOwner =
     user?.id === tweet?.userId || reply?.userId || message?.sender.userId;
 

@@ -5,6 +5,7 @@ export interface IMessage {
   sender: IUser;
   recipient: IUser;
   content: string;
+  image: string;
   createdAt: Date;
   updatedAt: Date;
 }

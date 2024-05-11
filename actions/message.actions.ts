@@ -17,15 +17,13 @@ export const sendMessage = async (recipientId: string, formData: FormData) => {
     const currentUser = await fetchUser(user?.id);
 
     const content = formData.get("content");
-
-    if (!content) {
-      return { message: "You cannot send an empty message." };
-    }
+    const image = formData.get("image");
 
     const message = new Message({
       sender: currentUser._id,
       recipient: recipientId,
-      content: content,
+      content,
+      image,
     });
 
     await message.save();
@@ -88,7 +86,11 @@ export const deleteMessage = async (messageId: string) => {
   }
 };
 
-export const editMessage = async (messageId: string, content: string) => {
+export const editMessage = async (
+  messageId: string,
+  content: string,
+  image: string
+) => {
   try {
     await connectDb();
     const { getUser } = getKindeServerSession();
@@ -108,6 +110,7 @@ export const editMessage = async (messageId: string, content: string) => {
     if (!existingMessage) return { message: "Message not found" };
 
     existingMessage.content = content;
+    existingMessage.image = image;
 
     await existingMessage.save();
     revalidatePath(`/`);
