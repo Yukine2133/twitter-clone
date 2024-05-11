@@ -5,6 +5,7 @@ import { Message } from "@/models/message.model";
 import { connectDb } from "@/utils/connectDb";
 import { fetchUser } from "./user.actions";
 import { revalidatePath } from "next/cache";
+import { User } from "@/models/user.model";
 
 export const sendMessage = async (recipientId: string, formData: FormData) => {
   try {
@@ -117,5 +118,65 @@ export const editMessage = async (
     revalidatePath(`/`);
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const getUserConversations = async () => {
+  try {
+    await connectDb();
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    const currentUser = await fetchUser(user?.id);
+
+    // Find all messages involving the current user
+    const messages = await Message.find({
+      $or: [{ sender: currentUser?._id }, { recipient: currentUser?._id }],
+    }).sort({ createdAt: -1 }); // Sort messages in descending order by createdAt timestamp
+
+    const lastMessagesMap = new Map(); // Map to store the last message for each conversation
+
+    // Loop through messages to find the last message for each conversation
+    for (const message of messages) {
+      const otherUserId =
+        message.sender.toString() === currentUser?._id.toString()
+          ? message.recipient.toString()
+          : message.sender.toString();
+      // If there is no last message for this user, set it as the last message
+      if (!lastMessagesMap.has(otherUserId)) {
+        lastMessagesMap.set(otherUserId, {
+          content: message.content,
+          createdAt: message.createdAt,
+          isImage: message.image ? true : false, // Check if the last message is an image
+        });
+      }
+    }
+
+    // Fetch user data corresponding to the IDs of users the current user has messaged
+    const userIds = Array.from(lastMessagesMap.keys());
+    const users = await User.find({ _id: { $in: userIds } });
+
+    // Combine user data with the last message for each user
+    const conversations = [];
+    for (const user of users) {
+      const lastMessageData = lastMessagesMap.get(user._id.toString());
+      let lastMessage = lastMessageData ? lastMessageData.content : "";
+      // Check if the last message is an image
+      if (lastMessageData && lastMessageData.isImage) {
+        lastMessage = "sent image";
+      }
+      conversations.push({
+        user,
+        lastMessage,
+        lastMessageCreatedAt: lastMessageData
+          ? lastMessageData.createdAt
+          : null,
+      });
+    }
+
+    return conversations;
+  } catch (error) {
+    console.error(error);
+    return [];
   }
 };

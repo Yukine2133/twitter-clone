@@ -10,3 +10,9 @@ export interface IMessage {
   updatedAt: Date;
   isEdited: boolean;
 }
+
+export interface IUserConversations {
+  user: IUser;
+  lastMessage: string;
+  lastMessageCreatedAt: Date;
+}

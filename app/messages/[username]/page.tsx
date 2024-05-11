@@ -7,6 +7,7 @@ import MessageForm from "@/components/messages/MessageForm";
 import GoBackButton from "@/components/buttons/GoBackButton";
 import MoreButton from "@/components/buttons/moreButton/MoreButton";
 import { formatMessageCreatedAt } from "@/utils/formatTimestamp";
+import Link from "next/link";
 
 const MessageWithTheUser = async ({
   params,
@@ -28,17 +29,22 @@ const MessageWithTheUser = async ({
       <div className=" bg-black border-b pb-2 border-[#2f3336] w-[620px] fixed top-0  pt-4 flex items-center gap-3">
         <GoBackButton />
 
-        <Image
-          src={recipient.avatar}
-          alt="Recipient avatar"
-          width={50}
-          height={50}
-          className="rounded-full"
-        />
-        <div>
-          <h2 className="font-semibold mb-1">{recipient.displayName}</h2>
-          <h2 className="text-gray-500 text-sm">@{recipient.username}</h2>
-        </div>
+        <Link
+          className="flex items-center gap-3"
+          href={`/profile/${recipient.username}`}
+        >
+          <Image
+            src={recipient.avatar}
+            alt="Recipient avatar"
+            width={50}
+            height={50}
+            className="rounded-full"
+          />
+          <div>
+            <h2 className="font-semibold mb-1">{recipient.displayName}</h2>
+            <h2 className="text-gray-500 text-sm">@{recipient.username}</h2>
+          </div>
+        </Link>
       </div>
       <div className="mt-20">
         {messages.map((message: IMessage) => {
@@ -76,9 +82,9 @@ const MessageWithTheUser = async ({
                       isCurrentUserSender ? "ml-auto" : "bg-zinc-900"
                     }`}
                   >
-                    <h1 style={{ overflowWrap: "anywhere" }}>
+                    <h3 style={{ overflowWrap: "anywhere" }}>
                       {message.content}
-                    </h1>
+                    </h3>
                   </div>
                 </div>
                 <div
