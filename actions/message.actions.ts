@@ -111,6 +111,7 @@ export const editMessage = async (
 
     existingMessage.content = content;
     existingMessage.image = image;
+    existingMessage.isEdited = true;
 
     await existingMessage.save();
     revalidatePath(`/`);

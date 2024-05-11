@@ -6,6 +6,7 @@ import { fetchUser } from "@/actions/user.actions";
 import MessageForm from "@/components/messages/MessageForm";
 import GoBackButton from "@/components/buttons/GoBackButton";
 import MoreButton from "@/components/buttons/moreButton/MoreButton";
+import { formatMessageCreatedAt } from "@/utils/formatTimestamp";
 
 const MessageWithTheUser = async ({
   params,
@@ -79,6 +80,19 @@ const MessageWithTheUser = async ({
                       {message.content}
                     </h1>
                   </div>
+                </div>
+                <div
+                  className={`flex gap-1 items-center text-[13px] text-zinc-600  ${
+                    isCurrentUserSender ? "ml-auto flex justify-end" : ""
+                  }`}
+                >
+                  <p>{formatMessageCreatedAt(message.createdAt)}</p>
+                  {message.isEdited && (
+                    <>
+                      <span className="text-sm">&middot;</span>
+                      <p>Edited</p>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

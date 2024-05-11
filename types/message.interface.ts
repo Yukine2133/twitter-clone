@@ -8,4 +8,5 @@ export interface IMessage {
   image: string;
   createdAt: Date;
   updatedAt: Date;
+  isEdited: boolean;
 }

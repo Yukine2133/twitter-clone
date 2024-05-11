@@ -55,3 +55,8 @@ export const formatDate = (createdAt: Date) => {
   );
   return formattedDate.replace(",", " ·");
 };
+
+export const formatMessageCreatedAt = (createdAt: Date) => {
+  const formattedDate = format(createdAt, "EEE h:mm aa");
+  return formattedDate;
+};
