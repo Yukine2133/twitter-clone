@@ -39,7 +39,7 @@ const MessagePage = async () => {
                 </div>
                 <h4
                   style={{ overflowWrap: "anywhere" }}
-                  className="ml-12 w-[5px]  truncate"
+                  className="ml-12 w-[575px]  truncate"
                 >
                   {message.lastMessage}
                 </h4>
