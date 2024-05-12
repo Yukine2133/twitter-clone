@@ -5,9 +5,8 @@ import { getMessages } from "@/actions/message.actions";
 import { fetchUser } from "@/actions/user.actions";
 import MessageForm from "@/components/messages/MessageForm";
 import GoBackButton from "@/components/buttons/GoBackButton";
-import MoreButton from "@/components/buttons/moreButton/MoreButton";
-import { formatMessageCreatedAt } from "@/utils/formatTimestamp";
 import Link from "next/link";
+import MessageCard from "@/components/messages/MessageCard";
 
 const MessageWithTheUser = async ({
   params,
@@ -50,58 +49,11 @@ const MessageWithTheUser = async ({
         {messages.map((message: IMessage) => {
           const isCurrentUserSender = message.sender.userId === currentUser?.id;
           return (
-            <div
-              className={`flex   ${
-                isCurrentUserSender ? "justify-end" : "justify-start"
-              }`}
+            <MessageCard
               key={message._id}
-            >
-              <div>
-                {message.image && (
-                  <Image
-                    src={message.image}
-                    alt="Image"
-                    width={270}
-                    height={270}
-                    className={`rounded-lg flex justify-end ${
-                      isCurrentUserSender ? "ml-auto" : ""
-                    }`}
-                  />
-                )}
-                <div className="flex items-center   gap-2">
-                  <div className="relative ">
-                    {isCurrentUserSender && (
-                      <MoreButton
-                        messageId={message._id.toString() as string}
-                        message={JSON.parse(JSON.stringify(message))}
-                      />
-                    )}
-                  </div>
-                  <div
-                    className={`bg-blue-500 max-w-[290px]  rounded-xl px-2 py-1 my-2 text-[15px] ${
-                      isCurrentUserSender ? "ml-auto" : "bg-zinc-900"
-                    }`}
-                  >
-                    <h3 style={{ overflowWrap: "anywhere" }}>
-                      {message.content}
-                    </h3>
-                  </div>
-                </div>
-                <div
-                  className={`flex gap-1 items-center text-[13px] text-zinc-600  ${
-                    isCurrentUserSender ? "ml-auto flex justify-end" : ""
-                  }`}
-                >
-                  <p>{formatMessageCreatedAt(message.createdAt)}</p>
-                  {message.isEdited && (
-                    <>
-                      <span className="text-sm">&middot;</span>
-                      <p>Edited</p>
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
+              message={JSON.parse(JSON.stringify(message))}
+              isCurrentUserSender={isCurrentUserSender}
+            />
           );
         })}
       </div>

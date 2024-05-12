@@ -57,10 +57,7 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
   return (
     <>
       <div className="fixed bottom-0 bg-black border-t border-[#2f3336] w-[620px] py-4">
-        <form
-          // onSubmit={handleSubmit}
-          className="bg-[#202327]  w-full rounded-xl p-3"
-        >
+        <form className="bg-[#202327]  w-full rounded-xl p-3">
           {imageUrl && (
             <div className="my-4 relative flex items-center">
               <button className="absolute -top-6 -left-2">
@@ -87,7 +84,7 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               onKeyDown={handleKeyDown}
-              className="bg-transparent outline-none w-full resize-none placeholder:text-zinc-500"
+              className="bg-transparent h-6 outline-none w-full resize-none placeholder:text-zinc-500"
               placeholder="Send a message"
             />
             <button type="button" onClick={handleSubmit}>
