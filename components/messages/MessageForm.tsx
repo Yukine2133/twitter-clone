@@ -18,18 +18,21 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
   const [imageUrl, setImageUrl] = useState<string | null>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+  const handleSubmit = async () => {
     try {
+      const formData = new FormData();
       const hasImageUrl = !!imageUrl;
 
       // If there's neither text nor image, throw an error
       if (!content && !hasImageUrl) {
         throw new Error("Message must contain text or an image.");
       }
+
       formData.append("content", content);
-      formData.append("image", imageUrl as string);
+      if (imageUrl) {
+        formData.append("image", imageUrl);
+      }
+
       const res = await sendMessage(recipientUserId, formData);
       if (res?.message) {
         toast.error(res.message);
@@ -39,7 +42,15 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
     } catch (error) {
       console.error("Error sending message:", error);
     } finally {
-      setImageUrl("");
+      setImageUrl(null);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Check if the pressed key is Enter and not holding down Shift
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault(); // Prevent newline in textarea
+      handleSubmit();
     }
   };
 
@@ -47,7 +58,7 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
     <>
       <div className="fixed bottom-0 bg-black border-t border-[#2f3336] w-[620px] py-4">
         <form
-          onSubmit={handleSubmit}
+          // onSubmit={handleSubmit}
           className="bg-[#202327]  w-full rounded-xl p-3"
         >
           {imageUrl && (
@@ -75,10 +86,11 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
               maxRows={6}
               value={content}
               onChange={(e) => setContent(e.target.value)}
+              onKeyDown={handleKeyDown}
               className="bg-transparent outline-none w-full resize-none placeholder:text-zinc-500"
               placeholder="Send a message"
             />
-            <button type="submit">
+            <button type="button" onClick={handleSubmit}>
               <PaperAirplaneIcon className="text-blue-500 h-5 w-5" />
             </button>
           </div>
