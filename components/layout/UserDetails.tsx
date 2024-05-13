@@ -15,8 +15,8 @@ const UserDetails = async () => {
         <Image
           src={currentUser?.avatar!}
           alt={currentUser?.username!}
-          width={48}
-          height={48}
+          width={44}
+          height={44}
           className="rounded-full"
         />
         <div className="lg:hidden">
@@ -29,7 +29,9 @@ const UserDetails = async () => {
           <h2 className="font-semibold truncate w-[125px]">
             {currentUser?.displayName}
           </h2>
-          <h2 className="text-gray-500">@{currentUser?.username}</h2>
+          <h2 className="text-gray-500 truncate w-[130px]">
+            @{currentUser?.username}
+          </h2>
         </div>
         <OpenEllipsisButton />
       </div>
