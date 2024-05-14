@@ -1,8 +1,14 @@
 import { getUserConversations } from "@/actions/message.actions";
 import { IUserConversations } from "@/types/message.interface";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Messages",
+  description: "Tweeter Messages",
+};
 
 const MessagePage = async () => {
   const messages = await getUserConversations();

@@ -8,6 +8,16 @@ import GoBackButton from "@/components/buttons/GoBackButton";
 import Link from "next/link";
 import MessageCard from "@/components/messages/MessageCard";
 
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { username: string };
+}) => {
+  return {
+    title: params.username + " - Messages",
+  };
+};
+
 const MessageWithTheUser = async ({
   params,
 }: {
