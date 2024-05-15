@@ -38,8 +38,10 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
               className="flex items-center gap-2"
               href={`/profile/${owner.username}`}
             >
-              <span className="font-semibold">{owner.displayName}</span>
-              <span className="text-gray-500 text-[15px]">
+              <span className="font-semibold w-[100px] truncate sm:w-fit">
+                {owner.displayName}
+              </span>
+              <span className="text-gray-500 text-[15px] w-[100px] truncate sm:w-fit ">
                 @{owner.username}
               </span>
             </Link>
