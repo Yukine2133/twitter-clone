@@ -35,7 +35,7 @@ const MessageWithTheUser = async ({
 
   return (
     <div className="mb-20">
-      <div className=" bg-black border-b pb-2 border-[#2f3336] w-[620px] fixed top-0  pt-4 flex items-center gap-3">
+      <div className=" bg-black border-b pb-2 border-[#2f3336] w-[620px] fixed top-0 z-10  pt-4 flex items-center gap-3">
         <GoBackButton />
 
         <Link
@@ -67,7 +67,9 @@ const MessageWithTheUser = async ({
           );
         })}
       </div>
-      <MessageForm recipientUserId={recipient._id} />
+      <div className="relative pt-8 md:pt-0">
+        <MessageForm recipientUserId={recipient._id} />
+      </div>
     </div>
   );
 };

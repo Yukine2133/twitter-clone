@@ -86,7 +86,7 @@ const MoreButtonUI = ({
                 maxLength={280}
                 wrap="soft"
                 onChange={(e) => setText(e.target.value)}
-                className="bg-transparent border border-gray-800 shadow-sm rounded-md flex justify-center w-full mx-auto p-2"
+                className="bg-transparent border border-gray-800 shadow-sm outline-none  rounded-md  flex justify-center w-full mx-auto p-2"
               />
               <UploadDropzone
                 endpoint={"media"}

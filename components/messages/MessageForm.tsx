@@ -56,7 +56,7 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
 
   return (
     <>
-      <div className="fixed bottom-0 bg-black border-t border-[#2f3336] w-[620px] py-4">
+      <div className="absolute -bottom-8 min-[800px]:-bottom-16 w-full   bg-black border-t border-[#2f3336] pt-4">
         <form className="bg-[#202327]  w-full rounded-xl p-3">
           {imageUrl && (
             <div className="my-4 relative flex items-center">
@@ -80,7 +80,7 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
               <PhotoIcon className="h-5 w-5 text-blue-500" />
             </button>
             <ReactTextareaAutosize
-              maxRows={6}
+              maxRows={5}
               value={content}
               onChange={(e) => setContent(e.target.value)}
               onKeyDown={handleKeyDown}

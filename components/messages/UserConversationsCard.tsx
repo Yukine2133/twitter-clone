@@ -10,7 +10,7 @@ const UserConversationsCard = ({
 }) => {
   return (
     <Link href={`/messages/${message.user.username}`} className="">
-      <div className="my-4 p-2 bg-[#202327]">
+      <div className="my-4 p-2  bg-[#202327]">
         <div className="flex gap-2 items-center">
           <Image
             src={message.user.avatar}
@@ -30,7 +30,7 @@ const UserConversationsCard = ({
         </div>
         <h4
           style={{ overflowWrap: "anywhere" }}
-          className="ml-12 w-[550px]  truncate"
+          className="ml-12 w-[330px]  sm:w-[550px]  truncate"
         >
           {message.lastMessage}
         </h4>

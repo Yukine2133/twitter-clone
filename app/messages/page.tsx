@@ -12,8 +12,8 @@ const MessagePage = async () => {
   const messages = await getUserConversations();
 
   return (
-    <div>
-      <h2 className="text-xl mt-2 font-semibold">Messages</h2>
+    <div className="">
+      <h2 className="text-xl ml-2 sm:ml-0 mt-2 font-semibold">Messages</h2>
 
       <div className="mt-4">
         {messages.map((message: IUserConversations) => {
