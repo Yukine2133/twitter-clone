@@ -23,7 +23,7 @@ const OpenEllipsisButton = () => {
       {isEllipsisOpen && (
         <div
           ref={ref}
-          className="absolute -top-14 right-2 lg:right-10 flex gap-2 bg-black shadow-sm p-3 shadow-white "
+          className="absolute -top-14 -right-10   lg:right-10 flex gap-2 bg-black shadow-sm p-3 shadow-white "
         >
           <ArrowRightStartOnRectangleIcon className="h-5 w-5" />
           <LogoutLink>Logout</LogoutLink>

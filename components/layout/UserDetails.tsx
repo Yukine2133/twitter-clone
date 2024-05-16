@@ -19,7 +19,7 @@ const UserDetails = async () => {
           height={44}
           className="rounded-full"
         />
-        <div className="lg:hidden">
+        <div className="lg:hidden ">
           <OpenEllipsisButton />
         </div>
       </div>
