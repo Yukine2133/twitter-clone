@@ -1,8 +1,9 @@
 import { connectDb } from "@/utils/connectDb";
 import { User } from "@/models/user.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation"; // Import useRouter from next/router
 import { combineUsername } from "@/utils/combineUsername";
+import { NextResponse } from "next/server";
 
 function isValidUsername(username: string): boolean {
   // Regular expression to match only alphanumeric characters
@@ -18,7 +19,7 @@ function getUsernameFromEmail(email: string | any): string {
   return email;
 }
 
-export async function GET() {
+export async function GET(req: Request, res: Response) {
   try {
     await connectDb();
     const { getUser } = getKindeServerSession();
@@ -43,9 +44,9 @@ export async function GET() {
       });
     }
 
-    return redirect("http://localhost:3000");
+    return NextResponse.redirect("http://localhost:3000");
   } catch (error) {
     console.error(error);
-    return new Response(redirect("http://localhost:3000"));
+    return new Response(String(error));
   }
 }
