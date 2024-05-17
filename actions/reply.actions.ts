@@ -44,6 +44,8 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
 
     revalidatePath(`/tweet/${tweetId}`);
     revalidatePath(`/`);
+
+    return { message: "Reply was created" };
   } catch (error) {
     console.error(error);
     return { error: "An unexpected error occurred." };

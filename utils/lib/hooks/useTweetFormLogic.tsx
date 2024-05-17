@@ -6,12 +6,6 @@ import { z } from "zod";
 import { createTweet } from "@/actions/tweet.actions";
 import { tweetTextSchema } from "@/utils/lib/validation";
 import { replyTweet } from "@/actions/reply.actions";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/store/store";
-import {
-  createTweetAsync,
-  replyTweetAsync,
-} from "@/store/slices/tweetFormSlice";
 
 const useTweetFormLogic = ({
   toggleModal,
@@ -22,20 +16,20 @@ const useTweetFormLogic = ({
   id?: string;
   ref: RefObject<HTMLFormElement>;
 }) => {
+  const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenVideo, setIsOpenVideo] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [text, setText] = useState<string | null>(null);
 
-  const dispatch = useDispatch<AppDispatch>();
-  const { loading, error } = useSelector((state: RootState) => state.tweetForm);
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
     try {
+      setLoading(true);
+      // const tweetText = formData.get("text") as string;
       formData.append("text", text || "");
       formData.append("image", imageUrl || "");
       formData.append("video", videoUrl || "");
@@ -52,13 +46,16 @@ const useTweetFormLogic = ({
       if (text && text.trim().length > 0) {
         tweetTextSchema.parse(text);
       }
+
+      let res;
       if (id) {
-        dispatch(replyTweetAsync({ formData, id }));
+        res = await replyTweet(formData, id);
       } else {
-        dispatch(createTweetAsync(formData));
+        res = await createTweet(formData);
       }
-      if (error) {
-        toast.error(error);
+
+      if (res.error) {
+        toast.error(res.error);
       } else {
         toast.success(id ? "Reply was added." : "Tweet was created.");
       }
@@ -73,6 +70,7 @@ const useTweetFormLogic = ({
         toast.error(String(error));
       }
     } finally {
+      setLoading(false);
       setImageUrl(null);
       setVideoUrl(null);
     }
