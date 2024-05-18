@@ -5,6 +5,7 @@ import { Tweet } from "../models/tweet.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 import { Like } from "@/models/like.model";
+import { createNotification } from "./notification.actions";
 
 export const likeTweet = async (id: string) => {
   try {
@@ -18,6 +19,10 @@ export const likeTweet = async (id: string) => {
     await connectDb();
 
     const existingTweet = await Tweet.findById(id);
+
+    if (existingTweet) {
+      await createNotification("like", user.id, existingTweet.userId, id);
+    }
 
     if (!existingTweet) {
       return { message: "Tweet not found." };

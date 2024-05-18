@@ -5,6 +5,7 @@ import { Tweet } from "../models/tweet.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 import { Reply } from "@/models/reply.model";
+import { createNotification } from "./notification.actions";
 
 export const replyTweet = async (formData: FormData, tweetId: string) => {
   try {
@@ -13,6 +14,14 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
     const user = await getUser();
 
     const existingTweet = await Tweet.findById(tweetId);
+    if (existingTweet) {
+      await createNotification(
+        "reply",
+        user?.id,
+        existingTweet.userId,
+        tweetId
+      );
+    }
 
     const text = formData.get("text");
     const image = formData.get("image");

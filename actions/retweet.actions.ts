@@ -5,6 +5,7 @@ import { Tweet } from "@/models/tweet.model";
 import { connectDb } from "@/utils/connectDb";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
+import { createNotification } from "./notification.actions";
 
 export const saveRetweet = async (tweetId: string) => {
   try {
@@ -19,6 +20,15 @@ export const saveRetweet = async (tweetId: string) => {
     });
 
     const tweetToUpdate = await Tweet.findById(tweetId);
+
+    if (tweetToUpdate) {
+      await createNotification(
+        "retweet",
+        user?.id,
+        tweetToUpdate.userId,
+        tweetId
+      );
+    }
 
     if (!tweetToUpdate) {
       return { message: "Tweet doesn't exist." };

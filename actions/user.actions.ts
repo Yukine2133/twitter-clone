@@ -7,6 +7,7 @@ import { User } from "../models/user.model";
 import { Tweet } from "../models/tweet.model";
 import { revalidatePath } from "next/cache";
 import { IUser } from "@/types/user.interface";
+import { createNotification } from "./notification.actions";
 
 export const fetchUser = async (
   userId?: string | null,
@@ -123,6 +124,9 @@ export const followUser = async (
 
     // Find the user to follow by the provided userId
     const existingUser = await User.findById(userId);
+    if (existingUser) {
+      await createNotification("following", user.id, existingUser.userId);
+    }
 
     if (!existingUser) {
       return { message: "User not found." };
