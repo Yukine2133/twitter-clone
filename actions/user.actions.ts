@@ -125,7 +125,7 @@ export const followUser = async (
     // Find the user to follow by the provided userId
     const existingUser = await User.findById(userId);
     if (existingUser) {
-      await createNotification("following", user.id, existingUser.userId);
+      await createNotification("follow", user.id, existingUser.userId);
     }
 
     if (!existingUser) {

@@ -33,9 +33,8 @@ export const sidebarLinks = [
   {
     Icon: BellIcon,
     SolidIcon: SolidBellIcon,
-    route: "/notification",
+    route: "/notifications",
     label: "Notifications",
-    disabled: true,
   },
   {
     Icon: EnvelopeIcon,

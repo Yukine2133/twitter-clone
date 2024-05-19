@@ -44,7 +44,9 @@ export const getNotifications = async (userId: string | undefined) => {
   try {
     await connectDb();
 
-    const res = await Notification.find({ affectedUserId: userId });
+    const res = await Notification.find({ affectedUserId: userId })
+      .populate("tweetId")
+      .sort({ createdAt: -1 });
     return res;
   } catch (error) {
     console.log(error);
