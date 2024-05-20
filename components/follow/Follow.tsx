@@ -1,7 +1,6 @@
 "use client";
 
 import { IUser } from "@/types/user.interface";
-import React, { useState } from "react";
 import FollowModal from "./FollowModal";
 
 interface IFollow {
@@ -23,45 +22,42 @@ const Follow = ({
   followingsOfTheUser,
   username,
 }: IFollow) => {
-  const [isOpenFollowers, setIsOpenFollowers] = useState(false);
-  const [isOpenFollowing, setIsOpenFollowing] = useState(false);
-
+  const openModal = (id: string) => {
+    const modal = document.getElementById(id) as HTMLDialogElement | null;
+    if (modal) {
+      modal.showModal();
+    }
+  };
   return (
     <>
       <button
-        onClick={() => setIsOpenFollowing(!isOpenFollowing)}
+        onClick={() => openModal("following")}
         className="text-slate-500 hover:underline decoration-white cursor-pointer"
       >
         <span className="text-gray-300">{following.length}</span> Following
       </button>
       <button
-        onClick={() => setIsOpenFollowers(!isOpenFollowers)}
+        onClick={() => openModal("followers")}
         className="text-gray-500 hover:underline decoration-white cursor-pointer"
       >
         <span className="text-gray-300">{followers.length}</span> Followers
       </button>
-      {isOpenFollowers && (
-        <FollowModal
-          setIsOpenFollowers={setIsOpenFollowers}
-          setIsOpenFollowing={setIsOpenFollowing}
-          follow={JSON.parse(JSON.stringify(followersOfTheUser))}
-          isOpenFollowers={isOpenFollowers}
-          isOpenFollowing={isOpenFollowing}
-          isFollowers={true}
-          username={username}
-        />
-      )}
-      {isOpenFollowing && (
-        <FollowModal
-          setIsOpenFollowers={setIsOpenFollowers}
-          setIsOpenFollowing={setIsOpenFollowing}
-          follow={JSON.parse(JSON.stringify(followingsOfTheUser))}
-          isOpenFollowers={isOpenFollowers}
-          isOpenFollowing={isOpenFollowing}
-          isFollowers={false}
-          username={username}
-        />
-      )}
+
+      {/* Following modal */}
+      <FollowModal
+        follow={JSON.parse(JSON.stringify(followingsOfTheUser))}
+        isFollowers={false}
+        username={username}
+        id="following"
+      />
+
+      {/* Followers modal */}
+      <FollowModal
+        follow={JSON.parse(JSON.stringify(followersOfTheUser))}
+        isFollowers={true}
+        username={username}
+        id="followers"
+      />
     </>
   );
 };
