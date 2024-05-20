@@ -50,18 +50,15 @@ const NotificationsPage = async () => {
   return (
     <div>
       <h2 className="text-xl my-2 font-semibold">Notifications</h2>
-      {notifications?.length === 0 && <p>No notifications</p>}
+      {notifications?.length === 0 && (
+        <p className="text-2xl mt-8">No notifications.</p>
+      )}
 
-      <div>
-        {notificationsWithUsers.map((notification: any) => (
-          <div
-            key={notification._id}
-            className="border-y py-3 border-[#2f3336]"
-          >
-            {renderNotificationCard(notification._doc, notification.owner)}
-          </div>
-        ))}
-      </div>
+      {notificationsWithUsers.map((notification: any) => (
+        <div key={notification._id} className="border-y py-3 border-[#2f3336]">
+          {renderNotificationCard(notification._doc, notification.owner)}
+        </div>
+      ))}
     </div>
   );
 };
