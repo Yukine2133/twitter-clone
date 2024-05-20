@@ -52,3 +52,13 @@ export const getNotifications = async (userId: string | undefined) => {
     console.log(error);
   }
 };
+
+export const markNotificationAsRead = async (notificationId: string) => {
+  try {
+    await connectDb();
+
+    await Notification.findByIdAndUpdate(notificationId, { read: true });
+  } catch (error) {
+    console.error("Error marking notification as read:", error);
+  }
+};

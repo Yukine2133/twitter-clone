@@ -1,4 +1,7 @@
-import { getNotifications } from "@/actions/notification.actions";
+import {
+  getNotifications,
+  markNotificationAsRead,
+} from "@/actions/notification.actions";
 import { fetchUser } from "@/actions/user.actions";
 import NotificationCard from "@/components/notifications/NotificationCard";
 import { INotification } from "@/types/notification.interface";
@@ -15,6 +18,13 @@ const NotificationsPage = async () => {
   const { getUser } = getKindeServerSession();
   const currentUser = await getUser();
   const notifications = (await getNotifications(currentUser?.id)) || [];
+
+  notifications.forEach(async (notification) => {
+    if (!notification.read) {
+      await markNotificationAsRead(notification._id);
+    }
+  });
+
   const notificationsWithUsers = await Promise.all(
     notifications?.map(async (notification) => {
       const owner = await fetchUser(notification.userId);
@@ -55,7 +65,7 @@ const NotificationsPage = async () => {
       )}
 
       {notificationsWithUsers.map((notification: any) => (
-        <div key={notification._id} className="border-y py-3 border-[#2f3336]">
+        <div key={notification._id} className="py-2">
           {renderNotificationCard(notification._doc, notification.owner)}
         </div>
       ))}

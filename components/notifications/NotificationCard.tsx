@@ -15,8 +15,12 @@ const NotificationCard = ({
   type,
 }: INotificationCardProps) => {
   return (
-    <div className=" border-y py-3 border-[#2f3336] ">
-      <Link href={`/profile/${owner.username}`} className="flex gap-2">
+    <div
+      className={`border-y p-3 border-[#2f3336] ${
+        notification.read && "bg-stone-900"
+      }`}
+    >
+      <Link href={`/profile/${owner.username}`} className="flex gap-2 w-fit">
         <Image
           src={owner.avatar}
           alt="Avatar"
