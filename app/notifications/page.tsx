@@ -50,6 +50,7 @@ const NotificationsPage = async () => {
 
     return (
       <NotificationCard
+        key={notification._id}
         notification={notification}
         owner={owner}
         type={typeToPropsMap[notificationType]}
