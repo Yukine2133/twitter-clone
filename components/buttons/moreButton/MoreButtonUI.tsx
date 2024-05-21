@@ -52,10 +52,8 @@ const MoreButtonUI = ({
           {isOpen && (
             <div
               className={`${
-                messageId
-                  ? "top-4 -left-10 z-10 bg-black  "
-                  : " -top-9 right-3 "
-              } absolute p-3  `}
+                messageId ? "top-4 -left-10  " : " -top-9 right-3 "
+              } absolute p-3 z-10 bg-black   `}
             >
               {isOwner && (
                 <>

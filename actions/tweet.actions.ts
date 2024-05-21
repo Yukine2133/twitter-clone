@@ -5,6 +5,7 @@ import { Tweet } from "../models/tweet.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 import { ITweet } from "@/types/tweet.interface";
+import { Retweet } from "@/models/retweet.model";
 
 export const createTweet = async (formData: FormData) => {
   try {
@@ -81,6 +82,7 @@ export const deleteTweet = async (id: string) => {
     }
 
     const tweet = await Tweet.findByIdAndDelete(id);
+    await Retweet.deleteMany({ tweetId: id });
 
     if (!tweet) return { message: "Tweet not found." };
 
