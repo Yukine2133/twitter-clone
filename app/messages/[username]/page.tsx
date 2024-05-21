@@ -67,9 +67,7 @@ const MessageWithTheUser = async ({
           );
         })}
       </div>
-      <div className="relative pt-8 md:pt-0">
-        <MessageForm recipientUserId={recipient._id} />
-      </div>
+      <MessageForm recipientUserId={recipient._id} />
     </div>
   );
 };

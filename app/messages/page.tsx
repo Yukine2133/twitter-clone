@@ -15,6 +15,10 @@ const MessagePage = async () => {
     <div className="">
       <h2 className="text-xl ml-2 sm:ml-0 mt-2 font-semibold">Messages</h2>
 
+      {messages.length === 0 && (
+        <p className="mt-4 text-xl">You don&apos;t have any messages.</p>
+      )}
+
       <div className="mt-4">
         {messages.map((message: IUserConversations) => {
           return (

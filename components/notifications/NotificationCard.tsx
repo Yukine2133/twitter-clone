@@ -33,12 +33,12 @@ const NotificationCard = ({
           <h2 className="text-gray-500 text-sm">@{owner.username}</h2>
         </div>
       </Link>
-      <div className="flex items-center gap-2 mt-2">
-        <p className="font-semibold ">
+      <div className="flex flex-col gap-2 mt-2">
+        <p className="font-semibold  ">
           {" "}
           {type === "followed" ? "followed you" : `${type} your tweet:`}{" "}
         </p>
-        <p>{notification.tweetId?.text}</p>
+        <p style={{ overflowWrap: "anywhere" }}>{notification.tweetId?.text}</p>
       </div>
     </div>
   );
