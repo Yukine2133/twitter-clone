@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Twitter Clone
+
+Welcome to the Twitter Clone project! This project is a full-stack web application that mimics the core functionalities of Twitter. Users can create, read, update, and delete tweets and replies, like tweets, retweet, bookmark tweets, search for content, send messages, and receive notifications.
+
+## Features
+
+- **Tweets**
+  - Create, update, read, and delete tweets.
+  - Like and retweet tweets.
+  - Bookmark tweets.
+  - Attach images and videos to tweets.
+- **Replies**
+  - Create, update, read, and delete replies to tweets.
+  - Attach images and videos to replies.
+- **Profile**
+  - Update profile information.
+  - Follow and unfollow users.
+  - View the created tweets and retweets of the user in their profile.
+- **Search**
+  - Search for tweets and users.
+- **Messaging System**
+  - Send and receive direct messages.
+  - Delete and update messages.
+  - Send images in messages.
+- **Notifications**
+  - Receive notifications for likes, retweets, replies and following.
+
+## Technologies Used
+
+- **Next.js 14.1.4**: A React framework for server-side rendering and building static web applications.
+- **Uploading**: For uploading files such as images and vidoes.
+- **React-Toastify**: To display toast notifications.
+- **React-Textarea-Autosize**: A resizable textarea component.
+- **Zod**: For schema validation and validation error handling.
+- **Mongoose**: An ODM (Object Data Modeling) library for MongoDB and Node.js.
+- **Kinde Auth**: Authentication and authorization management.
+- **Hero Icons**: A set of free, MIT-licensed high-quality SVG icons for UI development.
+- **ChatGPT**: For natural language processing and assistance.
 
 ## Getting Started
 
-First, run the development server:
+### Installation
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Clone the repository**:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   git clone https://github.com/Yukine2133/twitter-clone.git
+   cd twitter-clone
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **Install dependencies**:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-## Learn More
+3. **Set up environment variables**:
+   Create a `.env` file in the root directory and add the following variables:
 
-To learn more about Next.js, take a look at the following resources:
+   ```env
+   KINDE_CLIENT_ID=Kinde Client ID
+   KINDE_CLIENT_SECRET=Kinde Client Secret
+   KINDE_ISSUER_URL=Kinde Issuer URL
+   KINDE_SITE_URL=http://localhost:3000
+   KINDE_POST_LOGOUT_REDIRECT_URL=http://localhost:3000
+   KINDE_POST_LOGIN_REDIRECT_URL=http://localhost:3000/api/auth/success
+   MONGODB_URL=MongoDB Connection URL
+   UPLOADTHING_SECRET=Uploadthing secret
+   UPLOADTHING_APP_ID=Uploadthing App ID
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Run the development server**:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-## Deploy on Vercel
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Acknowledgements
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Next.js](https://nextjs.org/)
+- [React-Toastify](https://github.com/fkhadra/react-toastify)
+- [React-Textarea-Autosize](https://github.com/Andarist/react-textarea-autosize)
+- [Zod](https://github.com/colinhacks/zod)
+- [Mongoose](https://mongoosejs.com/)
+- [Kinde Auth](https://kinde.com/)
+- [Hero Icons](https://heroicons.com/)
+- [ChatGPT](https://openai.com/chatgpt/)
