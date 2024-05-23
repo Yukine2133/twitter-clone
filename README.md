@@ -1,6 +1,6 @@
 # Twitter Clone
 
-Welcome to the Twitter Clone project! This project is a full-stack web application that mimics the core functionalities of Twitter. Users can create, read, update, and delete tweets and replies, like tweets, retweet, bookmark tweets, search for content, send messages, and receive notifications.
+Welcome to my Twitter Clone project! This full-stack web application replicates the core functionalities of Twitter, emphasizing functionality over UI aesthetics. While the user interface may not be the primary focus, the application offers a robust feature set, providing an engaging and interactive user experience.
 
 ## Features
 
