@@ -97,9 +97,9 @@ const ProfileData = ({
           </div>
         </div>
         <div className="space-y-2 ">
-          <h3>{user.bio}</h3>
+          <h3 style={{ overflowWrap: "anywhere" }}>{user.bio}</h3>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
             {user.location && (
               <div className="flex items-center gap-1  text-gray-500">
                 <MapPinIcon className="h-5 w-5" />
