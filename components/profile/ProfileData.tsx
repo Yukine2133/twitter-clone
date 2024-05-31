@@ -15,6 +15,7 @@ import { formatJoinedDate } from "@/utils/formatTimestamp";
 import { IUser } from "@/types/user.interface";
 import { fetchUser } from "@/actions/user.actions";
 import Link from "next/link";
+import ClientOnly from "../ClientOnly";
 
 interface ProfileDataProps {
   user: IUser;
@@ -128,28 +129,28 @@ const ProfileData = ({
         </div>
       </div>
 
-      {tweets?.length > 0 && (
-        <>
-          <h4 className="mt-10"> Tweets:</h4>
-
-          {tweets.map((tweet: ITweet) => (
-            <TweetCard key={tweet._id} tweet={tweet} owner={user} />
-          ))}
-        </>
-      )}
-
-      {retweets?.length > 0 && (
-        <>
-          <h4 className="mt-10">Retweeted:</h4>
-          {retweets &&
-            retweets.map(async (retweet: any) => {
-              const owner = await fetchUser(retweet.userId);
-              return (
-                <TweetCard key={retweet._id} tweet={retweet} owner={owner} />
-              );
-            })}
-        </>
-      )}
+      <h4 className="mt-10"> Tweets:</h4>
+      <ClientOnly>
+        {tweets?.length > 0 && (
+          <>
+            {tweets.map((tweet: ITweet) => (
+              <TweetCard key={tweet._id} tweet={tweet} owner={user} />
+            ))}
+          </>
+        )}
+        {retweets?.length > 0 && (
+          <>
+            <h4 className="mt-10">Retweeted:</h4>
+            {retweets &&
+              retweets.map(async (retweet: any) => {
+                const owner = await fetchUser(retweet.userId);
+                return (
+                  <TweetCard key={retweet._id} tweet={retweet} owner={owner} />
+                );
+              })}
+          </>
+        )}
+      </ClientOnly>
 
       {tweets.length === 0 && retweets.length === 0 && (
         <div className="text-center mt-16">

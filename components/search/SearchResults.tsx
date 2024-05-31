@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SearchInput from "@/components/search/SearchInput";
+import ClientOnly from "../ClientOnly";
 
 const Tabs = ({ path }: { path: string }) => {
   return (
@@ -58,10 +59,12 @@ const SearchResults = ({
         </h2>
       )}
 
-      {results &&
-        results.map((result) => {
-          return renderResult(result);
-        })}
+      <ClientOnly>
+        {results &&
+          results.map((result) => {
+            return renderResult(result);
+          })}
+      </ClientOnly>
     </div>
   );
 };

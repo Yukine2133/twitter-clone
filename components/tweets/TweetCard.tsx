@@ -24,52 +24,54 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
 
   return (
     <div className="mt-4 py-3 border-y border-[#2f3336] w-full relative">
-      <div className="flex gap-2 items-start">
-        <Image
-          src={owner.avatar}
-          alt={owner.username}
-          width={38}
-          height={38}
-          className="rounded-full object-cover"
-        />
-        <div>
-          <div className="flex items-center gap-2">
-            <Link
-              className="flex items-center gap-2"
-              href={`/profile/${owner.username}`}
-            >
-              <span className="font-semibold w-[100px] truncate sm:w-fit">
-                {owner.displayName}
-              </span>
-              <span className="text-gray-500 text-[15px] w-[100px] truncate sm:w-fit ">
-                @{owner.username}
-              </span>
-            </Link>
-            <div className="flex text-gray-500 text-[15px] items-center gap-1">
-              <span>&middot;</span>
-              <span>{formatCreatedAt(tweet.createdAt)}</span>
-            </div>
-          </div>
-          <h3 style={{ overflowWrap: "anywhere" }}>{tweet.text}</h3>
-          {tweet.image && (
-            <Image
-              src={tweet.image}
-              alt="User Image"
-              width={400}
-              height={400}
-              className="object-cover rounded-lg mt-1"
-            />
-          )}
-          {tweet.video && (
-            <video className="rounded-lg mt-1" controls src={tweet.video} />
-          )}
-        </div>
-        <div className="absolute right-0 ">
-          <MoreButton
-            tweet={JSON.parse(JSON.stringify(tweet))}
-            id={tweet._id.toString()}
+      <Link href={`/tweet/${tweet._id}`}>
+        <div className="flex gap-2 items-start">
+          <Image
+            src={owner.avatar}
+            alt={owner.username}
+            width={38}
+            height={38}
+            className="rounded-full object-cover"
           />
+          <div>
+            <div className="flex items-center gap-2">
+              <Link
+                className="flex items-center gap-2"
+                href={`/profile/${owner.username}`}
+              >
+                <span className="font-semibold w-[100px] truncate sm:w-fit">
+                  {owner.displayName}
+                </span>
+                <span className="text-gray-500 text-[15px] w-[100px] truncate sm:w-fit ">
+                  @{owner.username}
+                </span>
+              </Link>
+              <div className="flex text-gray-500 text-[15px] items-center gap-1">
+                <span>&middot;</span>
+                <span>{formatCreatedAt(tweet.createdAt)}</span>
+              </div>
+            </div>
+            <h3 style={{ overflowWrap: "anywhere" }}>{tweet.text}</h3>
+            {tweet.image && (
+              <Image
+                src={tweet.image}
+                alt="User Image"
+                width={400}
+                height={400}
+                className="object-cover rounded-lg mt-1"
+              />
+            )}
+            {tweet.video && (
+              <video className="rounded-lg mt-1" controls src={tweet.video} />
+            )}
+          </div>
         </div>
+      </Link>
+      <div className="absolute right-0 top-2 ">
+        <MoreButton
+          tweet={JSON.parse(JSON.stringify(tweet))}
+          id={tweet._id.toString()}
+        />
       </div>
       <TweetActions
         isBookmarked={isBookmarked as boolean}
@@ -79,7 +81,6 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
         owner={JSON.parse(JSON.stringify(owner))}
         tweet={JSON.parse(JSON.stringify(tweet))}
         user={currentUser!}
-        seeTweet
       />
     </div>
   );

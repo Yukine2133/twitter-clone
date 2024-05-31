@@ -4,6 +4,7 @@ import TweetCard from "@/components/tweets/TweetCard";
 import SearchResults from "@/components/search/SearchResults";
 import { IUser } from "@/types/user.interface";
 import { ITweet } from "@/types/tweet.interface";
+import ClientOnly from "@/components/ClientOnly";
 
 export const generateMetadata = async ({
   searchParams,

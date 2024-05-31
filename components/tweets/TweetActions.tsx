@@ -22,7 +22,7 @@ interface TweetActions extends ITweetProps {
   isBookmarked: boolean;
   isLiked: boolean;
   id: string;
-  seeTweet?: boolean;
+
   user: any;
   isRetweeted: boolean;
 }
@@ -34,7 +34,7 @@ const TweetActions = ({
   owner,
   tweet,
   user,
-  seeTweet,
+
   isRetweeted,
 }: TweetActions) => {
   const SolidHeartIcon = solid.HeartIcon;
@@ -146,11 +146,6 @@ const TweetActions = ({
             <BookmarkIcon className="h-5 w-5 hover:text-blue-500 transition-colors duration-300" />
           )}
         </button>
-        {seeTweet && (
-          <Link className="text-sm" href={`/tweet/${tweet._id}`}>
-            See Tweet
-          </Link>
-        )}
       </div>
       {isModalOpen && (
         <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>

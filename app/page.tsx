@@ -5,6 +5,7 @@ import TweetCard from "@/components/tweets/TweetCard";
 import TweetForm from "@/components/tweets/tweetForm/TweetForm";
 import { IUser } from "@/types/user.interface";
 import { ITweet } from "@/types/tweet.interface";
+import ClientOnly from "../components/ClientOnly";
 
 export default async function Home() {
   const tweets = await fetchTweets();
@@ -17,12 +18,14 @@ export default async function Home() {
   return (
     <div className=" ">
       <TweetForm user={currentUser!} />
-      {tweets &&
-        tweets?.map(async (tweet: ITweet) => {
-          const owner: IUser = await fetchUser(tweet.userId);
+      <ClientOnly>
+        {tweets &&
+          tweets?.map(async (tweet: ITweet) => {
+            const owner: IUser = await fetchUser(tweet.userId);
 
-          return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
-        })}
+            return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
+          })}
+      </ClientOnly>
     </div>
   );
 }

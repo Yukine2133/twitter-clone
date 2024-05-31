@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { IUser } from "@/types/user.interface";
 import { ITweet } from "@/types/tweet.interface";
 import { getUserBookmarks } from "@/actions/bookmark.actions";
+import ClientOnly from "@/components/ClientOnly";
 
 export const metadata: Metadata = {
   title: "Bookmarks",
@@ -27,11 +28,13 @@ const Bookmarks = async () => {
   return (
     <>
       <h2 className="mt-2 text-lg mb-2">Your bookmarks</h2>
-      {bookmarks?.map(async (tweet: ITweet) => {
-        const owner: IUser = await fetchUser(tweet.userId);
+      <ClientOnly>
+        {bookmarks?.map(async (tweet: ITweet) => {
+          const owner: IUser = await fetchUser(tweet.userId);
 
-        return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
-      })}
+          return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
+        })}
+      </ClientOnly>
     </>
   );
 };
