@@ -13,22 +13,11 @@ const MessageCard = ({
   message: IMessage;
   isCurrentUserSender: boolean;
 }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, []);
-
-  const scrollToBottom = () => {
-    cardRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  };
-
   return (
     <div
       className={`flex   ${
         isCurrentUserSender ? "justify-end " : "justify-start"
       }`}
-      ref={cardRef}
     >
       <div>
         {message.image && (
