@@ -19,12 +19,14 @@ export default async function Home() {
     <div className=" ">
       <TweetForm user={currentUser!} />
       <ClientOnly>
-        {tweets &&
-          tweets?.map(async (tweet: ITweet) => {
-            const owner: IUser = await fetchUser(tweet.userId);
+        <div className="max-h-[820px] overflow-y-auto remove-scrollbar">
+          {tweets &&
+            tweets?.map(async (tweet: ITweet) => {
+              const owner: IUser = await fetchUser(tweet.userId);
 
-            return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
-          })}
+              return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
+            })}
+        </div>
       </ClientOnly>
     </div>
   );

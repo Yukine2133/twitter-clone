@@ -10,7 +10,7 @@ const UserConversationsCard = ({
 }) => {
   return (
     <Link href={`/messages/${message.user.username}`} className="">
-      <div className="my-4 p-2  bg-[#202327]">
+      <div className="my-4 p-2 hover:bg-zinc-900 transition-colors duration-300 bg-[#252525]">
         <div className="flex gap-2 items-center">
           <Image
             src={message.user.avatar}

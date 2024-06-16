@@ -26,7 +26,7 @@ const MessageCard = ({
   return (
     <div
       className={`flex   ${
-        isCurrentUserSender ? "justify-end" : "justify-start"
+        isCurrentUserSender ? "justify-end " : "justify-start"
       }`}
       ref={cardRef}
     >

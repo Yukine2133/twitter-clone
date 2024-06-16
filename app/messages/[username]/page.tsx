@@ -7,6 +7,7 @@ import MessageForm from "@/components/messages/MessageForm";
 import GoBackButton from "@/components/buttons/GoBackButton";
 import Link from "next/link";
 import MessageCard from "@/components/messages/MessageCard";
+import AutoScrollMessages from "@/components/messages/AutoScrollMessages";
 
 export const generateMetadata = async ({
   params,
@@ -55,7 +56,7 @@ const MessageWithTheUser = async ({
           </div>
         </Link>
       </div>
-      <div className="mt-20">
+      <AutoScrollMessages>
         {messages.map((message: IMessage) => {
           const isCurrentUserSender = message.sender.userId === currentUser?.id;
           return (
@@ -66,7 +67,7 @@ const MessageWithTheUser = async ({
             />
           );
         })}
-      </div>
+      </AutoScrollMessages>
       <MessageForm recipientUserId={recipient._id} />
     </div>
   );
