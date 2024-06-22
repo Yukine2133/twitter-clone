@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BottomBar from "@/components/layout/BottomBar";
 import UserDetails from "@/components/layout/UserDetails";
+import StoreProvider from "@/store/StoreProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -24,34 +25,36 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning={true} lang="en">
-      <body className={`${poppins.className} bg-black text-white `}>
-        <ToastContainer
-          position="bottom-right"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          theme="dark"
-        />
-        <main className="flex  gap-0 lg:gap-4  justify-center ">
-          <div>
-            <LeftSideBar />
-            <UserDetails />
-          </div>
-
-          <section className="w-[648px]  border-x border-[#2f3336]  min-h-screen ">
-            <div className="w-full mb-10 min-[800px]:mb-0 px-2 md:px-4  max-w-4xl">
-              {children}
+    <StoreProvider>
+      <html suppressHydrationWarning={true} lang="en">
+        <body className={`${poppins.className} bg-black text-white `}>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            theme="dark"
+          />
+          <main className="flex  gap-0 lg:gap-4  justify-center ">
+            <div>
+              <LeftSideBar />
+              <UserDetails />
             </div>
-            <BottomBar />
-          </section>
-          <div>
-            <RightSideBar />
-          </div>
-        </main>
-      </body>
-    </html>
+
+            <section className="w-[648px]  border-x border-[#2f3336]  min-h-screen ">
+              <div className="w-full mb-10 min-[800px]:mb-0 px-2 md:px-4  max-w-4xl">
+                {children}
+              </div>
+              <BottomBar />
+            </section>
+            <div>
+              <RightSideBar />
+            </div>
+          </main>
+        </body>
+      </html>
+    </StoreProvider>
   );
 }
