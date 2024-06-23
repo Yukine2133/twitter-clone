@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { ITweetProps } from "@/types/tweet.interface";
-import { toast } from "react-toastify";
 import Modal from "./Modal";
 import Image from "next/image";
 import TweetForm from "./tweetForm/TweetForm";
@@ -14,9 +13,7 @@ import {
   HeartIcon,
 } from "@heroicons/react/24/outline";
 import * as solid from "@heroicons/react/24/solid";
-import { bookMarkTweet } from "@/actions/bookmark.actions";
-import { saveRetweet } from "@/actions/retweet.actions";
-import { likeTweet } from "@/actions/like.actions";
+import useTweetActions from "@/utils/lib/hooks/useTweetActions";
 
 interface TweetActionsProps extends ITweetProps {
   isBookmarked: boolean;
@@ -38,58 +35,13 @@ const TweetActions = ({
   const SolidHeartIcon = solid.HeartIcon;
   const SolidBookmarkIcon = solid.BookmarkIcon;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [localIsLiked, setLocalIsLiked] = useState(initialIsLiked);
-  const [likeCount, setLikeCount] = useState(tweet.likes.length);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-  useEffect(() => {
-    setLocalIsLiked(initialIsLiked);
-    setLikeCount(tweet.likes.length);
-  }, [initialIsLiked, tweet.likes.length]);
 
-  const addBookmark = async (tweetId: string) => {
-    try {
-      const id = tweetId.toString();
-      const res = await bookMarkTweet(id);
-      if (res?.message) {
-        toast.error(res.message);
-      }
-    } catch (error) {
-      console.error("Error adding bookmark:", error);
-    }
-  };
-
-  const addLike = async (tweetId: string) => {
-    try {
-      const id = tweetId.toString();
-      setLocalIsLiked(!localIsLiked);
-      setLikeCount(localIsLiked ? likeCount - 1 : likeCount + 1);
-
-      const res = await likeTweet(id);
-      if (res?.message) {
-        throw new Error(res.message);
-      }
-    } catch (error) {
-      console.error("Error liking tweet:", error);
-      // Revert optimistic update on error
-      setLocalIsLiked(!localIsLiked);
-      setLikeCount(localIsLiked ? likeCount + 1 : likeCount - 1);
-    }
-  };
-
-  const addRetweet = async (tweetId: string) => {
-    try {
-      const id = tweetId.toString();
-      const res = await saveRetweet(id);
-      if (res?.message) {
-        toast.error(res.message);
-      }
-    } catch (error) {
-      toast.error("Error retweeting.");
-    }
-  };
+  const { addLike, addBookmark, addRetweet, likeCount, localIsLiked } =
+    useTweetActions({ initialIsLiked, likesLength: tweet.likes.length });
 
   const repliesCount = tweet.replies.length;
   const retweetsCount = tweet.retweets.length;
