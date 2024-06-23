@@ -30,7 +30,7 @@ const TweetActions = ({
   owner,
   tweet,
   user,
-  isRetweeted,
+  isRetweeted: initialIsRetweeted,
 }: TweetActionsProps) => {
   const SolidHeartIcon = solid.HeartIcon;
   const SolidBookmarkIcon = solid.BookmarkIcon;
@@ -40,11 +40,22 @@ const TweetActions = ({
     setIsModalOpen(!isModalOpen);
   };
 
-  const { addLike, addBookmark, addRetweet, likeCount, localIsLiked } =
-    useTweetActions({ initialIsLiked, likesLength: tweet.likes.length });
+  const {
+    addLike,
+    addBookmark,
+    addRetweet,
+    likeCount,
+    localIsLiked,
+    retweetCount,
+    localIsRetweeted,
+  } = useTweetActions({
+    initialIsLiked,
+    likesLength: tweet.likes.length,
+    initialIsRetweeted,
+    retweetsLength: tweet.retweets.length,
+  });
 
   const repliesCount = tweet.replies.length;
-  const retweetsCount = tweet.retweets.length;
 
   return (
     <div className="flex mt-2 justify-between px-8 gap-8">
@@ -84,19 +95,19 @@ const TweetActions = ({
           >
             <ArrowPathRoundedSquareIcon
               className={`${
-                isRetweeted
+                localIsRetweeted
                   ? "text-green-400 text-sm font-semibold group-hover:text-gray-500 duration-300 transition-colors h-5 w-5"
                   : "group-hover:text-green-400 duration-300 transition-colors h-5 w-5"
               }`}
             />
             <span
               className={`${
-                isRetweeted
+                localIsRetweeted
                   ? "text-green-400 text-sm font-semibold group-hover:text-gray-500 duration-300 transition-colors"
                   : "text-sm font-semibold group-hover:text-green-400 duration-300 transition-colors"
               }`}
             >
-              {retweetsCount > 0 ? retweetsCount : ""}
+              {retweetCount > 0 ? retweetCount : ""}
             </span>
           </button>
         </div>
