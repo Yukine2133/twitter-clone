@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ITweetProps } from "@/types/tweet.interface";
 import { toast } from "react-toastify";
@@ -14,15 +14,14 @@ import {
   HeartIcon,
 } from "@heroicons/react/24/outline";
 import * as solid from "@heroicons/react/24/solid";
-import { likeTweet } from "@/actions/like.actions";
 import { bookMarkTweet } from "@/actions/bookmark.actions";
 import { saveRetweet } from "@/actions/retweet.actions";
+import { likeTweet } from "@/actions/like.actions";
 
-interface TweetActions extends ITweetProps {
+interface TweetActionsProps extends ITweetProps {
   isBookmarked: boolean;
   isLiked: boolean;
   id: string;
-
   user: any;
   isRetweeted: boolean;
 }
@@ -30,20 +29,25 @@ interface TweetActions extends ITweetProps {
 const TweetActions = ({
   isBookmarked,
   id,
-  isLiked,
+  isLiked: initialIsLiked,
   owner,
   tweet,
   user,
-
   isRetweeted,
-}: TweetActions) => {
+}: TweetActionsProps) => {
   const SolidHeartIcon = solid.HeartIcon;
   const SolidBookmarkIcon = solid.BookmarkIcon;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [localIsLiked, setLocalIsLiked] = useState(initialIsLiked);
+  const [likeCount, setLikeCount] = useState(tweet.likes.length);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+  useEffect(() => {
+    setLocalIsLiked(initialIsLiked);
+    setLikeCount(tweet.likes.length);
+  }, [initialIsLiked, tweet.likes.length]);
 
   const addBookmark = async (tweetId: string) => {
     try {
@@ -56,15 +60,22 @@ const TweetActions = ({
       console.error("Error adding bookmark:", error);
     }
   };
+
   const addLike = async (tweetId: string) => {
     try {
       const id = tweetId.toString();
+      setLocalIsLiked(!localIsLiked);
+      setLikeCount(localIsLiked ? likeCount - 1 : likeCount + 1);
+
       const res = await likeTweet(id);
       if (res?.message) {
-        toast.error(res.message);
+        throw new Error(res.message);
       }
     } catch (error) {
-      console.error("Error adding liking:", error);
+      console.error("Error liking tweet:", error);
+      // Revert optimistic update on error
+      setLocalIsLiked(!localIsLiked);
+      setLikeCount(localIsLiked ? likeCount + 1 : likeCount - 1);
     }
   };
 
@@ -76,30 +87,30 @@ const TweetActions = ({
         toast.error(res.message);
       }
     } catch (error) {
-      toast.error("Error Retweeting.");
+      toast.error("Error retweeting.");
     }
   };
 
-  const likeCount = tweet.likes.length;
   const repliesCount = tweet.replies.length;
   const retweetsCount = tweet.retweets.length;
+
   return (
-    <div className="flex mt-2 justify-between px-8  gap-8">
+    <div className="flex mt-2 justify-between px-8 gap-8">
       <div className="flex gap-8 items-center text-gray-500">
-        <div className="group  ">
+        <div className="group">
           <button
             className="flex gap-1.5 items-center "
             onClick={() => addLike(id)}
           >
-            {isLiked ? (
+            {localIsLiked ? (
               <SolidHeartIcon className="text-red-500 group-hover:text-gray-500 duration-300 transition-colors h-5 w-5 text-lg" />
             ) : (
-              <HeartIcon className=" h-5 w-5 group-hover:text-red-500 duration-300 transition-colors   text-lg" />
+              <HeartIcon className="h-5 w-5 group-hover:text-red-500 duration-300 transition-colors text-lg" />
             )}
             <span
               className={`text-sm font-semibold ${
-                isLiked &&
-                "text-red-500 group-hover:text-gray-500 duration-300 transition-colors "
+                localIsLiked &&
+                "text-red-500 group-hover:text-gray-500 duration-300 transition-colors"
               } group-hover:text-red-500 duration-300 transition-colors`}
             >
               {likeCount > 0 ? likeCount : ""}
@@ -122,9 +133,9 @@ const TweetActions = ({
             <ArrowPathRoundedSquareIcon
               className={`${
                 isRetweeted
-                  ? "text-green-400 text-sm font-semibold group-hover:text-gray-500 duration-300 transition-colors h-5 w-5 "
+                  ? "text-green-400 text-sm font-semibold group-hover:text-gray-500 duration-300 transition-colors h-5 w-5"
                   : "group-hover:text-green-400 duration-300 transition-colors h-5 w-5"
-              } `}
+              }`}
             />
             <span
               className={`${
@@ -149,7 +160,7 @@ const TweetActions = ({
       </div>
       {isModalOpen && (
         <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>
-          <div className="flex  gap-2 items-start">
+          <div className="flex gap-2 items-start">
             <Image
               src={owner.avatar}
               alt={owner.username}
@@ -159,15 +170,15 @@ const TweetActions = ({
             />
             <div>
               <Link href={`/profile/${owner.username}`}>
-                <span className="font-bold ">{owner.username}</span>
+                <span className="font-bold">{owner.username}</span>
               </Link>
               <h3 style={{ overflowWrap: "anywhere" }}>{tweet.text}</h3>
             </div>
           </div>
-          <h4 className="mt-7 mb-6 ">
-            Replying to <span className="font-bold ">{owner.username}</span>
+          <h4 className="mt-7 mb-6">
+            Replying to <span className="font-bold">{owner.username}</span>
           </h4>
-          <TweetForm user={user!} id={id} toggleModal={toggleModal} />
+          <TweetForm user={user} id={id} toggleModal={toggleModal} />
         </Modal>
       )}
     </div>
