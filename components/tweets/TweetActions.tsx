@@ -24,13 +24,13 @@ interface TweetActionsProps extends ITweetProps {
 }
 
 const TweetActions = ({
-  isBookmarked,
-  id,
+  isBookmarked: initialIsBookmarked,
+  isRetweeted: initialIsRetweeted,
   isLiked: initialIsLiked,
+  id,
   owner,
   tweet,
   user,
-  isRetweeted: initialIsRetweeted,
 }: TweetActionsProps) => {
   const SolidHeartIcon = solid.HeartIcon;
   const SolidBookmarkIcon = solid.BookmarkIcon;
@@ -48,10 +48,12 @@ const TweetActions = ({
     localIsLiked,
     retweetCount,
     localIsRetweeted,
+    localIsBookmarked,
   } = useTweetActions({
     initialIsLiked,
-    likesLength: tweet.likes.length,
     initialIsRetweeted,
+    initialIsBookmarked,
+    likesLength: tweet.likes.length,
     retweetsLength: tweet.retweets.length,
   });
 
@@ -114,7 +116,7 @@ const TweetActions = ({
       </div>
       <div className="flex items-center gap-4">
         <button className="justify-end flex" onClick={() => addBookmark(id)}>
-          {isBookmarked ? (
+          {localIsBookmarked ? (
             <SolidBookmarkIcon className="text-blue-500 h-5 w-5" />
           ) : (
             <BookmarkIcon className="h-5 w-5 hover:text-blue-500 transition-colors duration-300" />

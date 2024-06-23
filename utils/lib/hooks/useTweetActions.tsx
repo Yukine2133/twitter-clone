@@ -7,14 +7,16 @@ import { likeTweet } from "@/actions/like.actions";
 interface ITweetActions {
   initialIsLiked: boolean;
   initialIsRetweeted: boolean;
+  initialIsBookmarked: boolean;
   likesLength: number;
   retweetsLength: number;
 }
 
 const useTweetActions = ({
   initialIsLiked,
-  likesLength,
   initialIsRetweeted,
+  initialIsBookmarked,
+  likesLength,
   retweetsLength,
 }: ITweetActions) => {
   const [localIsLiked, setLocalIsLiked] = useState(initialIsLiked);
@@ -23,19 +25,26 @@ const useTweetActions = ({
   const [localIsRetweeted, setLocalIsRetweeted] = useState(initialIsRetweeted);
   const [retweetCount, setRetweetCount] = useState(retweetsLength);
 
-  useEffect(() => {
-    setLocalIsLiked(initialIsLiked);
-    setLikeCount(likesLength);
-  }, [initialIsLiked, likesLength]);
+  const [localIsBookmarked, setLocalIsBookmarked] =
+    useState(initialIsBookmarked);
+
+  // useEffect(() => {
+  //   setLocalIsLiked(initialIsLiked);
+  //   setLikeCount(likesLength);
+  // }, [initialIsLiked, likesLength]);
 
   const addBookmark = async (tweetId: string) => {
     try {
       const id = tweetId.toString();
+      setLocalIsBookmarked(!localIsBookmarked);
       const res = await bookMarkTweet(id);
       if (res?.message) {
         toast.error(res.message);
+        setLocalIsBookmarked(!localIsBookmarked);
       }
     } catch (error) {
+      // Revert optimistic update on error
+      setLocalIsBookmarked(!localIsBookmarked);
       console.error("Error adding bookmark:", error);
     }
   };
@@ -90,6 +99,7 @@ const useTweetActions = ({
     localIsLiked,
     retweetCount,
     localIsRetweeted,
+    localIsBookmarked,
   };
 };
 
