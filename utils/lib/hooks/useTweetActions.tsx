@@ -28,23 +28,31 @@ const useTweetActions = ({
   const [localIsBookmarked, setLocalIsBookmarked] =
     useState(initialIsBookmarked);
 
-  // useEffect(() => {
-  //   setLocalIsLiked(initialIsLiked);
-  //   setLikeCount(likesLength);
-  // }, [initialIsLiked, likesLength]);
+  useEffect(() => {
+    setLocalIsLiked(initialIsLiked);
+    setLikeCount(likesLength);
+    setLocalIsRetweeted(initialIsRetweeted);
+    setRetweetCount(retweetsLength);
+    setLocalIsBookmarked(initialIsBookmarked);
+  }, [
+    initialIsLiked,
+    likesLength,
+    initialIsRetweeted,
+    retweetsLength,
+    initialIsBookmarked,
+  ]);
 
   const addBookmark = async (tweetId: string) => {
     try {
       const id = tweetId.toString();
-      setLocalIsBookmarked(!localIsBookmarked);
+      setLocalIsBookmarked((prev) => !prev);
       const res = await bookMarkTweet(id);
       if (res?.message) {
         toast.error(res.message);
-        setLocalIsBookmarked(!localIsBookmarked);
+        setLocalIsBookmarked((prev) => !prev);
       }
     } catch (error) {
-      // Revert optimistic update on error
-      setLocalIsBookmarked(!localIsBookmarked);
+      setLocalIsBookmarked((prev) => !prev);
       console.error("Error adding bookmark:", error);
     }
   };
@@ -52,42 +60,37 @@ const useTweetActions = ({
   const addLike = async (tweetId: string) => {
     try {
       const id = tweetId.toString();
-      setLocalIsLiked(!localIsLiked);
-      setLikeCount(localIsLiked ? likeCount - 1 : likeCount + 1);
-
+      setLocalIsLiked((prev) => !prev);
+      setLikeCount((prev) => prev + (localIsLiked ? -1 : 1));
       const res = await likeTweet(id);
       if (res?.message) {
-        setLocalIsRetweeted(!localIsRetweeted);
-        setRetweetCount(localIsRetweeted ? retweetCount + 1 : retweetCount - 1);
         toast.error(res.message);
+        setLocalIsLiked((prev) => !prev);
+        setLikeCount((prev) => prev + (localIsLiked ? 1 : -1));
       }
     } catch (error: any) {
       toast.error("Error liking tweet:", error);
-      // Revert optimistic update on error
-      setLocalIsLiked(!localIsLiked);
-      setLikeCount(localIsLiked ? likeCount + 1 : likeCount - 1);
+      setLocalIsLiked((prev) => !prev);
+      setLikeCount((prev) => prev + (localIsLiked ? 1 : -1));
     }
   };
 
   const addRetweet = async (tweetId: string) => {
     try {
       const id = tweetId.toString();
-      setLocalIsRetweeted(!localIsRetweeted);
-      setRetweetCount(localIsRetweeted ? retweetCount - 1 : retweetCount + 1);
-
+      setLocalIsRetweeted((prev) => !prev);
+      setRetweetCount((prev) => prev + (localIsRetweeted ? -1 : 1));
       const res = await saveRetweet(id);
       if (res?.message) {
         toast.error(res.message);
-        // Revert optimistic update on error
-        setLocalIsRetweeted(!localIsRetweeted);
-        setRetweetCount(localIsRetweeted ? retweetCount + 1 : retweetCount - 1);
+        setLocalIsRetweeted((prev) => !prev);
+        setRetweetCount((prev) => prev + (localIsRetweeted ? 1 : -1));
       }
     } catch (error) {
       console.error("Error retweeting:", error);
       toast.error("Error retweeting.");
-      // Revert optimistic update on error
-      setLocalIsRetweeted(!localIsRetweeted);
-      setRetweetCount(localIsRetweeted ? retweetCount + 1 : retweetCount - 1);
+      setLocalIsRetweeted((prev) => !prev);
+      setRetweetCount((prev) => prev + (localIsRetweeted ? 1 : -1));
     }
   };
 
