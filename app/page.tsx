@@ -21,10 +21,16 @@ export default async function Home() {
       <ClientOnly>
         <div className="max-h-[820px] overflow-y-auto remove-scrollbar">
           {tweets &&
-            tweets?.map(async (tweet: ITweet) => {
+            tweets?.map(async (tweet: ITweet | any) => {
               const owner: IUser = await fetchUser(tweet.userId);
 
-              return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
+              return (
+                <TweetCard
+                  tweet={JSON.parse(JSON.stringify(tweet))}
+                  owner={owner}
+                  key={tweet._id}
+                />
+              );
             })}
         </div>
       </ClientOnly>

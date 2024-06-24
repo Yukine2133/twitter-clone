@@ -11,6 +11,7 @@ export interface ITweet {
   _id: string;
   text: string;
   userId: string;
+  user: IUser;
   bookmarks: string[];
   likes: string[];
   replies: string[];

@@ -66,7 +66,10 @@ export const fetchUserRetweets = async () => {
 
     // Find retweets by user ID
     const retweets = await Retweet.find({ userId: user?.id })
-      .populate("tweetId")
+      .populate({
+        path: "tweetId",
+        populate: { path: "user" },
+      })
       .sort({ createdAt: -1 });
 
     return retweets.map((retweet) => retweet.tweetId);

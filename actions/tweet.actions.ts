@@ -6,6 +6,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 import { ITweet } from "@/types/tweet.interface";
 import { Retweet } from "@/models/retweet.model";
+import { fetchUser } from "./user.actions";
 
 export const createTweet = async (formData: FormData) => {
   try {
@@ -14,6 +15,8 @@ export const createTweet = async (formData: FormData) => {
 
     const user = await getUser();
     const userId = user?.id;
+
+    const fetchedUser = await fetchUser(userId);
 
     const text = formData.get("text");
     const image = formData.get("image");
@@ -28,6 +31,7 @@ export const createTweet = async (formData: FormData) => {
       text,
       image,
       video,
+      user: fetchedUser._id,
     });
     const plainTweet = {
       ...tweet.toObject(),
@@ -43,7 +47,7 @@ export const createTweet = async (formData: FormData) => {
 export const fetchTweets = async () => {
   try {
     await connectDb();
-    const tweets = await Tweet.find().sort({ createdAt: -1 }); // Sort in the descending order
+    const tweets = await Tweet.find().sort({ createdAt: -1 }).populate("user"); // Sort in the descending order
     return tweets;
   } catch (error) {
     console.error(error);

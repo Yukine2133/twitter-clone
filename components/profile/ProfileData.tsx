@@ -131,20 +131,17 @@ const ProfileData = ({
 
       <h4 className="mt-10">Tweets:</h4>
       <ClientOnly>
-        {combinedPosts?.length > 0 && (
-          <>
-            {combinedPosts.map((post: ITweet | any) => {
-              return (
-                <TweetCard
-                  type={post.type}
-                  key={post._doc_id}
-                  tweet={post._doc}
-                  owner={user}
-                />
-              );
-            })}
-          </>
-        )}
+        {combinedPosts?.length > 0 &&
+          combinedPosts.map((post: ITweet | any) => {
+            return (
+              <TweetCard
+                type={post.type}
+                key={post._doc_id}
+                tweet={post._doc}
+                owner={post._doc.user}
+              />
+            );
+          })}
       </ClientOnly>
       {combinedPosts.length === 0 && (
         <div className="text-center mt-16">
