@@ -19,7 +19,7 @@ import ClientOnly from "../ClientOnly";
 
 interface ProfileDataProps {
   user: IUser;
-  tweets: ITweet[];
+  // tweets: ITweet[];
   isOwner: boolean;
   followers: string[];
   following: string[];
@@ -28,12 +28,13 @@ interface ProfileDataProps {
   username: string;
   isFollowing: boolean;
   currentUser: IUser;
-  retweets: string[];
+  // retweets: string[];
+  combinedPosts: ITweet[] | [];
 }
 
 const ProfileData = ({
   user,
-  tweets,
+  combinedPosts,
   isOwner,
   followers,
   following,
@@ -42,7 +43,6 @@ const ProfileData = ({
   username,
   isFollowing,
   currentUser,
-  retweets,
 }: ProfileDataProps) => {
   return (
     <div>
@@ -50,7 +50,7 @@ const ProfileData = ({
         <GoBackButton />
         <div className="pl-6">
           <h3 className="font-semibold text-lg mt-1">{user.displayName}</h3>
-          <h4 className="text-slate-500 text-sm">{tweets.length} Tweets</h4>
+          {/* <h4 className="text-slate-500 text-sm">{tweets.length} Tweets</h4> */}
         </div>
       </div>
       <div className=" relative ">
@@ -129,34 +129,28 @@ const ProfileData = ({
         </div>
       </div>
 
-      <h4 className="mt-10"> Tweets:</h4>
+      <h4 className="mt-10">Tweets:</h4>
       <ClientOnly>
-        {tweets?.length > 0 && (
+        {combinedPosts?.length > 0 && (
           <>
-            {tweets.map((tweet: ITweet) => (
-              <TweetCard key={tweet._id} tweet={tweet} owner={user} />
-            ))}
-          </>
-        )}
-        {retweets?.length > 0 && (
-          <>
-            <h4 className="mt-10">Retweeted:</h4>
-            {retweets &&
-              retweets.map(async (retweet: any) => {
-                const owner = await fetchUser(retweet.userId);
-                return (
-                  <TweetCard key={retweet._id} tweet={retweet} owner={owner} />
-                );
-              })}
+            {combinedPosts.map((post: ITweet | any) => {
+              return (
+                <TweetCard
+                  type={post.type}
+                  key={post._doc_id}
+                  tweet={post._doc}
+                  owner={user}
+                />
+              );
+            })}
           </>
         )}
       </ClientOnly>
-
-      {tweets.length === 0 && retweets.length === 0 && (
+      {combinedPosts.length === 0 && (
         <div className="text-center mt-16">
-          <h2 className="text-3xl font-semibold">{`@${user.username} hasn't tweeted.`}</h2>
+          <h2 className="text-3xl font-semibold">{`@${user.username} hasn't posted.`}</h2>
           <p className="text-zinc-500 mt-2">
-            When they do, their Tweets will show up here.
+            When they do, their posts will show up here.
           </p>
         </div>
       )}

@@ -4,6 +4,7 @@ import {
   fetchUserById,
   fetchUserTweets,
 } from "@/actions/user.actions";
+import { ITweet } from "@/types/tweet.interface";
 
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
@@ -21,6 +22,21 @@ const useGetProfileData = async (profileUsername: string) => {
 
   const retweets = await fetchUserRetweets();
 
+  // Mark tweets and retweets
+  const markedTweets = tweets?.map((tweet) => ({ ...tweet, type: "tweet" }));
+  const markedRetweets = retweets.map((retweet) => ({
+    ...retweet,
+    type: "retweet",
+  }));
+
+  // Combine and sort by creation date
+  const combinedPosts = [
+    ...(markedTweets ?? []),
+    ...(markedRetweets ?? []),
+  ].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+
   const followers = user.followers;
   const following = user.following;
 
@@ -37,7 +53,7 @@ const useGetProfileData = async (profileUsername: string) => {
   return {
     username,
     currentUser,
-    tweets,
+    combinedPosts,
     followers,
     following,
     followersOfTheUser,
@@ -45,7 +61,6 @@ const useGetProfileData = async (profileUsername: string) => {
     isFollowing,
     isOwner,
     user,
-    retweets,
   };
 };
 

@@ -9,8 +9,9 @@ import { fetchUser } from "@/actions/user.actions";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
 import useFetchLikesForTweet from "@/utils/lib/hooks/useFetchLikesForTweet";
 import useFetchRetweetsForTweet from "@/utils/lib/hooks/useFetchRetweetsForTweet";
+import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/outline";
 
-const TweetCard = async ({ tweet, owner }: ITweetProps) => {
+const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
   const { getUser } = getKindeServerSession();
 
   const user = await getUser();
@@ -23,8 +24,15 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
   const isRetweeted = await useFetchRetweetsForTweet(tweet._id, user?.id);
 
   return (
-    <div className="mt-4 py-3 border-y border-[#2f3336] w-full relative">
+    <div className="mt-4 py-3 border-y border-[#2f3336] w-full relative hover:bg-[#080808]">
       <Link href={`/tweet/${tweet._id}`}>
+        {type && type === "retweet" && (
+          <div className="flex items-center gap-3 pl-4 mb-3 text-gray-500 ">
+            <ArrowPathRoundedSquareIcon className="w-5 h-5" />
+            <h4>{currentUser.username}</h4>
+            <span>Retweeted</span>
+          </div>
+        )}
         <div className="flex gap-2 items-start">
           <Image
             src={owner.avatar}
@@ -51,7 +59,12 @@ const TweetCard = async ({ tweet, owner }: ITweetProps) => {
                 <span>{formatCreatedAt(tweet.createdAt)}</span>
               </div>
             </div>
-            <h3 style={{ overflowWrap: "anywhere" }}>{tweet.text}</h3>
+            <h3
+              className="whitespace-pre-line"
+              style={{ overflowWrap: "anywhere" }}
+            >
+              {tweet.text}
+            </h3>
             {tweet.image && (
               <Image
                 src={tweet.image}

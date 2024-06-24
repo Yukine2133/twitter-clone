@@ -4,6 +4,7 @@ import { IUser } from "./user.interface";
 export interface ITweetProps {
   tweet: ITweet;
   owner: IUser;
+  type?: string;
 }
 
 export interface ITweet {
