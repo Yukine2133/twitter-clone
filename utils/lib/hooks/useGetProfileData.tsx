@@ -33,9 +33,11 @@ const useGetProfileData = async (profileUsername: string) => {
   const combinedPosts = [
     ...(markedTweets ?? []),
     ...(markedRetweets ?? []),
-  ].sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
+  ].sort((a, b) => {
+    const dateA = new Date(a.createdAt || a._doc.createdAt).getTime();
+    const dateB = new Date(b.createdAt || b._doc.createdAt).getTime();
+    return dateB - dateA;
+  });
 
   const followers = user.followers;
   const following = user.following;
