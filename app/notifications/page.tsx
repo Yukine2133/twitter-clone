@@ -59,10 +59,10 @@ const NotificationsPage = async () => {
   };
 
   return (
-    <div>
-      <h2 className="text-xl my-2 font-semibold">Notifications</h2>
+    <div className="">
+      <h2 className="text-xl my-2 font-semibold px-2 md:px-4">Notifications</h2>
       {notifications?.length === 0 && (
-        <p className="text-2xl mt-8">No notifications.</p>
+        <p className="text-2xl mt-8 px-2 md:px-4">No notifications.</p>
       )}
 
       {notificationsWithUsers.map((notification: any) => (

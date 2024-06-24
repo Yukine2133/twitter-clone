@@ -46,14 +46,14 @@ const ProfileData = ({
 }: ProfileDataProps) => {
   return (
     <div>
-      <div className="mb-2 flex items-center">
+      <div className="mb-2 flex items-center px-2 md:px-4">
         <GoBackButton />
         <div className="pl-6">
           <h3 className="font-semibold text-lg mt-1">{user.displayName}</h3>
           {/* <h4 className="text-slate-500 text-sm">{tweets.length} Tweets</h4> */}
         </div>
       </div>
-      <div className=" relative ">
+      <div className="relative ">
         {user.backgroundImage ? (
           <Image
             src={user.backgroundImage}
@@ -66,14 +66,14 @@ const ProfileData = ({
           <div className="w-full h-48 md:h-56  bg-[#333639] object-cover" />
         )}
         <Image
-          className="rounded-full absolute top-[65%] md:top-[75%] "
+          className="rounded-full left-4 absolute top-[65%] md:top-[75%] "
           src={user.avatar}
           alt={user.username}
           width={125}
           height={125}
         />
       </div>
-      <div className="mt-4 gap-4 flex items-center justify-end ">
+      <div className="mt-4 px-2 md:px-4  gap-4 flex items-center justify-end ">
         {!isOwner && (
           <Link
             className="p-2 border border-[#38444d] rounded-full bg-"
@@ -90,7 +90,7 @@ const ProfileData = ({
         />
         {isOwner && <EditProfileButton user={user} />}
       </div>
-      <div className="mt-5">
+      <div className="mt-5 px-2 md:px-4">
         <div className="flex justify-between items-center my-2 ">
           <div className="mt-4 ">
             <h2 className="font-semibold text-lg mb-1">{user.displayName}</h2>
@@ -129,7 +129,7 @@ const ProfileData = ({
         </div>
       </div>
 
-      <h4 className="mt-10">Tweets:</h4>
+      <h4 className="mt-10 px-2 md:px-4">Tweets:</h4>
       <ClientOnly>
         {combinedPosts?.length > 0 &&
           combinedPosts.map((post: ITweet | any) => {

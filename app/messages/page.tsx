@@ -13,10 +13,14 @@ const MessagePage = async () => {
 
   return (
     <div className="">
-      <h2 className="text-xl ml-2 sm:ml-0 mt-2 font-semibold">Messages</h2>
+      <h2 className="text-xl px-2 md:px-4 ml-2  sm:ml-0 mt-2 font-semibold">
+        Messages
+      </h2>
 
       {messages.length === 0 && (
-        <p className="mt-4 text-xl">You don&apos;t have any messages.</p>
+        <p className="mt-4 px-2 md:px-4 text-xl">
+          You don&apos;t have any messages.
+        </p>
       )}
 
       <div className="mt-4">

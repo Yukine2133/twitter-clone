@@ -15,7 +15,7 @@ const MessageCard = ({
 }) => {
   return (
     <div
-      className={`flex   ${
+      className={`flex  px-2 md:px-3  ${
         isCurrentUserSender ? "justify-end " : "justify-start"
       }`}
     >

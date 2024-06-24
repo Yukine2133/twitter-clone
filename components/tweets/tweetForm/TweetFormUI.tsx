@@ -52,7 +52,9 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
       <form
         ref={ref}
         onSubmit={handleSubmit}
-        className={` mt-1 p-3 ${!id && "border-b border-[#2f3336]"} `}
+        className={` mt-1 px-2 md:px-4 p-3 ${
+          !id && "border-b border-[#2f3336]"
+        } `}
       >
         <div className="flex items-start gap-2 mt-1">
           <Image

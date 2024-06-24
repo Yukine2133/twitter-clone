@@ -36,7 +36,7 @@ const SearchResults = ({
 }) => {
   if (!query) {
     return (
-      <div className="mt-2">
+      <div className="mt-2 px-2 md:px-4">
         <SearchInput path={path} />
         <Tabs path={path} />
         <h2 className="mt-4 text-lg">Enter a search query to see results</h2>
@@ -45,7 +45,7 @@ const SearchResults = ({
   }
 
   return (
-    <div className="mt-2">
+    <div className="mt-2 px-2 md:px-4">
       <SearchInput path={path} />
       <Tabs path={path} />
       {results && results.length === 0 ? (

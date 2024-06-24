@@ -27,7 +27,7 @@ const Bookmarks = async () => {
 
   return (
     <>
-      <h2 className="mt-2 text-lg mb-2">Your bookmarks</h2>
+      <h2 className="mt-2 text-lg mb-2 px-2 md:px-4">Your bookmarks</h2>
       <ClientOnly>
         {bookmarks?.map(async (tweet: ITweet) => {
           const owner: IUser = await fetchUser(tweet.userId);

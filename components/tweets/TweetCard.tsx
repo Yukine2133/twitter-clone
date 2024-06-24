@@ -24,7 +24,7 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
   const isRetweeted = await useFetchRetweetsForTweet(tweet._id, user?.id);
 
   return (
-    <div className="mt-4 py-3 border-y border-[#2f3336] w-full relative hover:bg-[#080808]">
+    <div className="mt-4 px-2 md:px-4 py-3 border-y border-[#2f3336] w-full relative hover:bg-[#080808]">
       <Link href={`/tweet/${tweet._id}`}>
         {type && type === "retweet" && (
           <div className="flex items-center gap-3 pl-4 mb-3 text-gray-500 ">
@@ -80,7 +80,7 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
           </div>
         </div>
       </Link>
-      <div className="absolute right-0 top-2 ">
+      <div className="absolute right-2 top-2 ">
         <MoreButton
           tweet={JSON.parse(JSON.stringify(tweet))}
           id={tweet._id.toString()}
