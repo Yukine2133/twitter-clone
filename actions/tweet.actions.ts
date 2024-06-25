@@ -7,6 +7,9 @@ import { revalidatePath } from "next/cache";
 import { ITweet } from "@/types/tweet.interface";
 import { Retweet } from "@/models/retweet.model";
 import { fetchUser } from "./user.actions";
+import { Notification } from "@/models/notification.model";
+import { Like } from "@/models/like.model";
+import { Reply } from "@/models/reply.model";
 
 export const createTweet = async (formData: FormData) => {
   try {
@@ -87,6 +90,9 @@ export const deleteTweet = async (id: string) => {
 
     const tweet = await Tweet.findByIdAndDelete(id);
     await Retweet.deleteMany({ tweetId: id });
+    await Notification.deleteMany({ tweetId: id });
+    await Like.deleteMany({ tweetId: id });
+    await Reply.deleteMany({ tweetId: id });
 
     if (!tweet) return { message: "Tweet not found." };
 
