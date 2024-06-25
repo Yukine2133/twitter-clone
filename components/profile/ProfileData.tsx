@@ -137,8 +137,8 @@ const ProfileData = ({
               <TweetCard
                 type={post.type}
                 key={post._doc_id}
-                tweet={post._doc}
-                owner={post._doc.user}
+                tweet={JSON.parse(JSON.stringify(post._doc))}
+                owner={JSON.parse(JSON.stringify(post._doc.user))}
               />
             );
           })}
