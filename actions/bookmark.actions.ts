@@ -69,6 +69,6 @@ export const fetchBookmarksForTweet = async (tweetId: string) => {
     return bookmarks;
   } catch (error) {
     console.error(error);
-    return { error: "An unexpected error occurred." };
+    // return { error: "An unexpected error occurred." };
   }
 };

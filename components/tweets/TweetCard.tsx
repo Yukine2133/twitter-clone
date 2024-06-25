@@ -7,19 +7,19 @@ import { ITweetProps } from "@/types/tweet.interface";
 import MoreButton from "../buttons/moreButton/MoreButton";
 import { fetchUser } from "@/actions/user.actions";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
-import useFetchLikesForTweet from "@/utils/lib/hooks/useFetchLikesForTweet";
-import useFetchRetweetsForTweet from "@/utils/lib/hooks/useFetchRetweetsForTweet";
 import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/outline";
-import { useFetchBookmarksForTweet } from "@/utils/lib/hooks/useFetchBookmarksForTweet";
+
+import {
+  useFetchLikesForTweet,
+  useFetchBookmarksForTweet,
+  useFetchRetweetsForTweet,
+} from "@/utils/lib/hooks/useFetchUserActonForTweet";
 
 const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
   const { getUser } = getKindeServerSession();
-
   const user = await getUser();
 
   const currentUser = await fetchUser(user?.id);
-  // const bookmarks = tweet?.bookmarks;
-  // const isBookmarked = bookmarks?.includes(user?.id as string);
 
   const isLiked = await useFetchLikesForTweet(tweet._id, user?.id);
   const isBookmarked = await useFetchBookmarksForTweet(tweet._id, user?.id);

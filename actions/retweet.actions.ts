@@ -88,6 +88,6 @@ export const fetchRetweetsForTweet = async (tweetId: string) => {
     return retweets;
   } catch (error) {
     console.error(error);
-    return { error: "An unexpected error occurred." };
+    // return { error: "An unexpected error occurred." };
   }
 };

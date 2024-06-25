@@ -64,6 +64,6 @@ export const fetchLikesForTweet = async (tweetId: string) => {
     return likes;
   } catch (error) {
     console.error(error);
-    return { error: "An unexpected error occurred." };
+    // return { error: "An unexpected error occurred." };
   }
 };
