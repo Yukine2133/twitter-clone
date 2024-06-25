@@ -39,6 +39,7 @@ export const createTweet = async (formData: FormData) => {
     const plainTweet = {
       ...tweet.toObject(),
       _id: tweet._id.toString(),
+      user: tweet.user.toString(),
     };
     revalidatePath("/");
     return plainTweet;
@@ -51,7 +52,7 @@ export const fetchTweets = async () => {
   try {
     await connectDb();
     const tweets = await Tweet.find().sort({ createdAt: -1 }).populate("user"); // Sort in the descending order
-    return tweets;
+    return JSON.parse(JSON.stringify(tweets));
   } catch (error) {
     console.error(error);
   }
