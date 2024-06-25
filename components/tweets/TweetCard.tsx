@@ -14,6 +14,7 @@ import {
   useFetchBookmarksForTweet,
   useFetchRetweetsForTweet,
 } from "@/utils/lib/hooks/useFetchUserActonForTweet";
+import HoverUserInfo from "../HoverUserInfo";
 
 const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
   const { getUser } = getKindeServerSession();
@@ -37,31 +38,37 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
             </div>
           )}
           <div className="flex gap-2 items-start">
-            <Image
-              src={owner.avatar}
-              alt={owner.username}
-              width={38}
-              height={38}
-              className="rounded-full object-cover"
-            />
+            <HoverUserInfo user={owner}>
+              <Image
+                src={owner.avatar}
+                alt={owner.username}
+                width={38}
+                height={38}
+                className="rounded-full object-cover"
+              />
+            </HoverUserInfo>
+
             <div>
-              <div className="flex items-center gap-2">
-                <Link
-                  className="flex items-center gap-2"
-                  href={`/profile/${owner.username}`}
-                >
-                  <span className="font-semibold w-[100px] truncate sm:w-fit">
-                    {owner.displayName}
-                  </span>
-                  <span className="text-gray-500 text-[15px] w-[100px] truncate sm:w-fit ">
-                    @{owner.username}
-                  </span>
-                </Link>
-                <div className="flex text-gray-500 text-[15px] items-center gap-1">
-                  <span>&middot;</span>
-                  <span>{formatCreatedAt(tweet.createdAt)}</span>
+              <HoverUserInfo user={owner}>
+                <div className="flex items-center gap-2">
+                  <Link
+                    className="flex items-center gap-2"
+                    href={`/profile/${owner.username}`}
+                  >
+                    <span className="font-semibold w-[100px] truncate sm:w-fit">
+                      {owner.displayName}
+                    </span>
+                    <span className="text-gray-500 text-[15px] w-[100px] truncate sm:w-fit ">
+                      @{owner.username}
+                    </span>
+                  </Link>
+                  <div className="flex text-gray-500 text-[15px] items-center gap-1">
+                    <span>&middot;</span>
+                    <span>{formatCreatedAt(tweet.createdAt)}</span>
+                  </div>
                 </div>
-              </div>
+              </HoverUserInfo>
+
               <h3
                 className="whitespace-pre-line"
                 style={{ overflowWrap: "anywhere" }}

@@ -19,7 +19,7 @@ export default async function Home() {
     <div className=" ">
       <TweetForm user={currentUser!} />
       <ClientOnly>
-        <div className="max-h-[820px] overflow-y-auto remove-scrollbar">
+        <div className="h-[820px] overflow-y-auto remove-scrollbar">
           {tweets &&
             tweets?.map(async (tweet: ITweet | any) => {
               const owner: IUser = await fetchUser(tweet.userId);
