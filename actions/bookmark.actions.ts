@@ -4,6 +4,7 @@ import { connectDb } from "../utils/connectDb";
 import { Tweet } from "../models/tweet.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
+import { Bookmark } from "@/models/bookmark.model";
 
 export const bookMarkTweet = async (id: string) => {
   try {
@@ -22,17 +23,19 @@ export const bookMarkTweet = async (id: string) => {
       return { message: "Tweet not found" };
     }
 
-    const userIndex = existingTweet.bookmarks.indexOf(user.id);
+    const existingBookmark = await Bookmark.findOne({
+      tweetId: id,
+      userId: user.id,
+    });
 
-    if (userIndex !== -1) {
+    if (existingBookmark) {
       // If the user has already bookmarked the tweet, remove their bookmark
-      existingTweet.bookmarks.splice(userIndex, 1);
+      await Bookmark.deleteOne({ _id: existingBookmark._id });
     } else {
       // If the user has not bookmarked the tweet, add their bookmark
-      existingTweet.bookmarks.push(user.id);
+      await Bookmark.create({ tweetId: id, userId: user.id });
     }
 
-    await existingTweet.save();
     revalidatePath("/");
   } catch (error) {
     console.error(error);
@@ -42,16 +45,30 @@ export const bookMarkTweet = async (id: string) => {
 export const getUserBookmarks = async (userId: string) => {
   try {
     await connectDb();
-    const userBookmarks = await Tweet.find({ bookmarks: userId }).sort({
-      createdAt: -1,
-    });
+    const userBookmarks = await Bookmark.find({ userId })
+      .sort({ createdAt: -1 })
+      .populate("tweetId");
 
     if (!userBookmarks) {
       return null;
     }
 
-    return userBookmarks;
+    return userBookmarks.map((bookmark) => bookmark.tweetId);
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const fetchBookmarksForTweet = async (tweetId: string) => {
+  try {
+    await connectDb();
+
+    // Find all bookmarks for the given tweet ID
+    const bookmarks = await Bookmark.find({ tweetId });
+
+    return bookmarks;
+  } catch (error) {
+    console.error(error);
+    return { error: "An unexpected error occurred." };
   }
 };

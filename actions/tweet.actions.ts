@@ -10,6 +10,7 @@ import { fetchUser } from "./user.actions";
 import { Notification } from "@/models/notification.model";
 import { Like } from "@/models/like.model";
 import { Reply } from "@/models/reply.model";
+import { Bookmark } from "@/models/bookmark.model";
 
 export const createTweet = async (formData: FormData) => {
   try {
@@ -94,6 +95,7 @@ export const deleteTweet = async (id: string) => {
     await Notification.deleteMany({ tweetId: id });
     await Like.deleteMany({ tweetId: id });
     await Reply.deleteMany({ tweetId: id });
+    await Bookmark.deleteMany({ tweetId: id });
 
     if (!tweet) return { message: "Tweet not found." };
 

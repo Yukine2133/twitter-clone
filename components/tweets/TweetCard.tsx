@@ -10,6 +10,7 @@ import { formatCreatedAt } from "@/utils/formatTimestamp";
 import useFetchLikesForTweet from "@/utils/lib/hooks/useFetchLikesForTweet";
 import useFetchRetweetsForTweet from "@/utils/lib/hooks/useFetchRetweetsForTweet";
 import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/outline";
+import { useFetchBookmarksForTweet } from "@/utils/lib/hooks/useFetchBookmarksForTweet";
 
 const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
   const { getUser } = getKindeServerSession();
@@ -17,10 +18,11 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
   const user = await getUser();
 
   const currentUser = await fetchUser(user?.id);
-  const bookmarks = tweet?.bookmarks;
-  const isBookmarked = bookmarks?.includes(user?.id as string);
+  // const bookmarks = tweet?.bookmarks;
+  // const isBookmarked = bookmarks?.includes(user?.id as string);
 
   const isLiked = await useFetchLikesForTweet(tweet._id, user?.id);
+  const isBookmarked = await useFetchBookmarksForTweet(tweet._id, user?.id);
   const isRetweeted = await useFetchRetweetsForTweet(tweet._id, user?.id);
 
   return (
@@ -89,7 +91,7 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
         </div>
       </div>
       <TweetActions
-        isBookmarked={isBookmarked as boolean}
+        isBookmarked={isBookmarked}
         isLiked={isLiked as boolean}
         isRetweeted={isRetweeted}
         id={tweet._id.toString()}
