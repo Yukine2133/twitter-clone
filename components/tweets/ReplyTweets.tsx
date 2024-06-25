@@ -34,9 +34,9 @@ const ReplyTweets = async ({
         return (
           <div
             key={reply._id}
-            className="mt-3 py-3 border-y border-[#2f3336] w-full relative  "
+            className="mt-3 px-2 md:px-4 py-3 border-y border-[#2f3336] w-full relative hover:bg-[#080808] transition-colors duration-300  "
           >
-            <div className="flex  gap-2 items-start">
+            <div className="flex group  gap-2 items-start">
               <Image
                 src={owner.avatar}
                 alt={owner.username}
@@ -68,7 +68,7 @@ const ReplyTweets = async ({
                   <video className="rounded-lg" controls src={reply.video} />
                 )}
               </div>
-              <div className="absolute right-0 ">
+              <div className="absolute right-2 ">
                 <MoreButton
                   replyId={reply._id.toString()}
                   tweet={JSON.parse(JSON.stringify(tweet))}
