@@ -22,7 +22,7 @@ const HoverUserInfo = ({ children, user }: IHoverUserInfoProps) => {
       {children}
       {show && (
         <div className="absolute top-4 left-[15px] z-20 mt-2 flex flex-col items-center transition-opacity duration-300 opacity-100 ">
-          <div className="relative z-20 w-64   text-white whitespace-no-wrap  bg-black shadow-sm shadow-white/80 rounded-lg ">
+          <div className="relative z-20 w-64 overflow-hidden  text-white whitespace-no-wrap  bg-black shadow-sm shadow-white/80 rounded-lg ">
             {user.backgroundImage ? (
               <Image
                 src={user.backgroundImage}
