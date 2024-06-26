@@ -18,8 +18,8 @@ const TweetForm = ({
 
   const {
     handleSubmit,
-    imageUrl,
-    setImageUrl,
+    imageUrls,
+    setImageUrls,
     videoUrl,
     setVideoUrl,
     setIsOpen,
@@ -35,8 +35,8 @@ const TweetForm = ({
     <TweetFormUI
       handleSubmit={handleSubmit}
       id={id}
-      imageUrl={imageUrl}
-      setImageUrl={setImageUrl}
+      imageUrls={imageUrls!}
+      setImageUrls={setImageUrls!}
       videoUrl={videoUrl}
       setVideoUrl={setVideoUrl}
       setIsOpen={setIsOpen}

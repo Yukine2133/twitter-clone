@@ -23,7 +23,7 @@ export const createTweet = async (formData: FormData) => {
     const fetchedUser = await fetchUser(userId);
 
     const text = formData.get("text");
-    const image = formData.get("image");
+    const images = formData.getAll("images");
     const video = formData.get("video");
 
     if (!user) {
@@ -33,7 +33,7 @@ export const createTweet = async (formData: FormData) => {
     const tweet = await Tweet.create({
       userId: userId,
       text,
-      image,
+      images,
       video,
       user: fetchedUser._id,
     });

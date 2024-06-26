@@ -42,15 +42,15 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
               <Image
                 src={owner.avatar}
                 alt={owner.username}
-                width={38}
-                height={38}
-                className="rounded-full object-cover"
+                width={42}
+                height={42}
+                className="rounded-full max-w-14 object-cover"
               />
             </HoverUserInfo>
 
             <div>
               <HoverUserInfo user={owner}>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center w-full gap-2">
                   <Link
                     className="flex items-center gap-2"
                     href={`/profile/${owner.username}`}
@@ -75,15 +75,33 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
               >
                 {tweet.text}
               </h3>
-              {tweet.image && (
-                <Image
-                  src={tweet.image}
-                  alt="User Image"
-                  width={400}
-                  height={400}
-                  className="object-cover rounded-lg mt-1"
-                />
+              {tweet.images.length > 1 ? (
+                <div className="grid  grid-cols-2 gap-1">
+                  {tweet.images &&
+                    tweet.images.map((image) => (
+                      <Image
+                        key={image}
+                        src={image}
+                        alt="User Image"
+                        width={400}
+                        height={400}
+                        className="object-cover   rounded-lg mt-1"
+                      />
+                    ))}
+                </div>
+              ) : (
+                tweet.images.length > 0 && (
+                  <Image
+                    key={tweet.images[0]}
+                    src={tweet.images[0]}
+                    alt="User Image"
+                    width={400}
+                    height={400}
+                    className="object-cover   rounded-lg mt-1"
+                  />
+                )
               )}
+
               {tweet.video && (
                 <video className="rounded-lg mt-1" controls src={tweet.video} />
               )}

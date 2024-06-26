@@ -18,7 +18,7 @@ export interface ITweet {
   retweets: string[];
   createdAt: Date;
   updatedAt: Date;
-  image: string;
+  images: string[];
   video: string;
 }
 

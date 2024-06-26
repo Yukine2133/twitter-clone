@@ -58,14 +58,32 @@ const SingleTweet = ({
         >
           {singleTweet?.text}
         </h3>
-        {singleTweet?.image && (
-          <Image
-            src={singleTweet.image}
-            alt="User Image"
-            width={500}
-            height={400}
-            className="object-cover rounded-lg mb-2"
-          />
+
+        {singleTweet.images.length > 1 ? (
+          <div className="grid  grid-cols-2 gap-1">
+            {singleTweet.images &&
+              singleTweet.images.map((image) => (
+                <Image
+                  key={image}
+                  src={image}
+                  alt="User Image"
+                  width={400}
+                  height={400}
+                  className="object-cover   rounded-lg mt-1"
+                />
+              ))}
+          </div>
+        ) : (
+          singleTweet.images.length > 0 && (
+            <Image
+              key={singleTweet.images[0]}
+              src={singleTweet.images[0]}
+              alt="User Image"
+              width={400}
+              height={400}
+              className="object-cover   rounded-lg mt-1 mb-2"
+            />
+          )
         )}
         {singleTweet?.video && (
           <video

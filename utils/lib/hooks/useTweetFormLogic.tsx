@@ -19,7 +19,7 @@ const useTweetFormLogic = ({
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenVideo, setIsOpenVideo] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [text, setText] = useState<string | null>(null);
 
@@ -29,20 +29,20 @@ const useTweetFormLogic = ({
 
     try {
       setLoading(true);
-      // const tweetText = formData.get("text") as string;
       formData.append("text", text || "");
-      formData.append("image", imageUrl || "");
+
+      imageUrls.forEach((imageUrl, index) => {
+        formData.append(`images`, imageUrl);
+      });
       formData.append("video", videoUrl || "");
 
-      const hasImageUrl = !!imageUrl;
+      const hasImageUrls = imageUrls.length > 0;
       const hasVideoUrl = !!videoUrl;
 
-      // If there's neither text nor image, throw an error
-      if (!text && !hasImageUrl && !hasVideoUrl) {
+      if (!text && !hasImageUrls && !hasVideoUrl) {
         throw new Error("Tweet must contain text or an image.");
       }
 
-      // If there's text, validate it
       if (text && text.trim().length > 0) {
         tweetTextSchema.parse(text);
       }
@@ -71,7 +71,7 @@ const useTweetFormLogic = ({
       }
     } finally {
       setLoading(false);
-      setImageUrl(null);
+      setImageUrls([]);
       setVideoUrl(null);
     }
   };
@@ -79,8 +79,8 @@ const useTweetFormLogic = ({
   return {
     ref,
     handleSubmit,
-    imageUrl,
-    setImageUrl,
+    imageUrls,
+    setImageUrls,
     videoUrl,
     setVideoUrl,
     setIsOpen,

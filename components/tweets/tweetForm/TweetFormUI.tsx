@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { forwardRef } from "react";
 import { toast } from "react-toastify";
 import Image from "next/image";
@@ -13,8 +14,8 @@ import { IUser } from "@/types/user.interface";
 
 interface ITweetFormUIProps {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  imageUrl: string | null;
-  setImageUrl: (arg0: string | null) => void;
+  imageUrls: string[];
+  setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
   videoUrl: string | null;
   setVideoUrl: (arg0: string | null) => void;
   setIsOpen: (arg0: boolean) => void;
@@ -32,8 +33,8 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
   function TweetFormUI(
     {
       handleSubmit,
-      imageUrl,
-      setImageUrl,
+      imageUrls,
+      setImageUrls,
       videoUrl,
       setVideoUrl,
       setIsOpen,
@@ -75,33 +76,38 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
           />
         </div>
         {/* Handle image and video rendering */}
-        {imageUrl && (
-          <div className="mt-4 relative flex justify-center items-center">
-            <button className="absolute top-0 left-8">
-              <XMarkIcon
-                onClick={() => setImageUrl(null)}
-                className="h-5 w-5"
-              />
+        {imageUrls.map((imageUrl, index) => (
+          <div
+            key={index}
+            className="mt-4 relative flex justify-center items-center"
+          >
+            <button
+              className="absolute top-0 left-8"
+              onClick={() => {
+                setImageUrls(imageUrls.filter((url, i) => i !== index));
+              }}
+            >
+              <XMarkIcon className="h-5 w-5" />
             </button>
             <Image
               className="rounded-lg w-fit object-cover"
               src={imageUrl}
-              alt="Uploaded image "
+              alt="Uploaded image"
               width={300}
               height={300}
             />
           </div>
-        )}
+        ))}
         {videoUrl && (
           <div className="mt-4 relative flex justify-center items-center">
-            <button className="absolute top-0 left-2">
-              <XMarkIcon
-                onClick={() => setVideoUrl(null)}
-                className="h-5 w-5"
-              />
+            <button
+              className="absolute top-0 left-2"
+              onClick={() => setVideoUrl(null)}
+            >
+              <XMarkIcon className="h-5 w-5" />
             </button>
             <video
-              className="rounded-lg "
+              className="rounded-lg"
               width={500}
               height={500}
               controls
@@ -121,7 +127,7 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
           </div>
           <button
             disabled={loading}
-            className="bg-blue-500 rounded-full px-3 py-1 hover:opacity-80   font-semibold "
+            className="bg-blue-500 rounded-full px-3 py-1 hover:opacity-80 font-semibold"
             type="submit"
           >
             {id ? "Reply" : "Tweet"}
@@ -133,10 +139,13 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
             <UploadDropzone
               endpoint={"media"}
               onClientUploadComplete={(res) => {
-                if (res?.[0].url) {
-                  setImageUrl(res[0].url);
+                if (res && res.length > 0) {
+                  setImageUrls((prevUrls: string[]) => [
+                    ...prevUrls,
+                    ...res.map((file) => file.url),
+                  ]);
                   setIsOpen(false);
-                  toast.success("Image was added successfully.");
+                  toast.success("Images were added successfully.");
                 }
               }}
               onUploadError={(error: Error) => {
@@ -145,6 +154,7 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
             />
           </Modal>
         )}
+
         {isOpenVideo && (
           <Modal isModalOpen={isOpenVideo} toggleModal={setIsOpenVideo}>
             <UploadDropzone
