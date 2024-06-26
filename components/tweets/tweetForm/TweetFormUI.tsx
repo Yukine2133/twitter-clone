@@ -76,28 +76,31 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
           />
         </div>
         {/* Handle image and video rendering */}
-        {imageUrls.map((imageUrl, index) => (
-          <div
-            key={index}
-            className="mt-4 relative flex justify-center items-center"
-          >
-            <button
-              className="absolute top-0 left-8"
-              onClick={() => {
-                setImageUrls(imageUrls.filter((url, i) => i !== index));
-              }}
+        <div className="grid grid-cols-2 gap-1 mt-4">
+          {imageUrls.map((imageUrl, index) => (
+            <div
+              key={index}
+              className="relative flex justify-center items-center"
             >
-              <XMarkIcon className="h-5 w-5" />
-            </button>
-            <Image
-              className="rounded-lg w-fit object-cover"
-              src={imageUrl}
-              alt="Uploaded image"
-              width={300}
-              height={300}
-            />
-          </div>
-        ))}
+              <button
+                type="button"
+                className="absolute right-1 top-1 "
+                onClick={() => {
+                  setImageUrls(imageUrls.filter((url, i) => i !== index));
+                }}
+              >
+                <XMarkIcon className="h-5 w-5 text-red-600" />
+              </button>
+              <Image
+                className="rounded-lg w-fit object-cover"
+                src={imageUrl}
+                alt="Uploaded image"
+                width={300}
+                height={300}
+              />
+            </div>
+          ))}
+        </div>
         {videoUrl && (
           <div className="mt-4 relative flex justify-center items-center">
             <button
