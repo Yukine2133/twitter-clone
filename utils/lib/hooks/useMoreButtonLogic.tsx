@@ -32,9 +32,12 @@ const useMoreButtonLogic = ({
 
   const [edit, setEdit] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(
-    replyTweet ? (reply?.image as string) : message ? message.image : null
+    message ? message.image : null
   );
 
+  const [replyImageUrls, setReplyImageUrls] = useState<
+    string[] | undefined | any
+  >(reply?.images);
   const [tweetImageUrls, setTweetImageUrls] = useState<
     string[] | undefined | any
   >(tweet?.images);
@@ -68,7 +71,7 @@ const useMoreButtonLogic = ({
           replyId as string,
           tweetId,
           text,
-          imageUrl as string
+          replyImageUrls as string[]
         );
         if (res?.message) {
           toast.error(res.message);
@@ -170,6 +173,8 @@ const useMoreButtonLogic = ({
     handleSubmit,
     setTweetImageUrls,
     tweetImageUrls,
+    replyImageUrls,
+    setReplyImageUrls,
   };
 };
 

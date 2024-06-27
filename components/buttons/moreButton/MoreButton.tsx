@@ -28,6 +28,8 @@ const MoreButton = ({
     imageUrl,
     setTweetImageUrls,
     tweetImageUrls,
+    replyImageUrls,
+    setReplyImageUrls,
   } = useMoreButtonLogic({
     id,
     reply,
@@ -54,6 +56,9 @@ const MoreButton = ({
       messageId={messageId}
       setTweetImageUrls={setTweetImageUrls}
       tweetImageUrls={tweetImageUrls}
+      replyImageUrls={replyImageUrls as string[]}
+      setReplyImageUrls={setReplyImageUrls}
+      replyId={replyId as string | undefined}
     />
   );
 };

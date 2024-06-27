@@ -23,6 +23,9 @@ interface IMoreButtonUIProps {
   messageId: string | undefined;
   tweetImageUrls: string[];
   setTweetImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
+  replyImageUrls: string[];
+  setReplyImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
+  replyId: string | undefined;
 }
 
 const MoreButtonUI = ({
@@ -41,6 +44,9 @@ const MoreButtonUI = ({
   messageId,
   setTweetImageUrls,
   tweetImageUrls,
+  replyImageUrls,
+  setReplyImageUrls,
+  replyId,
 }: IMoreButtonUIProps) => {
   return (
     <>
@@ -113,6 +119,37 @@ const MoreButtonUI = ({
                       className="rounded-lg mx-auto mb-6"
                     />
                   )}
+                </>
+              ) : replyId ? (
+                <>
+                  <UploadDropzone
+                    endpoint={"media"}
+                    onClientUploadComplete={(res) => {
+                      if (res && res.length > 0) {
+                        setReplyImageUrls((prevUrls: string[]) => [
+                          ...prevUrls,
+                          ...res.map((file) => file.url),
+                        ]);
+                        toast.success("Image was added successfully.");
+                      }
+                    }}
+                    onUploadError={(error: Error) => {
+                      toast.error(String(error));
+                    }}
+                  />
+                  <div className="grid grid-cols-2 gap-1">
+                    {replyImageUrls &&
+                      replyImageUrls.map((image) => (
+                        <Image
+                          key={image}
+                          src={image}
+                          alt="Uploaded image"
+                          width={250}
+                          height={250}
+                          className="rounded-lg mx-auto mb-6"
+                        />
+                      ))}
+                  </div>
                 </>
               ) : (
                 <>

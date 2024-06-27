@@ -112,7 +112,7 @@ export const editReply = async (
   replyId: string,
   tweetId: string,
   text: string,
-  image: string
+  images: string[]
 ) => {
   try {
     await connectDb();
@@ -132,7 +132,7 @@ export const editReply = async (
     if (!reply) return { message: "This reply does not exist." };
 
     reply.text = text;
-    reply.image = image;
+    reply.images = images;
 
     await reply.save();
     revalidatePath(`/tweet/${tweetId}`);
