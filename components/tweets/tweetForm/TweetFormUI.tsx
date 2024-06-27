@@ -1,8 +1,5 @@
-import { useState } from "react";
 import { forwardRef } from "react";
-import { toast } from "react-toastify";
 import Image from "next/image";
-import { UploadDropzone } from "@/utils/lib/uploadthing";
 import {
   PhotoIcon,
   VideoCameraIcon,
@@ -11,6 +8,7 @@ import {
 import ReactTextareaAutosize from "react-textarea-autosize";
 import Modal from "../Modal";
 import { IUser } from "@/types/user.interface";
+import MediaUploadDropZone from "../MediaUploadDropZone";
 
 interface ITweetFormUIProps {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
@@ -148,42 +146,22 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
         {/* Handle modal rendering */}
         {isOpen && (
           <Modal isModalOpen={isOpen} toggleModal={setIsOpen}>
-            <UploadDropzone
-              endpoint={"media"}
-              onClientUploadComplete={(res) => {
-                if (res && res.length > 0) {
-                  setImageUrls((prevUrls: string[]) => [
-                    ...prevUrls,
-                    ...res.map((file) => file.url),
-                  ]);
-                  setIsOpen(false);
-                  toast.success("Images were added successfully.");
-                }
-              }}
-              onUploadError={(error: Error) => {
-                toast.error(String(error));
-              }}
+            <MediaUploadDropZone
+              endpoint="media"
+              setStateFunction={setImageUrls}
+              toastMsgTypeMedia="Images"
+              onClose={setIsOpen}
             />
           </Modal>
         )}
 
         {isOpenVideo && (
           <Modal isModalOpen={isOpenVideo} toggleModal={setIsOpenVideo}>
-            <UploadDropzone
-              endpoint={"video"}
-              onClientUploadComplete={(res) => {
-                if (res && res.length > 0) {
-                  setVideoUrls((prevUrls: string[]) => [
-                    ...prevUrls,
-                    ...res.map((file) => file.url),
-                  ]);
-                  setIsOpenVideo(false);
-                  toast.success("Videos were added successfully.");
-                }
-              }}
-              onUploadError={(error: Error) => {
-                toast.error(String(error));
-              }}
+            <MediaUploadDropZone
+              endpoint="video"
+              setStateFunction={setVideoUrls}
+              toastMsgTypeMedia="Videos"
+              onClose={setIsOpenVideo}
             />
           </Modal>
         )}

@@ -6,6 +6,7 @@ import Modal from "../../tweets/Modal";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import Image from "next/image";
 import { MutableRefObject, Ref } from "react";
+import MediaUploadDropZone from "@/components/tweets/MediaUploadDropZone";
 
 interface IMoreButtonUIProps {
   isOwner: true | string | undefined;
@@ -116,20 +117,10 @@ const MoreButtonUI = ({
                 </>
               ) : (
                 <>
-                  <UploadDropzone
-                    endpoint={"media"}
-                    onClientUploadComplete={(res) => {
-                      if (res && res.length > 0) {
-                        setTweetImageUrls((prevUrls: string[]) => [
-                          ...prevUrls,
-                          ...res.map((file) => file.url),
-                        ]);
-                        toast.success("Image was added successfully.");
-                      }
-                    }}
-                    onUploadError={(error: Error) => {
-                      toast.error(String(error));
-                    }}
+                  <MediaUploadDropZone
+                    endpoint="media"
+                    setStateFunction={setTweetImageUrls}
+                    toastMsgTypeMedia="Images"
                   />
                   <div className="grid grid-cols-2 gap-1">
                     {tweetImageUrls &&
