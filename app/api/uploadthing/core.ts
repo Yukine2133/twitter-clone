@@ -53,7 +53,7 @@ export const ourFileRouter = {
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
       return { uploadedBy: metadata.userId };
     }),
-  video: f({ video: { maxFileSize: "64MB", maxFileCount: 1 } })
+  video: f({ video: { maxFileSize: "64MB", maxFileCount: 4 } })
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req }) => {
       // This code runs on your server before upload

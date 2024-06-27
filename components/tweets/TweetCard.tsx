@@ -95,16 +95,22 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
                     key={tweet.images[0]}
                     src={tweet.images[0]}
                     alt="User Image"
-                    width={400}
-                    height={400}
-                    className="object-cover   rounded-lg mt-1"
+                    width={700}
+                    height={700}
+                    className="object-cover h-[360px] w-full rounded-lg mt-1"
                   />
                 )
               )}
 
-              {tweet.video && (
-                <video className="rounded-lg mt-1" controls src={tweet.video} />
-              )}
+              {tweet.videos &&
+                tweet.videos.map((video) => (
+                  <video
+                    key={video}
+                    className="rounded-lg h-[300px] max-w-[545px] mt-1"
+                    controls
+                    src={video}
+                  />
+                ))}
             </div>
           </div>
         </Link>

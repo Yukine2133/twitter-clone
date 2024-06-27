@@ -20,7 +20,7 @@ const useTweetFormLogic = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenVideo, setIsOpenVideo] = useState(false);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
-  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [videoUrls, setVideoUrls] = useState<string[]>([]);
   const [text, setText] = useState<string | null>(null);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -34,10 +34,12 @@ const useTweetFormLogic = ({
       imageUrls.forEach((imageUrl, index) => {
         formData.append(`images`, imageUrl);
       });
-      formData.append("video", videoUrl || "");
+      videoUrls.forEach((videoUrl, index) => {
+        formData.append(`videos`, videoUrl);
+      });
 
       const hasImageUrls = imageUrls.length > 0;
-      const hasVideoUrl = !!videoUrl;
+      const hasVideoUrl = videoUrls.length > 0;
 
       if (!text && !hasImageUrls && !hasVideoUrl) {
         throw new Error("Tweet must contain text or an image.");
@@ -72,7 +74,7 @@ const useTweetFormLogic = ({
     } finally {
       setLoading(false);
       setImageUrls([]);
-      setVideoUrl(null);
+      setVideoUrls([]);
     }
   };
 
@@ -81,8 +83,8 @@ const useTweetFormLogic = ({
     handleSubmit,
     imageUrls,
     setImageUrls,
-    videoUrl,
-    setVideoUrl,
+    videoUrls,
+    setVideoUrls,
     setIsOpen,
     isOpen,
     setIsOpenVideo,

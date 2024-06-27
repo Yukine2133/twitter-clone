@@ -19,7 +19,7 @@ export interface ITweet {
   createdAt: Date;
   updatedAt: Date;
   images: string[];
-  video: string;
+  videos: string[];
 }
 
 export interface ISingleTweetProps {

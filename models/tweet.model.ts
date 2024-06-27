@@ -4,7 +4,7 @@ const tweetSchema = new mongoose.Schema(
   {
     text: { type: String },
     images: [{ type: String }],
-    video: { type: String },
+    videos: [{ type: String }],
     userId: { type: String, required: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Like" }],

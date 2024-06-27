@@ -20,8 +20,8 @@ const TweetForm = ({
     handleSubmit,
     imageUrls,
     setImageUrls,
-    videoUrl,
-    setVideoUrl,
+    videoUrls,
+    setVideoUrls,
     setIsOpen,
     isOpen,
     setIsOpenVideo,
@@ -37,8 +37,8 @@ const TweetForm = ({
       id={id}
       imageUrls={imageUrls!}
       setImageUrls={setImageUrls!}
-      videoUrl={videoUrl}
-      setVideoUrl={setVideoUrl}
+      videoUrls={videoUrls}
+      setVideoUrls={setVideoUrls}
       setIsOpen={setIsOpen}
       isOpen={isOpen}
       loading={loading}

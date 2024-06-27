@@ -24,7 +24,7 @@ export const createTweet = async (formData: FormData) => {
 
     const text = formData.get("text");
     const images = formData.getAll("images");
-    const video = formData.get("video");
+    const videos = formData.getAll("videos");
 
     if (!user) {
       return { error: "You need to be logged in to tweet." };
@@ -34,7 +34,7 @@ export const createTweet = async (formData: FormData) => {
       userId: userId,
       text,
       images,
-      video,
+      videos,
       user: fetchedUser._id,
     });
     const plainTweet = {

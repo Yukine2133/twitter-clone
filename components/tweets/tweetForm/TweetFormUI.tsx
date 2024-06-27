@@ -16,8 +16,8 @@ interface ITweetFormUIProps {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   imageUrls: string[];
   setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
-  videoUrl: string | null;
-  setVideoUrl: (arg0: string | null) => void;
+  videoUrls: string[];
+  setVideoUrls: React.Dispatch<React.SetStateAction<string[]>>;
   setIsOpen: (arg0: boolean) => void;
   isOpen: boolean;
   setIsOpenVideo: (arg0: boolean) => void;
@@ -35,8 +35,8 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
       handleSubmit,
       imageUrls,
       setImageUrls,
-      videoUrl,
-      setVideoUrl,
+      videoUrls,
+      setVideoUrls,
       setIsOpen,
       isOpen,
       setIsOpenVideo,
@@ -76,15 +76,15 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
           />
         </div>
         {/* Handle image and video rendering */}
-        <div className="grid grid-cols-2 gap-1 mt-4">
+        <div className="grid grid-cols-2 gap-1 ">
           {imageUrls.map((imageUrl, index) => (
             <div
               key={index}
-              className="relative flex justify-center items-center"
+              className="relative mt-4 flex justify-center items-center"
             >
               <button
                 type="button"
-                className="absolute right-1 top-1 "
+                className="absolute cursor-pointer right-1 top-1 "
                 onClick={() => {
                   setImageUrls(imageUrls.filter((url, i) => i !== index));
                 }}
@@ -101,23 +101,32 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
             </div>
           ))}
         </div>
-        {videoUrl && (
-          <div className="mt-4 relative flex justify-center items-center">
-            <button
-              className="absolute top-0 left-2"
-              onClick={() => setVideoUrl(null)}
-            >
-              <XMarkIcon className="h-5 w-5" />
-            </button>
-            <video
-              className="rounded-lg"
-              width={500}
-              height={500}
-              controls
-              src={videoUrl}
-            />
-          </div>
-        )}
+        <div className="grid grid-cols-2  gap-1">
+          {videoUrls &&
+            videoUrls.map((videoUrl, index) => (
+              <div
+                key={index}
+                className="relative mt-4 flex justify-center items-center"
+              >
+                <button
+                  type="button"
+                  className="absolute cursor-pointer right-1 top-1 "
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setVideoUrls(videoUrls.filter((url, i) => i !== index));
+                  }}
+                >
+                  <XMarkIcon className="h-5 w-5 text-red-600" />
+                </button>
+
+                <video
+                  className="rounded-lg w-fit mt-1"
+                  controls
+                  src={videoUrl}
+                />
+              </div>
+            ))}
+        </div>
         {/* Handle button rendering */}
         <div className="mt-2 flex justify-between items-end px-6">
           <div className="flex gap-2 items-center">
@@ -163,10 +172,13 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
             <UploadDropzone
               endpoint={"video"}
               onClientUploadComplete={(res) => {
-                if (res?.[0].url) {
-                  setVideoUrl(res[0].url);
+                if (res && res.length > 0) {
+                  setVideoUrls((prevUrls: string[]) => [
+                    ...prevUrls,
+                    ...res.map((file) => file.url),
+                  ]);
                   setIsOpenVideo(false);
-                  toast.success("Video was added successfully.");
+                  toast.success("Videos were added successfully.");
                 }
               }}
               onUploadError={(error: Error) => {
