@@ -56,7 +56,7 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
 
   return (
     <>
-      <div className="px-2 md:px-4 fixed bottom-12 min-[800px]:bottom-0 w-full pb-2 sm:w-[630px]  z-10  bg-black border-t border-[#2f3336]  pt-4">
+      <div className="px-2 md:px-4 fixed bottom-12 min-[800px]:bottom-0 w-full pb-2 sm:w-[640px]  z-10  bg-black border-t border-[#2f3336]  pt-4">
         <form className="bg-[#202327]  w-full rounded-xl p-3">
           {imageUrl && (
             <div className="my-4 relative flex items-center">
@@ -67,11 +67,11 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
                 />
               </button>
               <Image
-                className="rounded-lg w-auto object-cover"
+                className="rounded-lg w-fit object-cover"
                 src={imageUrl}
                 alt="Uploaded image "
-                width={300}
-                height={300}
+                width={150}
+                height={150}
               />
             </div>
           )}
@@ -96,7 +96,7 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
       {isOpen && (
         <Modal isModalOpen={isOpen} toggleModal={setIsOpen}>
           <UploadDropzone
-            endpoint={"media"}
+            endpoint={"messageMedia"}
             onClientUploadComplete={(res) => {
               if (res?.[0].url) {
                 setImageUrl(res[0].url);

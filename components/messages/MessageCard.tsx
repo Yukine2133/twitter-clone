@@ -15,7 +15,7 @@ const MessageCard = ({
 }) => {
   return (
     <div
-      className={`flex  px-2 md:px-3  ${
+      className={`flex mt-4  px-2 md:px-3  ${
         isCurrentUserSender ? "justify-end " : "justify-start"
       }`}
     >
@@ -40,13 +40,15 @@ const MessageCard = ({
               />
             )}
           </div>
-          <div
-            className={`bg-blue-500 max-w-[290px]  rounded-xl px-2 py-1 my-2 text-[15px] ${
-              isCurrentUserSender ? "ml-auto" : "bg-zinc-900"
-            }`}
-          >
-            <h3 style={{ overflowWrap: "anywhere" }}>{message.content}</h3>
-          </div>
+          {message.content && (
+            <div
+              className={`bg-blue-500 max-w-[290px]  rounded-xl px-2 py-1 my-2 text-[15px] ${
+                isCurrentUserSender ? "ml-auto" : "bg-zinc-900"
+              }`}
+            >
+              <h3 style={{ overflowWrap: "anywhere" }}>{message.content}</h3>
+            </div>
+          )}
         </div>
         <div
           className={`flex gap-1 items-center text-[13px] text-zinc-600  ${
