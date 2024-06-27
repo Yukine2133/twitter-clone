@@ -9,8 +9,8 @@ const replySchema = new mongoose.Schema(
     },
     userId: { type: String },
     text: { type: String },
-    image: { type: String },
-    video: { type: String },
+    images: [{ type: String }],
+    videos: [{ type: String }],
   },
   { timestamps: true }
 );

@@ -55,18 +55,41 @@ const ReplyTweets = async ({
                   </div>
                 </div>
                 <h3 style={{ overflowWrap: "anywhere" }}>{reply.text}</h3>
-                {reply.image && (
-                  <Image
-                    src={reply.image}
-                    alt="User Image"
-                    width={400}
-                    height={400}
-                    className="object-cover mt-2 rounded-lg "
-                  />
+                {reply.images.length > 1 ? (
+                  <div className="grid  grid-cols-2 gap-1">
+                    {reply.images &&
+                      reply.images.map((image) => (
+                        <Image
+                          key={image}
+                          src={image}
+                          alt="User Image"
+                          width={400}
+                          height={400}
+                          className="object-cover   rounded-lg mt-1"
+                        />
+                      ))}
+                  </div>
+                ) : (
+                  reply.images.length > 0 && (
+                    <Image
+                      key={reply.images[0]}
+                      src={reply.images[0]}
+                      alt="User Image"
+                      width={700}
+                      height={700}
+                      className="object-cover h-[360px] w-full rounded-lg mt-1"
+                    />
+                  )
                 )}
-                {reply.video && (
-                  <video className="rounded-lg" controls src={reply.video} />
-                )}
+                {reply.videos &&
+                  reply.videos.map((video) => (
+                    <video
+                      key={video}
+                      className="rounded-lg h-[300px] max-w-[545px] mt-1"
+                      controls
+                      src={video}
+                    />
+                  ))}
               </div>
               <div className="absolute right-2 ">
                 <MoreButton

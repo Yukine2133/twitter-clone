@@ -85,13 +85,22 @@ const SingleTweet = ({
             />
           )
         )}
-        {singleTweet?.video && (
+        {/* {singleTweet?.video && (
           <video
             src={singleTweet.video}
             className="rounded-lg mt-1 mb-2"
             controls
           />
-        )}
+        )} */}
+        {singleTweet.videos &&
+          singleTweet.videos.map((video) => (
+            <video
+              key={video}
+              className="rounded-lg h-[300px] max-w-[545px] mt-1"
+              controls
+              src={video}
+            />
+          ))}
         <span className="text-gray-500 text-[15px]">
           {formatDate(singleTweet?.createdAt as Date)}
         </span>

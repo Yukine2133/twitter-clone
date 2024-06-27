@@ -24,8 +24,8 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
     }
 
     const text = formData.get("text");
-    const image = formData.get("image");
-    const video = formData.get("video");
+    const images = formData.getAll("images");
+    const videos = formData.getAll("videos");
 
     if (!existingTweet) {
       return { error: "Tweet not found" };
@@ -40,8 +40,8 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
       tweetId: tweetId,
       userId: user.id,
       text: text,
-      image: image,
-      video: video,
+      images,
+      videos,
     });
 
     await reply.save();

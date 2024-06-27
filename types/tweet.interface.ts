@@ -34,8 +34,8 @@ export interface IReply {
   userId: string;
   text: string;
   _id: string;
-  image: string;
-  video: string;
+  images: string[];
+  videos: string[];
   tweetId: string;
   createdAt: Date;
   updatedAt: Date;
