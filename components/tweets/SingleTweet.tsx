@@ -8,6 +8,7 @@ import TweetForm from "@/components/tweets/tweetForm/TweetForm";
 import { formatDate } from "@/utils/formatTimestamp";
 import MoreButton from "../buttons/moreButton/MoreButton";
 import GoBackButton from "../buttons/GoBackButton";
+import TweetMedia from "./TweetMedia";
 
 interface SingleTweetProps {
   owner: IUser;
@@ -59,51 +60,11 @@ const SingleTweet = ({
           {singleTweet?.text}
         </h3>
 
-        {singleTweet.images.length > 1 ? (
-          <div className="grid  grid-cols-2 gap-1">
-            {singleTweet.images &&
-              singleTweet.images.map((image) => (
-                <Image
-                  key={image}
-                  src={image}
-                  alt="User Image"
-                  width={400}
-                  height={400}
-                  className="object-cover   rounded-lg mt-1"
-                />
-              ))}
-          </div>
-        ) : (
-          singleTweet.images.length > 0 && (
-            <Image
-              key={singleTweet.images[0]}
-              src={singleTweet.images[0]}
-              alt="User Image"
-              width={400}
-              height={400}
-              className="object-cover   rounded-lg mt-1 mb-2"
-            />
-          )
-        )}
-        {/* {singleTweet?.video && (
-          <video
-            src={singleTweet.video}
-            className="rounded-lg mt-1 mb-2"
-            controls
-          />
-        )} */}
-        {singleTweet.videos &&
-          singleTweet.videos.map((video) => (
-            <video
-              key={video}
-              className="rounded-lg h-[300px] max-w-[545px] mt-1"
-              controls
-              src={video}
-            />
-          ))}
-        <span className="text-gray-500 text-[15px]">
+        <TweetMedia data={singleTweet} />
+
+        <p className="text-gray-500 text-[15px] mt-2 ">
           {formatDate(singleTweet?.createdAt as Date)}
-        </span>
+        </p>
       </div>
       <div className="mt-5 py-2 border-y border-[#2f3336]">
         <TweetActions

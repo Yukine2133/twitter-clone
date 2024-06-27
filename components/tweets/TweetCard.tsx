@@ -15,6 +15,7 @@ import {
   useFetchRetweetsForTweet,
 } from "@/utils/lib/hooks/useFetchUserActonForTweet";
 import HoverUserInfo from "../HoverUserInfo";
+import TweetMedia from "./TweetMedia";
 
 const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
   const { getUser } = getKindeServerSession();
@@ -75,42 +76,7 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
               >
                 {tweet.text}
               </h3>
-              {tweet.images.length > 1 ? (
-                <div className="grid  grid-cols-2 gap-1">
-                  {tweet.images &&
-                    tweet.images.map((image) => (
-                      <Image
-                        key={image}
-                        src={image}
-                        alt="User Image"
-                        width={400}
-                        height={400}
-                        className="object-cover   rounded-lg mt-1"
-                      />
-                    ))}
-                </div>
-              ) : (
-                tweet.images.length > 0 && (
-                  <Image
-                    key={tweet.images[0]}
-                    src={tweet.images[0]}
-                    alt="User Image"
-                    width={700}
-                    height={700}
-                    className="object-cover h-[360px] w-full rounded-lg mt-1"
-                  />
-                )
-              )}
-
-              {tweet.videos &&
-                tweet.videos.map((video) => (
-                  <video
-                    key={video}
-                    className="rounded-lg h-[300px] max-w-[545px] mt-1"
-                    controls
-                    src={video}
-                  />
-                ))}
+              <TweetMedia data={tweet} />
             </div>
           </div>
         </Link>
