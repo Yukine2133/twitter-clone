@@ -102,7 +102,7 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
                 )}
                 <UploadButton
                   className="pt-4"
-                  endpoint={`media`}
+                  endpoint={`messageMedia`}
                   onClientUploadComplete={(res: any) => {
                     if (res?.[0].url) {
                       setBackgroundImage(res[0].url);
@@ -129,7 +129,7 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
                 />
                 <UploadButton
                   className="pt-4"
-                  endpoint={`media`}
+                  endpoint={`messageMedia`}
                   onClientUploadComplete={(res: any) => {
                     if (res?.[0].url) {
                       setAvatar(res[0].url);
