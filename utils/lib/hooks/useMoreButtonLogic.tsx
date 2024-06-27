@@ -32,12 +32,12 @@ const useMoreButtonLogic = ({
 
   const [edit, setEdit] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(
-    replyTweet
-      ? (reply?.image as string)
-      : message
-      ? message.image
-      : (tweet?.image as string)
+    replyTweet ? (reply?.image as string) : message ? message.image : null
   );
+
+  const [tweetImageUrls, setTweetImageUrls] = useState<
+    string[] | undefined | any
+  >(tweet?.images);
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -87,7 +87,7 @@ const useMoreButtonLogic = ({
         // If there's neither replyId nor messageId, edit the tweet
 
         // If there's neither text nor image, throw an error
-        if (!text && !imageUrl) {
+        if (!text && !tweetImageUrls) {
           throw new Error("Tweet must contain text or an image.");
         }
 
@@ -95,7 +95,11 @@ const useMoreButtonLogic = ({
         if (text && text.trim().length > 0) {
           tweetTextSchema.parse(text);
         }
-        const res = await updateTweet(tweetId, text, imageUrl as string);
+        const res = await updateTweet(
+          tweetId,
+          text,
+          tweetImageUrls as string[]
+        );
         if (res?.message) {
           toast.error(res.message);
         } else {
@@ -164,6 +168,8 @@ const useMoreButtonLogic = ({
     setImageUrl,
     imageUrl,
     handleSubmit,
+    setTweetImageUrls,
+    tweetImageUrls,
   };
 };
 

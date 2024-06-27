@@ -15,7 +15,7 @@ const MessageCard = ({
 }) => {
   return (
     <div
-      className={`flex mt-4  px-2 md:px-3  ${
+      className={`flex mt-4 group px-2 md:px-3  ${
         isCurrentUserSender ? "justify-end " : "justify-start"
       }`}
     >

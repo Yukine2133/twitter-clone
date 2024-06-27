@@ -26,6 +26,8 @@ const MoreButton = ({
     setImageUrl,
     handleSubmit,
     imageUrl,
+    setTweetImageUrls,
+    tweetImageUrls,
   } = useMoreButtonLogic({
     id,
     reply,
@@ -50,6 +52,8 @@ const MoreButton = ({
       setImageUrl={setImageUrl}
       handleSubmit={handleSubmit}
       messageId={messageId}
+      setTweetImageUrls={setTweetImageUrls}
+      tweetImageUrls={tweetImageUrls}
     />
   );
 };

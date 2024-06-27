@@ -108,7 +108,11 @@ export const deleteTweet = async (id: string) => {
   }
 };
 
-export const updateTweet = async (id: string, text: string, image: string) => {
+export const updateTweet = async (
+  id: string,
+  text: string,
+  images: string[]
+) => {
   try {
     await connectDb();
     const { getUser } = getKindeServerSession();
@@ -126,7 +130,7 @@ export const updateTweet = async (id: string, text: string, image: string) => {
     if (!existingTweet) return { message: "This tweet does not exist." };
 
     existingTweet.text = text;
-    existingTweet.image = image;
+    existingTweet.images = images;
 
     await existingTweet.save();
     revalidatePath(`/`);

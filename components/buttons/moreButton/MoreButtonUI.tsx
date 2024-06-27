@@ -21,6 +21,8 @@ interface IMoreButtonUIProps {
   imageUrl: string | null;
   handleSubmit: () => void;
   messageId: string | undefined;
+  tweetImageUrls: string[];
+  setTweetImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const MoreButtonUI = ({
@@ -37,6 +39,8 @@ const MoreButtonUI = ({
   handleSubmit,
   imageUrl,
   messageId,
+  setTweetImageUrls,
+  tweetImageUrls,
 }: IMoreButtonUIProps) => {
   return (
     <>
@@ -86,27 +90,63 @@ const MoreButtonUI = ({
                 onChange={(e) => setText(e.target.value)}
                 className="bg-transparent border border-gray-800 shadow-sm outline-none  rounded-md  flex justify-center w-full mx-auto p-2"
               />
-              <UploadDropzone
-                endpoint={"media"}
-                onClientUploadComplete={(res) => {
-                  if (res?.[0].url) {
-                    setImageUrl(res[0].url);
-                    toast.success("Image was added successfully.");
-                  }
-                }}
-                onUploadError={(error: Error) => {
-                  toast.error(String(error));
-                }}
-              />
-              {imageUrl && (
-                <Image
-                  src={imageUrl}
-                  alt="Uploaded image"
-                  width={250}
-                  height={250}
-                  className="rounded-lg mx-auto mb-6"
-                />
+              {messageId ? (
+                <>
+                  <UploadDropzone
+                    endpoint={"messageMedia"}
+                    onClientUploadComplete={(res) => {
+                      if (res?.[0].url) {
+                        setImageUrl(res[0].url);
+                        toast.success("Image was added successfully.");
+                      }
+                    }}
+                    onUploadError={(error: Error) => {
+                      toast.error(String(error));
+                    }}
+                  />
+                  {imageUrl && (
+                    <Image
+                      src={imageUrl}
+                      alt="Uploaded image"
+                      width={250}
+                      height={250}
+                      className="rounded-lg mx-auto mb-6"
+                    />
+                  )}
+                </>
+              ) : (
+                <>
+                  <UploadDropzone
+                    endpoint={"media"}
+                    onClientUploadComplete={(res) => {
+                      if (res && res.length > 0) {
+                        setTweetImageUrls((prevUrls: string[]) => [
+                          ...prevUrls,
+                          ...res.map((file) => file.url),
+                        ]);
+                        toast.success("Image was added successfully.");
+                      }
+                    }}
+                    onUploadError={(error: Error) => {
+                      toast.error(String(error));
+                    }}
+                  />
+                  <div className="grid grid-cols-2 gap-1">
+                    {tweetImageUrls &&
+                      tweetImageUrls.map((image) => (
+                        <Image
+                          key={image}
+                          src={image}
+                          alt="Uploaded image"
+                          width={250}
+                          height={250}
+                          className="rounded-lg mx-auto mb-6"
+                        />
+                      ))}
+                  </div>
+                </>
               )}
+
               <button
                 onClick={handleSubmit}
                 className="px-3 py-2 rounded-md flex justify-center mx-auto  bg-blue-600"
