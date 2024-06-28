@@ -50,8 +50,8 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
             </HoverUserInfo>
 
             <div>
-              <HoverUserInfo user={owner}>
-                <div className="flex items-center w-full gap-2">
+              <div className="flex items-center w-full gap-2">
+                <HoverUserInfo user={owner}>
                   <Link
                     className="flex items-center gap-2"
                     href={`/profile/${owner.username}`}
@@ -63,12 +63,12 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
                       @{owner.username}
                     </span>
                   </Link>
-                  <div className="flex text-gray-500 text-[15px] items-center gap-1">
-                    <span>&middot;</span>
-                    <span>{formatCreatedAt(tweet.createdAt)}</span>
-                  </div>
+                </HoverUserInfo>
+                <div className="flex text-gray-500 text-[15px] items-center gap-1">
+                  <span>&middot;</span>
+                  <span>{formatCreatedAt(tweet.createdAt)}</span>
                 </div>
-              </HoverUserInfo>
+              </div>
 
               <h3
                 className="whitespace-pre-line"
