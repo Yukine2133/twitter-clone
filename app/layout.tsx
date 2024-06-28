@@ -7,6 +7,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BottomBar from "@/components/layout/BottomBar";
 import UserDetails from "@/components/layout/UserDetails";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "./api/uploadthing/core";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,6 +29,7 @@ export default async function RootLayout({
   return (
     <html suppressHydrationWarning={true} lang="en">
       <body className={`${poppins.className} bg-black text-white `}>
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <ToastContainer
           position="bottom-right"
           autoClose={2000}
