@@ -30,7 +30,7 @@ const FollowModal = ({
   return (
     <div
       id="modal"
-      className="fixed  top-0 left-0 z-50 w-full h-full bg-[#242d34] bg-opacity-75  flex justify-center items-center "
+      className="fixed  top-0 left-0 z-50 w-full h-full bg-[#242d34] bg-opacity-65  flex justify-center items-center "
     >
       <div
         ref={ref}
