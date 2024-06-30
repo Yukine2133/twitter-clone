@@ -8,7 +8,7 @@ import TweetForm from "@/components/tweets/tweetForm/TweetForm";
 import { formatDate } from "@/utils/formatTimestamp";
 import MoreButton from "../buttons/moreButton/MoreButton";
 import GoBackButton from "../buttons/GoBackButton";
-import TweetMedia from "./TweetMedia";
+import TweetMedia from "./media/TweetMedia";
 
 interface SingleTweetProps {
   owner: IUser;

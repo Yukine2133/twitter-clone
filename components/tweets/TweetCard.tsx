@@ -15,7 +15,7 @@ import {
   useFetchRetweetsForTweet,
 } from "@/utils/lib/hooks/useFetchUserActonForTweet";
 import HoverUserInfo from "../HoverUserInfo";
-import TweetMedia from "./TweetMedia";
+import TweetMedia from "./media/TweetMedia";
 
 const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
   const { getUser } = getKindeServerSession();

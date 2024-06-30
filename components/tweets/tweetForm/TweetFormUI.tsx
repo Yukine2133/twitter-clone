@@ -8,7 +8,7 @@ import {
 import ReactTextareaAutosize from "react-textarea-autosize";
 import Modal from "../Modal";
 import { IUser } from "@/types/user.interface";
-import MediaUploadDropZone from "../MediaUploadDropZone";
+import MediaUploadDropZone from "../media/MediaUploadDropZone";
 
 interface ITweetFormUIProps {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;

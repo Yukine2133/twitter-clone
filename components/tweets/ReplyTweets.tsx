@@ -7,7 +7,7 @@ import { IUser } from "@/types/user.interface";
 import { toast } from "react-toastify";
 import { fetchTweetReplies } from "@/actions/reply.actions";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
-import TweetMedia from "./TweetMedia";
+import TweetMedia from "./media/TweetMedia";
 
 const ReplyTweets = async ({
   tweetId,

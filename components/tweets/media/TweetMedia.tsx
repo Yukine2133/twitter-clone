@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { IReply, ITweet } from "@/types/tweet.interface";
 import Image from "next/image";
-import ImageModal from "./ImageModal";
+import TweetMediaModal from "./TweetMediaModal";
 
 const TweetMedia = ({
   data,
@@ -15,13 +15,31 @@ const TweetMedia = ({
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null
   );
+  const [selectedVideoIndex, setSelectedVideoIndex] = useState<number | null>(
+    null
+  );
 
   const handleImageClick = (index: number) => {
     setSelectedImageIndex(index);
   };
 
+  const handleVideoClick = (
+    index: number,
+    event:
+      | React.MouseEvent<HTMLVideoElement, MouseEvent>
+      | React.TouchEvent<HTMLVideoElement>
+  ) => {
+    // prevent video from playing when clicked
+    event.preventDefault();
+    event.stopPropagation();
+    const video = event.currentTarget as HTMLVideoElement;
+    video.pause();
+    setSelectedVideoIndex(index);
+  };
+
   const handleCloseModal = () => {
     setSelectedImageIndex(null);
+    setSelectedVideoIndex(null);
   };
 
   const handleNextImage = () => {
@@ -37,6 +55,23 @@ const TweetMedia = ({
       setSelectedImageIndex(
         (prevIndex: any) =>
           (prevIndex - 1 + data.images.length) % data.images.length
+      );
+    }
+  };
+
+  const handleNextVideo = () => {
+    if (selectedVideoIndex !== null) {
+      setSelectedVideoIndex(
+        (prevIndex: any) => (prevIndex + 1) % data.videos.length
+      );
+    }
+  };
+
+  const handlePrevVideo = () => {
+    if (selectedVideoIndex !== null) {
+      setSelectedVideoIndex(
+        (prevIndex: any) =>
+          (prevIndex - 1 + data.videos.length) % data.videos.length
       );
     }
   };
@@ -79,27 +114,39 @@ const TweetMedia = ({
         </div>
       )}
       <div
-        className={`${neededMarginLeft && "sm:ml-12 sm:-translate-y-3"} mt-1`}
+        className={`${
+          neededMarginLeft && "sm:ml-12 sm:-translate-y-3"
+        } mt-2 md:mt-1`}
       >
         {data.videos &&
           data.videos.map((video, index) => (
             <video
               key={video}
-              className="rounded-lg h-[300px] max-w-[545px]"
+              className="rounded-lg md:h-[300px] md:max-w-[545px] cursor-pointer"
               controls
               src={video}
+              onClick={(e) => handleVideoClick(index, e)}
+              onTouchEnd={(e) => handleVideoClick(index, e)}
             />
           ))}
       </div>
 
       {selectedImageIndex !== null && (
-        <ImageModal
-          src={data.images[selectedImageIndex]}
-          alt="Selected Image"
+        <TweetMediaModal
+          srcImage={data.images[selectedImageIndex] as string}
           onClose={handleCloseModal}
           onNext={handleNextImage}
           onPrev={handlePrevImage}
           totalImages={data.images.length}
+        />
+      )}
+      {selectedVideoIndex !== null && (
+        <TweetMediaModal
+          srcVideo={data.videos[selectedVideoIndex]}
+          onClose={handleCloseModal}
+          onNext={handleNextVideo}
+          onPrev={handlePrevVideo}
+          totalVideos={data.videos.length}
         />
       )}
     </>

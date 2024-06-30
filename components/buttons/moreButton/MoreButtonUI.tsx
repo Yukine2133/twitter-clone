@@ -6,7 +6,7 @@ import Modal from "../../tweets/Modal";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import Image from "next/image";
 import { MutableRefObject, Ref } from "react";
-import MediaUploadDropZone from "@/components/tweets/MediaUploadDropZone";
+import MediaUploadDropZone from "@/components/tweets/media/MediaUploadDropZone";
 
 interface IMoreButtonUIProps {
   isOwner: true | string | undefined;
