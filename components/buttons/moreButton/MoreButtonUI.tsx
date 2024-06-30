@@ -50,7 +50,7 @@ const MoreButtonUI = ({
           <button
             ref={buttonRef}
             onClick={() => setIsOpen(!isOpen)}
-            className="rotate-90 text-gray-500 hover:text-blue-400 duration-300 transition-all relative opacity-0 group-hover:opacity-100  "
+            className="rotate-90 text-gray-500 hover:text-blue-400 duration-300 transition-all relative lg:opacity-0 group-hover:opacity-100  "
           >
             &#10247;
           </button>

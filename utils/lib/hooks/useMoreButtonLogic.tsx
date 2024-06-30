@@ -1,11 +1,7 @@
-"use client";
-
 import { deleteReply, editReply } from "@/actions/reply.actions";
 import { deleteTweet, updateTweet } from "@/actions/tweet.actions";
 import { IMoreButtonProps } from "@/types/tweet.interface";
-import { combineUsername } from "@/utils/combineUsername";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import { tweetTextSchema } from "@/utils/lib/validation";
@@ -152,6 +148,7 @@ const useMoreButtonLogic = ({
       }
     }
   };
+
   const isOwner =
     user?.id === tweet?.userId || reply?.userId || message?.sender.userId;
 
