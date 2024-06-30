@@ -60,7 +60,7 @@ const SingleTweet = ({
           {singleTweet?.text}
         </h3>
 
-        <TweetMedia data={singleTweet} />
+        <TweetMedia data={JSON.parse(JSON.stringify(singleTweet))} />
 
         <p className="text-gray-500 text-[15px] mt-2 ">
           {formatDate(singleTweet?.createdAt as Date)}

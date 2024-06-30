@@ -67,7 +67,7 @@ export const fetchTweetReplies = async (tweetId: string) => {
 
     const replies = await Reply.find({ tweetId }).sort({ createdAt: -1 }); // sort in the descending order
 
-    return replies;
+    return JSON.parse(JSON.stringify(replies));
   } catch (error) {
     console.error(error);
     return { error: "An unexpected error occurred." };
