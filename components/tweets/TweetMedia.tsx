@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { IReply, ITweet } from "@/types/tweet.interface";
 import Image from "next/image";
-import ImageModal from "./ImageModal"; // Import the ImageModal component
+import ImageModal from "./ImageModal";
 
 const TweetMedia = ({
   data,
@@ -12,14 +12,33 @@ const TweetMedia = ({
   data: ITweet | IReply;
   neededMarginLeft?: boolean;
 }) => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
+    null
+  );
 
-  const handleImageClick = (src: string) => {
-    setSelectedImage(src);
+  const handleImageClick = (index: number) => {
+    setSelectedImageIndex(index);
   };
 
   const handleCloseModal = () => {
-    setSelectedImage(null);
+    setSelectedImageIndex(null);
+  };
+
+  const handleNextImage = () => {
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex(
+        (prevIndex: any) => (prevIndex + 1) % data.images.length
+      );
+    }
+  };
+
+  const handlePrevImage = () => {
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex(
+        (prevIndex: any) =>
+          (prevIndex - 1 + data.images.length) % data.images.length
+      );
+    }
   };
 
   return (
@@ -30,23 +49,21 @@ const TweetMedia = ({
             neededMarginLeft && "sm:ml-12 sm:-translate-y-3"
           }`}
         >
-          {data.images.map((image) => (
+          {data.images.map((image, index) => (
             <Image
               key={image}
               src={image}
               alt="User Image"
               width={400}
               height={400}
-              className="object-cover  rounded-lg  cursor-pointer"
-              onClick={(event) => handleImageClick(image)}
+              className="object-cover rounded-lg cursor-pointer"
+              onClick={() => handleImageClick(index)}
             />
           ))}
         </div>
       ) : (
         <div
-          className={`${
-            neededMarginLeft && "sm:ml-12 sm:-translate-y-3 "
-          } mt-1`}
+          className={`${neededMarginLeft && "sm:ml-12 sm:-translate-y-3"} mt-1`}
         >
           {data.images.length > 0 && (
             <Image
@@ -55,8 +72,8 @@ const TweetMedia = ({
               alt="User Image"
               width={700}
               height={700}
-              className="object-cover  h-[360px] sm:w-full rounded-lg  cursor-pointer"
-              onClick={(event) => handleImageClick(data.images[0])}
+              className="object-cover h-[360px] sm:w-full rounded-lg cursor-pointer"
+              onClick={() => handleImageClick(0)}
             />
           )}
         </div>
@@ -65,21 +82,24 @@ const TweetMedia = ({
         className={`${neededMarginLeft && "sm:ml-12 sm:-translate-y-3"} mt-1`}
       >
         {data.videos &&
-          data.videos.map((video) => (
+          data.videos.map((video, index) => (
             <video
               key={video}
-              className="rounded-lg h-[300px] max-w-[545px] "
+              className="rounded-lg h-[300px] max-w-[545px]"
               controls
               src={video}
             />
           ))}
       </div>
 
-      {selectedImage && (
+      {selectedImageIndex !== null && (
         <ImageModal
-          src={selectedImage}
+          src={data.images[selectedImageIndex]}
           alt="Selected Image"
           onClose={handleCloseModal}
+          onNext={handleNextImage}
+          onPrev={handlePrevImage}
+          totalImages={data.images.length}
         />
       )}
     </>
