@@ -80,7 +80,7 @@ const TweetMedia = ({
     <>
       {data.images.length > 1 ? (
         <div
-          className={`columns-1 md:columns-2  gap-2 mt-1 ${
+          className={`columns-2  gap-2 mt-1 ${
             neededMarginLeft && "sm:ml-12 sm:-translate-y-3"
           }`}
         >
