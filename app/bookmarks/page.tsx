@@ -1,41 +1,28 @@
-import { fetchUser } from "@/actions/user.actions";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import TweetCard from "@/components/tweets/TweetCard";
-import { Metadata } from "next";
-import { IUser } from "@/types/user.interface";
-import { ITweet } from "@/types/tweet.interface";
-import { getUserBookmarks } from "@/actions/bookmark.actions";
-import ClientOnly from "@/components/ClientOnly";
+import { BookmarkIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
+import React from "react";
 
-export const metadata: Metadata = {
-  title: "Bookmarks",
-  description: "Tweeter Bookmarks",
-};
-
-const Bookmarks = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-  const bookmarks = await getUserBookmarks(user?.id as string);
-
-  if (bookmarks?.length === 0) {
-    return (
-      <h1 className="pt-3 text-xl">
-        You haven&apos;t added any tweets to your bookmarks.
-      </h1>
-    );
-  }
-
+const Bookmarks = () => {
   return (
-    <>
-      <h2 className="mt-2 text-lg mb-2 px-2 md:px-4">Your bookmarks</h2>
-      <ClientOnly>
-        {bookmarks?.map(async (tweet: ITweet) => {
-          const owner: IUser = await fetchUser(tweet.userId);
+    <div>
+      <div className="px-2 md:px-4 pt-2">
+        <h2 className="font-semibold text-xl ">Bookmarks</h2>
+        <span className="text-gray-500 text-sm mt-1 ">@username</span>
+      </div>
 
-          return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
-        })}
-      </ClientOnly>
-    </>
+      <div className="mt-4">
+        <Link
+          href="/bookmarks/all"
+          className="flex items-center gap-4 px-4 py-2 hover:bg-gray-600/20 transition-colors duration-300 w-full "
+        >
+          <div className="bg-blue-500 rounded-full p-[10px] relative ">
+            <BookmarkIcon className="size-6 z-10" />
+            <BookmarkIcon className="size-6 absolute top-[7px] right-1.5" />
+          </div>
+          <p>All Bookmarks</p>
+        </Link>
+      </div>
+    </div>
   );
 };
 
