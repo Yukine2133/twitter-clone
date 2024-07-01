@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import Modal from "../../tweets/Modal";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import Image from "next/image";
-import { MutableRefObject, Ref } from "react";
+import { MutableRefObject } from "react";
 import MediaUploadDropZone from "@/components/tweets/media/MediaUploadDropZone";
 
 interface IMoreButtonUIProps {
@@ -24,6 +24,8 @@ interface IMoreButtonUIProps {
   messageId: string | undefined;
   tweetImageUrls: string[];
   setTweetImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
+  tweetVideoUrls: string[];
+  setTweetVideoUrls: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const MoreButtonUI = ({
@@ -42,6 +44,8 @@ const MoreButtonUI = ({
   messageId,
   setTweetImageUrls,
   tweetImageUrls,
+  tweetVideoUrls,
+  setTweetVideoUrls,
 }: IMoreButtonUIProps) => {
   return (
     <>
@@ -50,35 +54,31 @@ const MoreButtonUI = ({
           <button
             ref={buttonRef}
             onClick={() => setIsOpen(!isOpen)}
-            className="rotate-90 text-gray-500 hover:text-blue-400 duration-300 transition-all relative lg:opacity-0 group-hover:opacity-100  "
+            className="rotate-90 text-gray-500 hover:text-blue-400 duration-300 transition-all relative lg:opacity-0 group-hover:opacity-100"
           >
             &#10247;
           </button>
           {isOpen && (
             <div
               className={`${
-                messageId ? "top-4 -left-10  " : " -top-9 right-3 "
-              } absolute p-3 z-10 bg-black   `}
+                messageId ? "top-4 -left-10" : "-top-9 right-3"
+              } absolute p-3 z-10 bg-black`}
             >
-              {isOwner && (
-                <>
-                  <button
-                    onClick={() => {
-                      setEdit(!edit);
-                      setIsOpen(false);
-                    }}
-                    className="text-blue-500 flex items-center gap-2"
-                  >
-                    <PencilIcon className="h-5 w-5" /> Edit
-                  </button>
-                  <button
-                    onClick={handleDelete}
-                    className="text-red-500 flex items-center gap-2"
-                  >
-                    <TrashIcon className="h-5 w-5" /> Delete
-                  </button>
-                </>
-              )}
+              <button
+                onClick={() => {
+                  setEdit(!edit);
+                  setIsOpen(false);
+                }}
+                className="text-blue-500 flex items-center gap-2"
+              >
+                <PencilIcon className="h-5 w-5" /> Edit
+              </button>
+              <button
+                onClick={handleDelete}
+                className="text-red-500 flex items-center gap-2"
+              >
+                <TrashIcon className="h-5 w-5" /> Delete
+              </button>
             </div>
           )}
           {edit && (
@@ -89,7 +89,7 @@ const MoreButtonUI = ({
                 maxLength={280}
                 wrap="soft"
                 onChange={(e) => setText(e.target.value)}
-                className="bg-transparent border border-gray-800 shadow-sm outline-none  rounded-md  flex justify-center w-full mx-auto p-2"
+                className="bg-transparent border border-gray-800 shadow-sm outline-none rounded-md flex justify-center w-full mx-auto p-2"
               />
               {messageId ? (
                 <>
@@ -117,30 +117,56 @@ const MoreButtonUI = ({
                 </>
               ) : (
                 <>
-                  <MediaUploadDropZone
-                    endpoint="media"
-                    setStateFunction={setTweetImageUrls}
-                    toastMsgTypeMedia="Images"
-                  />
-                  <div className="grid grid-cols-2 gap-1">
-                    {tweetImageUrls &&
-                      tweetImageUrls.map((image) => (
-                        <Image
-                          key={image}
-                          src={image}
-                          alt="Uploaded image"
-                          width={250}
-                          height={250}
-                          className="rounded-lg mx-auto mb-6"
-                        />
-                      ))}
-                  </div>
+                  {/* Check if tweetImageUrls is not empty */}
+                  {tweetImageUrls.length > 0 ? (
+                    <>
+                      <MediaUploadDropZone
+                        endpoint="media"
+                        setStateFunction={setTweetImageUrls}
+                        toastMsgTypeMedia="Images"
+                      />
+                      <div className="grid grid-cols-2 gap-1">
+                        {tweetImageUrls.map((image) => (
+                          <Image
+                            key={image}
+                            src={image}
+                            alt="Uploaded image"
+                            width={250}
+                            height={250}
+                            className="rounded-lg mx-auto mb-6"
+                          />
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <MediaUploadDropZone
+                        endpoint="video"
+                        setStateFunction={setTweetVideoUrls}
+                        toastMsgTypeMedia="Videos"
+                      />
+                      <div className="grid grid-cols-2 gap-1">
+                        {tweetVideoUrls.map((videoUrl, index) => (
+                          <div
+                            key={index}
+                            className="relative mt-4 flex justify-center items-center"
+                          >
+                            <video
+                              className="rounded-lg w-fit mt-1"
+                              controls
+                              src={videoUrl}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </>
               )}
 
               <button
                 onClick={handleSubmit}
-                className="px-3 py-2 rounded-md flex justify-center mx-auto  bg-blue-600"
+                className="px-3 py-2 rounded-md flex justify-center mx-auto bg-blue-600"
               >
                 Submit
               </button>

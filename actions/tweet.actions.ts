@@ -111,7 +111,8 @@ export const deleteTweet = async (id: string) => {
 export const updateTweet = async (
   id: string,
   text: string,
-  images: string[]
+  images?: string[],
+  videos?: string[]
 ) => {
   try {
     await connectDb();
@@ -131,6 +132,7 @@ export const updateTweet = async (
 
     existingTweet.text = text;
     existingTweet.images = images;
+    existingTweet.videos = videos;
 
     await existingTweet.save();
     revalidatePath(`/`);

@@ -34,6 +34,9 @@ const useMoreButtonLogic = ({
   const [tweetImageUrls, setTweetImageUrls] = useState<
     string[] | undefined | any
   >(reply ? reply.images : tweet?.images);
+  const [tweetVideoUrls, setTweetVideoUrls] = useState<
+    string[] | undefined | any
+  >(reply ? reply.videos : tweet?.videos);
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -91,10 +94,12 @@ const useMoreButtonLogic = ({
         if (text && text.trim().length > 0) {
           tweetTextSchema.parse(text);
         }
+
         const res = await updateTweet(
           tweetId,
           text,
-          tweetImageUrls as string[]
+          tweetImageUrls as string[],
+          tweetVideoUrls as string[]
         );
         if (res?.message) {
           toast.error(res.message);
@@ -167,6 +172,8 @@ const useMoreButtonLogic = ({
     handleSubmit,
     setTweetImageUrls,
     tweetImageUrls,
+    tweetVideoUrls,
+    setTweetVideoUrls,
   };
 };
 

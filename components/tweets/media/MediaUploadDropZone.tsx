@@ -19,26 +19,26 @@ const MediaUploadDropZone = ({
     if (res && res.length > 0) {
       setStateFunction((prevUrls: string[]) => {
         let updatedUrls = [...prevUrls];
-        const newImageUrls = res.map((file: any) => file.url);
+        const newMediaUrls = res.map((file: any) => file.url);
 
-        // If the total number of images exceeds 4, manage the replacement logic
-        if (updatedUrls.length + newImageUrls.length > 4) {
-          const excessCount = updatedUrls.length + newImageUrls.length - 4;
+        // If the total number of medias exceeds 4, manage the replacement logic
+        if (updatedUrls.length + newMediaUrls.length > 4) {
+          const excessCount = updatedUrls.length + newMediaUrls.length - 4;
 
-          // Remove the excess images from the beginning of the previous URLs
+          // Remove the excess media from the beginning of the previous URLs
           updatedUrls = updatedUrls.slice(excessCount);
 
-          // Add the new images, but only up to 4 in total
+          // Add the new media, but only up to 4 in total
           updatedUrls = [
             ...updatedUrls,
-            ...newImageUrls.slice(0, 4 - updatedUrls.length),
+            ...newMediaUrls.slice(0, 4 - updatedUrls.length),
           ];
         } else {
-          // If total number of images does not exceed 4, simply add the new images
-          updatedUrls = [...updatedUrls, ...newImageUrls];
+          // If total number of media does not exceed 4, simply add the new media
+          updatedUrls = [...updatedUrls, ...newMediaUrls];
         }
 
-        // Ensure the updated URLs array contains no more than 4 images
+        // Ensure the updated URLs array contains no more than 4 media
         if (updatedUrls.length > 4) {
           updatedUrls = updatedUrls.slice(-4);
         }
