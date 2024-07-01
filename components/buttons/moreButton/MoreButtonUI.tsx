@@ -7,6 +7,10 @@ import ReactTextareaAutosize from "react-textarea-autosize";
 import Image from "next/image";
 import { MutableRefObject } from "react";
 import MediaUploadDropZone from "@/components/tweets/media/MediaUploadDropZone";
+import MoreButtonMediaUpload from "./MoreButtonTweetMediaUpload";
+import MessageMediaUpload from "./MoreButtonMessageMediaUpload";
+import TweetMediaUpload from "./MoreButtonTweetMediaUpload";
+import MoreButtonMessageMediaUpload from "./MoreButtonMessageMediaUpload";
 
 interface IMoreButtonUIProps {
   isOwner: true | string | undefined;
@@ -91,77 +95,19 @@ const MoreButtonUI = ({
                 onChange={(e) => setText(e.target.value)}
                 className="bg-transparent border border-gray-800 shadow-sm outline-none rounded-md flex justify-center w-full mx-auto p-2"
               />
+
               {messageId ? (
-                <>
-                  <UploadDropzone
-                    endpoint={"messageMedia"}
-                    onClientUploadComplete={(res) => {
-                      if (res?.[0].url) {
-                        setImageUrl(res[0].url);
-                        toast.success("Image was added successfully.");
-                      }
-                    }}
-                    onUploadError={(error: Error) => {
-                      toast.error(String(error));
-                    }}
-                  />
-                  {imageUrl && (
-                    <Image
-                      src={imageUrl}
-                      alt="Uploaded image"
-                      width={250}
-                      height={250}
-                      className="rounded-lg mx-auto mb-6"
-                    />
-                  )}
-                </>
+                <MoreButtonMessageMediaUpload
+                  imageUrl={imageUrl}
+                  setImageUrl={setImageUrl}
+                />
               ) : (
-                <>
-                  {/* Check if tweetImageUrls is not empty */}
-                  {tweetImageUrls.length > 0 ? (
-                    <>
-                      <MediaUploadDropZone
-                        endpoint="media"
-                        setStateFunction={setTweetImageUrls}
-                        toastMsgTypeMedia="Images"
-                      />
-                      <div className="grid grid-cols-2 gap-1">
-                        {tweetImageUrls.map((image) => (
-                          <Image
-                            key={image}
-                            src={image}
-                            alt="Uploaded image"
-                            width={250}
-                            height={250}
-                            className="rounded-lg mx-auto mb-6"
-                          />
-                        ))}
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <MediaUploadDropZone
-                        endpoint="video"
-                        setStateFunction={setTweetVideoUrls}
-                        toastMsgTypeMedia="Videos"
-                      />
-                      <div className="grid grid-cols-2 gap-1">
-                        {tweetVideoUrls.map((videoUrl, index) => (
-                          <div
-                            key={index}
-                            className="relative mt-4 flex justify-center items-center"
-                          >
-                            <video
-                              className="rounded-lg w-fit mt-1"
-                              controls
-                              src={videoUrl}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </>
-                  )}
-                </>
+                <MoreButtonMediaUpload
+                  tweetImageUrls={tweetImageUrls}
+                  setTweetImageUrls={setTweetImageUrls}
+                  tweetVideoUrls={tweetVideoUrls}
+                  setTweetVideoUrls={setTweetVideoUrls}
+                />
               )}
 
               <button

@@ -19,7 +19,7 @@ const AutoScrollMessages = ({ children }: { children: ReactNode }) => {
   return (
     <div
       ref={messagesContainer}
-      className="mt-20 max-h-[780px] remove-scrollbar overflow-y-auto"
+      className="mt-20 max-h-[800px] remove-scrollbar overflow-y-auto"
     >
       {children}
     </div>
