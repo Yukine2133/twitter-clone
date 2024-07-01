@@ -80,20 +80,21 @@ const TweetMedia = ({
     <>
       {data.images.length > 1 ? (
         <div
-          className={`grid grid-cols-2 gap-1 mt-1 ${
+          className={`columns-1 md:columns-2  gap-2 mt-1 ${
             neededMarginLeft && "sm:ml-12 sm:-translate-y-3"
           }`}
         >
           {data.images.map((image, index) => (
-            <Image
-              key={image}
-              src={image}
-              alt="User Image"
-              width={400}
-              height={400}
-              className="object-cover rounded-lg cursor-pointer"
-              onClick={() => handleImageClick(index)}
-            />
+            <div key={image} className="w-full mb-[10px] break-inside-avoid">
+              <Image
+                src={image}
+                alt="User Image"
+                width={400}
+                height={400}
+                className="object-cover rounded-lg cursor-pointer"
+                onClick={() => handleImageClick(index)}
+              />
+            </div>
           ))}
         </div>
       ) : (
