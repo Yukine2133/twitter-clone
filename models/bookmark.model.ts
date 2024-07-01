@@ -8,6 +8,11 @@ const bookmarkSchema = new mongoose.Schema({
   userId: {
     type: String,
   },
+  folderId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "BookmarkFolder",
+    default: null,
+  },
 });
 
 export const Bookmark =
