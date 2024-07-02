@@ -1,14 +1,17 @@
-import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import { BookmarkIcon } from "@heroicons/react/24/solid";
+import AddBookmarkFolderButton from "@/components/buttons/AddBookmarkFolderButton";
+import { BookmarkIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import React from "react";
 
 const Bookmarks = () => {
   return (
     <div>
-      <div className="px-2 md:px-4 pt-2">
-        <h2 className="font-semibold text-xl ">Bookmarks</h2>
-        <span className="text-gray-500 text-sm mt-1 ">@username</span>
+      <div className="flex items-center justify-between px-2 md:px-4 pt-2">
+        <div className="">
+          <h2 className="font-semibold text-xl ">Bookmarks</h2>
+          <span className="text-gray-500 text-sm mt-1 ">@username</span>
+        </div>
+        <AddBookmarkFolderButton />
       </div>
 
       <div className="mt-4">

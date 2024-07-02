@@ -5,6 +5,7 @@ import { Tweet } from "../models/tweet.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 import { Bookmark } from "@/models/bookmark.model";
+import { BookmarkFolder } from "@/models/bookmarkFolder.model";
 
 export const bookMarkTweet = async (id: string) => {
   try {
@@ -70,5 +71,21 @@ export const fetchBookmarksForTweet = async (tweetId: string) => {
   } catch (error) {
     console.error(error);
     // return { error: "An unexpected error occurred." };
+  }
+};
+
+export const addBookmarkFolder = async (name: string) => {
+  try {
+    await connectDb();
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    const userId = user?.id;
+    await BookmarkFolder.create({
+      name,
+      userId,
+    });
+    revalidatePath("/bookmarks");
+  } catch (error) {
+    console.error(error);
   }
 };
