@@ -47,7 +47,7 @@ export const likeTweet = async (id: string) => {
 
     await existingTweet.save();
 
-    revalidatePath("/");
+    // revalidatePath("/");
   } catch (error) {
     console.error(error);
     return { error: "An unexpected error occurred." };

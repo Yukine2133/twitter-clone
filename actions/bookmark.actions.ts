@@ -37,7 +37,7 @@ export const bookMarkTweet = async (id: string) => {
       await Bookmark.create({ tweetId: id, userId: user.id });
     }
 
-    revalidatePath("/");
+    // revalidatePath("/");
   } catch (error) {
     console.error(error);
   }

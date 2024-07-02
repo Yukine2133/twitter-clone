@@ -51,7 +51,7 @@ export const saveRetweet = async (tweetId: string) => {
 
     await tweetToUpdate.save();
 
-    revalidatePath("/");
+    // revalidatePath("/");
   } catch (error) {
     throw new Error("Error saving retweet.");
   }
