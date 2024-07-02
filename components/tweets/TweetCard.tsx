@@ -16,6 +16,7 @@ import {
 } from "@/utils/lib/hooks/useFetchUserActonForTweet";
 import HoverUserInfo from "../HoverUserInfo";
 import TweetMedia from "./media/TweetMedia";
+import { getUserBookmarkFolders } from "@/actions/bookmark.actions";
 
 const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
   const { getUser } = getKindeServerSession();
@@ -26,6 +27,8 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
   const isLiked = await useFetchLikesForTweet(tweet._id, user?.id);
   const isBookmarked = await useFetchBookmarksForTweet(tweet._id, user?.id);
   const isRetweeted = await useFetchRetweetsForTweet(tweet._id, user?.id);
+
+  const userBookmarkFolders = await getUserBookmarkFolders(user?.id as string);
 
   return (
     <div className="mt-4 px-2 md:px-4 py-3 border-y border-[#2f3336] w-full relative hover:bg-[#080808] transition-colors duration-300">
@@ -95,6 +98,9 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
         owner={JSON.parse(JSON.stringify(owner))}
         tweet={JSON.parse(JSON.stringify(tweet))}
         user={currentUser!}
+        userBookmarkFolders={
+          JSON.parse(JSON.stringify(userBookmarkFolders)) as any
+        }
       />
     </div>
   );

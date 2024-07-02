@@ -100,3 +100,21 @@ export const getUserBookmarkFolders = async (userId: string) => {
     console.error(error);
   }
 };
+
+export const addBookmarkToFolder = async (
+  folderId: string,
+  tweetId: string,
+  userId: string
+) => {
+  try {
+    await connectDb();
+    const bookmark: any = await Bookmark.findOne({ tweetId, userId });
+
+    const folder = await BookmarkFolder.findById(folderId);
+
+    folder.bookmarks.push(bookmark._id);
+    await folder.save();
+  } catch (error) {
+    console.error(error);
+  }
+};

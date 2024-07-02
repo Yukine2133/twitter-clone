@@ -6,7 +6,7 @@ import React from "react";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { fetchUser } from "@/actions/user.actions";
 
-const colors = [
+export const colors = [
   "bg-purple-500",
   "bg-green-500",
   "bg-yellow-500",

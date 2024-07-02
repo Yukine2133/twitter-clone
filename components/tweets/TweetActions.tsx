@@ -11,9 +11,12 @@ import {
   BookmarkIcon,
   ChatBubbleOvalLeftIcon,
   HeartIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import * as solid from "@heroicons/react/24/solid";
 import useTweetActions from "@/utils/lib/hooks/useTweetActions";
+import { colors } from "@/app/bookmarks/page";
+import { addBookmarkToFolder } from "@/actions/bookmark.actions";
 
 interface TweetActionsProps extends ITweetProps {
   isBookmarked: boolean;
@@ -21,6 +24,7 @@ interface TweetActionsProps extends ITweetProps {
   id: string;
   user: any;
   isRetweeted: boolean;
+  userBookmarkFolders: any;
 }
 
 const TweetActions = ({
@@ -31,10 +35,13 @@ const TweetActions = ({
   owner,
   tweet,
   user,
+  userBookmarkFolders,
 }: TweetActionsProps) => {
   const SolidHeartIcon = solid.HeartIcon;
   const SolidBookmarkIcon = solid.BookmarkIcon;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBookmarkFolderModalOpen, setIsBookmarkFolderModalOpen] =
+    useState(false);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -43,6 +50,8 @@ const TweetActions = ({
   const {
     addLike,
     addBookmark,
+    userHasBookmarked,
+    setUserHasBookmarked,
     addRetweet,
     likeCount,
     localIsLiked,
@@ -58,6 +67,14 @@ const TweetActions = ({
   });
 
   const repliesCount = tweet.replies.length;
+
+  const handleClick = async (folderId: string) => {
+    try {
+      await addBookmarkToFolder(folderId, id, user.userId);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="flex mt-2 justify-between px-8 gap-8">
@@ -144,6 +161,54 @@ const TweetActions = ({
             Replying to <span className="font-bold">{owner.username}</span>
           </h4>
           <TweetForm user={user} id={id} toggleModal={toggleModal} />
+        </Modal>
+      )}
+      {userHasBookmarked && (
+        <div className="fixed bottom-10 transform translate-x-20 z-10">
+          <div className="bg-blue-500 px-4 py-2 rounded-md z-10 flex gap-2">
+            <h2>Added to your bookmarks. </h2>
+            <button
+              onClick={() => {
+                setIsBookmarkFolderModalOpen(!isBookmarkFolderModalOpen);
+                setUserHasBookmarked(false);
+              }}
+              className="hover:underline font-medium"
+            >
+              Add to folder
+            </button>
+          </div>
+        </div>
+      )}
+      {isBookmarkFolderModalOpen && (
+        <Modal
+          className="md:p-4"
+          isModalOpen={isBookmarkFolderModalOpen}
+          toggleModal={() => setIsBookmarkFolderModalOpen(false)}
+        >
+          {userBookmarkFolders?.map((folder: any) => {
+            return (
+              <div key={folder._id}>
+                <div className="flex items-center gap-6">
+                  <XMarkIcon
+                    onClick={() => setIsBookmarkFolderModalOpen(false)}
+                    className="size-6 cursor-pointer"
+                  />
+                  <h5 className="font-semibold text-xl">Add to Folder</h5>
+                </div>
+                <button
+                  onClick={() => handleClick(folder._id)}
+                  className="flex items-center justify-between gap-4 px-4 py-3 hover:bg-gray-600/20 transition-colors duration-300 w-full mt-4"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className={` rounded-full p-[10px]`}>
+                      <BookmarkIcon className="size-6 z-10" />
+                    </div>
+                    <p>{folder.name}</p>
+                  </div>
+                </button>
+              </div>
+            );
+          })}
         </Modal>
       )}
     </div>
