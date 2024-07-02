@@ -46,10 +46,10 @@ const ProfileData = ({
 }: ProfileDataProps) => {
   return (
     <div>
-      <div className="mb-2 flex items-center px-2 md:px-4">
+      <div className="mb-2 flex items-center px-2 md:px-4 mt-2">
         <GoBackButton />
         <div className="pl-6">
-          <h3 className="font-semibold text-lg mt-1">{user.displayName}</h3>
+          <h3 className="font-semibold text-lg ">{user.displayName}</h3>
           {/* <h4 className="text-slate-500 text-sm">{tweets.length} Tweets</h4> */}
         </div>
       </div>
