@@ -89,3 +89,14 @@ export const addBookmarkFolder = async (name: string) => {
     console.error(error);
   }
 };
+
+export const getUserBookmarkFolders = async (userId: string) => {
+  try {
+    await connectDb();
+
+    const folders = await BookmarkFolder.find({ userId });
+    return folders;
+  } catch (error) {
+    console.error(error);
+  }
+};

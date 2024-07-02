@@ -21,6 +21,9 @@ const AddBookmarkFolderButton = () => {
       toast.success("Folder was created successfully.");
     } catch (error) {
       console.error(error);
+    } finally {
+      setName("");
+      toggleModal();
     }
   };
   return (
