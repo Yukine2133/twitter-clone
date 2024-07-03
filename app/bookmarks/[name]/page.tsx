@@ -1,9 +1,6 @@
 import { getBookmarksFromFolder } from "@/actions/bookmark.actions";
-import { fetchUser } from "@/actions/user.actions";
 import ClientOnly from "@/components/ClientOnly";
 import TweetCard from "@/components/tweets/TweetCard";
-import { ITweet } from "@/types/tweet.interface";
-import { IUser } from "@/types/user.interface";
 import React from "react";
 
 const BookmarkFolder = async ({
@@ -20,11 +17,11 @@ const BookmarkFolder = async ({
     <div>
       <ClientOnly>
         {bookmarksFromFolder.map((bookmark: any) =>
-          bookmark.bookmarks.map((jopa: any) => (
+          bookmark.bookmarks.map((tweet: any) => (
             <TweetCard
-              key={jopa._id}
-              tweet={jopa.tweetId}
-              owner={jopa.tweetId.user}
+              key={tweet._id}
+              tweet={tweet.tweetId}
+              owner={tweet.tweetId.user}
             />
           ))
         )}

@@ -53,13 +53,21 @@ export const getUserBookmarks = async (userId: string) => {
     await connectDb();
     const userBookmarks = await Bookmark.find({ userId })
       .sort({ createdAt: -1 })
-      .populate("tweetId");
+      .populate({
+        path: "tweetId",
+        populate: {
+          path: "user",
+          model: "Users",
+        },
+      });
 
     if (!userBookmarks) {
       return null;
     }
 
-    return userBookmarks.map((bookmark) => bookmark.tweetId);
+    return JSON.parse(
+      JSON.stringify(userBookmarks.map((bookmark) => bookmark.tweetId))
+    );
   } catch (error) {
     console.error(error);
   }

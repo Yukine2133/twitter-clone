@@ -1,8 +1,6 @@
 import { searchTweets } from "@/actions/tweet.actions";
-import { fetchUser } from "@/actions/user.actions";
 import TweetCard from "@/components/tweets/TweetCard";
 import SearchResults from "@/components/search/SearchResults";
-import { IUser } from "@/types/user.interface";
 import { ITweet } from "@/types/tweet.interface";
 
 export const generateMetadata = async ({
@@ -27,8 +25,7 @@ const SearchPage = async ({
   const tweets = await searchTweets(query);
 
   const renderTweetResult = async (tweet: ITweet) => {
-    const owner: IUser = await fetchUser(tweet.userId);
-    return <TweetCard tweet={tweet} owner={owner} key={tweet._id} />;
+    return <TweetCard tweet={tweet} owner={tweet.user} key={tweet._id} />;
   };
 
   return (

@@ -3,7 +3,6 @@ import { fetchTweets } from "@/actions/tweet.actions";
 import { fetchUser } from "@/actions/user.actions";
 import TweetCard from "@/components/tweets/TweetCard";
 import TweetForm from "@/components/tweets/tweetForm/TweetForm";
-import { IUser } from "@/types/user.interface";
 import { ITweet } from "@/types/tweet.interface";
 import ClientOnly from "../components/ClientOnly";
 
@@ -21,13 +20,11 @@ export default async function Home() {
       <ClientOnly>
         <div className="h-[820px] overflow-y-auto remove-scrollbar">
           {tweets &&
-            tweets?.map(async (tweet: ITweet | any) => {
-              const owner: IUser = await fetchUser(tweet.userId);
-
+            tweets?.map((tweet: ITweet | any) => {
               return (
                 <TweetCard
                   tweet={JSON.parse(JSON.stringify(tweet))}
-                  owner={owner}
+                  owner={tweet.user}
                   key={tweet._id}
                 />
               );

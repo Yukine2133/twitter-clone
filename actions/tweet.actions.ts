@@ -146,9 +146,9 @@ export const searchTweets = async (q: string | null) => {
     await connectDb();
     const tweets = await Tweet.find({
       text: { $regex: new RegExp(q || "", "i") },
-    });
+    }).populate("user");
 
-    return tweets;
+    return JSON.parse(JSON.stringify(tweets));
   } catch (error) {
     console.error(error);
   }

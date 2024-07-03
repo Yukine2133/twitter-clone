@@ -1,6 +1,5 @@
 import Image from "next/image";
 import TweetCard from "@/components/tweets/TweetCard";
-
 import GoBackButton from "@/components/buttons/GoBackButton";
 import FollowButton from "@/components/buttons/FollowButton";
 import Follow from "@/components/follow/Follow";
@@ -13,7 +12,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { formatJoinedDate } from "@/utils/formatTimestamp";
 import { IUser } from "@/types/user.interface";
-import { fetchUser } from "@/actions/user.actions";
 import Link from "next/link";
 import ClientOnly from "../ClientOnly";
 
