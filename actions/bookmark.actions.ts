@@ -123,3 +123,31 @@ export const addBookmarkToFolder = async (
     console.error(error);
   }
 };
+
+export const getBookmarksFromFolder = async (name: string) => {
+  try {
+    await connectDb();
+
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+
+    const bookmarksFromFolder = await BookmarkFolder.find({
+      userId: user?.id,
+      name,
+    }).populate({
+      path: "bookmarks",
+      populate: {
+        path: "tweetId",
+        model: "Tweet",
+        populate: {
+          path: "user",
+          model: "Users",
+        },
+      },
+    });
+    return JSON.parse(JSON.stringify(bookmarksFromFolder));
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

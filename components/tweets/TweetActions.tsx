@@ -185,30 +185,32 @@ const TweetActions = ({
           isModalOpen={isBookmarkFolderModalOpen}
           toggleModal={() => setIsBookmarkFolderModalOpen(false)}
         >
-          {userBookmarkFolders?.map((folder: any) => {
-            return (
-              <div key={folder._id}>
-                <div className="flex items-center gap-6">
-                  <XMarkIcon
-                    onClick={() => setIsBookmarkFolderModalOpen(false)}
-                    className="size-6 cursor-pointer"
-                  />
-                  <h5 className="font-semibold text-xl">Add to Folder</h5>
-                </div>
-                <button
-                  onClick={() => handleClick(folder._id)}
-                  className="flex items-center justify-between gap-4 px-4 py-3 hover:bg-gray-600/20 transition-colors duration-300 w-full mt-4"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className={` rounded-full p-[10px]`}>
-                      <BookmarkIcon className="size-6 z-10" />
+          <div className="">
+            <div className="flex items-center gap-6 mb-4">
+              <XMarkIcon
+                onClick={() => setIsBookmarkFolderModalOpen(false)}
+                className="size-6 cursor-pointer"
+              />
+              <h5 className="font-semibold text-xl">Add to Folder</h5>
+            </div>
+            {userBookmarkFolders?.map((folder: any) => {
+              return (
+                <div key={folder._id}>
+                  <button
+                    onClick={() => handleClick(folder._id)}
+                    className="flex items-center justify-between gap-4 px-4 py-3 hover:bg-gray-600/20 transition-colors duration-300 w-full"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className={` rounded-full p-[10px]`}>
+                        <BookmarkIcon className="size-6 z-10" />
+                      </div>
+                      <p>{folder.name}</p>
                     </div>
-                    <p>{folder.name}</p>
-                  </div>
-                </button>
-              </div>
-            );
-          })}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
         </Modal>
       )}
     </div>
