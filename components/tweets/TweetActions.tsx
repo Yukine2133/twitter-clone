@@ -50,8 +50,8 @@ const TweetActions = ({
   const {
     addLike,
     addBookmark,
-    userHasBookmarked,
-    setUserHasBookmarked,
+    showBookmarkNotification,
+    setShowBookmarkNotification,
     addRetweet,
     likeCount,
     localIsLiked,
@@ -163,14 +163,14 @@ const TweetActions = ({
           <TweetForm user={user} id={id} toggleModal={toggleModal} />
         </Modal>
       )}
-      {userHasBookmarked && (
+      {showBookmarkNotification && localIsBookmarked && (
         <div className="fixed bottom-10 transform translate-x-20 z-10">
           <div className="bg-blue-500 px-4 py-2 rounded-md z-10 flex gap-2">
             <h2>Added to your bookmarks. </h2>
             <button
               onClick={() => {
                 setIsBookmarkFolderModalOpen(!isBookmarkFolderModalOpen);
-                setUserHasBookmarked(false);
+                setShowBookmarkNotification(false);
               }}
               className="hover:underline font-medium"
             >

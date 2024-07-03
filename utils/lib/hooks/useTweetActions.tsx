@@ -27,7 +27,8 @@ const useTweetActions = ({
 
   const [localIsBookmarked, setLocalIsBookmarked] =
     useState(initialIsBookmarked);
-  const [userHasBookmarked, setUserHasBookmarked] = useState(false);
+  const [showBookmarkNotification, setShowBookmarkNotification] =
+    useState(false);
 
   useEffect(() => {
     setLocalIsLiked(initialIsLiked);
@@ -51,8 +52,12 @@ const useTweetActions = ({
       if (res?.message) {
         toast.error(res.message);
         setLocalIsBookmarked((prev) => !prev);
+      } else {
+        setShowBookmarkNotification(true);
+        setTimeout(() => {
+          setShowBookmarkNotification(false);
+        }, 3000);
       }
-      setUserHasBookmarked(true);
     } catch (error) {
       setLocalIsBookmarked((prev) => !prev);
       console.error("Error adding bookmark:", error);
@@ -105,8 +110,8 @@ const useTweetActions = ({
     retweetCount,
     localIsRetweeted,
     localIsBookmarked,
-    userHasBookmarked,
-    setUserHasBookmarked,
+    showBookmarkNotification,
+    setShowBookmarkNotification,
   };
 };
 
