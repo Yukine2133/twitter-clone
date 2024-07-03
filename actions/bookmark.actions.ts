@@ -32,6 +32,11 @@ export const bookMarkTweet = async (id: string) => {
     if (existingBookmark) {
       // If the user has already bookmarked the tweet, remove their bookmark
       await Bookmark.deleteOne({ _id: existingBookmark._id });
+      const bookmarkFolder = await BookmarkFolder.findOne({ userId: user.id });
+      if (bookmarkFolder) {
+        bookmarkFolder.bookmarks.pull(existingBookmark._id);
+        await bookmarkFolder.save();
+      }
     } else {
       // If the user has not bookmarked the tweet, add their bookmark
       await Bookmark.create({ tweetId: id, userId: user.id });
