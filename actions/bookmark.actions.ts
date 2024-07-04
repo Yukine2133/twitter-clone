@@ -127,6 +127,7 @@ export const addBookmarkToFolder = async (
 
     folder.bookmarks.push(bookmark._id);
     await folder.save();
+    revalidatePath("/bookmarks");
   } catch (error) {
     console.error(error);
   }

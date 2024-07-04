@@ -15,8 +15,8 @@ import {
 } from "@heroicons/react/24/outline";
 import * as solid from "@heroicons/react/24/solid";
 import useTweetActions from "@/utils/lib/hooks/useTweetActions";
-import { colors } from "@/app/bookmarks/page";
 import { addBookmarkToFolder } from "@/actions/bookmark.actions";
+import { colors } from "@/utils/colors";
 
 interface TweetActionsProps extends ITweetProps {
   isBookmarked: boolean;
@@ -70,7 +70,8 @@ const TweetActions = ({
 
   const handleClick = async (folderId: string) => {
     try {
-      await addBookmarkToFolder(folderId, id, user.userId);
+      const folder = await addBookmarkToFolder(folderId, id, user.userId);
+      setIsBookmarkFolderModalOpen(false);
     } catch (error) {
       console.error(error);
     }
@@ -193,7 +194,8 @@ const TweetActions = ({
               />
               <h5 className="font-semibold text-xl">Add to Folder</h5>
             </div>
-            {userBookmarkFolders?.map((folder: any) => {
+            {userBookmarkFolders?.map((folder: any, index: number) => {
+              const colorClass = colors[index % colors.length];
               return (
                 <div key={folder._id}>
                   <button
@@ -201,8 +203,8 @@ const TweetActions = ({
                     className="flex items-center justify-between gap-4 px-4 py-3 hover:bg-gray-600/20 transition-colors duration-300 w-full"
                   >
                     <div className="flex items-center gap-4">
-                      <div className={` rounded-full p-[10px]`}>
-                        <BookmarkIcon className="size-6 z-10" />
+                      <div className={`${colorClass} rounded-full p-[10px]`}>
+                        <SolidBookmarkIcon className="size-6 z-10" />
                       </div>
                       <p>{folder.name}</p>
                     </div>
