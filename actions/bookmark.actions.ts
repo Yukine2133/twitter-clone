@@ -159,3 +159,13 @@ export const getBookmarksFromFolder = async (name: string) => {
     throw error;
   }
 };
+
+export const deleteBookmarkFolder = async (name: string) => {
+  try {
+    await BookmarkFolder.deleteOne({ name });
+    revalidatePath("/bookmarks");
+  } catch (error) {
+    console.error;
+    throw error;
+  }
+};

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { MutableRefObject, useEffect } from "react";
 
 const useClickOutside = (
   isOpen: boolean,
@@ -45,3 +45,25 @@ const useClickOutside = (
 };
 
 export default useClickOutside;
+
+export const useMoreButtonClickOutside = (
+  buttonRef: MutableRefObject<HTMLButtonElement | null>,
+  setIsOpen: (arg0: boolean) => void
+) => {
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [buttonRef, setIsOpen]);
+};

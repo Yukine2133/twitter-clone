@@ -1,15 +1,9 @@
 "use client";
-import { UploadDropzone } from "@/utils/lib/uploadthing";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { toast } from "react-toastify";
 import Modal from "../../tweets/Modal";
 import ReactTextareaAutosize from "react-textarea-autosize";
-import Image from "next/image";
 import { MutableRefObject } from "react";
-import MediaUploadDropZone from "@/components/tweets/media/MediaUploadDropZone";
 import MoreButtonMediaUpload from "./MoreButtonTweetMediaUpload";
-import MessageMediaUpload from "./MoreButtonMessageMediaUpload";
-import TweetMediaUpload from "./MoreButtonTweetMediaUpload";
 import MoreButtonMessageMediaUpload from "./MoreButtonMessageMediaUpload";
 
 interface IMoreButtonUIProps {

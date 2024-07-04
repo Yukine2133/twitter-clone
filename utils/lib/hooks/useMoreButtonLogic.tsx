@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { tweetTextSchema } from "@/utils/lib/validation";
 import { z } from "zod";
 import { deleteMessage, editMessage } from "@/actions/message.actions";
+import { useMoreButtonClickOutside } from "./useClickOutisde";
 
 const useMoreButtonLogic = ({
   id,
@@ -42,22 +43,7 @@ const useMoreButtonLogic = ({
 
   const { user } = useKindeBrowserClient();
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        buttonRef.current &&
-        !buttonRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
+  useMoreButtonClickOutside(buttonRef, setIsOpen);
 
   const handleEdit = async (tweetId: string, text: string) => {
     try {

@@ -1,4 +1,6 @@
 import { getBookmarksFromFolder } from "@/actions/bookmark.actions";
+import GoBackButton from "@/components/buttons/GoBackButton";
+import MoreButtonBookmarkFolder from "@/components/buttons/moreButton/MoreButtonBookmarkFolder";
 import ClientOnly from "@/components/ClientOnly";
 import TweetCard from "@/components/tweets/TweetCard";
 import React from "react";
@@ -15,6 +17,13 @@ const BookmarkFolder = async ({
   const bookmarksFromFolder: any = await getBookmarksFromFolder(name);
   return (
     <div>
+      <div className="flex items-center justify-between px-4 mt-2">
+        <div className="flex gap-4 items-center  ">
+          <GoBackButton />
+          <h2 className="font-semibold text-xl">{name}</h2>
+        </div>
+        <MoreButtonBookmarkFolder name={name} />
+      </div>
       <ClientOnly>
         {bookmarksFromFolder.map((bookmark: any) =>
           bookmark.bookmarks.map((tweet: any) => (
