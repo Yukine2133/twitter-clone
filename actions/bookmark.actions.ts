@@ -162,8 +162,25 @@ export const getBookmarksFromFolder = async (name: string) => {
 
 export const deleteBookmarkFolder = async (name: string) => {
   try {
+    await connectDb();
     await BookmarkFolder.deleteOne({ name });
     revalidatePath("/bookmarks");
+  } catch (error) {
+    console.error;
+    throw error;
+  }
+};
+
+export const editBookmarkFolder = async (folderName: string, name: string) => {
+  try {
+    await connectDb();
+    const folder = await BookmarkFolder.findOne({ name: folderName });
+
+    console.log(folder);
+
+    folder.name = name;
+    await folder.save();
+    revalidatePath(`/bookmarks/${name}`);
   } catch (error) {
     console.error;
     throw error;

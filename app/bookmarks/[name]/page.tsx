@@ -19,7 +19,7 @@ const BookmarkFolder = async ({
     <div>
       <div className="flex items-center justify-between px-4 mt-2">
         <div className="flex gap-4 items-center  ">
-          <GoBackButton />
+          <GoBackButton route={"/bookmarks"} />
           <h2 className="font-semibold text-xl">{name}</h2>
         </div>
         <MoreButtonBookmarkFolder name={name} />

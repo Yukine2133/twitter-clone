@@ -5,10 +5,12 @@ import { useMoreButtonClickOutside } from "@/utils/lib/hooks/useClickOutisde";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import AddOrEditBookmarkFolderButton from "../AddOrEditBookmarkFolderButton";
 
 const MoreButtonBookmarkFolder = ({ name }: { name: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const [edit, setEdit] = useState(false);
 
   const router = useRouter();
 
@@ -39,10 +41,10 @@ const MoreButtonBookmarkFolder = ({ name }: { name: string }) => {
                absolute p-3 z-10 bg-black"
         >
           <button
-            // onClick={() => {
-            //   setEdit(!edit);
-            //   setIsOpen(false);
-            // }}
+            onClick={() => {
+              setEdit(!edit);
+              setIsOpen(false);
+            }}
             className="text-blue-500 flex items-center gap-2"
           >
             <PencilIcon className="h-5 w-5" /> Edit
@@ -54,6 +56,13 @@ const MoreButtonBookmarkFolder = ({ name }: { name: string }) => {
             <TrashIcon className="h-5 w-5" /> Delete
           </button>
         </div>
+      )}
+      {edit && (
+        <AddOrEditBookmarkFolderButton
+          edit={edit}
+          setEdit={setEdit}
+          folderName={name}
+        />
       )}
     </div>
   );

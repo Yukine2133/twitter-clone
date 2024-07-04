@@ -3,10 +3,14 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
 
-const GoBackButton = () => {
+const GoBackButton = ({ route }: { route?: string }) => {
   const router = useRouter();
+
+  const handleClick = () => {
+    route ? router.push(route) : router.back();
+  };
   return (
-    <button onClick={() => router.back()} className="text-lg">
+    <button onClick={handleClick} className="text-lg">
       <ArrowLeftIcon className="size-5" />
     </button>
   );

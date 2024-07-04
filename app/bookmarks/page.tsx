@@ -1,10 +1,10 @@
 import { getUserBookmarkFolders } from "@/actions/bookmark.actions";
-import AddBookmarkFolderButton from "@/components/buttons/AddBookmarkFolderButton";
 import { BookmarkIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import React from "react";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { fetchUser } from "@/actions/user.actions";
+import AddOrEditBookmarkFolderButton from "@/components/buttons/AddOrEditBookmarkFolderButton";
 
 export const colors = [
   "bg-purple-500",
@@ -42,7 +42,7 @@ const Bookmarks = async () => {
             @{currentUser?.username}
           </span>
         </div>
-        <AddBookmarkFolderButton />
+        <AddOrEditBookmarkFolderButton />
       </div>
 
       <div className="mt-4">
