@@ -12,7 +12,7 @@ const BookmarkFolder = async ({
     name: string;
   };
 }) => {
-  const name = params.name;
+  const name = params.name.replace(/-/g, " ");
 
   const bookmarksFromFolder: any = await getBookmarksFromFolder(name);
   return (
