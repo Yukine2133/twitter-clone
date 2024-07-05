@@ -24,7 +24,7 @@ const LeftSideBar = () => {
       <div className="mt-10  max-[799px]:hidden max-[799px]:mt-0    ">
         <div className="flex w-full flex-col space-y-4  gap-6 px-6">
           {sidebarLinks.map((link) => {
-            let { Icon, SolidIcon, disabled, route } = link;
+            let { Icon, SolidIcon, route } = link;
             const isActive =
               (pathname.includes(route) && route.length > 1) ||
               pathname === route;
@@ -34,9 +34,9 @@ const LeftSideBar = () => {
               <Link
                 href={link.route}
                 key={link.label}
-                className={`flex items-center text-xl gap-3 ${
-                  disabled && "cursor-not-allowed"
-                } ${isActive && "font-bold"}`}
+                className={`flex items-center text-xl gap-3  ${
+                  isActive && "font-bold"
+                }`}
               >
                 {isActive ? (
                   <SolidIcon className="h-7 w-7" />

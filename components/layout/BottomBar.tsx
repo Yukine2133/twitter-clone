@@ -16,7 +16,7 @@ const BottomBar = () => {
     <div className="fixed z-10 bg-black  px-4 border-t border-[#2f3336] w-full min-[800px]:hidden bottom-0 left-0 ">
       <div className="flex justify-between w-full p-1 items-center  sm:pl-6">
         {sidebarLinks.map((link) => {
-          let { Icon, SolidIcon, disabled, route } = link;
+          let { Icon, SolidIcon, route } = link;
 
           const isActive =
             (pathname.includes(route) && route.length > 1) ||
@@ -31,10 +31,10 @@ const BottomBar = () => {
               className={`flex items-center  `}
             >
               {/* If is active render Solid Icons */}
-              {isActive && !disabled && <SolidIcon className="h-7 w-7" />}
+              {isActive && <SolidIcon className="h-7 w-7" />}
 
-              {/* If not active and not disabled render Outlined Icons */}
-              {!isActive && !disabled && <Icon className="h-7 w-7" />}
+              {/* If not active render Outlined Icons */}
+              {!isActive && <Icon className="h-7 w-7" />}
             </Link>
           );
         })}

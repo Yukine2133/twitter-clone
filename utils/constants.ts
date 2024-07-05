@@ -53,7 +53,6 @@ export const sidebarLinks = [
     SolidIcon: SolidBars3BottomLeftIcon,
     route: "/lists",
     label: "Lists",
-    disabled: true,
   },
   {
     Icon: UserCircleIcon,
