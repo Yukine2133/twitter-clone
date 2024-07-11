@@ -36,7 +36,7 @@ const MessageWithTheUser = async ({
 
   return (
     <div className="mb-20">
-      <div className=" bg-black px-2 md:px-4 border-b pb-2 border-[#2f3336] w-[620px] fixed top-0 z-10  pt-4 flex items-center gap-3">
+      <div className=" bg-black px-2 md:px-4 border-b pb-2 border-[#2f3336] w-[640px] fixed top-0 z-10  pt-4 flex items-center gap-3">
         <GoBackButton />
 
         <Link

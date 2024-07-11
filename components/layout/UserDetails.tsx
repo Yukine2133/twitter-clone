@@ -10,7 +10,7 @@ const UserDetails = async () => {
 
   const currentUser = await fetchUser(user?.id);
   return (
-    <div className="hidden min-[800px]:flex flex-col lg:flex-row  px-3 transition-colors duration-150 py-1 lg:gap-3 hover:bg-[#1c1c1c] rounded-full lg:items-center fixed -translate-x-3 bottom-3">
+    <div className="hidden min-[800px]:flex flex-col lg:flex-row  px-3 transition-colors duration-150 py-1 lg:gap-3 hover:bg-[#1c1c1c] rounded-full lg:items-center fixed ml-5 -translate-x-14 lg:-translate-x-8  xl:-translate-x-3 bottom-3">
       <div className="relative flex gap-1 items-center">
         <Image
           src={currentUser?.avatar!}

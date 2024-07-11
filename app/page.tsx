@@ -18,7 +18,7 @@ export default async function Home() {
     <div className=" ">
       <TweetForm user={currentUser!} />
       <ClientOnly>
-        <div className="h-[820px] overflow-y-auto remove-scrollbar">
+        <div className="">
           {tweets &&
             tweets?.map((tweet: ITweet | any) => {
               return (

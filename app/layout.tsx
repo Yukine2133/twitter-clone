@@ -39,13 +39,13 @@ export default async function RootLayout({
           rtl={false}
           theme="dark"
         />
-        <main className="flex  gap-0 lg:gap-4  justify-center ">
+        <main className="flex  gap-0 lg:gap-4 mx-auto  justify-center ">
           <div>
             <LeftSideBar />
             <UserDetails />
           </div>
 
-          <section className="w-[648px]  border-x border-[#2f3336]  min-h-screen ">
+          <section className="w-[648px] min-[800px]:ml-24 lg:ml-[180px] xl:ml-60  border-x border-[#2f3336]  min-h-screen ">
             <div className="w-full mb-10 min-[800px]:mb-0   max-w-4xl">
               {children}
             </div>

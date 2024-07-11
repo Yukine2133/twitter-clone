@@ -18,7 +18,7 @@ const OpenEllipsisButton = () => {
   return (
     <>
       <button onClick={() => setIsEllipsisOpen(!isEllipsisOpen)}>
-        <EllipsisHorizontalIcon className="h-5 w-5" />
+        <EllipsisHorizontalIcon className="h-5 w-5 translate-x-2 lg:-translate-x-6 xl:-translate-x-0" />
       </button>
       {isEllipsisOpen && (
         <div
