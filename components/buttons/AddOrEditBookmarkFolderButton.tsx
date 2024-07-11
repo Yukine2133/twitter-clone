@@ -20,7 +20,7 @@ const AddOrEditBookmarkFolderButton = ({
   folderName?: string;
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [name, setName] = useState("");
+  const [name, setName] = useState((folderName as string) || "");
 
   const router = useRouter();
 
