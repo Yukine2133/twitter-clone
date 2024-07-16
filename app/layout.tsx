@@ -28,7 +28,9 @@ export default async function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning={true} lang="en">
-      <body className={`${poppins.className} bg-black text-white `}>
+      <body
+        className={`${poppins.className} bg-black text-white custom-scrollbar `}
+      >
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <ToastContainer
           position="bottom-right"

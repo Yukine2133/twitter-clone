@@ -5,3 +5,18 @@
 .remove-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 7px;
+  background: #1b1b1b;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #1b1b1b;
+}
