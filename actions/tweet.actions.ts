@@ -141,11 +141,21 @@ export const updateTweet = async (
   }
 };
 
-export const searchTweets = async (q: string | null) => {
+export const searchTweets = async (
+  q: string | null,
+  hashtag: boolean = false
+) => {
   try {
     await connectDb();
+    let regex;
+    if (hashtag) {
+      regex = new RegExp(`\\B#${q || ""}\\b`, "i");
+    } else {
+      regex = new RegExp(q || "", "i");
+    }
+
     const tweets = await Tweet.find({
-      text: { $regex: new RegExp(q || "", "i") },
+      text: { $regex: regex },
     }).populate("user");
 
     return JSON.parse(JSON.stringify(tweets));

@@ -17,7 +17,7 @@ const SearchInput = ({ path }: { path: string }) => {
       return;
     }
 
-    const encodedSearchQuery = encodeURI(searchQuery);
+    const encodedSearchQuery = encodeURIComponent(searchQuery);
     if (encodedSearchQuery) {
       router.push(`/${path}?q=${encodedSearchQuery}`);
     } else {

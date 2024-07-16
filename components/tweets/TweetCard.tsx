@@ -30,6 +30,19 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
 
   const userBookmarkFolders = await getUserBookmarkFolders(user?.id as string);
 
+  const renderTweetTextWithHashtags = (text: string) => {
+    return text.split(" ").map((part, index) => {
+      if (part.startsWith("#")) {
+        return (
+          <Link href={`/hashtag/${part.substring(1)}`} key={index}>
+            <span className="text-[#1b92e2]">{part} </span>
+          </Link>
+        );
+      }
+      return `${part} `;
+    });
+  };
+
   return (
     <div className="mt-4 px-2 md:px-4 py-3 border-y border-[#2f3336] w-full relative hover:bg-[#080808] transition-colors duration-300">
       <div className="group">
@@ -77,7 +90,7 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
                 className="whitespace-pre-line"
                 style={{ overflowWrap: "anywhere" }}
               >
-                {tweet.text}
+                {renderTweetTextWithHashtags(tweet.text)}
               </h3>
             </div>
           </div>

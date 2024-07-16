@@ -18,18 +18,16 @@ export default async function Home() {
     <div className=" ">
       <TweetForm user={currentUser!} />
       <ClientOnly>
-        <div className="">
-          {tweets &&
-            tweets?.map((tweet: ITweet | any) => {
-              return (
-                <TweetCard
-                  tweet={JSON.parse(JSON.stringify(tweet))}
-                  owner={tweet.user}
-                  key={tweet._id}
-                />
-              );
-            })}
-        </div>
+        {tweets &&
+          tweets?.map((tweet: ITweet | any) => {
+            return (
+              <TweetCard
+                tweet={JSON.parse(JSON.stringify(tweet))}
+                owner={tweet.user}
+                key={tweet._id}
+              />
+            );
+          })}
       </ClientOnly>
     </div>
   );
