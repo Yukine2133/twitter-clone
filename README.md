@@ -4,38 +4,29 @@ Welcome to my Twitter Clone project! This full-stack web application replicates 
 
 ## Features
 
-- **Tweets**
-  - Create, update, read, and delete tweets.
-  - Like and retweet tweets.
-  - Bookmark tweets.
-  - Attach images and videos to tweets.
-- **Replies**
-  - Create, update, read, and delete replies to tweets.
-  - Attach images and videos to replies.
-- **Profile**
-  - Update profile information.
-  - Follow and unfollow users.
-  - View the created tweets and retweets of the user in their profile.
-- **Search**
-  - Search for tweets and users.
-- **Messaging System**
-  - Send and receive direct messages.
-  - Delete and update messages.
-  - Send images in messages.
-- **Notifications**
-  - Receive notifications for likes, retweets, replies and following.
+**Tweets**: Create, update, read, and delete tweets. Users can like, retweet, and bookmark tweets, with support for attaching images and videos.
+
+**Replies**: Post, edit, read, and delete replies to tweets. Replies can also include images and videos for richer interactions.
+
+**Profile Management**: Update profile details, manage a private profile setting, add background images, and view all tweets and retweets in user profiles.
+
+**Search Functionality**: Search for tweets, users, and hashtags.
+
+**Hashtag System**: Displays trending hashtags based on tweet usage, making it easy to explore popular topics and discussions.
+
+**Direct Messaging**: Send and receive direct messages, including images. Messages can be updated or deleted.
+
+**Notifications**: Receive notifications for likes, retweets, replies, and new followers to stay up to date with all interactions.
 
 ## Technologies Used
 
-- **Next.js 14.1.4**: A React framework for server-side rendering and building static web applications.
-- **Uploading**: For uploading files such as images and vidoes.
-- **React-Toastify**: To display toast notifications.
-- **React-Textarea-Autosize**: A resizable textarea component.
-- **Zod**: For schema validation and validation error handling.
-- **Mongoose**: An ODM (Object Data Modeling) library for MongoDB and Node.js.
-- **Kinde Auth**: Authentication and authorization management.
-- **Hero Icons**: A set of free, MIT-licensed high-quality SVG icons for UI development.
-- **ChatGPT**: For natural language processing and assistance.
+- **Next.js 14.1.4**
+- **UploadThing**
+- **React-Toastify**
+- **Zod**
+- **Mongoose**
+- **Kinde Auth**
+- **Hero Icons**
 
 ## Getting Started
 
@@ -80,14 +71,3 @@ Welcome to my Twitter Clone project! This full-stack web application replicates 
    ```
 
    Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
-
-## Acknowledgements
-
-- [Next.js](https://nextjs.org/)
-- [React-Toastify](https://github.com/fkhadra/react-toastify)
-- [React-Textarea-Autosize](https://github.com/Andarist/react-textarea-autosize)
-- [Zod](https://github.com/colinhacks/zod)
-- [Mongoose](https://mongoosejs.com/)
-- [Kinde Auth](https://kinde.com/)
-- [Hero Icons](https://heroicons.com/)
-- [ChatGPT](https://openai.com/chatgpt/)
