@@ -15,6 +15,7 @@ const BookmarkFolder = async ({
   const name = params.name.replace(/-/g, " ");
 
   const bookmarksFromFolder: any = await getBookmarksFromFolder(name);
+
   return (
     <div>
       <div className="flex items-center justify-between px-4 mt-2">
@@ -24,17 +25,25 @@ const BookmarkFolder = async ({
         </div>
         <MoreButtonBookmarkFolder name={name} />
       </div>
-      <ClientOnly>
-        {bookmarksFromFolder.map((bookmark: any) =>
-          bookmark.bookmarks.map((tweet: any) => (
-            <TweetCard
-              key={tweet._id}
-              tweet={tweet.tweetId}
-              owner={tweet.tweetId.user}
-            />
-          ))
-        )}
-      </ClientOnly>
+      {bookmarksFromFolder.length === 0 ||
+      bookmarksFromFolder[0]?.bookmarks?.length === 0 ? (
+        <h3 className="p-4 text-xl">
+          <span className="font-semibold">{name}</span> does not have any
+          bookmarks.
+        </h3>
+      ) : (
+        <ClientOnly>
+          {bookmarksFromFolder.map((bookmark: any) =>
+            bookmark.bookmarks.map((tweet: any) => (
+              <TweetCard
+                key={tweet._id}
+                tweet={tweet.tweetId}
+                owner={tweet.tweetId.user}
+              />
+            ))
+          )}
+        </ClientOnly>
+      )}
     </div>
   );
 };
