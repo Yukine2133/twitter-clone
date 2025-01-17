@@ -24,7 +24,7 @@ const useTweetCard = async ({ tweetId }: { tweetId: string }) => {
       if (part.startsWith("#")) {
         return (
           <Link href={`/hashtag/${part.substring(1)}`} key={index}>
-            <span className="text-[#1b92e2]">{part} </span>
+            <span className="text-blue-500">{part} </span>
           </Link>
         );
       }
