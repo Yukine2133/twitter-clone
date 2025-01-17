@@ -2,46 +2,24 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import TweetActions from "./TweetActions";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ITweetProps } from "@/types/tweet.interface";
 import MoreButton from "../buttons/moreButton/MoreButton";
-import { fetchUser } from "@/actions/user.actions";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
 import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/outline";
 
-import {
-  useFetchLikesForTweet,
-  useFetchBookmarksForTweet,
-  useFetchRetweetsForTweet,
-} from "@/hooks/useFetchUserActonForTweet";
 import HoverUserInfo from "../HoverUserInfo";
 import TweetMedia from "./media/TweetMedia";
-import { getUserBookmarkFolders } from "@/actions/bookmark.actions";
+import useTweetCard from "@/hooks/useTweetCard";
 
 const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-
-  const currentUser = await fetchUser(user?.id);
-
-  const isLiked = await useFetchLikesForTweet(tweet._id, user?.id);
-  const isBookmarked = await useFetchBookmarksForTweet(tweet._id, user?.id);
-  const isRetweeted = await useFetchRetweetsForTweet(tweet._id, user?.id);
-
-  const userBookmarkFolders = await getUserBookmarkFolders(user?.id as string);
-
-  const renderTweetTextWithHashtags = (text: string) => {
-    return text.split(" ").map((part, index) => {
-      if (part.startsWith("#")) {
-        return (
-          <Link href={`/hashtag/${part.substring(1)}`} key={index}>
-            <span className="text-[#1b92e2]">{part} </span>
-          </Link>
-        );
-      }
-      return `${part} `;
-    });
-  };
+  const {
+    currentUser,
+    isLiked,
+    isBookmarked,
+    isRetweeted,
+    userBookmarkFolders,
+    renderTweetTextWithHashtags,
+  } = await useTweetCard({ tweetId: tweet._id });
 
   return (
     <div className="mt-4 px-2 md:px-4 py-3 border-y border-[#2f3336] w-full relative hover:bg-[#080808] transition-colors duration-300">
