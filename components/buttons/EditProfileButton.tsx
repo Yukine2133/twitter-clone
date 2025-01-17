@@ -39,7 +39,7 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
         <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>
           <form
             onSubmit={handleSubmit}
-            className="relative  text-start mt-10 sm:mt-0 "
+            className="relative h-[550px]  text-start mt-10 sm:mt-0 "
           >
             <button onClick={toggleModal} className="absolute right-0">
               <XMarkIcon className="w-5 h-5" />
@@ -52,7 +52,7 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
                     className="object-cover w-full h-48 md:h-56  mt-2 "
                     src={backgroundImage}
                     alt="Background Image"
-                    width={350}
+                    width={1200}
                     height={350}
                   />
                 ) : (

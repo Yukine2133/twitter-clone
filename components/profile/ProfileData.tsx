@@ -53,7 +53,7 @@ const ProfileData = ({
           <Image
             src={user.backgroundImage}
             alt="Background image"
-            width={300}
+            width={1200}
             height={20}
             className="w-full h-48 md:h-56  object-cover"
           />

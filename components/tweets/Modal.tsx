@@ -22,11 +22,11 @@ const Modal = ({
   return (
     <>
       {isModalOpen && (
-        <div className="fixed top-0 left-0 z-50 w-full h-full bg-[#242d34] bg-opacity-65 flex justify-center items-center overflow-y-scroll">
+        <div className="fixed custom-scrollbar top-0 left-0 z-50 w-full h-full bg-[#242d34] bg-opacity-65 flex justify-center items-center overflow-y-scroll">
           <div
             ref={ref}
             className={cn(
-              "bg-black shadow-sm w-[700px] max-h-[900px] overflow-y-auto rounded-lg mx-2 md:mx-0 p-5 md:p-8",
+              "bg-black shadow-sm custom-scrollbar w-[700px] max-h-[900px] overflow-y-auto rounded-lg mx-2 md:mx-0 p-5 md:p-8",
               className
             )}
           >
