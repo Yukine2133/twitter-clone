@@ -10,6 +10,7 @@ import MoreButton from "../buttons/moreButton/MoreButton";
 import GoBackButton from "../buttons/GoBackButton";
 import TweetMedia from "./media/TweetMedia";
 import { IBookmarkFolder } from "@/types/bookmark.interface";
+import { renderTweetTextWithHashtags } from "@/utils/formatTweetText";
 
 interface SingleTweetProps {
   owner: IUser;
@@ -60,7 +61,7 @@ const SingleTweet = ({
           className="pl-5 pt-4 mb-2 text-lg"
           style={{ overflowWrap: "anywhere" }}
         >
-          {singleTweet?.text}
+          {renderTweetTextWithHashtags(singleTweet?.text as string)}
         </h3>
 
         <TweetMedia data={JSON.parse(JSON.stringify(singleTweet))} />

@@ -6,10 +6,10 @@ import { ITweetProps } from "@/types/tweet.interface";
 import MoreButton from "../buttons/moreButton/MoreButton";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
 import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/outline";
-
 import HoverUserInfo from "../HoverUserInfo";
 import TweetMedia from "./media/TweetMedia";
 import useTweetCard from "@/hooks/useTweetCard";
+import { renderTweetTextWithHashtags } from "@/utils/formatTweetText";
 
 const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
   const {
@@ -18,7 +18,6 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
     isBookmarked,
     isRetweeted,
     userBookmarkFolders,
-    renderTweetTextWithHashtags,
   } = await useTweetCard({ tweetId: tweet._id });
 
   return (

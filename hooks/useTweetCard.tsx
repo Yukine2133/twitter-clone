@@ -19,25 +19,12 @@ const useTweetCard = async ({ tweetId }: { tweetId: string }) => {
 
   const userBookmarkFolders = await getUserBookmarkFolders(user?.id as string);
 
-  const renderTweetTextWithHashtags = (text: string) => {
-    return text.split(" ").map((part, index) => {
-      if (part.startsWith("#")) {
-        return (
-          <Link href={`/hashtag/${part.substring(1)}`} key={index}>
-            <span className="text-blue-500">{part} </span>
-          </Link>
-        );
-      }
-      return `${part} `;
-    });
-  };
   return {
     currentUser,
     isLiked,
     isBookmarked,
     isRetweeted,
     userBookmarkFolders,
-    renderTweetTextWithHashtags,
   };
 };
 
