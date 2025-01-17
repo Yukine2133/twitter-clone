@@ -33,18 +33,9 @@ const ProfilePage = async ({
     combinedPosts,
   } = await useGetProfileData(params.username);
 
-  // if (!tweets) {
-  //   return (
-  //     <h2 className="p-6 text-center text-xl">
-  //       Something went wrong. Please reload page.
-  //     </h2>
-  //   );
-  // }
-
   return (
     <ProfileData
       user={user}
-      // tweets={tweets}
       isOwner={isOwner}
       followers={followers}
       following={following}
@@ -53,7 +44,6 @@ const ProfilePage = async ({
       username={username}
       isFollowing={isFollowing}
       currentUser={currentUser}
-      // retweets={retweets}
       combinedPosts={combinedPosts}
     />
   );

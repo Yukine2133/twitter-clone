@@ -1,7 +1,7 @@
 import { fetchTweet } from "@/actions/tweet.actions";
 import useGetSingleTweet from "@/hooks/useGetSingleTweet";
 import SingleTweet from "@/components/tweets/SingleTweet";
-import { IBookmarkFolder } from "@/types/bookmark.interface";
+import { IBookmarkFolder } from "@/interfaces/bookmark.interface";
 
 export const generateMetadata = async ({
   params,

@@ -4,7 +4,6 @@ import {
   fetchUserById,
   fetchUserTweets,
 } from "@/actions/user.actions";
-import { ITweet } from "@/types/tweet.interface";
 
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 

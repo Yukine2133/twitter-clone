@@ -1,4 +1,4 @@
-import { IUserConversations } from "@/types/message.interface";
+import { IUserConversations } from "@/interfaces/message.interface";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
 import Image from "next/image";
 import Link from "next/link";

@@ -4,8 +4,8 @@ import {
 } from "@/actions/notification.actions";
 import { fetchUser } from "@/actions/user.actions";
 import NotificationCard from "@/components/notifications/NotificationCard";
-import { INotification } from "@/types/notification.interface";
-import { IUser } from "@/types/user.interface";
+import { INotification } from "@/interfaces/notification.interface";
+import { IUser } from "@/interfaces/user.interface";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 const useNotifications = async () => {

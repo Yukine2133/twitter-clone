@@ -1,7 +1,7 @@
 import { searchUsers } from "@/actions/user.actions";
 import UserCard from "@/components/search/UserCard";
 import SearchResults from "@/components/search/SearchResults";
-import { IUser } from "@/types/user.interface";
+import { IUser } from "@/interfaces/user.interface";
 
 export const generateMetadata = async ({
   searchParams,

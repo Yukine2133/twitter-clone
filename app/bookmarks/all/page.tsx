@@ -1,7 +1,7 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import TweetCard from "@/components/tweets/TweetCard";
 import { Metadata } from "next";
-import { ITweet } from "@/types/tweet.interface";
+import { ITweet } from "@/interfaces/tweet.interface";
 import { getUserBookmarks } from "@/actions/bookmark.actions";
 import ClientOnly from "@/components/ClientOnly";
 

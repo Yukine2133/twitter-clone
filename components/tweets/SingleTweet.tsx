@@ -1,5 +1,5 @@
-import { ITweet } from "@/types/tweet.interface";
-import { IUser } from "@/types/user.interface";
+import { ITweet } from "@/interfaces/tweet.interface";
+import { IUser } from "@/interfaces/user.interface";
 import ReplyTweets from "@/components/tweets/ReplyTweets";
 import TweetActions from "@/components/tweets/TweetActions";
 import Image from "next/image";
@@ -9,7 +9,7 @@ import { formatDate } from "@/utils/formatTimestamp";
 import MoreButton from "../buttons/moreButton/MoreButton";
 import GoBackButton from "../buttons/GoBackButton";
 import TweetMedia from "./media/TweetMedia";
-import { IBookmarkFolder } from "@/types/bookmark.interface";
+import { IBookmarkFolder } from "@/interfaces/bookmark.interface";
 import { renderTweetTextWithHashtags } from "@/utils/formatTweetText";
 
 interface SingleTweetProps {

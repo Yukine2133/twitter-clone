@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import TweetActions from "./TweetActions";
-import { ITweetProps } from "@/types/tweet.interface";
+import { ITweetProps } from "@/interfaces/tweet.interface";
 import MoreButton from "../buttons/moreButton/MoreButton";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
 import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/outline";

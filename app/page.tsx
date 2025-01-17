@@ -3,7 +3,7 @@ import { fetchTweets } from "@/actions/tweet.actions";
 import { fetchUser } from "@/actions/user.actions";
 import TweetCard from "@/components/tweets/TweetCard";
 import TweetForm from "@/components/tweets/tweetForm/TweetForm";
-import { ITweet } from "@/types/tweet.interface";
+import { ITweet } from "@/interfaces/tweet.interface";
 import ClientOnly from "../components/ClientOnly";
 
 export default async function Home() {

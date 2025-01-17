@@ -4,20 +4,19 @@ import GoBackButton from "@/components/buttons/GoBackButton";
 import FollowButton from "@/components/buttons/FollowButton";
 import Follow from "@/components/follow/Follow";
 import EditProfileButton from "@/components/buttons/EditProfileButton";
-import { ITweet } from "@/types/tweet.interface";
+import { ITweet } from "@/interfaces/tweet.interface";
 import {
   CalendarDaysIcon,
   EnvelopeIcon,
   MapPinIcon,
 } from "@heroicons/react/24/outline";
 import { formatJoinedDate } from "@/utils/formatTimestamp";
-import { IUser } from "@/types/user.interface";
+import { IUser } from "@/interfaces/user.interface";
 import Link from "next/link";
 import ClientOnly from "../ClientOnly";
 
 interface ProfileDataProps {
   user: IUser;
-  // tweets: ITweet[];
   isOwner: boolean;
   followers: string[];
   following: string[];
@@ -26,7 +25,6 @@ interface ProfileDataProps {
   username: string;
   isFollowing: boolean;
   currentUser: IUser;
-  // retweets: string[];
   combinedPosts: ITweet[] | [];
 }
 
@@ -48,7 +46,6 @@ const ProfileData = ({
         <GoBackButton />
         <div className="pl-6">
           <h3 className="font-semibold text-lg ">{user.displayName}</h3>
-          {/* <h4 className="text-slate-500 text-sm">{tweets.length} Tweets</h4> */}
         </div>
       </div>
       <div className="relative ">

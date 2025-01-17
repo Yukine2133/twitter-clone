@@ -1,4 +1,4 @@
-import { IUser } from "@/types/user.interface";
+import { IUser } from "@/interfaces/user.interface";
 import Image from "next/image";
 import Link from "next/link";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { IUser } from "@/types/user.interface";
+import { IUser } from "@/interfaces/user.interface";
 import React, { useState } from "react";
 import FollowModal from "./FollowModal";
 

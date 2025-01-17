@@ -1,6 +1,6 @@
 import { deleteReply, editReply } from "@/actions/reply.actions";
 import { deleteTweet, updateTweet } from "@/actions/tweet.actions";
-import { IMoreButtonProps } from "@/types/tweet.interface";
+import { IMoreButtonProps } from "@/interfaces/tweet.interface";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";

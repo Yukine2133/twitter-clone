@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { ReactNode, useState } from "react";
 import Link from "next/link";
-import { IUser } from "@/types/user.interface";
+import { IUser } from "@/interfaces/user.interface";
 
 interface IHoverUserInfoProps {
   children: ReactNode;

@@ -1,7 +1,7 @@
 import { searchTweets } from "@/actions/tweet.actions";
 import ClientOnly from "@/components/ClientOnly";
 import TweetCard from "@/components/tweets/TweetCard";
-import { ITweet } from "@/types/tweet.interface";
+import { ITweet } from "@/interfaces/tweet.interface";
 
 const HashTagPage = async ({
   params,

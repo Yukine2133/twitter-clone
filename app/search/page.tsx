@@ -1,7 +1,7 @@
 import { searchTweets } from "@/actions/tweet.actions";
 import TweetCard from "@/components/tweets/TweetCard";
 import SearchResults from "@/components/search/SearchResults";
-import { ITweet } from "@/types/tweet.interface";
+import { ITweet } from "@/interfaces/tweet.interface";
 
 export const generateMetadata = async ({
   searchParams,

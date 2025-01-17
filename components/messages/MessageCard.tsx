@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { IMessage } from "@/types/message.interface";
+import { IMessage } from "@/interfaces/message.interface";
 import { formatMessageCreatedAt } from "@/utils/formatTimestamp";
 import Image from "next/image";
 import MoreButton from "../buttons/moreButton/MoreButton";

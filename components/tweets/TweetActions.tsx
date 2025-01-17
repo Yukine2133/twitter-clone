@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ITweetProps } from "@/types/tweet.interface";
+import { ITweetProps } from "@/interfaces/tweet.interface";
 import Modal from "./Modal";
 import Image from "next/image";
 import TweetForm from "./tweetForm/TweetForm";

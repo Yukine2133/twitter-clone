@@ -6,7 +6,7 @@ import { connectDb } from "../utils/connectDb";
 import { User } from "../models/user.model";
 import { Tweet } from "../models/tweet.model";
 import { revalidatePath } from "next/cache";
-import { IUser } from "@/types/user.interface";
+import { IUser } from "@/interfaces/user.interface";
 import { createNotification } from "./notification.actions";
 
 export const fetchUser = async (

@@ -1,4 +1,4 @@
-import { IMessage } from "@/types/message.interface";
+import { IMessage } from "@/interfaces/message.interface";
 import Image from "next/image";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { getMessages } from "@/actions/message.actions";

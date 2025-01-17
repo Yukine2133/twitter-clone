@@ -1,6 +1,6 @@
 import { getUserConversations } from "@/actions/message.actions";
 import UserConversationsCard from "@/components/messages/UserConversationsCard";
-import { IUserConversations } from "@/types/message.interface";
+import { IUserConversations } from "@/interfaces/message.interface";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -1,6 +1,6 @@
 "use client";
 
-import { IMoreButtonProps } from "@/types/tweet.interface";
+import { IMoreButtonProps } from "@/interfaces/tweet.interface";
 import useMoreButtonLogic from "@/hooks/useMoreButtonLogic";
 import MoreButtonUI from "./MoreButtonUI";
 

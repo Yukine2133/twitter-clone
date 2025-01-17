@@ -1,5 +1,5 @@
-import { INotification } from "@/types/notification.interface";
-import { IUser } from "@/types/user.interface";
+import { INotification } from "@/interfaces/notification.interface";
+import { IUser } from "@/interfaces/user.interface";
 import Image from "next/image";
 import Link from "next/link";
 

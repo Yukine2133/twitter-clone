@@ -1,4 +1,4 @@
-import { IUser } from "@/types/user.interface";
+import { IUser } from "@/interfaces/user.interface";
 import React, { useRef } from "react";
 import UserCard from "../search/UserCard";
 import useClickOutside from "@/hooks/useClickOutisde";

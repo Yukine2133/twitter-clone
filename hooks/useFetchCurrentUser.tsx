@@ -3,7 +3,7 @@
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 
 import { useEffect, useState } from "react";
-import { IUser } from "@/types/user.interface";
+import { IUser } from "@/interfaces/user.interface";
 
 import { fetchUser } from "@/actions/user.actions";
 

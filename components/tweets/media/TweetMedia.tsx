@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { IReply, ITweet } from "@/types/tweet.interface";
+import { IReply, ITweet } from "@/interfaces/tweet.interface";
 import Image from "next/image";
 import TweetMediaModal from "./TweetMediaModal";
 

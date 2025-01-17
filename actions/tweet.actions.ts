@@ -4,7 +4,7 @@ import { connectDb } from "../utils/connectDb";
 import { Tweet } from "../models/tweet.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
-import { ITweet } from "@/types/tweet.interface";
+import { ITweet } from "@/interfaces/tweet.interface";
 import { Retweet } from "@/models/retweet.model";
 import { fetchUser } from "./user.actions";
 import { Notification } from "@/models/notification.model";

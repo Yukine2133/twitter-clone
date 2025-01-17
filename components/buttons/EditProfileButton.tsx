@@ -8,7 +8,7 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 import { UploadButton } from "@/utils/lib/uploadthing";
 import { updateUser } from "@/actions/user.actions";
-import { IUser } from "@/types/user.interface";
+import { IUser } from "@/interfaces/user.interface";
 import { bioSchema, locationSchema, nameSchema } from "@/utils/lib/validation";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { XMarkIcon } from "@heroicons/react/24/outline";
