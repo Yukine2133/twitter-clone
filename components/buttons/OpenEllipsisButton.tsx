@@ -1,6 +1,6 @@
 "use client";
 
-import useClickOutside from "@/utils/lib/hooks/useClickOutisde";
+import useClickOutside from "@/hooks/useClickOutisde";
 import {
   ArrowRightStartOnRectangleIcon,
   EllipsisHorizontalIcon,

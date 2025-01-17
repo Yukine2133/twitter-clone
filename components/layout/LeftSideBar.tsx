@@ -7,7 +7,7 @@ import { useState } from "react";
 import TweetForm from "../tweets/tweetForm/TweetForm";
 import Modal from "../tweets/Modal";
 import { PencilIcon } from "@heroicons/react/24/outline";
-import useFetchCurrentUser from "@/utils/lib/hooks/useFetchCurrentUser";
+import useFetchCurrentUser from "@/hooks/useFetchCurrentUser";
 
 const LeftSideBar = () => {
   const pathname = usePathname();

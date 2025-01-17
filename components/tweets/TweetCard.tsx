@@ -13,7 +13,7 @@ import {
   useFetchLikesForTweet,
   useFetchBookmarksForTweet,
   useFetchRetweetsForTweet,
-} from "@/utils/lib/hooks/useFetchUserActonForTweet";
+} from "@/hooks/useFetchUserActonForTweet";
 import HoverUserInfo from "../HoverUserInfo";
 import TweetMedia from "./media/TweetMedia";
 import { getUserBookmarkFolders } from "@/actions/bookmark.actions";

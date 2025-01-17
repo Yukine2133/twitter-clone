@@ -14,7 +14,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import * as solid from "@heroicons/react/24/solid";
-import useTweetActions from "@/utils/lib/hooks/useTweetActions";
+import useTweetActions from "@/hooks/useTweetActions";
 import { addBookmarkToFolder } from "@/actions/bookmark.actions";
 
 const colors = [

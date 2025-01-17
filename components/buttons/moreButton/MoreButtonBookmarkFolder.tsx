@@ -1,7 +1,7 @@
 "use client";
 
 import { deleteBookmarkFolder } from "@/actions/bookmark.actions";
-import { useMoreButtonClickOutside } from "@/utils/lib/hooks/useClickOutisde";
+import { useMoreButtonClickOutside } from "@/hooks/useClickOutisde";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";

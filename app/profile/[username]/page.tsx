@@ -1,6 +1,6 @@
 import { fetchUser } from "@/actions/user.actions";
 import ProfileData from "@/components/profile/ProfileData";
-import useGetProfileData from "@/utils/lib/hooks/useGetProfileData";
+import useGetProfileData from "@/hooks/useGetProfileData";
 
 export const generateMetadata = async ({
   params,

@@ -84,6 +84,7 @@ const AddOrEditBookmarkFolderButton = ({
             <div className="rounded-md relative p-2  border  border-[#3b3b3b]   w-full">
               <label className="mb-2 text-stone-500">Name:</label>
               <input
+                autoFocus
                 maxLength={25}
                 value={name}
                 className="bg-transparent  mt-2 w-full outline-none   "

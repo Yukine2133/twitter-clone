@@ -1,5 +1,5 @@
 import { cn } from "@/utils/cn";
-import useClickOutside from "@/utils/lib/hooks/useClickOutisde";
+import useClickOutside from "@/hooks/useClickOutisde";
 import React, { useRef, ReactNode } from "react";
 
 interface IModalProps {

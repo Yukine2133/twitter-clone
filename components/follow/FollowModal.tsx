@@ -1,7 +1,7 @@
 import { IUser } from "@/types/user.interface";
 import React, { useRef } from "react";
 import UserCard from "../search/UserCard";
-import useClickOutside from "@/utils/lib/hooks/useClickOutisde";
+import useClickOutside from "@/hooks/useClickOutisde";
 
 interface IFollowModal {
   setIsOpenFollowers: (arg0: boolean) => void;

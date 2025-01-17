@@ -1,7 +1,7 @@
 "use client";
 
 import { sidebarLinks } from "@/utils/constants";
-import useFetchCurrentUser from "@/utils/lib/hooks/useFetchCurrentUser";
+import useFetchCurrentUser from "@/hooks/useFetchCurrentUser";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 import Image from "next/image";
 import Link from "next/link";

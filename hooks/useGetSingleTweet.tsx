@@ -5,7 +5,7 @@ import {
   useFetchLikesForTweet,
   useFetchBookmarksForTweet,
   useFetchRetweetsForTweet,
-} from "@/utils/lib/hooks/useFetchUserActonForTweet";
+} from "@/hooks/useFetchUserActonForTweet";
 import { getUserBookmarkFolders } from "@/actions/bookmark.actions";
 
 const useGetSingleTweet = async (paramsId: string) => {
