@@ -1,6 +1,7 @@
 import { fetchTweet } from "@/actions/tweet.actions";
 import useGetSingleTweet from "@/utils/lib/hooks/useGetSingleTweet";
 import SingleTweet from "@/components/tweets/SingleTweet";
+import { IBookmarkFolder } from "@/types/bookmark.interface";
 
 export const generateMetadata = async ({
   params,
@@ -21,6 +22,7 @@ const SingleTweetPage = async ({ params }: { params: { id: string } }) => {
     isBookmarked,
     isLiked,
     isRetweeted,
+    userBookmarkFolders,
   } = await useGetSingleTweet(params.id);
   return (
     <SingleTweet
@@ -30,6 +32,7 @@ const SingleTweetPage = async ({ params }: { params: { id: string } }) => {
       isBookmarked={isBookmarked}
       isLiked={isLiked}
       isRetweeted={isRetweeted}
+      userBookmarkFolders={userBookmarkFolders as IBookmarkFolder[]}
     />
   );
 };

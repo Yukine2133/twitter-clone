@@ -6,6 +6,7 @@ import {
   useFetchBookmarksForTweet,
   useFetchRetweetsForTweet,
 } from "@/utils/lib/hooks/useFetchUserActonForTweet";
+import { getUserBookmarkFolders } from "@/actions/bookmark.actions";
 
 const useGetSingleTweet = async (paramsId: string) => {
   const { getUser } = getKindeServerSession();
@@ -20,6 +21,7 @@ const useGetSingleTweet = async (paramsId: string) => {
   const isLiked = await useFetchLikesForTweet(id, user?.id);
   const isBookmarked = await useFetchBookmarksForTweet(id, user?.id);
   const isRetweeted = await useFetchRetweetsForTweet(id, user?.id);
+  const userBookmarkFolders = await getUserBookmarkFolders(user?.id as string);
 
   return {
     owner,
@@ -28,6 +30,7 @@ const useGetSingleTweet = async (paramsId: string) => {
     isBookmarked,
     isLiked,
     isRetweeted,
+    userBookmarkFolders,
   };
 };
 

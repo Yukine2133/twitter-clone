@@ -9,6 +9,7 @@ import { formatDate } from "@/utils/formatTimestamp";
 import MoreButton from "../buttons/moreButton/MoreButton";
 import GoBackButton from "../buttons/GoBackButton";
 import TweetMedia from "./media/TweetMedia";
+import { IBookmarkFolder } from "@/types/bookmark.interface";
 
 interface SingleTweetProps {
   owner: IUser;
@@ -17,6 +18,7 @@ interface SingleTweetProps {
   isBookmarked: boolean;
   isLiked: boolean;
   isRetweeted: boolean;
+  userBookmarkFolders: IBookmarkFolder[];
 }
 
 const SingleTweet = ({
@@ -26,6 +28,7 @@ const SingleTweet = ({
   isBookmarked,
   isLiked,
   isRetweeted,
+  userBookmarkFolders,
 }: SingleTweetProps) => {
   return (
     <div className="pt-3 relative">
@@ -75,6 +78,7 @@ const SingleTweet = ({
           owner={JSON.parse(JSON.stringify(owner))}
           tweet={JSON.parse(JSON.stringify(singleTweet))}
           isRetweeted={isRetweeted}
+          userBookmarkFolders={JSON.parse(JSON.stringify(userBookmarkFolders))}
         />
       </div>
       <div className="mt-2  border-b border-[#2f3336]">
