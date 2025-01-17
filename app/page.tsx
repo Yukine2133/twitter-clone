@@ -15,7 +15,7 @@ export default async function Home() {
   const currentUser = await fetchUser(user?.id);
 
   return (
-    <div className=" ">
+    <div>
       <TweetForm user={currentUser} />
       <ClientOnly>
         {tweets &&

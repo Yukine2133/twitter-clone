@@ -1,72 +1,30 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import Modal from "../tweets/Modal";
-import { z } from "zod";
-import Image from "next/image";
-
 import { toast } from "react-toastify";
+import Modal from "../tweets/Modal";
+import Image from "next/image";
 import { UploadButton } from "@/utils/lib/uploadthing";
-import { updateUser } from "@/actions/user.actions";
 import { IUser } from "@/interfaces/user.interface";
-import { bioSchema, locationSchema, nameSchema } from "@/utils/lib/validation";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import useEditProfileButton from "@/hooks/useEditProfileButton";
 
 const UpdateProfileButton = ({ user }: { user: IUser }) => {
-  const [name, setName] = useState(user.displayName ? user.displayName : "");
-  const [bio, setBio] = useState(user.bio ? user.bio : "");
-  const [location, setLocation] = useState(user.location ? user.location : "");
-  const [avatar, setAvatar] = useState(user.avatar ? user.avatar : "");
-  const [backgroundImage, setBackgroundImage] = useState(
-    user.backgroundImage ? user.backgroundImage : ""
-  );
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const userId = user.userId;
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    try {
-      e.preventDefault();
-
-      // Validate name
-      nameSchema.parse(name);
-
-      // Validate bio
-      bioSchema.parse(bio);
-
-      // Validate location
-      locationSchema.parse(location);
-
-      const res = await updateUser({
-        userId,
-        location,
-        bio,
-        avatar,
-        name,
-        backgroundImage,
-      });
-
-      if (res?.message) {
-        toast.error(res.message);
-      } else {
-        toast.success("Profile was updated successfully");
-      }
-
-      setIsModalOpen(false);
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const errorMessage = error.errors[0].message;
-        toast.error(errorMessage);
-      } else {
-        toast.error(String(error));
-      }
-    }
-  };
+  const {
+    toggleModal,
+    isModalOpen,
+    name,
+    setName,
+    bio,
+    setBio,
+    location,
+    setLocation,
+    avatar,
+    setAvatar,
+    backgroundImage,
+    setBackgroundImage,
+    handleSubmit,
+  } = useEditProfileButton({ user });
 
   return (
     <>
@@ -81,7 +39,7 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
         <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>
           <form
             onSubmit={handleSubmit}
-            className="relative text-start mt-10 sm:mt-0 "
+            className="relative  text-start mt-10 sm:mt-0 "
           >
             <button onClick={toggleModal} className="absolute right-0">
               <XMarkIcon className="w-5 h-5" />
