@@ -16,10 +16,10 @@ export default async function Home() {
 
   return (
     <div className=" ">
-      <TweetForm user={currentUser!} />
+      <TweetForm user={currentUser} />
       <ClientOnly>
         {tweets &&
-          tweets?.map((tweet: ITweet | any) => {
+          tweets?.map((tweet: ITweet) => {
             return (
               <TweetCard
                 tweet={JSON.parse(JSON.stringify(tweet))}

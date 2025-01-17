@@ -5,7 +5,6 @@ import React from "react";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { fetchUser } from "@/actions/user.actions";
 import AddOrEditBookmarkFolderButton from "@/components/buttons/AddOrEditBookmarkFolderButton";
-// import { colors } from "@/utils/colors";
 
 const colors = [
   "bg-purple-500",
