@@ -12,6 +12,7 @@ const useEditProfileButton = ({ user }: { user: IUser }) => {
   const [backgroundImage, setBackgroundImage] = useState(
     user.backgroundImage ? user.backgroundImage : ""
   );
+  const [isPrivate, setIsPrivate] = useState(user.private);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const userId = user.userId;
@@ -40,6 +41,7 @@ const useEditProfileButton = ({ user }: { user: IUser }) => {
         avatar,
         name,
         backgroundImage,
+        private: isPrivate,
       });
 
       if (res?.message) {
@@ -72,6 +74,8 @@ const useEditProfileButton = ({ user }: { user: IUser }) => {
     backgroundImage,
     setBackgroundImage,
     handleSubmit,
+    isPrivate,
+    setIsPrivate,
   };
 };
 

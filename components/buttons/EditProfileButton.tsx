@@ -24,6 +24,8 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
     backgroundImage,
     setBackgroundImage,
     handleSubmit,
+    isPrivate,
+    setIsPrivate,
   } = useEditProfileButton({ user });
 
   return (
@@ -142,6 +144,30 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
                 <p className="absolute right-1 text-sm text-gray-400 top-1  ">
                   {location.length}/30
                 </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 mt-3">
+              <label className="text-stone-500">Private profile:</label>
+              <div className=" relative">
+                <input
+                  type="checkbox"
+                  id="switch-17"
+                  className="absolute w-0 h-0 invisible"
+                  checked={isPrivate}
+                  onChange={(e) => setIsPrivate(e.target.checked)}
+                />
+                <label
+                  htmlFor="switch-17"
+                  className={`block w-12 h-6 rounded-full cursor-pointer transition-colors ${
+                    isPrivate ? "bg-green-600" : "bg-gray-400"
+                  }`}
+                >
+                  <span
+                    className={`absolute top-[10%] left-[2.5%] h-[85%] w-[40%] bg-white rounded-full transition-transform duration-300 ${
+                      isPrivate ? "translate-x-[1.695rem] " : ""
+                    }`}
+                  ></span>
+                </label>
               </div>
             </div>
 

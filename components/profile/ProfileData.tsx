@@ -124,7 +124,7 @@ const ProfileData = ({
           </div>
         </div>
       </div>
-      {user.private === true ? (
+      {user.private === true && !isOwner ? (
         <h4 className="mt-10  text-xl px-2 md:px-4">
           This profile is private. You can follow them to see their tweets.
         </h4>
