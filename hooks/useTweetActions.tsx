@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { bookMarkTweet } from "@/actions/bookmark.actions";
+import { addBookmarkToFolder, bookMarkTweet } from "@/actions/bookmark.actions";
 import { saveRetweet } from "@/actions/retweet.actions";
 import { likeTweet } from "@/actions/like.actions";
+import * as solid from "@heroicons/react/24/solid";
 
 interface ITweetActions {
   initialIsLiked: boolean;
@@ -10,6 +11,8 @@ interface ITweetActions {
   initialIsBookmarked: boolean;
   likesLength: number;
   retweetsLength: number;
+  id: string;
+  userId: string;
 }
 
 const useTweetActions = ({
@@ -18,7 +21,18 @@ const useTweetActions = ({
   initialIsBookmarked,
   likesLength,
   retweetsLength,
+  id,
+  userId,
 }: ITweetActions) => {
+  const SolidHeartIcon = solid.HeartIcon;
+  const SolidBookmarkIcon = solid.BookmarkIcon;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBookmarkFolderModalOpen, setIsBookmarkFolderModalOpen] =
+    useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
   const [localIsLiked, setLocalIsLiked] = useState(initialIsLiked);
   const [likeCount, setLikeCount] = useState(likesLength);
 
@@ -101,6 +115,14 @@ const useTweetActions = ({
     }
   };
 
+  const handleClick = async (folderId: string) => {
+    try {
+      await addBookmarkToFolder(folderId, id, userId);
+      setIsBookmarkFolderModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return {
     addLike,
     addBookmark,
@@ -112,6 +134,13 @@ const useTweetActions = ({
     localIsBookmarked,
     showBookmarkNotification,
     setShowBookmarkNotification,
+    toggleModal,
+    isModalOpen,
+    isBookmarkFolderModalOpen,
+    setIsBookmarkFolderModalOpen,
+    handleClick,
+    SolidHeartIcon,
+    SolidBookmarkIcon,
   };
 };
 

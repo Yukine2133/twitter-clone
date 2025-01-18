@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { ITweetProps } from "@/interfaces/tweet.interface";
 import Modal from "./Modal";
@@ -13,9 +12,7 @@ import {
   HeartIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import * as solid from "@heroicons/react/24/solid";
 import useTweetActions from "@/hooks/useTweetActions";
-import { addBookmarkToFolder } from "@/actions/bookmark.actions";
 
 const colors = [
   "bg-purple-500",
@@ -55,16 +52,6 @@ const TweetActions = ({
   user,
   userBookmarkFolders,
 }: TweetActionsProps) => {
-  const SolidHeartIcon = solid.HeartIcon;
-  const SolidBookmarkIcon = solid.BookmarkIcon;
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isBookmarkFolderModalOpen, setIsBookmarkFolderModalOpen] =
-    useState(false);
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
   const {
     addLike,
     addBookmark,
@@ -76,24 +63,24 @@ const TweetActions = ({
     retweetCount,
     localIsRetweeted,
     localIsBookmarked,
+    toggleModal,
+    isModalOpen,
+    isBookmarkFolderModalOpen,
+    setIsBookmarkFolderModalOpen,
+    handleClick,
+    SolidHeartIcon,
+    SolidBookmarkIcon,
   } = useTweetActions({
     initialIsLiked,
     initialIsRetweeted,
     initialIsBookmarked,
     likesLength: tweet.likes.length,
     retweetsLength: tweet.retweets.length,
+    id,
+    userId: user.userId,
   });
 
   const repliesCount = tweet.replies.length;
-
-  const handleClick = async (folderId: string) => {
-    try {
-      const folder = await addBookmarkToFolder(folderId, id, user.userId);
-      setIsBookmarkFolderModalOpen(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <div className="flex mt-2 justify-between px-8 gap-8">
