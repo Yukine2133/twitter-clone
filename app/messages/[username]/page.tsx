@@ -35,7 +35,7 @@ const MessageWithTheUser = async ({
   const messages = (await getMessages(recipient._id)) as IMessage[];
 
   return (
-    <div className="mb-20">
+    <div className="mb-20 h-[400px] ">
       <div className=" bg-black px-2 md:px-4 border-b pb-2 border-[#2f3336] w-[640px] fixed top-0 z-10  pt-4 flex items-center gap-3">
         <GoBackButton />
 
@@ -57,16 +57,19 @@ const MessageWithTheUser = async ({
         </Link>
       </div>
       <AutoScrollMessages>
-        {messages.map((message: IMessage) => {
-          const isCurrentUserSender = message.sender.userId === currentUser?.id;
-          return (
-            <MessageCard
-              key={message._id}
-              message={JSON.parse(JSON.stringify(message))}
-              isCurrentUserSender={isCurrentUserSender}
-            />
-          );
-        })}
+        <div className="mb-20">
+          {messages.map((message: IMessage) => {
+            const isCurrentUserSender =
+              message.sender.userId === currentUser?.id;
+            return (
+              <MessageCard
+                key={message._id}
+                message={JSON.parse(JSON.stringify(message))}
+                isCurrentUserSender={isCurrentUserSender}
+              />
+            );
+          })}
+        </div>
       </AutoScrollMessages>
       <MessageForm recipientUserId={recipient._id} />
     </div>

@@ -26,7 +26,7 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
   } = useMessageForm({ recipientUserId });
   return (
     <>
-      <div className="px-2 md:px-4 fixed bottom-12 min-[800px]:bottom-0 w-full pb-2 sm:w-[640px]  z-10  bg-black border-t border-[#2f3336]  pt-4">
+      <div className="px-2 md:px-4 fixed bottom-12 min-[800px]:bottom-0 w-full pb-2 sm:w-[635px]  z-10  bg-black border-t border-[#2f3336]  pt-4">
         <form className="bg-[#202327]  w-full rounded-xl p-3">
           {imageUrl && (
             <div className="my-4 relative flex items-center">
