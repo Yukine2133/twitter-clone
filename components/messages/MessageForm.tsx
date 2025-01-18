@@ -1,59 +1,29 @@
 "use client";
 
-import { sendMessage } from "@/actions/message.actions";
 import {
   PaperAirplaneIcon,
   PhotoIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
+import React from "react";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
 import Modal from "../tweets/Modal";
 import { UploadDropzone } from "@/utils/lib/uploadthing";
 import Image from "next/image";
+import useMessageForm from "@/hooks/useMessageForm";
 
 const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
-  const [content, setContent] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<string | null>("");
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const handleSubmit = async () => {
-    try {
-      const formData = new FormData();
-      const hasImageUrl = !!imageUrl;
-
-      // If there's neither text nor image, throw an error
-      if (!content && !hasImageUrl) {
-        throw new Error("Message must contain text or an image.");
-      }
-
-      formData.append("content", content);
-      if (imageUrl) {
-        formData.append("image", imageUrl);
-      }
-
-      const res = await sendMessage(recipientUserId, formData);
-      if (res?.message) {
-        toast.error(res.message);
-      }
-
-      setContent("");
-    } catch (error) {
-      console.error("Error sending message:", error);
-    } finally {
-      setImageUrl(null);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    // Check if the pressed key is Enter and not holding down Shift
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault(); // Prevent newline in textarea
-      handleSubmit();
-    }
-  };
-
+  const {
+    content,
+    setContent,
+    imageUrl,
+    setImageUrl,
+    isOpen,
+    setIsOpen,
+    handleSubmit,
+    handleKeyDown,
+  } = useMessageForm({ recipientUserId });
   return (
     <>
       <div className="px-2 md:px-4 fixed bottom-12 min-[800px]:bottom-0 w-full pb-2 sm:w-[640px]  z-10  bg-black border-t border-[#2f3336]  pt-4">
