@@ -14,6 +14,7 @@ interface IFollow {
   followersOfTheUser: IUser[];
   followingsOfTheUser: IUser[];
   username: string;
+  userPrivate: boolean;
 }
 
 const Follow = ({
@@ -22,20 +23,28 @@ const Follow = ({
   followersOfTheUser,
   followingsOfTheUser,
   username,
+  userPrivate,
 }: IFollow) => {
   const [isOpenFollowers, setIsOpenFollowers] = useState(false);
   const [isOpenFollowing, setIsOpenFollowing] = useState(false);
 
+  const toggleFollowing = () => {
+    if (userPrivate) {
+      return;
+    }
+    setIsOpenFollowing(!isOpenFollowing);
+  };
+
   return (
     <>
       <button
-        onClick={() => setIsOpenFollowing(!isOpenFollowing)}
+        onClick={toggleFollowing}
         className="text-slate-500 hover:underline decoration-white cursor-pointer"
       >
         <span className="text-gray-300">{following.length}</span> Following
       </button>
       <button
-        onClick={() => setIsOpenFollowers(!isOpenFollowers)}
+        onClick={toggleFollowing}
         className="text-gray-500 hover:underline decoration-white cursor-pointer"
       >
         <span className="text-gray-300">{followers.length}</span> Followers

@@ -119,32 +119,40 @@ const ProfileData = ({
               followers={followers}
               following={following}
               username={user.username}
+              userPrivate={user.private}
             />
           </div>
         </div>
       </div>
-
-      <h4 className="mt-10 px-2 md:px-4">Tweets:</h4>
-      <ClientOnly>
-        {combinedPosts?.length > 0 &&
-          combinedPosts.map((post: ITweet | any) => {
-            return (
-              <TweetCard
-                type={post.type}
-                key={post._doc_id}
-                tweet={JSON.parse(JSON.stringify(post._doc))}
-                owner={JSON.parse(JSON.stringify(post._doc.user))}
-              />
-            );
-          })}
-      </ClientOnly>
-      {combinedPosts.length === 0 && (
-        <div className="text-center mt-16">
-          <h2 className="text-3xl font-semibold">{`@${user.username} hasn't posted.`}</h2>
-          <p className="text-zinc-500 mt-2">
-            When they do, their posts will show up here.
-          </p>
-        </div>
+      {user.private === true ? (
+        <h4 className="mt-10  text-xl px-2 md:px-4">
+          This profile is private. You can follow them to see their tweets.
+        </h4>
+      ) : (
+        <>
+          <h4 className="mt-10 px-2 md:px-4">Tweets:</h4>
+          <ClientOnly>
+            {combinedPosts?.length > 0 &&
+              combinedPosts.map((post: ITweet | any) => {
+                return (
+                  <TweetCard
+                    type={post.type}
+                    key={post._doc_id}
+                    tweet={JSON.parse(JSON.stringify(post._doc))}
+                    owner={JSON.parse(JSON.stringify(post._doc.user))}
+                  />
+                );
+              })}
+          </ClientOnly>
+          {combinedPosts.length === 0 && (
+            <div className="text-center mt-16">
+              <h2 className="text-3xl font-semibold">{`@${user.username} hasn't posted.`}</h2>
+              <p className="text-zinc-500 mt-2">
+                When they do, their posts will show up here.
+              </p>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

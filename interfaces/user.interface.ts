@@ -10,4 +10,5 @@ export interface IUser {
   following: string[];
   createdAt: string;
   backgroundImage: string;
+  private: boolean;
 }

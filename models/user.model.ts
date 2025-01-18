@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema(
     userId: String,
     followers: [{ type: String }],
     following: [{ type: String }],
+    private: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
