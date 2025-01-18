@@ -19,6 +19,8 @@ function getUsernameFromEmail(email: string | any): string {
   return email;
 }
 
+const isDevelopment = process.env.NODE_ENV === "development";
+
 export async function GET(req: Request, res: Response) {
   try {
     await connectDb();
@@ -44,7 +46,9 @@ export async function GET(req: Request, res: Response) {
       });
     }
 
-    return NextResponse.redirect("https://twitter-clone-213.vercel.app");
+    if (isDevelopment) return NextResponse.redirect("http://localhost:3000");
+
+    return NextResponse.redirect("https://twitter-clone.vercel.app");
   } catch (error) {
     console.error(error);
     return new Response(String(error));
