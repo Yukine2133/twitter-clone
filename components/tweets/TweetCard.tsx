@@ -8,7 +8,7 @@ import { formatCreatedAt } from "@/utils/formatTimestamp";
 import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/outline";
 import HoverUserInfo from "../HoverUserInfo";
 import TweetMedia from "./media/TweetMedia";
-import useTweetCard from "@/hooks/useTweetCard";
+import useTweetCard from "@/hooks/tweetsLogic/useTweetCard";
 import { renderTweetTextWithHashtags } from "@/utils/formatTweetText";
 
 const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {

@@ -1,5 +1,5 @@
 import { fetchTweet } from "@/actions/tweet.actions";
-import useGetSingleTweet from "@/hooks/useGetSingleTweet";
+import useGetSingleTweet from "@/hooks/tweetsLogic/useGetSingleTweet";
 import SingleTweet from "@/components/tweets/SingleTweet";
 import { IBookmarkFolder } from "@/interfaces/bookmark.interface";
 

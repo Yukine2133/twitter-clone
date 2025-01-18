@@ -2,7 +2,7 @@
 
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/solid";
 import Modal from "../tweets/Modal";
-import useAddOrEditBookmarkFolderButton from "@/hooks/moreButton/useAddOrEditBookmarkFolderButton";
+import useAddOrEditBookmarkFolderButton from "@/hooks/buttonsLogic/useAddOrEditBookmarkFolderButton";
 
 const AddOrEditBookmarkFolderButton = ({
   edit,

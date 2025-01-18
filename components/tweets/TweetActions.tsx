@@ -12,7 +12,7 @@ import {
   HeartIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import useTweetActions from "@/hooks/useTweetActions";
+import useTweetActions from "@/hooks/tweetsLogic/useTweetActions";
 
 const colors = [
   "bg-purple-500",

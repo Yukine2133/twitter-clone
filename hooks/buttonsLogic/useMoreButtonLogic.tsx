@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { tweetTextSchema } from "@/utils/lib/validation";
 import { z } from "zod";
 import { deleteMessage, editMessage } from "@/actions/message.actions";
-import { useMoreButtonClickOutside } from "./useClickOutisde";
+import { useMoreButtonClickOutside } from "../useClickOutisde";
 
 const useMoreButtonLogic = ({
   id,

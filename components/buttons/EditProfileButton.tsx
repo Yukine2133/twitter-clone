@@ -7,7 +7,7 @@ import { UploadButton } from "@/utils/lib/uploadthing";
 import { IUser } from "@/interfaces/user.interface";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import useEditProfileButton from "@/hooks/useEditProfileButton";
+import useEditProfileButton from "@/hooks/buttonsLogic/useEditProfileButton";
 
 const UpdateProfileButton = ({ user }: { user: IUser }) => {
   const {

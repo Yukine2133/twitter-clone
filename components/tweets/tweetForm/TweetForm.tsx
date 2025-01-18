@@ -1,6 +1,6 @@
 "use client";
 
-import useTweetFormLogic from "@/hooks/useTweetFormLogic";
+import useTweetFormLogic from "@/hooks/tweetsLogic/useTweetFormLogic";
 import { IUser } from "@/interfaces/user.interface";
 import TweetFormUI from "./TweetFormUI";
 import { useRef } from "react";

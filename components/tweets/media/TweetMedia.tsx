@@ -4,7 +4,7 @@ import React from "react";
 import { IReply, ITweet } from "@/interfaces/tweet.interface";
 import Image from "next/image";
 import TweetMediaModal from "./TweetMediaModal";
-import useTweetMedia from "@/hooks/tweet/useTweetMedia";
+import useTweetMedia from "@/hooks/tweetsLogic/useTweetMedia";
 
 const TweetMedia = ({
   data,
