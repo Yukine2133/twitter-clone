@@ -188,8 +188,8 @@ export const fetchPopularHashtags = async () => {
           count: { $sum: 1 }, // Count occurrences
         },
       },
-      { $sort: { count: -1 } }, // Sort by count descending
-      { $limit: 6 }, // Limit to top 6 hashtags
+      { $sort: { count: -1 } },
+      { $limit: 8 },
     ]);
 
     return hashtags;
