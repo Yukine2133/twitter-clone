@@ -163,3 +163,16 @@ export const searchTweets = async (
     console.error(error);
   }
 };
+
+export const fetchTweetsWithHashtags = async () => {
+  try {
+    const tweets = await Tweet.find({
+      text: { $regex: /#/ }, // Matches any text containing '#'
+    }).exec();
+
+    return tweets;
+  } catch (error) {
+    console.error("Error fetching tweets with hashtags:", error);
+    throw new Error("Failed to fetch tweets with hashtags.");
+  }
+};
