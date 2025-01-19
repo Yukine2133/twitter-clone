@@ -31,6 +31,7 @@ const ProfilePage = async ({
     isOwner,
     user,
     combinedPosts,
+    privateProfile,
   } = await useGetProfileData(params.username);
 
   return (
@@ -45,6 +46,7 @@ const ProfilePage = async ({
       isFollowing={isFollowing}
       currentUser={currentUser}
       combinedPosts={combinedPosts}
+      privateProfile={privateProfile}
     />
   );
 };

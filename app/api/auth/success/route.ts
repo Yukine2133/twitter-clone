@@ -48,7 +48,7 @@ export async function GET(req: Request, res: Response) {
 
     if (isDevelopment) return NextResponse.redirect("http://localhost:3000");
 
-    return NextResponse.redirect("https://twitter-clone.vercel.app");
+    return NextResponse.redirect("https://twitter-clone-213.vercel.app");
   } catch (error) {
     console.error(error);
     return new Response(String(error));

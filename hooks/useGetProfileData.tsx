@@ -51,6 +51,11 @@ const useGetProfileData = async (profileUsername: string) => {
   const isFollowing = followers?.includes(currentSessionUser?.id as string);
   const isOwner = user.userId === currentUser.userId;
 
+  const privateProfile =
+    user.private === true &&
+    !isOwner &&
+    !user.following?.includes(currentUser?._id as string);
+
   return {
     username,
     currentUser,
@@ -62,6 +67,7 @@ const useGetProfileData = async (profileUsername: string) => {
     isFollowing,
     isOwner,
     user,
+    privateProfile,
   };
 };
 

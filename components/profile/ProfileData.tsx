@@ -26,6 +26,7 @@ interface ProfileDataProps {
   isFollowing: boolean;
   currentUser: IUser;
   combinedPosts: ITweet[] | [];
+  privateProfile: boolean;
 }
 
 const ProfileData = ({
@@ -39,7 +40,9 @@ const ProfileData = ({
   username,
   isFollowing,
   currentUser,
+  privateProfile,
 }: ProfileDataProps) => {
+  console.log(privateProfile);
   return (
     <div>
       <div className="mb-2 flex items-center px-2 md:px-4 mt-2">
@@ -119,12 +122,12 @@ const ProfileData = ({
               followers={followers}
               following={following}
               username={user.username}
-              userPrivate={user.private}
+              userPrivate={privateProfile}
             />
           </div>
         </div>
       </div>
-      {user.private === true && !isOwner ? (
+      {privateProfile === true ? (
         <h4 className="mt-10  text-xl px-2 md:px-4">
           This profile is private. You can follow them to see their tweets.
         </h4>
