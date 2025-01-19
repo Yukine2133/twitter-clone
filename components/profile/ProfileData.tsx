@@ -142,6 +142,7 @@ const ProfileData = ({
                     key={post._doc_id}
                     tweet={JSON.parse(JSON.stringify(post._doc))}
                     owner={JSON.parse(JSON.stringify(post._doc.user))}
+                    retweetedUser={user}
                   />
                 );
               })}

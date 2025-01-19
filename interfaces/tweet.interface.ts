@@ -5,6 +5,7 @@ export interface ITweetProps {
   tweet: ITweet;
   owner: IUser;
   type?: string;
+  retweetedUser?: IUser;
 }
 
 export interface ITweet {

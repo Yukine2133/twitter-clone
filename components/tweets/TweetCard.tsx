@@ -11,7 +11,12 @@ import TweetMedia from "./media/TweetMedia";
 import useTweetCard from "@/hooks/tweetsLogic/useTweetCard";
 import { renderTweetTextWithHashtags } from "@/utils/formatTweetText";
 
-const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
+const TweetCard = async ({
+  tweet,
+  owner,
+  type,
+  retweetedUser,
+}: ITweetProps) => {
   const {
     currentUser,
     isLiked,
@@ -27,7 +32,7 @@ const TweetCard = async ({ tweet, owner, type }: ITweetProps) => {
           {type && type === "retweet" && (
             <div className="flex items-center gap-3 pl-4 mb-3 text-gray-500 ">
               <ArrowPathRoundedSquareIcon className="w-5 h-5" />
-              <h4>{currentUser.displayName}</h4>
+              <h4>{retweetedUser?.displayName}</h4>
               <span>Retweeted</span>
             </div>
           )}
