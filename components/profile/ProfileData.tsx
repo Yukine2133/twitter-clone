@@ -42,7 +42,6 @@ const ProfileData = ({
   currentUser,
   privateProfile,
 }: ProfileDataProps) => {
-  console.log(privateProfile);
   return (
     <div>
       <div className="mb-2 flex items-center px-2 md:px-4 mt-2">
