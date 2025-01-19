@@ -164,15 +164,37 @@ export const searchTweets = async (
   }
 };
 
-export const fetchTweetsWithHashtags = async () => {
+export const fetchPopularHashtags = async () => {
   try {
-    const tweets = await Tweet.find({
-      text: { $regex: /#/ }, // Matches any text containing '#'
-    }).exec();
+    const hashtags = await Tweet.aggregate([
+      {
+        $match: { text: { $regex: /#/ } }, // Match tweets containing hashtags
+      },
+      {
+        $project: {
+          hashtags: {
+            $filter: {
+              input: { $split: ["$text", " "] }, // Split text into words
+              as: "word",
+              cond: { $regexMatch: { input: "$$word", regex: /^#/ } }, // Keep only hashtags
+            },
+          },
+        },
+      },
+      { $unwind: "$hashtags" }, // Unwind hashtags array into individual documents
+      {
+        $group: {
+          _id: "$hashtags", // Group by hashtag
+          count: { $sum: 1 }, // Count occurrences
+        },
+      },
+      { $sort: { count: -1 } }, // Sort by count descending
+      { $limit: 6 }, // Limit to top 6 hashtags
+    ]);
 
-    return tweets;
+    return hashtags;
   } catch (error) {
-    console.error("Error fetching tweets with hashtags:", error);
-    throw new Error("Failed to fetch tweets with hashtags.");
+    console.error("Error fetching popular hashtags:", error);
+    throw new Error("Failed to fetch popular hashtags.");
   }
 };
