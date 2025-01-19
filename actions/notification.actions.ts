@@ -1,4 +1,7 @@
+"use server";
+
 import { Notification } from "@/models/notification.model";
+
 import { connectDb } from "@/utils/connectDb";
 
 export const createNotification = async (
