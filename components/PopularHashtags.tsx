@@ -1,27 +1,39 @@
 import { fetchPopularHashtags } from "@/actions/tweet.actions";
 import Link from "next/link";
-import React from "react";
+import { ChartBarIcon } from "@heroicons/react/24/outline";
 
 const PopularHashtags = async () => {
   const hashtags = await fetchPopularHashtags();
 
   return (
-    <div className="mt-4 ">
-      <h2 className="text-xl font-semibold mb-2">Popular Hashtags</h2>
-      <div className="space-y-2">
-        {hashtags.map((hashtag) => (
-          <div className="w-[230px]" key={hashtag._id}>
-            <Link href={`/hashtag/${hashtag._id.substring(1)}`}>
-              <h3
-                style={{ overflowWrap: "anywhere" }}
-                className="text-blue-500 "
-              >
-                {hashtag._id}
-              </h3>
-            </Link>
-            <h4 className="text-sm text-gray-100">{hashtag.count} tweets</h4>
+    <div className="rounded-2xl bg-[#16181c] overflow-hidden mt-4">
+      <h2 className="text-xl font-bold px-4 py-3">Popular Hashtags</h2>
+
+      <div>
+        {hashtags.length === 0 ? (
+          <div className="px-4 py-8 text-center text-neutral-500">
+            <ChartBarIcon className="h-7 w-7 mx-auto mb-2" />
+            <p>No trending hashtags yet</p>
           </div>
-        ))}
+        ) : (
+          hashtags.slice(0, 6).map((hashtag) => (
+            <Link
+              key={hashtag._id}
+              href={`/hashtag/${hashtag._id.substring(1)}`}
+              className="block px-4 py-3 transition-colors hover:bg-white/[0.03]"
+            >
+              <div className="space-y-0.5">
+                <h3 className="font-bold text-[15px] text-blue-500 ">
+                  {hashtag._id}
+                </h3>
+                <p className="text-sm text-neutral-500">
+                  {hashtag.count.toLocaleString()}{" "}
+                  {hashtag.count === 1 ? "tweet" : "tweets"}
+                </p>
+              </div>
+            </Link>
+          ))
+        )}
       </div>
     </div>
   );
