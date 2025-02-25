@@ -57,7 +57,7 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
       {isModalOpen && (
         <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>
           <div className="relative">
-            <div className="flex items-center justify-between border-b border-neutral-800 px-4 py-2">
+            <div className="flex items-center justify-between border-b border-neutral-800 px-4 py-4">
               <div className="flex items-center gap-8">
                 <button onClick={toggleModal}>
                   <XMarkIcon className="h-5 w-5" />
