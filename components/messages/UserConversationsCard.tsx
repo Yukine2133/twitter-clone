@@ -1,4 +1,4 @@
-import { IUserConversations } from "@/interfaces/message.interface";
+import type { IUserConversations } from "@/interfaces/message.interface";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,31 +9,33 @@ const UserConversationsCard = ({
   message: IUserConversations;
 }) => {
   return (
-    <Link href={`/messages/${message.user.username}`} className="">
-      <div className="my-4 p-2 hover:bg-zinc-900 transition-colors duration-300 bg-[#252525]">
-        <div className="flex gap-2 items-center">
-          <Image
-            src={message.user.avatar}
-            alt="Avatar"
-            width={42}
-            height={42}
-            className="object-cover rounded-full "
-          />
-          <div className="flex items-center gap-2">
-            <h3 className="font-medium ">{message.user.displayName}</h3>
-            <h3 className="text-gray-500 ">@{message.user.username}</h3>
-            <span className=" text-gray-500">&middot;</span>
-            <p className="text-gray-500 text-sm">
+    <Link
+      href={`/messages/${message.user.username}`}
+      className="block transition-colors hover:bg-zinc-900"
+    >
+      <div className="flex gap-3 p-4">
+        <Image
+          src={message.user.avatar || "/placeholder.svg"}
+          alt={`${message.user.displayName}'s avatar`}
+          width={48}
+          height={48}
+          className="h-12 w-12 flex-shrink-0 rounded-full object-cover"
+        />
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-1 text-[15px]">
+            <span className="font-bold truncate">
+              {message.user.displayName}
+            </span>
+            <span className="text-neutral-500">@{message.user.username}</span>
+            <span className="text-neutral-500">&middot;</span>
+            <span className="text-neutral-500 text-sm">
               {formatCreatedAt(message.lastMessageCreatedAt)}
-            </p>
+            </span>
           </div>
+          <p className="mt-0.5 truncate text-neutral-500">
+            {message.lastMessage}
+          </p>
         </div>
-        <h4
-          style={{ overflowWrap: "anywhere" }}
-          className="ml-12 w-[330px]  sm:w-[550px]  truncate"
-        >
-          {message.lastMessage}
-        </h4>
       </div>
     </Link>
   );
