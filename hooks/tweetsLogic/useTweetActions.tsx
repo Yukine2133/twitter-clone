@@ -4,6 +4,7 @@ import { addBookmarkToFolder, bookMarkTweet } from "@/actions/bookmark.actions";
 import { saveRetweet } from "@/actions/retweet.actions";
 import { likeTweet } from "@/actions/like.actions";
 import * as solid from "@heroicons/react/24/solid";
+import { usePathname } from "next/navigation";
 
 interface ITweetActions {
   initialIsLiked: boolean;
@@ -29,9 +30,13 @@ const useTweetActions = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isBookmarkFolderModalOpen, setIsBookmarkFolderModalOpen] =
     useState(false);
+  const pathname = usePathname();
 
   const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+    // Don't open the modal if the user is on the tweet page
+    if (!pathname.includes("tweet")) {
+      setIsModalOpen(!isModalOpen);
+    }
   };
   const [localIsLiked, setLocalIsLiked] = useState(initialIsLiked);
   const [likeCount, setLikeCount] = useState(likesLength);
