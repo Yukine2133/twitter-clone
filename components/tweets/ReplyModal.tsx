@@ -44,7 +44,6 @@ export const ReplyModal = ({
                 height={48}
                 className="rounded-full object-cover"
               />
-              <div className="my-2 h-full w-0.5 bg-neutral-800" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1">
@@ -61,17 +60,19 @@ export const ReplyModal = ({
               </p>
             </div>
           </div>
+          <div className="my-2 translate-x-5 h-8 w-0.5 bg-neutral-800" />
 
-          <div className="flex gap-3">
+          <div className="flex ">
             <Image
               src={user.avatar || "/placeholder.svg"}
               alt={user.username}
               width={48}
               height={48}
-              className="h-12 w-12 rounded-full object-cover"
+              className="h-12 w-12  rounded-full object-cover"
             />
+
             <div className="flex-1">
-              <p className="mb-4 text-sm text-neutral-500">
+              <p className=" ml-4  text-sm text-neutral-500">
                 Replying to{" "}
                 <Link
                   href={`/profile/${owner.username}`}
