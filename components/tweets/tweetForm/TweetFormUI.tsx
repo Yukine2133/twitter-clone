@@ -9,6 +9,7 @@ import ReactTextareaAutosize from "react-textarea-autosize";
 import Modal from "../Modal";
 import { IUser } from "@/interfaces/user.interface";
 import MediaUploadDropZone from "../media/MediaUploadDropZone";
+import { usePathname } from "next/navigation";
 
 interface ITweetFormUIProps {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
@@ -47,6 +48,7 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
     },
     ref
   ) {
+    const pathname = usePathname();
     return (
       <form
         ref={ref}
@@ -55,24 +57,38 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
           !id && "border-b border-[#2f3336]"
         } `}
       >
-        <div className="flex items-start gap-2 mt-1">
-          <Image
-            src={user?.avatar!}
-            alt={user?.username!}
-            width={48}
-            height={48}
-            className="rounded-full"
-          />
+        {/* If reply and not on tweet page show only the textarea */}
+        {id && !pathname.includes("tweet") ? (
           <ReactTextareaAutosize
             onChange={(e) => setText(e.target.value)}
+            placeholder="Post your reply"
             value={text || ""}
             maxRows={6}
             maxLength={280}
             wrap="soft"
-            placeholder={id ? "Post your reply" : "What is happening?!"}
-            className="bg-transparent overflow-auto  resize-none placeholder:text-zinc-600 outline-none w-full"
+            className="min-h-[120px] w-full resize-none bg-transparent text-xl placeholder:text-neutral-600 focus:outline-none border-b border-neutral-800  "
           />
-        </div>
+        ) : (
+          <div className="flex items-start gap-2 mt-1">
+            <Image
+              src={user?.avatar!}
+              alt={user?.username!}
+              width={48}
+              height={48}
+              className="rounded-full"
+            />
+            <ReactTextareaAutosize
+              onChange={(e) => setText(e.target.value)}
+              value={text || ""}
+              maxRows={6}
+              maxLength={280}
+              wrap="soft"
+              placeholder={id ? "Post your reply" : "What is happening?!"}
+              className="bg-transparent overflow-auto  resize-none placeholder:text-zinc-600 outline-none w-full"
+            />
+          </div>
+        )}
+
         {/* Handle image and video rendering */}
         <div className="grid grid-cols-2 gap-1 ">
           {imageUrls.map((imageUrl, index) => (
@@ -125,8 +141,9 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
               </div>
             ))}
         </div>
-        {/* Handle button rendering */}
-        <div className="mt-2 flex justify-between items-end px-6">
+
+        {/* Handle tweet buttons */}
+        <div className="mt-2 flex justify-between items-center px-6">
           <div className="flex gap-2 items-center">
             <button type="button" onClick={() => setIsOpen(!isOpen)}>
               <PhotoIcon className="h-5 w-5 text-blue-500" />
@@ -137,7 +154,7 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
           </div>
           <button
             disabled={loading}
-            className="bg-blue-500 rounded-full px-3 py-1 hover:opacity-80 font-semibold"
+            className="rounded-full bg-blue-500 px-4 py-1.5 font-bold transition-colors hover:bg-blue-600 disabled:opacity-50"
             type="submit"
           >
             {id ? "Reply" : "Tweet"}
