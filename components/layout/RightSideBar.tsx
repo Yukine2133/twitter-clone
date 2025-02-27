@@ -1,5 +1,10 @@
+// In RightSideBar.tsx
+import dynamic from "next/dynamic";
 import PopularHashtags from "../PopularHashtags";
-import SearchInput from "../search/SearchInput";
+
+const SearchInput = dynamic(() => import("../search/SearchInput"), {
+  ssr: false, // This disables SSR for SearchInput
+});
 
 const RightSideBar = () => {
   return (
