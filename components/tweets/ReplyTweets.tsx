@@ -29,7 +29,7 @@ const ReplyTweets = async ({
   }
 
   return (
-    <>
+    <div className="space-y-4">
       {replies.map(async (reply: IReply) => {
         const owner: IUser = await fetchUser(reply.userId);
         return (
@@ -71,7 +71,7 @@ const ReplyTweets = async ({
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 
