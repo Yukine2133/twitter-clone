@@ -1,5 +1,6 @@
 import { ITweet } from "@/interfaces/tweet.interface";
 import { IUser } from "@/interfaces/user.interface";
+import { IBookmarkFolder } from "@/interfaces/bookmark.interface";
 import ReplyTweets from "@/components/tweets/ReplyTweets";
 import TweetActions from "@/components/tweets/TweetActions";
 import Image from "next/image";
@@ -9,7 +10,6 @@ import { formatDate } from "@/utils/formatTimestamp";
 import MoreButton from "../buttons/moreButton/MoreButton";
 import GoBackButton from "../buttons/GoBackButton";
 import TweetMedia from "./media/TweetMedia";
-import { IBookmarkFolder } from "@/interfaces/bookmark.interface";
 import { renderTweetTextWithHashtags } from "@/utils/formatTweetText";
 
 interface SingleTweetProps {
@@ -32,47 +32,58 @@ const SingleTweet = ({
   userBookmarkFolders,
 }: SingleTweetProps) => {
   return (
-    <div className="pt-3 relative">
-      <div className="group px-3  ">
-        <div className="flex items-center gap-4 mb-4">
-          <GoBackButton />
-          <h2 className="text-xl font-semibold ">Tweet</h2>
-        </div>
-        <div className="flex relative  gap-3 items-center">
-          <Image
-            src={owner.avatar}
-            alt={owner.username}
-            width={48}
-            height={48}
-            className="rounded-full object-cover"
-          />
-          <Link className="flex  flex-col " href={`/profile/${owner.username}`}>
-            <span className="font-semibold ">{owner.displayName}</span>
-            <span className="text-gray-500 ">@{owner.username}</span>
-          </Link>
-          <div className="absolute right-0  ">
-            <MoreButton
-              tweet={JSON.parse(JSON.stringify(singleTweet))}
-              id={singleTweet._id.toString()}
-            />
+    <div className="min-h-screen">
+      <header className="sticky top-0 z-10 flex h-14 items-center gap-6 border-b border-neutral-800 bg-black/80 px-4 backdrop-blur-md">
+        <GoBackButton />
+        <h1 className="text-xl font-bold">Tweet</h1>
+      </header>
+
+      {/* Tweet Content */}
+      <article className=" border-neutral-800 px-4 pt-3">
+        <div className="mb-4">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex gap-3">
+              <Image
+                src={owner.avatar || "/placeholder.svg"}
+                alt={owner.displayName}
+                width={48}
+                height={48}
+                className="h-12 w-12 rounded-full object-cover"
+              />
+              <div>
+                <Link
+                  href={`/profile/${owner.username}`}
+                  className="group flex flex-col"
+                >
+                  <span className="font-bold group-hover:underline">
+                    {owner.displayName}
+                  </span>
+                  <span className="text-neutral-500">@{owner.username}</span>
+                </Link>
+              </div>
+            </div>
+            <MoreButton tweet={singleTweet} id={singleTweet._id.toString()} />
           </div>
         </div>
-        <h3
-          className="pl-5 pt-4 mb-2 text-lg"
-          style={{ overflowWrap: "anywhere" }}
-        >
-          {renderTweetTextWithHashtags(singleTweet?.text as string)}
-        </h3>
 
-        <TweetMedia data={JSON.parse(JSON.stringify(singleTweet))} />
+        <div className="mb-3 space-y-4">
+          <div className="text-xl leading-normal break-words">
+            {renderTweetTextWithHashtags(singleTweet?.text as string)}
+          </div>
 
-        <p className="text-gray-500 text-[15px] mt-2 ">
-          {formatDate(singleTweet?.createdAt as Date)}
-        </p>
-      </div>
-      <div className="mt-5 py-2 border-y border-[#2f3336]">
+          <TweetMedia data={singleTweet} />
+
+          <div className="flex gap-1 text-neutral-500">
+            <time className="text-sm hover:underline">
+              {formatDate(singleTweet?.createdAt as Date)}
+            </time>
+          </div>
+        </div>
+      </article>
+
+      <div className="mt-5 w-full py-2 border-y border-neutral-800">
         <TweetActions
-          user={currentUser!}
+          user={currentUser}
           isBookmarked={isBookmarked as boolean}
           isLiked={isLiked as boolean}
           id={singleTweet?._id.toString()!}
@@ -82,14 +93,16 @@ const SingleTweet = ({
           userBookmarkFolders={JSON.parse(JSON.stringify(userBookmarkFolders))}
         />
       </div>
-      <div className="mt-2  border-b border-[#2f3336]">
-        <TweetForm user={currentUser!} id={singleTweet?._id.toString()!} />
+
+      {/* Reply Form */}
+      <div className="border-b border-neutral-800">
+        <TweetForm user={currentUser} id={singleTweet._id.toString()} />
       </div>
 
-      <ReplyTweets
-        tweet={JSON.parse(JSON.stringify(singleTweet))}
-        tweetId={singleTweet?._id.toString() as string}
-      />
+      {/* Replies */}
+      <div className="divide-y divide-neutral-800">
+        <ReplyTweets tweet={singleTweet} tweetId={singleTweet._id.toString()} />
+      </div>
     </div>
   );
 };
