@@ -41,7 +41,7 @@ const SingleTweet = ({
 
       {/* Tweet Content */}
       <article className=" border-neutral-800 px-4 pt-3">
-        <div className="mb-4">
+        <div className="mb-4 group">
           <div className="flex relative items-start justify-between gap-3">
             <div className="flex gap-3">
               <Image
@@ -54,9 +54,9 @@ const SingleTweet = ({
               <div>
                 <Link
                   href={`/profile/${owner.username}`}
-                  className="group flex flex-col"
+                  className="group/name flex flex-col"
                 >
-                  <span className="font-bold group-hover:underline">
+                  <span className="font-bold group-hover/name:underline">
                     {owner.displayName}
                   </span>
                   <span className="text-neutral-500">@{owner.username}</span>
