@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import LeftSideBar from "@/components/layout/LeftSideBar";
+import LeftSideBar from "@/components/layout/LeftSiderBar/LeftSideBar";
 import RightSideBar from "@/components/layout/RightSideBar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
