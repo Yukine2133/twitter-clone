@@ -12,10 +12,15 @@ function isValidUsername(username: string): boolean {
 }
 
 function getUsernameFromEmail(email: string | any): string {
+  if (typeof email !== "string") {
+    return "unknown";
+  }
+
   const atIndex = email.indexOf("@");
   if (atIndex !== -1) {
     return email.substring(0, atIndex);
   }
+
   return email;
 }
 
