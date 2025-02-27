@@ -108,7 +108,7 @@ export const getUserBookmarkFolders = async (userId: string) => {
     await connectDb();
 
     const folders = await BookmarkFolder.find({ userId });
-    return folders;
+    return JSON.parse(JSON.stringify(folders));
   } catch (error) {
     console.error(error);
   }

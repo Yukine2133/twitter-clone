@@ -31,6 +31,7 @@ const SingleTweet = ({
   isRetweeted,
   userBookmarkFolders,
 }: SingleTweetProps) => {
+  const singleTweetId = singleTweet._id;
   return (
     <div className="min-h-screen">
       <header className="sticky top-0 z-10 flex h-14 items-center gap-6 border-b border-neutral-800 bg-black/80 px-4 backdrop-blur-md">
@@ -62,7 +63,7 @@ const SingleTweet = ({
                 </Link>
               </div>
             </div>
-            <MoreButton tweet={singleTweet} id={singleTweet._id.toString()} />
+            <MoreButton tweet={singleTweet} id={singleTweetId} />
           </div>
         </div>
 
@@ -84,24 +85,24 @@ const SingleTweet = ({
       <div className="mt-5 w-full py-2 border-y border-neutral-800">
         <TweetActions
           user={currentUser}
-          isBookmarked={isBookmarked as boolean}
-          isLiked={isLiked as boolean}
-          id={singleTweet?._id.toString()!}
-          owner={JSON.parse(JSON.stringify(owner))}
-          tweet={JSON.parse(JSON.stringify(singleTweet))}
+          isBookmarked={isBookmarked}
+          isLiked={isLiked}
+          id={singleTweetId}
+          owner={owner}
+          tweet={singleTweet}
           isRetweeted={isRetweeted}
-          userBookmarkFolders={JSON.parse(JSON.stringify(userBookmarkFolders))}
+          userBookmarkFolders={userBookmarkFolders}
         />
       </div>
 
       {/* Reply Form */}
       <div className="border-b border-neutral-800">
-        <TweetForm user={currentUser} id={singleTweet._id.toString()} />
+        <TweetForm user={currentUser} id={singleTweetId} />
       </div>
 
       {/* Replies */}
       <div className="divide-y divide-neutral-800">
-        <ReplyTweets tweet={singleTweet} tweetId={singleTweet._id.toString()} />
+        <ReplyTweets tweet={singleTweet} tweetId={singleTweetId} />
       </div>
     </div>
   );

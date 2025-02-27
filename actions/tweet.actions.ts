@@ -73,7 +73,7 @@ export const fetchTweet = async (tweetId: string) => {
       userId: userId.toString(),
     };
 
-    return tweetData;
+    return JSON.parse(JSON.stringify(tweetData));
   } catch (error) {
     console.error(error);
   }
