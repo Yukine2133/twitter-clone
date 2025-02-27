@@ -19,10 +19,10 @@ export default async function Home() {
       <TweetForm user={currentUser} />
       <ClientOnly>
         {tweets &&
-          tweets?.map((tweet: ITweet) => {
+          tweets?.map((tweet) => {
             return (
               <TweetCard
-                tweet={JSON.parse(JSON.stringify(tweet))}
+                tweet={tweet as ITweet}
                 owner={tweet.user}
                 key={tweet._id}
               />

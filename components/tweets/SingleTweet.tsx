@@ -42,7 +42,7 @@ const SingleTweet = ({
       {/* Tweet Content */}
       <article className=" border-neutral-800 px-4 pt-3">
         <div className="mb-4">
-          <div className="flex items-start justify-between gap-3">
+          <div className="flex relative items-start justify-between gap-3">
             <div className="flex gap-3">
               <Image
                 src={owner.avatar || "/placeholder.svg"}

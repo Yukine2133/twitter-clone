@@ -6,6 +6,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 import { Reply } from "@/models/reply.model";
 import { createNotification } from "./notification.actions";
+import { parseJSON } from "@/utils/parseJSON";
 
 export const replyTweet = async (formData: FormData, tweetId: string) => {
   try {
@@ -67,7 +68,7 @@ export const fetchTweetReplies = async (tweetId: string) => {
 
     const replies = await Reply.find({ tweetId }).sort({ createdAt: -1 }); // sort in the descending order
 
-    return JSON.parse(JSON.stringify(replies));
+    return parseJSON(replies);
   } catch (error) {
     console.error(error);
     return { error: "An unexpected error occurred." };

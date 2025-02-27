@@ -14,7 +14,7 @@ const useFetchCurrentUser = () => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       const res = await fetchUser(user?.id);
-      setCurrentUser(JSON.parse(JSON.stringify(res)));
+      setCurrentUser(res);
     };
     fetchCurrentUser();
   }, [user?.id]);

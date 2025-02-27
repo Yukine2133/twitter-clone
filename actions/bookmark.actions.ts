@@ -6,6 +6,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 import { Bookmark } from "@/models/bookmark.model";
 import { BookmarkFolder } from "@/models/bookmarkFolder.model";
+import { parseJSON } from "@/utils/parseJSON";
 
 export const bookMarkTweet = async (id: string) => {
   try {
@@ -65,9 +66,7 @@ export const getUserBookmarks = async (userId: string) => {
       return null;
     }
 
-    return JSON.parse(
-      JSON.stringify(userBookmarks.map((bookmark) => bookmark.tweetId))
-    );
+    return parseJSON(userBookmarks.map((bookmark) => bookmark.tweetId));
   } catch (error) {
     console.error(error);
   }
@@ -108,7 +107,7 @@ export const getUserBookmarkFolders = async (userId: string) => {
     await connectDb();
 
     const folders = await BookmarkFolder.find({ userId });
-    return JSON.parse(JSON.stringify(folders));
+    return parseJSON(folders);
   } catch (error) {
     console.error(error);
   }
@@ -154,7 +153,7 @@ export const getBookmarksFromFolder = async (name: string) => {
         },
       },
     });
-    return JSON.parse(JSON.stringify(bookmarksFromFolder));
+    return parseJSON(bookmarksFromFolder);
   } catch (error) {
     console.error(error);
     throw error;

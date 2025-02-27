@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { IMessage } from "@/interfaces/message.interface";
 import { formatMessageCreatedAt } from "@/utils/formatTimestamp";
 import Image from "next/image";
@@ -36,7 +35,7 @@ const MessageCard = ({
             {isCurrentUserSender && (
               <MoreButton
                 messageId={message._id.toString() as string}
-                message={JSON.parse(JSON.stringify(message))}
+                message={message}
               />
             )}
           </div>

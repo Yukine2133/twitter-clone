@@ -60,11 +60,11 @@ const ReplyTweets = async ({
               </div>
               <div className="absolute right-2 ">
                 <MoreButton
-                  replyId={reply._id.toString()}
-                  tweet={JSON.parse(JSON.stringify(tweet))}
-                  reply={JSON.parse(JSON.stringify(reply))}
+                  replyId={reply._id}
+                  tweet={tweet}
+                  reply={reply}
                   replyTweet={reply.text}
-                  id={tweet._id.toString()}
+                  id={tweet._id}
                 />
               </div>
             </div>

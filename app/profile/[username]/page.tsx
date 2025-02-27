@@ -1,6 +1,7 @@
 import { fetchUser } from "@/actions/user.actions";
 import ProfileData from "@/components/profile/ProfileData";
 import useGetProfileData from "@/hooks/useGetProfileData";
+import { parseJSON } from "@/utils/parseJSON";
 
 export const generateMetadata = async ({
   params,
@@ -40,12 +41,12 @@ const ProfilePage = async ({
       isOwner={isOwner}
       followers={followers}
       following={following}
-      followersOfTheUser={followersOfTheUser}
-      followingsOfTheUser={followingsOfTheUser}
+      followersOfTheUser={parseJSON(followersOfTheUser)}
+      followingsOfTheUser={parseJSON(followingsOfTheUser)}
       username={username}
       isFollowing={isFollowing}
       currentUser={currentUser}
-      combinedPosts={combinedPosts}
+      combinedPosts={parseJSON(combinedPosts)}
       privateProfile={privateProfile}
     />
   );

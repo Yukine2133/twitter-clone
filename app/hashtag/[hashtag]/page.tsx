@@ -21,14 +21,10 @@ const HashTagPage = async ({
         {tweets &&
           tweets?.map((tweet: ITweet | any) => {
             return (
-              <TweetCard
-                tweet={JSON.parse(JSON.stringify(tweet))}
-                owner={tweet.user}
-                key={tweet._id}
-              />
+              <TweetCard tweet={tweet} owner={tweet.user} key={tweet._id} />
             );
           })}
-        {tweets.length === 0 && (
+        {tweets?.length === 0 && (
           <h3 className="mt-10 text-center  text-lg">
             There are no tweets with hashtag #
             <span className="font-semibold">{hashtag}</span>

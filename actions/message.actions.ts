@@ -6,6 +6,7 @@ import { connectDb } from "@/utils/connectDb";
 import { fetchUser } from "./user.actions";
 import { revalidatePath } from "next/cache";
 import { User } from "@/models/user.model";
+import { parseJSON } from "@/utils/parseJSON";
 
 export const sendMessage = async (recipientId: string, formData: FormData) => {
   try {
@@ -52,7 +53,7 @@ export const getMessages = async (userId: string) => {
       .sort({ createdAt: 1 }) // Sort messages by createdAt timestamp in ascending order
       .populate("sender");
 
-    return messages;
+    return parseJSON(messages);
   } catch (error) {
     console.error("Error fetching messages:", error);
     return { message: "Failed to fetch messages" };

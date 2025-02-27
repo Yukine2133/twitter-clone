@@ -11,6 +11,7 @@ import { Notification } from "@/models/notification.model";
 import { Like } from "@/models/like.model";
 import { Reply } from "@/models/reply.model";
 import { Bookmark } from "@/models/bookmark.model";
+import { parseJSON } from "@/utils/parseJSON";
 
 export const createTweet = async (formData: FormData) => {
   try {
@@ -53,7 +54,7 @@ export const fetchTweets = async () => {
   try {
     await connectDb();
     const tweets = await Tweet.find().sort({ createdAt: -1 }).populate("user"); // Sort in the descending order
-    return JSON.parse(JSON.stringify(tweets));
+    return parseJSON(tweets);
   } catch (error) {
     console.error(error);
   }
@@ -73,7 +74,7 @@ export const fetchTweet = async (tweetId: string) => {
       userId: userId.toString(),
     };
 
-    return JSON.parse(JSON.stringify(tweetData));
+    return parseJSON(tweetData);
   } catch (error) {
     console.error(error);
   }
@@ -158,7 +159,7 @@ export const searchTweets = async (
       text: { $regex: regex },
     }).populate("user");
 
-    return JSON.parse(JSON.stringify(tweets));
+    return parseJSON(tweets);
   } catch (error) {
     console.error(error);
   }
@@ -184,8 +185,8 @@ export const fetchPopularHashtags = async () => {
       { $unwind: "$hashtags" }, // Unwind hashtags array into individual documents
       {
         $group: {
-          _id: "$hashtags", // Group by hashtag
-          count: { $sum: 1 }, // Count occurrences
+          _id: "$hashtags",
+          count: { $sum: 1 },
         },
       },
       { $sort: { count: -1 } },

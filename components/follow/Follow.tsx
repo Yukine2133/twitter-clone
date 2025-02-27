@@ -58,7 +58,7 @@ const Follow = ({
         <FollowModal
           setIsOpenFollowers={setIsOpenFollowers}
           setIsOpenFollowing={setIsOpenFollowing}
-          follow={JSON.parse(JSON.stringify(followersOfTheUser))}
+          follow={followersOfTheUser}
           isOpenFollowers={isOpenFollowers}
           isOpenFollowing={isOpenFollowing}
           isFollowers={true}
@@ -69,7 +69,7 @@ const Follow = ({
         <FollowModal
           setIsOpenFollowers={setIsOpenFollowers}
           setIsOpenFollowing={setIsOpenFollowing}
-          follow={JSON.parse(JSON.stringify(followingsOfTheUser))}
+          follow={followingsOfTheUser}
           isOpenFollowers={isOpenFollowers}
           isOpenFollowing={isOpenFollowing}
           isFollowers={false}

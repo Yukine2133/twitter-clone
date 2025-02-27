@@ -112,12 +112,8 @@ const ProfileData = ({
 
           <div className="flex items-center gap-4">
             <Follow
-              followersOfTheUser={JSON.parse(
-                JSON.stringify(followersOfTheUser)
-              )}
-              followingsOfTheUser={JSON.parse(
-                JSON.stringify(followingsOfTheUser)
-              )}
+              followersOfTheUser={followersOfTheUser}
+              followingsOfTheUser={followingsOfTheUser}
               followers={followers}
               following={following}
               username={user.username}
@@ -140,8 +136,8 @@ const ProfileData = ({
                   <TweetCard
                     type={post.type}
                     key={post._doc_id}
-                    tweet={JSON.parse(JSON.stringify(post._doc))}
-                    owner={JSON.parse(JSON.stringify(post._doc.user))}
+                    tweet={post._doc}
+                    owner={post._doc.user}
                     retweetedUser={user}
                   />
                 );

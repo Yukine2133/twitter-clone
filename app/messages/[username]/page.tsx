@@ -64,7 +64,7 @@ const MessageWithTheUser = async ({
             return (
               <MessageCard
                 key={message._id}
-                message={JSON.parse(JSON.stringify(message))}
+                message={message}
                 isCurrentUserSender={isCurrentUserSender}
               />
             );

@@ -77,12 +77,9 @@ const TweetCard = async ({
             </div>
           </div>
         </Link>
-        <TweetMedia neededMarginLeft data={JSON.parse(JSON.stringify(tweet))} />
+        <TweetMedia neededMarginLeft data={tweet} />
         <div className="absolute right-2 top-2 ">
-          <MoreButton
-            tweet={JSON.parse(JSON.stringify(tweet))}
-            id={tweet._id.toString()}
-          />
+          <MoreButton tweet={tweet} id={tweet._id} />
         </div>
       </div>
       <TweetActions
@@ -90,12 +87,10 @@ const TweetCard = async ({
         isLiked={isLiked as boolean}
         isRetweeted={isRetweeted}
         id={tweet._id.toString()}
-        owner={JSON.parse(JSON.stringify(owner))}
-        tweet={JSON.parse(JSON.stringify(tweet))}
+        owner={owner}
+        tweet={tweet}
         user={currentUser!}
-        userBookmarkFolders={
-          JSON.parse(JSON.stringify(userBookmarkFolders)) as any
-        }
+        userBookmarkFolders={userBookmarkFolders}
       />
     </div>
   );
