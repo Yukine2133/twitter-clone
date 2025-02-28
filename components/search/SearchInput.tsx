@@ -28,13 +28,13 @@ const SearchInput = ({ path }: { path: string }) => {
   return (
     <form
       onSubmit={onSearch}
-      className="items-center flex justify-start w-auto px-2 rounded-full bg-[#27272a]"
+      className="items-center  flex justify-start   w-full max-w-[350px] px-2 rounded-full bg-[#27272a]"
     >
       <input
         value={searchQuery || ""}
         onChange={(event) => setSearchQuery(event.target.value)}
         placeholder="Search"
-        className="p-2 bg-transparent outline-none w-full text-sm lg:text-base"
+        className="p-2 bg-transparent  outline-none w-full text-sm lg:text-base"
       />
     </form>
   );

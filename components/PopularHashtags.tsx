@@ -6,7 +6,7 @@ const PopularHashtags = async () => {
   const hashtags = await fetchPopularHashtags();
 
   return (
-    <div className="rounded-2xl bg-[#16181c] overflow-hidden mt-4">
+    <div className="rounded-2xl w-full max-w-[350px] bg-[#16181c] overflow-hidden mt-4">
       <h2 className="text-xl font-bold px-4 py-3">Popular Hashtags</h2>
 
       <div>
