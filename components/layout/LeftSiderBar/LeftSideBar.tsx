@@ -11,7 +11,7 @@ const LeftSideBar = async () => {
 
   return (
     <>
-      <div className="mt-10 fixed -translate-x-8 lg:-translate-x-0  max-[799px]:hidden max-[799px]:mt-0    ">
+      <div className="mt-10 fixed     ">
         <div className="flex w-full flex-col space-y-4  gap-6 px-6">
           <SidebarLinkCard username={currentUser?.username} />
 

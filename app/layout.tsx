@@ -29,7 +29,7 @@ export default async function RootLayout({
   return (
     <html suppressHydrationWarning={true} lang="en">
       <body
-        className={`${poppins.className} bg-black text-white custom-scrollbar `}
+        className={`${poppins.className} bg-black text-white custom-scrollbar`}
       >
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <ToastContainer
@@ -41,20 +41,21 @@ export default async function RootLayout({
           rtl={false}
           theme="dark"
         />
-        <main className="flex  gap-0 lg:gap-4 mx-auto  justify-center ">
-          <div>
-            <LeftSideBar />
-            <UserDetails />
-          </div>
-
-          <section className="w-[648px] min-[800px]:ml-24 lg:ml-[180px] xl:ml-60  border-x border-[#2f3336]  min-h-screen ">
-            <div className="w-full mb-10 min-[800px]:mb-0   max-w-4xl">
-              {children}
+        <main className="flex justify-center mx-auto">
+          <div className="flex w-full max-w-[1300px] justify-center gap-0 lg:gap-4">
+            <div className="w-[68px] min-[800px]:w-[88px] lg:w-[275px]">
+              <LeftSideBar />
+              <UserDetails />
             </div>
-            <BottomBar />
-          </section>
-          <div>
-            <RightSideBar />
+
+            <section className="w-full min-[600px]:w-[600px] border-x border-[#2f3336] min-h-screen">
+              <div className="w-full mb-10 min-[800px]:mb-0">{children}</div>
+              <BottomBar />
+            </section>
+
+            <div className="hidden lg:block w-[350px]">
+              <RightSideBar />
+            </div>
           </div>
         </main>
       </body>
