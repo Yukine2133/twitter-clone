@@ -109,7 +109,7 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
                       alt="Avatar"
                       width={112}
                       height={112}
-                      className="rounded-full border-4 border-black object-cover"
+                      className="rounded-full max-h-28 border-4 border-black object-cover"
                     />
                     {isHovered && (
                       <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/60 transition-all">

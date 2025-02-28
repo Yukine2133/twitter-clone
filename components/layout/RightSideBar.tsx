@@ -1,9 +1,9 @@
-// In RightSideBar.tsx
 import dynamic from "next/dynamic";
 import PopularHashtags from "../PopularHashtags";
+import FollowSuggestions from "../follow/FollowSuggestions";
 
 const SearchInput = dynamic(() => import("../search/SearchInput"), {
-  ssr: false, // This disables SSR for SearchInput
+  ssr: false, //  disables SSR for SearchInput
 });
 
 const RightSideBar = () => {
@@ -11,6 +11,7 @@ const RightSideBar = () => {
     <div className="px-3 mt-10 max-[1023px]:hidden ">
       <SearchInput path="search" />
       <PopularHashtags />
+      <FollowSuggestions />
     </div>
   );
 };

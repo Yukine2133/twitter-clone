@@ -181,3 +181,17 @@ export const searchUsers = async (q: string | null) => {
     console.error(error);
   }
 };
+
+
+
+export const fetchUsers = async (currentUserId: string) => {
+  try {
+    await connectDb();
+
+    // Fetch all users except the current user
+    const users = await User.find({ _id: { $ne: currentUserId } });
+    return users;
+  } catch (error) {
+    console.log(error);
+  }
+};
