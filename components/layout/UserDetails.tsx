@@ -17,7 +17,7 @@ const UserDetails = async () => {
           alt={currentUser?.username!}
           width={44}
           height={44}
-          className="rounded-full"
+          className="rounded-full max-h-12 object-cover"
         />
         <div className="lg:hidden">
           <OpenEllipsisButton />

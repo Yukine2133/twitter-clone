@@ -63,11 +63,11 @@ const ProfileData = ({
           <div className="w-full h-48 md:h-56  bg-[#333639] object-cover" />
         )}
         <Image
-          className="rounded-full left-4 absolute top-[65%] md:top-[75%] "
+          className="rounded-full max-h-28 object-cover left-4 absolute top-[65%] md:top-[75%] "
           src={user.avatar}
           alt={user.username}
-          width={125}
-          height={125}
+          width={120}
+          height={124}
         />
       </div>
       <div className="mt-4 px-2 md:px-4  gap-4 flex items-center justify-end ">

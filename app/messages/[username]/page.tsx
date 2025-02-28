@@ -48,7 +48,7 @@ const MessageWithTheUser = async ({
             alt="Recipient avatar"
             width={50}
             height={50}
-            className="rounded-full"
+            className="rounded-full max-h-12 object-cover"
           />
           <div>
             <h2 className="font-semibold mb-1">{recipient.displayName}</h2>

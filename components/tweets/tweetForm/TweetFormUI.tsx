@@ -75,7 +75,7 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
               alt={user?.username!}
               width={48}
               height={48}
-              className="rounded-full"
+              className="rounded-full max-h-10 object-cover"
             />
             <ReactTextareaAutosize
               onChange={(e) => setText(e.target.value)}

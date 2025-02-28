@@ -43,7 +43,7 @@ const TweetCard = async ({
                 alt={owner.username}
                 width={42}
                 height={42}
-                className="rounded-full max-w-14 object-cover"
+                className="rounded-full max-w-14 max-h-10 object-cover"
               />
             </HoverUserInfo>
 
