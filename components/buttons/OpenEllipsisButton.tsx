@@ -10,26 +10,30 @@ import { useRef, useState } from "react";
 
 const OpenEllipsisButton = () => {
   const [isEllipsisOpen, setIsEllipsisOpen] = useState(false);
-
   const ref = useRef<HTMLDivElement>(null);
 
   useClickOutside(isEllipsisOpen, setIsEllipsisOpen, ref);
 
   return (
-    <>
-      <button onClick={() => setIsEllipsisOpen(!isEllipsisOpen)}>
-        <EllipsisHorizontalIcon className="h-5 w-5 translate-x-2 lg:-translate-x-6 xl:-translate-x-0" />
+    <div className="relative">
+      <button
+        onClick={() => setIsEllipsisOpen(!isEllipsisOpen)}
+        className="rounded-full p-2 transition-colors hover:bg-white/10"
+      >
+        <EllipsisHorizontalIcon className="h-5 w-5" />
       </button>
       {isEllipsisOpen && (
         <div
           ref={ref}
-          className="absolute -top-14 -right-10 lg:right-10 flex gap-2 bg-black shadow-sm p-3 shadow-white "
+          className="absolute bottom-full right-0 mb-2 w-56 rounded-xl bg-black shadow-lg ring-1 ring-white/10"
         >
-          <ArrowRightStartOnRectangleIcon className="h-5 w-5" />
-          <LogoutLink>Logout</LogoutLink>
+          <LogoutLink className="flex w-full items-center gap-3 px-4 py-3 text-left text-red-500 transition-colors hover:bg-white/10">
+            <ArrowRightStartOnRectangleIcon className="h-5 w-5" />
+            <span>Log out</span>
+          </LogoutLink>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
