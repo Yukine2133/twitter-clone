@@ -8,6 +8,7 @@ import { Tweet } from "../models/tweet.model";
 import { revalidatePath } from "next/cache";
 import { IUser } from "@/interfaces/user.interface";
 import { createNotification } from "./notification.actions";
+import { cache } from "react";
 
 export const fetchUser = async (
   userId?: string | null,
@@ -161,9 +162,6 @@ export const followUser = async (
     // Save both users
     await existingUser.save();
     await currentUser.save();
-
-    revalidatePath(`/profile/${username}`);
-    revalidatePath(`/`);
   } catch (error) {
     console.error(error);
   }
@@ -182,16 +180,8 @@ export const searchUsers = async (q: string | null) => {
   }
 };
 
-
-
-export const fetchUsers = async (currentUserId: string) => {
-  try {
-    await connectDb();
-
-    // Fetch all users except the current user
-    const users = await User.find({ _id: { $ne: currentUserId } });
-    return users;
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const fetchUsers = cache(async (currentUserId: string) => {
+  await connectDb();
+  const users = await User.find({ _id: { $ne: currentUserId } });
+  return users;
+});
