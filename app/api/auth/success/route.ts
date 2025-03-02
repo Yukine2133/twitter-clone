@@ -1,7 +1,6 @@
 import { connectDb } from "@/utils/connectDb";
 import { User } from "@/models/user.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { useRouter } from "next/navigation"; // Import useRouter from next/router
 import { combineUsername } from "@/utils/combineUsername";
 import { NextResponse } from "next/server";
 
@@ -12,10 +11,6 @@ function isValidUsername(username: string): boolean {
 }
 
 function getUsernameFromEmail(email: string | any): string {
-  if (typeof email !== "string") {
-    return "unknown";
-  }
-
   const atIndex = email.indexOf("@");
   if (atIndex !== -1) {
     return email.substring(0, atIndex);
@@ -34,10 +29,12 @@ export async function GET(req: Request, res: Response) {
 
     let username = combineUsername(user?.given_name!, user?.family_name!);
 
-    // Check if the username consists of English letters and numbers
     if (!isValidUsername(username)) {
-      // If not, use the username from the email address
-      username = getUsernameFromEmail(user?.email);
+      if (typeof user?.email === "string" && user.email.includes("@")) {
+        username = getUsernameFromEmail(user.email);
+      } else {
+        username = "guest" + Math.floor(Math.random() * 10000);
+      }
     }
 
     let dbUser = await User.findOne({ userId: user?.id });
