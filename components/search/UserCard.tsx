@@ -10,7 +10,7 @@ const UserCard = ({ user }: { user: IUser }) => {
         alt={user.username}
         width={40}
         height={40}
-        className="rounded-full object-cover"
+        className="rounded-full object-cover max-h-10"
       />
       <div className="min-w-0">
         <Link

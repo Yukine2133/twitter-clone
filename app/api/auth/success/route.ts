@@ -1,23 +1,8 @@
 import { connectDb } from "@/utils/connectDb";
 import { User } from "@/models/user.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { combineUsername } from "@/utils/combineUsername";
+
 import { NextResponse } from "next/server";
-
-function isValidUsername(username: string): boolean {
-  // Regular expression to match only alphanumeric characters
-  const alphanumericRegex = /^[a-zA-Z0-9]+$/;
-  return alphanumericRegex.test(username);
-}
-
-function getUsernameFromEmail(email: string | any): string {
-  const atIndex = email.indexOf("@");
-  if (atIndex !== -1) {
-    return email.substring(0, atIndex);
-  }
-
-  return email;
-}
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
@@ -27,15 +12,7 @@ export async function GET(req: Request, res: Response) {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
-    let username = combineUsername(user?.given_name!, user?.family_name!);
-
-    if (!isValidUsername(username)) {
-      if (typeof user?.email === "string" && user.email.includes("@")) {
-        username = getUsernameFromEmail(user.email);
-      } else {
-        username = "guest" + Math.floor(Math.random() * 10000);
-      }
-    }
+    const username = user?.given_name as string;
 
     let dbUser = await User.findOne({ userId: user?.id });
 
