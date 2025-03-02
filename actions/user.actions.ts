@@ -180,8 +180,10 @@ export const searchUsers = async (q: string | null) => {
   }
 };
 
-export const fetchUsers = cache(async (currentUserId: string) => {
+export const fetchUsers = async (currentUserId: string) => {
   await connectDb();
-  const users = await User.find({ _id: { $ne: currentUserId } });
+  const users = await User.find({ _id: { $ne: currentUserId } }).sort({
+    displayName: 1,
+  });
   return users;
-});
+};
