@@ -13,7 +13,10 @@ const UserCard = ({ user }: { user: IUser }) => {
         className="rounded-full object-cover"
       />
       <div className="min-w-0">
-        <Link className="block " href={`/profile/${user.username}`}>
+        <Link
+          className="block "
+          href={`/profile/${user.username}?userId=${user.userId}`}
+        >
           <span className="font-bold text-[15px] truncate block">
             {user.displayName}
           </span>

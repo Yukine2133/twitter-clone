@@ -52,7 +52,7 @@ const TweetCard = async ({
                 <HoverUserInfo user={owner}>
                   <Link
                     className="flex items-center gap-2"
-                    href={`/profile/${owner.username}`}
+                    href={`/profile/${owner.username}?userId=${owner.userId}`}
                   >
                     <span className="font-semibold w-[100px] truncate sm:w-fit">
                       {owner.displayName}

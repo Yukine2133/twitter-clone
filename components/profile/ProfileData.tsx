@@ -60,7 +60,7 @@ const ProfileData = ({
         {!isOwner && (
           <Link
             className="p-2 border border-[#38444d] rounded-full bg-"
-            href={`/messages/${user.username}`}
+            href={`/messages/${user.username}?userId=${user.userId}`}
           >
             <EnvelopeIcon className="h-6 w-6" />
           </Link>
