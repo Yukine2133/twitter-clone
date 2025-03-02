@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { BookmarkIcon } from "@heroicons/react/24/solid";
-import { colors } from "@/utils/colors";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { colors } from "@/utils/colors";
+import Link from "next/link";
 
 interface BookmarkFolderItemProps {
   folder: any;
@@ -19,31 +19,40 @@ const BookmarkFolderItem = ({
   const colorClass = colors[index % colors.length];
   const folderNameWithHyphens = folder.name.replace(/\s+/g, "-");
 
+  const bookmarksCount = folder.bookmarks.length || 0;
+
   const content = (
-    <div className="flex items-center gap-4">
-      <div className={`${colorClass} rounded-full p-[10px]`}>
-        <BookmarkIcon className="size-6 z-10" />
+    <>
+      <div className="flex items-center gap-4">
+        <div className={`${colorClass} rounded-full p-2.5`}>
+          <BookmarkIcon className="w-5 h-5" />
+        </div>
+        <div>
+          <p className="font-medium text-left">{folder.name}</p>
+          <p className="text-sm text-left text-neutral-500">
+            {bookmarksCount || 0} Bookmarks
+          </p>
+        </div>
       </div>
-      <p>{folder.name}</p>
-    </div>
+      {asLink && <ChevronRightIcon className="w-5 h-5 text-neutral-500" />}
+    </>
   );
+
+  const commonClasses =
+    "flex items-center justify-between w-full px-4 py-3 hover:bg-neutral-800 transition-colors duration-200";
 
   if (asLink) {
     return (
       <Link
         href={`/bookmarks/${folderNameWithHyphens}`}
-        className="flex items-center justify-between gap-4 px-4 py-3 hover:bg-gray-600/20 transition-colors duration-300 w-full"
+        className={commonClasses}
       >
         {content}
-        <ChevronRightIcon className="size-5" />
       </Link>
     );
   } else {
     return (
-      <button
-        onClick={onClick}
-        className="flex items-center justify-between gap-4 px-4 py-3 hover:bg-gray-600/20 transition-colors duration-300 w-full"
-      >
+      <button onClick={onClick} className={commonClasses}>
         {content}
       </button>
     );
