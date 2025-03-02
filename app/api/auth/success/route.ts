@@ -6,13 +6,25 @@ import { NextResponse } from "next/server";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
+function generateUsername(user: any): string {
+  if (user?.given_name && user?.family_name) {
+    return `${user.given_name}${user.family_name}`.toLowerCase();
+  }
+  if (user?.email) {
+    const emailUsername = user.email.split("@")[0];
+    return emailUsername.toLowerCase();
+  }
+  return `user_${Math.floor(Math.random() * 10000)}`; // Last fallback
+}
+
 export async function GET(req: Request, res: Response) {
   try {
     await connectDb();
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
-    const username = user?.given_name as string;
+    const username = generateUsername(user);
+
     let dbUser;
     if (user) {
       dbUser = await User.findOne({ userId: user.id });
