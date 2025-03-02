@@ -14,6 +14,7 @@ import {
 } from "@heroicons/react/24/outline";
 import useTweetActions from "@/hooks/tweetsLogic/useTweetActions";
 import { ReplyModal } from "./ReplyModal";
+import { BookmarkNotification } from "../bookmarks/BookmarkNotification";
 
 const colors = [
   "bg-purple-500",
@@ -158,20 +159,11 @@ const TweetActions = ({
       />
 
       {showBookmarkNotification && localIsBookmarked && (
-        <div className="fixed bottom-10 transform translate-x-20 z-10">
-          <div className="bg-blue-500 px-4 py-2 rounded-md z-10 flex gap-2">
-            <h2>Added to your bookmarks. </h2>
-            <button
-              onClick={() => {
-                setIsBookmarkFolderModalOpen(!isBookmarkFolderModalOpen);
-                setShowBookmarkNotification(false);
-              }}
-              className="hover:underline font-medium"
-            >
-              Add to folder
-            </button>
-          </div>
-        </div>
+        <BookmarkNotification
+          isBookmarkFolderModalOpen={isBookmarkFolderModalOpen}
+          setIsBookmarkFolderModalOpen={setIsBookmarkFolderModalOpen}
+          setShowBookmarkNotification={setShowBookmarkNotification}
+        />
       )}
       {isBookmarkFolderModalOpen && (
         <Modal
