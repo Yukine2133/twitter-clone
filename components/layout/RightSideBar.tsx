@@ -8,7 +8,7 @@ const SearchInput = dynamic(() => import("../search/SearchInput"), {
 
 const RightSideBar = () => {
   return (
-    <div className="px-3 mt-10 max-[1023px]:hidden ">
+    <div className="px-3 sticky top-10 max-[1023px]:hidden ">
       <SearchInput path="search" />
       <PopularHashtags />
       <FollowSuggestions />
