@@ -1,12 +1,9 @@
-import { fetchUser } from "@/actions/user.actions";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Image from "next/image";
 import OpenEllipsisButton from "../buttons/OpenEllipsisButton";
+import { useGetCurrentUser } from "@/hooks/useGetCurrentUser";
 
 const UserDetails = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-  const currentUser = await fetchUser(user?.id);
+  const { currentUser } = await useGetCurrentUser();
 
   return (
     <div className="fixed bottom-4 z-10 hidden min-[800px]:block">

@@ -2,19 +2,15 @@ import { getUserBookmarkFolders } from "@/actions/bookmark.actions";
 import { BookmarkIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import React from "react";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { fetchUser } from "@/actions/user.actions";
 import AddOrEditBookmarkFolderButton from "@/components/buttons/AddOrEditBookmarkFolderButton";
 import BookmarkFolderItem from "@/components/bookmarks/BookmarkFolderItem";
+import { useGetCurrentUser } from "@/hooks/useGetCurrentUser";
 
 const Bookmarks = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-  let currentUser;
-  if (user) {
-    currentUser = await fetchUser(user.id);
-  }
-  const userBookmarkFolders = await getUserBookmarkFolders(user?.id as string);
+  const { currentUser } = await useGetCurrentUser();
+  const userBookmarkFolders = await getUserBookmarkFolders(
+    currentUser.userId as string
+  );
   return (
     <div>
       <div className="flex items-center justify-between px-2 md:px-4 pt-2">

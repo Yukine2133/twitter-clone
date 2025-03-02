@@ -1,13 +1,9 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { fetchUser } from "@/actions/user.actions";
 import { SidebarLinkCard } from "./SidebarLinkCard";
 import { LeftSideBarButtons } from "./LeftSideBarButtons";
+import { useGetCurrentUser } from "@/hooks/useGetCurrentUser";
 
 const LeftSideBar = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-
-  const currentUser = await fetchUser(user?.id);
+  const { currentUser } = await useGetCurrentUser();
 
   return (
     <>

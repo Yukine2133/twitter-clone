@@ -1,12 +1,10 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { fetchUser } from "@/actions/user.actions";
 import Image from "next/image";
 import { SidebarLinkCard } from "./LeftSiderBar/SidebarLinkCard";
+import { useGetCurrentUser } from "@/hooks/useGetCurrentUser";
 
 const BottomBar = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-  const currentUser = await fetchUser(user?.id);
+  const { currentUser } = await useGetCurrentUser();
 
   return (
     <div className="fixed bottom-0 left-0 z-10 w-full border-t border-neutral-800 bg-black px-2 py-3 min-[800px]:hidden">

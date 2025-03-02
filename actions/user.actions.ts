@@ -8,7 +8,6 @@ import { Tweet } from "../models/tweet.model";
 import { revalidatePath } from "next/cache";
 import { IUser } from "@/interfaces/user.interface";
 import { createNotification } from "./notification.actions";
-import { cache } from "react";
 
 export const fetchUser = async (
   userId?: string | null,

@@ -5,7 +5,7 @@ import TweetForm from "@/components/tweets/tweetForm/TweetForm";
 import { IUser } from "@/interfaces/user.interface";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { createPortal } from "react-dom"; // Import createPortal for portal rendering
+import { createPortal } from "react-dom";
 
 export const LeftSideBarButtons = ({ currentUser }: { currentUser: IUser }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
