@@ -29,6 +29,14 @@ export interface ProfileDataProps {
   privateProfile: boolean;
 }
 
+export interface IProfileHeaderProps {
+  user: IUser;
+  isOwner: boolean;
+  currentUser: IUser;
+  combinedPostsLength: number;
+  isFollowing: boolean;
+}
+
 export interface IUsersData {
   randomUsersData: IUser[];
   currentUserData: IUser;

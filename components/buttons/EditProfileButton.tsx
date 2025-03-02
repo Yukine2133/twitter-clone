@@ -40,7 +40,7 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
         "input[type='file']"
       ) as HTMLDivElement;
       if (input) {
-        input.click(); // 🎯 Trigger file input click
+        input.click();
       }
     }
   };
