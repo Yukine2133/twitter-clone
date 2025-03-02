@@ -20,23 +20,23 @@ export const generateMetadata = async ({
 };
 
 const MessageWithTheUser = async ({
-  params,
+  searchParams,
 }: {
-  params: {
-    username: string;
+  searchParams: {
+    userId: string;
   };
 }) => {
   const { getUser } = getKindeServerSession();
   const currentUser = await getUser();
 
-  const username = params.username;
-  const recipient = await fetchUser(undefined, username);
+  const userId = searchParams.userId;
+  const recipient = await fetchUser(userId);
 
   const messages = (await getMessages(recipient._id)) as IMessage[];
 
   return (
     <div className="mb-20 h-[400px] ">
-      <div className=" bg-black px-2 md:px-4 border-b pb-2 border-[#2f3336] w-[640px] fixed top-0 z-10  pt-4 flex items-center gap-3">
+      <div className=" bg-black px-2 md:px-4 border-b pb-2 border-[#2f3336]  sticky top-0 z-10  pt-4 flex items-center gap-3">
         <GoBackButton />
 
         <Link

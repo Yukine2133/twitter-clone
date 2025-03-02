@@ -10,7 +10,7 @@ const UserConversationsCard = ({
 }) => {
   return (
     <Link
-      href={`/messages/${message.user.username}`}
+      href={`/messages/${message.user.username}?userId=${message.user.userId}`}
       className="block transition-colors hover:bg-zinc-900"
     >
       <div className="flex gap-3 p-4">
