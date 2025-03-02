@@ -121,9 +121,7 @@ const ProfileData = ({
       </div>
 
       {privateProfile ? (
-        <h4 className="mt-10 text-xl px-4">
-          This profile is private. You can follow them to see their tweets.
-        </h4>
+        <h4 className="mt-10 text-xl px-4">This profile is private.</h4>
       ) : (
         <>
           <h4 className="mt-10 px-4">Tweets:</h4>

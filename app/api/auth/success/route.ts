@@ -13,8 +13,10 @@ export async function GET(req: Request, res: Response) {
     const user = await getUser();
 
     const username = user?.given_name as string;
-
-    let dbUser = await User.findOne({ userId: user?.id });
+    let dbUser;
+    if (user) {
+      dbUser = await User.findOne({ userId: user.id });
+    }
 
     if (!dbUser) {
       dbUser = await User.create({
