@@ -2,6 +2,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import Modal from "../tweets/Modal";
 import * as solid from "@heroicons/react/24/solid";
 import { IBookmarkFolder } from "@/interfaces/bookmark.interface";
+import { colors } from "@/utils/colors";
 
 interface IBookmarkModalProps {
   isBookmarkFolderModalOpen: boolean;
@@ -9,25 +10,6 @@ interface IBookmarkModalProps {
   userBookmarkFolders: IBookmarkFolder[];
   handleBookmarkFolderClick: (id: string) => void;
 }
-
-const colors = [
-  "bg-purple-500",
-  "bg-green-500",
-  "bg-yellow-500",
-  "bg-red-500",
-  "bg-pink-500",
-  "bg-teal-500",
-  "bg-orange-500",
-  "bg-amber-500",
-  "bg-lime-500",
-  "bg-cyan-500",
-  "bg-fuchsia-500",
-  "bg-violet-500",
-  "bg-rose-500",
-  "bg-indigo-500",
-  "bg-emerald-500",
-  "bg-indigo-500",
-];
 
 export const BookmarkModal = ({
   isBookmarkFolderModalOpen,
