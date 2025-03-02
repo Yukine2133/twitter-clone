@@ -1,15 +1,8 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Modal from "../tweets/Modal";
-import type { IBookmarkFolder } from "@/interfaces/bookmark.interface";
+import type { IBookmarkModalProps } from "@/interfaces/bookmark.interface";
 import BookmarkFolderItem from "./BookmarkFolderItem";
 import AddOrEditBookmarkFolderButton from "../buttons/AddOrEditBookmarkFolderButton";
-
-interface IBookmarkModalProps {
-  isBookmarkFolderModalOpen: boolean;
-  setIsBookmarkFolderModalOpen: (arg0: boolean) => void;
-  userBookmarkFolders: IBookmarkFolder[];
-  handleBookmarkFolderClick: (id: string) => void;
-}
 
 export const BookmarkModal = ({
   isBookmarkFolderModalOpen,

@@ -1,12 +1,8 @@
 import { fetchUser, fetchUsers } from "@/actions/user.actions";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { shuffleArray } from "@/utils/shuffleArray";
-import { IUser } from "@/interfaces/user.interface";
+import { IUsersData } from "@/interfaces/user.interface";
 
-interface IUsersData {
-  randomUsersData: IUser[];
-  currentUserData: IUser;
-}
 export const useFollowSuggestions = async () => {
   const { getUser } = getKindeServerSession();
   const currentUser = await getUser();

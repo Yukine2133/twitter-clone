@@ -7,26 +7,9 @@ import {
 } from "@heroicons/react/24/outline";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import Modal from "../Modal";
-import { IUser } from "@/interfaces/user.interface";
 import MediaUploadDropZone from "../media/MediaUploadDropZone";
 import { usePathname } from "next/navigation";
-
-interface ITweetFormUIProps {
-  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  imageUrls: string[];
-  setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
-  videoUrls: string[];
-  setVideoUrls: React.Dispatch<React.SetStateAction<string[]>>;
-  setIsOpen: (arg0: boolean) => void;
-  isOpen: boolean;
-  setIsOpenVideo: (arg0: boolean) => void;
-  isOpenVideo: boolean;
-  loading: boolean;
-  user: IUser;
-  id: string | undefined;
-  text: string | null;
-  setText: (arg0: string | null) => void;
-}
+import { ITweetFormUIProps } from "@/interfaces/tweet.interface";
 
 const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
   function TweetFormUI(

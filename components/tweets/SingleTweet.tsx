@@ -1,6 +1,5 @@
-import { ITweet } from "@/interfaces/tweet.interface";
-import { IUser } from "@/interfaces/user.interface";
-import { IBookmarkFolder } from "@/interfaces/bookmark.interface";
+import { SingleTweetProps } from "@/interfaces/tweet.interface";
+
 import ReplyTweets from "@/components/tweets/ReplyTweets";
 import TweetActions from "@/components/tweets/TweetActions";
 import Image from "next/image";
@@ -11,16 +10,6 @@ import MoreButton from "../buttons/moreButton/MoreButton";
 import GoBackButton from "../buttons/GoBackButton";
 import TweetMedia from "./media/TweetMedia";
 import { renderTweetTextWithHashtags } from "@/utils/formatTweetText";
-
-interface SingleTweetProps {
-  owner: IUser;
-  currentUser: IUser;
-  singleTweet: ITweet;
-  isBookmarked: boolean;
-  isLiked: boolean;
-  isRetweeted: boolean;
-  userBookmarkFolders: IBookmarkFolder[];
-}
 
 const SingleTweet = ({
   owner,

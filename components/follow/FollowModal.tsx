@@ -1,17 +1,7 @@
-import { IUser } from "@/interfaces/user.interface";
 import React, { useRef } from "react";
 import UserCard from "../search/UserCard";
 import useClickOutside from "@/hooks/useClickOutisde";
-
-interface IFollowModal {
-  setIsOpenFollowers: (arg0: boolean) => void;
-  setIsOpenFollowing: (arg0: boolean) => void;
-  isOpenFollowers: boolean;
-  isOpenFollowing: boolean;
-  follow: IUser[];
-  isFollowers: boolean;
-  username: string;
-}
+import { IFollowModal } from "@/interfaces/follow.interface";
 
 const FollowModal = ({
   setIsOpenFollowers,

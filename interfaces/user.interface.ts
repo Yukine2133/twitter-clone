@@ -1,3 +1,5 @@
+import { ITweet } from "./tweet.interface";
+
 export interface IUser {
   username: string;
   avatar: string;
@@ -11,4 +13,23 @@ export interface IUser {
   createdAt: string;
   backgroundImage: string;
   private: boolean;
+}
+
+export interface ProfileDataProps {
+  user: IUser;
+  isOwner: boolean;
+  followers: string[];
+  following: string[];
+  followersOfTheUser: IUser[];
+  followingsOfTheUser: IUser[];
+  username: string;
+  isFollowing: boolean;
+  currentUser: IUser;
+  combinedPosts: ITweet[] | [];
+  privateProfile: boolean;
+}
+
+export interface IUsersData {
+  randomUsersData: IUser[];
+  currentUserData: IUser;
 }

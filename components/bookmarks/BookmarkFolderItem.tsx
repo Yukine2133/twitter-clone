@@ -2,13 +2,7 @@ import { BookmarkIcon } from "@heroicons/react/24/solid";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { colors } from "@/utils/colors";
 import Link from "next/link";
-
-interface BookmarkFolderItemProps {
-  folder: any;
-  index: number;
-  onClick?: () => void;
-  asLink?: boolean;
-}
+import { BookmarkFolderItemProps } from "@/interfaces/bookmark.interface";
 
 const BookmarkFolderItem = ({
   folder,

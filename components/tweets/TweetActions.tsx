@@ -1,6 +1,6 @@
 "use client";
 
-import { ITweetProps } from "@/interfaces/tweet.interface";
+import { TweetActionsProps } from "@/interfaces/tweet.interface";
 import {
   ArrowPathRoundedSquareIcon,
   BookmarkIcon,
@@ -11,15 +11,6 @@ import useTweetActions from "@/hooks/tweetsLogic/useTweetActions";
 import { ReplyModal } from "./ReplyModal";
 import { BookmarkNotification } from "../bookmarks/BookmarkNotification";
 import { BookmarkModal } from "../bookmarks/BookmarkModal";
-
-interface TweetActionsProps extends ITweetProps {
-  isBookmarked: boolean;
-  isLiked: boolean;
-  id: string;
-  user: any;
-  isRetweeted: boolean;
-  userBookmarkFolders: any;
-}
 
 const TweetActions = ({
   isBookmarked: initialIsBookmarked,

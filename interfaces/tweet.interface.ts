@@ -1,3 +1,4 @@
+import { IBookmarkFolder } from "./bookmark.interface";
 import { IMessage } from "./message.interface";
 import { IUser } from "./user.interface";
 
@@ -23,12 +24,50 @@ export interface ITweet {
   videos: string[];
 }
 
-export interface ISingleTweetProps {
-  _id: string;
-  text: string;
-  userId: string;
-  image: string;
-  replies: IReply[];
+export interface SingleTweetProps {
+  owner: IUser;
+  currentUser: IUser;
+  singleTweet: ITweet;
+  isBookmarked: boolean;
+  isLiked: boolean;
+  isRetweeted: boolean;
+  userBookmarkFolders: IBookmarkFolder[];
+}
+
+export interface TweetActionsProps extends ITweetProps {
+  isBookmarked: boolean;
+  isLiked: boolean;
+  id: string;
+  user: any;
+  isRetweeted: boolean;
+  userBookmarkFolders: any;
+}
+
+export interface TweetMediaModalProps {
+  srcImage?: string;
+  srcVideo?: string;
+  onClose: () => void;
+  onNext: () => void;
+  onPrev: () => void;
+  totalImages?: number;
+  totalVideos?: number;
+}
+
+export interface ITweetFormUIProps {
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  imageUrls: string[];
+  setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
+  videoUrls: string[];
+  setVideoUrls: React.Dispatch<React.SetStateAction<string[]>>;
+  setIsOpen: (arg0: boolean) => void;
+  isOpen: boolean;
+  setIsOpenVideo: (arg0: boolean) => void;
+  isOpenVideo: boolean;
+  loading: boolean;
+  user: IUser;
+  id: string | undefined;
+  text: string | null;
+  setText: (arg0: string | null) => void;
 }
 
 export interface IReply {

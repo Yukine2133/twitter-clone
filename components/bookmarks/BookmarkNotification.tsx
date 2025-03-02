@@ -1,8 +1,4 @@
-interface IBookmarkNotificationProps {
-  isBookmarkFolderModalOpen: boolean;
-  setIsBookmarkFolderModalOpen: (arg0: boolean) => void;
-  setShowBookmarkNotification: (arg0: boolean) => void;
-}
+import { IBookmarkNotificationProps } from "@/interfaces/bookmark.interface";
 
 export const BookmarkNotification = ({
   isBookmarkFolderModalOpen,

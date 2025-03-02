@@ -11,23 +11,9 @@ import {
   MapPinIcon,
 } from "@heroicons/react/24/outline";
 import { formatJoinedDate } from "@/utils/formatTimestamp";
-import { IUser } from "@/interfaces/user.interface";
+import { ProfileDataProps } from "@/interfaces/user.interface";
 import Link from "next/link";
 import ClientOnly from "../ClientOnly";
-
-interface ProfileDataProps {
-  user: IUser;
-  isOwner: boolean;
-  followers: string[];
-  following: string[];
-  followersOfTheUser: IUser[];
-  followingsOfTheUser: IUser[];
-  username: string;
-  isFollowing: boolean;
-  currentUser: IUser;
-  combinedPosts: ITweet[] | [];
-  privateProfile: boolean;
-}
 
 const ProfileData = ({
   user,

@@ -2,16 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { createPortal } from "react-dom";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
-
-interface TweetMediaModalProps {
-  srcImage?: string;
-  srcVideo?: string;
-  onClose: () => void;
-  onNext: () => void;
-  onPrev: () => void;
-  totalImages?: number;
-  totalVideos?: number;
-}
+import { TweetMediaModalProps } from "@/interfaces/tweet.interface";
 
 const TweetMediaModal = ({
   srcImage,

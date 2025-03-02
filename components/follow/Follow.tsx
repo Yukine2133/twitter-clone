@@ -1,21 +1,8 @@
 "use client";
 
-import { IUser } from "@/interfaces/user.interface";
 import React, { useState } from "react";
 import FollowModal from "./FollowModal";
-
-interface IFollow {
-  following: {
-    length: number;
-  };
-  followers: {
-    length: number;
-  };
-  followersOfTheUser: IUser[];
-  followingsOfTheUser: IUser[];
-  username: string;
-  userPrivate: boolean;
-}
+import { IFollow } from "@/interfaces/follow.interface";
 
 const Follow = ({
   following,
