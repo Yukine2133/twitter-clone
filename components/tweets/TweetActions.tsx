@@ -1,39 +1,16 @@
 "use client";
 
-import Link from "next/link";
 import { ITweetProps } from "@/interfaces/tweet.interface";
-import Modal from "./Modal";
-import Image from "next/image";
-import TweetForm from "./tweetForm/TweetForm";
 import {
   ArrowPathRoundedSquareIcon,
   BookmarkIcon,
   ChatBubbleOvalLeftIcon,
   HeartIcon,
-  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import useTweetActions from "@/hooks/tweetsLogic/useTweetActions";
 import { ReplyModal } from "./ReplyModal";
 import { BookmarkNotification } from "../bookmarks/BookmarkNotification";
-
-const colors = [
-  "bg-purple-500",
-  "bg-green-500",
-  "bg-yellow-500",
-  "bg-red-500",
-  "bg-pink-500",
-  "bg-teal-500",
-  "bg-orange-500",
-  "bg-amber-500",
-  "bg-lime-500",
-  "bg-cyan-500",
-  "bg-fuchsia-500",
-  "bg-violet-500",
-  "bg-rose-500",
-  "bg-indigo-500",
-  "bg-emerald-500",
-  "bg-indigo-500",
-];
+import { BookmarkModal } from "../bookmarks/BookmarkModal";
 
 interface TweetActionsProps extends ITweetProps {
   isBookmarked: boolean;
@@ -69,7 +46,7 @@ const TweetActions = ({
     isModalOpen,
     isBookmarkFolderModalOpen,
     setIsBookmarkFolderModalOpen,
-    handleClick,
+    handleBookmarkFolderClick,
     SolidHeartIcon,
     SolidBookmarkIcon,
   } = useTweetActions({
@@ -166,39 +143,12 @@ const TweetActions = ({
         />
       )}
       {isBookmarkFolderModalOpen && (
-        <Modal
-          className="md:p-4"
-          isModalOpen={isBookmarkFolderModalOpen}
-          toggleModal={() => setIsBookmarkFolderModalOpen(false)}
-        >
-          <div className="">
-            <div className="flex items-center gap-6 mb-4">
-              <XMarkIcon
-                onClick={() => setIsBookmarkFolderModalOpen(false)}
-                className="size-6 cursor-pointer"
-              />
-              <h5 className="font-semibold text-xl">Add to Folder</h5>
-            </div>
-            {userBookmarkFolders?.map((folder: any, index: number) => {
-              const colorClass = colors[index % colors.length];
-              return (
-                <div key={folder._id}>
-                  <button
-                    onClick={() => handleClick(folder._id)}
-                    className="flex items-center justify-between gap-4 px-4 py-3 hover:bg-gray-600/20 transition-colors duration-300 w-full"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className={`${colorClass} rounded-full p-[10px]`}>
-                        <SolidBookmarkIcon className="size-6 z-10" />
-                      </div>
-                      <p>{folder.name}</p>
-                    </div>
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        </Modal>
+        <BookmarkModal
+          handleBookmarkFolderClick={handleBookmarkFolderClick}
+          userBookmarkFolders={userBookmarkFolders}
+          isBookmarkFolderModalOpen={isBookmarkFolderModalOpen}
+          setIsBookmarkFolderModalOpen={setIsBookmarkFolderModalOpen}
+        />
       )}
     </div>
   );

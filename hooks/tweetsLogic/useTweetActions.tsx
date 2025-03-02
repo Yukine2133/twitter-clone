@@ -120,10 +120,11 @@ const useTweetActions = ({
     }
   };
 
-  const handleClick = async (folderId: string) => {
+  const handleBookmarkFolderClick = async (folderId: string) => {
     try {
       await addBookmarkToFolder(folderId, id, userId);
       setIsBookmarkFolderModalOpen(false);
+      toast.success("Tweet added to folder");
     } catch (error) {
       console.error(error);
     }
@@ -143,7 +144,7 @@ const useTweetActions = ({
     isModalOpen,
     isBookmarkFolderModalOpen,
     setIsBookmarkFolderModalOpen,
-    handleClick,
+    handleBookmarkFolderClick,
     SolidHeartIcon,
     SolidBookmarkIcon,
   };
