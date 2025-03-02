@@ -7,11 +7,13 @@ import { sidebarLinks } from "@/utils/constants";
 interface ISidebarLinkCardProps {
   username: string;
   isMobile?: boolean;
+  userId: string;
 }
 
 export const SidebarLinkCard = ({
   username,
   isMobile = false,
+  userId,
 }: ISidebarLinkCardProps) => {
   const pathname = usePathname();
 
@@ -22,7 +24,8 @@ export const SidebarLinkCard = ({
         const isActive =
           (pathname.includes(route) && route.length > 1) || pathname === route;
 
-        if (route === "/profile" && username) route = `${route}/${username}`;
+        if (route === "/profile" && username)
+          route = `${route}/${username}?userId=${userId}`;
 
         return (
           <Link

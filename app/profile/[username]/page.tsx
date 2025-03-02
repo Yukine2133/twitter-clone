@@ -8,21 +8,19 @@ export const generateMetadata = async ({
 }: {
   params: { username: string };
 }) => {
-  const user = await fetchUser(undefined, params.username);
   return {
-    title: user.username,
+    title: params.username,
   };
 };
 
 const ProfilePage = async ({
-  params,
+  searchParams,
 }: {
-  params: {
-    username: string;
+  searchParams: {
+    userId: string;
   };
 }) => {
   const {
-    username,
     currentUser,
     followers,
     following,
@@ -33,7 +31,7 @@ const ProfilePage = async ({
     user,
     combinedPosts,
     privateProfile,
-  } = await useGetProfileData(params.username);
+  } = await useGetProfileData(searchParams.userId);
 
   return (
     <ProfileData
@@ -43,7 +41,6 @@ const ProfilePage = async ({
       following={following}
       followersOfTheUser={parseJSON(followersOfTheUser)}
       followingsOfTheUser={parseJSON(followingsOfTheUser)}
-      username={username}
       isFollowing={isFollowing}
       currentUser={currentUser}
       combinedPosts={parseJSON(combinedPosts)}

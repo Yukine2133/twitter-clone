@@ -23,7 +23,7 @@ const ProfileData = ({
   following,
   followersOfTheUser,
   followingsOfTheUser,
-  username,
+
   isFollowing,
   currentUser,
   privateProfile,
@@ -60,13 +60,13 @@ const ProfileData = ({
         {!isOwner && (
           <Link
             className="p-2 border border-[#38444d] rounded-full bg-"
-            href={`/messages/${username}`}
+            href={`/messages/${user.username}`}
           >
             <EnvelopeIcon className="h-6 w-6" />
           </Link>
         )}
         <FollowButton
-          username={username}
+          username={user.username}
           isFollowing={isFollowing}
           userId={user._id.toString()}
           currentUserId={currentUser._id.toString()}

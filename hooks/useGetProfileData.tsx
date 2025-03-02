@@ -7,16 +7,15 @@ import {
 
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-const useGetProfileData = async (profileUsername: string) => {
+const useGetProfileData = async (userId: string) => {
   const { getUser } = getKindeServerSession();
   const currentSessionUser = await getUser();
-  const username = profileUsername;
-  const user = await fetchUser(undefined, username);
+  const user = await fetchUser(userId);
 
   if (!user) {
     throw new Error("User doesn't exist.");
   }
-  const currentUser = await fetchUser(currentSessionUser?.id);
+  const currentUser = await fetchUser(currentSessionUser?.id as string);
   const tweets = await fetchUserTweets(user.userId);
 
   const retweets = await fetchUserRetweets();
@@ -57,7 +56,6 @@ const useGetProfileData = async (profileUsername: string) => {
     !user.following?.includes(currentUser?._id as string);
 
   return {
-    username,
     currentUser,
     combinedPosts,
     followers,
