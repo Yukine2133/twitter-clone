@@ -1,58 +1,30 @@
-"use client";
-
-import { sidebarLinks } from "@/utils/constants";
-import useFetchCurrentUser from "@/hooks/useFetchCurrentUser";
-import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { fetchUser } from "@/actions/user.actions";
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { SidebarLinkCard } from "./LeftSiderBar/SidebarLinkCard";
 
-const BottomBar = () => {
-  const pathname = usePathname();
-
-  const currentUser = useFetchCurrentUser();
+const BottomBar = async () => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+  const currentUser = await fetchUser(user?.id);
 
   return (
-    <div className="fixed z-10 bg-black  px-4 border-t border-[#2f3336] w-full min-[800px]:hidden bottom-0 left-0 ">
-      <div className="flex justify-between w-full p-1 items-center  sm:pl-6">
-        {sidebarLinks.map((link) => {
-          let { Icon, SolidIcon, route } = link;
-
-          const isActive =
-            (pathname.includes(route) && route.length > 1) ||
-            pathname === route;
-
-          if (link.route === "/profile" && currentUser)
-            link.route = `${link.route}/${currentUser.username}`;
-          return (
-            <Link
-              href={route}
-              key={link.label}
-              className={`flex items-center  `}
-            >
-              {/* If is active render Solid Icons */}
-              {isActive && <SolidIcon className="h-7 w-7" />}
-
-              {/* If not active render Outlined Icons */}
-              {!isActive && <Icon className="h-7 w-7" />}
-            </Link>
-          );
-        })}
-        <div className="flex items-center gap-4">
-          {currentUser ? (
-            <Image
-              src={currentUser?.avatar!}
-              alt={currentUser?.username!}
-              width={32}
-              height={32}
-              className="rounded-full"
-            />
-          ) : (
-            <div className="animate-pulse bg-slate-600 h-10 w-10 rounded-full "></div>
-          )}
-          <LogoutLink>Logout</LogoutLink>
+    <div className="fixed bottom-0 left-0 z-10 w-full border-t border-neutral-800 bg-black px-2 py-3 min-[800px]:hidden">
+      <nav className="flex items-center justify-around">
+        <div className="flex items-center space-x-1 sm:space-x-4">
+          <SidebarLinkCard username={currentUser?.username} isMobile />
         </div>
-      </div>
+        {currentUser && (
+          <div className="relative h-8 w-8 overflow-hidden rounded-full">
+            <Image
+              src={currentUser.avatar}
+              alt={currentUser.username}
+              fill
+              className="object-cover"
+            />
+          </div>
+        )}
+      </nav>
     </div>
   );
 };

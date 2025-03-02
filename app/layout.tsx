@@ -43,7 +43,7 @@ export default async function RootLayout({
         />
         <main className="flex justify-center mx-auto">
           <div className="flex w-full max-w-[1300px] justify-center gap-0 lg:gap-4">
-            <div className="w-[68px] min-[800px]:w-[88px] lg:w-[275px]">
+            <div className="w-[68px] max-[800px]:hidden  min-[800px]:w-[88px] lg:w-[275px]">
               <LeftSideBar />
               <UserDetails />
             </div>
