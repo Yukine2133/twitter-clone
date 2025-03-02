@@ -5,7 +5,7 @@ import React from "react";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { fetchUser } from "@/actions/user.actions";
 import AddOrEditBookmarkFolderButton from "@/components/buttons/AddOrEditBookmarkFolderButton";
-import { colors } from "@/utils/colors";
+import BookmarkFolderItem from "@/components/bookmarks/BookmarkFolderItem";
 
 const Bookmarks = async () => {
   const { getUser } = getKindeServerSession();
@@ -42,25 +42,9 @@ const Bookmarks = async () => {
           <ChevronRightIcon className="size-5" />
         </Link>
 
-        {userBookmarkFolders?.map((folder, index) => {
-          const folderNameWithHyphens = folder.name.replace(/\s+/g, "-");
-          const colorClass = colors[index % colors.length]; // Pick color based on index
-          return (
-            <Link
-              key={folder._id}
-              href={`/bookmarks/${folderNameWithHyphens}`}
-              className="flex items-center justify-between gap-4 px-4 py-3 hover:bg-gray-600/20 transition-colors duration-300 w-full"
-            >
-              <div className="flex items-center gap-4">
-                <div className={`${colorClass} rounded-full p-[10px]`}>
-                  <BookmarkIcon className="size-6 z-10" />
-                </div>
-                <p>{folder.name}</p>
-              </div>
-              <ChevronRightIcon className="size-5" />
-            </Link>
-          );
-        })}
+        {userBookmarkFolders?.map((folder, index) => (
+          <BookmarkFolderItem key={folder._id} folder={folder} index={index} />
+        ))}
       </div>
     </div>
   );
