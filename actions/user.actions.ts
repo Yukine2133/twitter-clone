@@ -8,32 +8,15 @@ import { Tweet } from "../models/tweet.model";
 import { revalidatePath } from "next/cache";
 import { IUser } from "@/interfaces/user.interface";
 import { createNotification } from "./notification.actions";
+import { parseJSON } from "@/utils/parseJSON";
 
-export const fetchUser = async (
-  userId?: string | null,
-  username?: string | null,
-  id?: string | null
-) => {
+export const fetchUser = async (userId: string | null) => {
   try {
     await connectDb();
-    let users;
-    if (username) {
-      users = await User.find({ username });
-    } else if (userId) {
-      users = await User.find({ userId });
-    } else if (id) {
-      users = await User.findById(id);
-    }
-    if (users) {
-      const { _id } = users[0];
-      const plainUser = {
-        ...users[0].toObject(),
-        _id: _id.toString(),
-      };
-      return plainUser;
-    } else {
-      return null;
-    }
+
+    const user = await User.findOne({ userId });
+
+    return parseJSON(user);
   } catch (error) {
     console.log(error);
   }
