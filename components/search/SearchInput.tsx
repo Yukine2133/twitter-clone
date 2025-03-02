@@ -28,7 +28,7 @@ const SearchInput = ({ path }: { path: string }) => {
   return (
     <form
       onSubmit={onSearch}
-      className="items-center  flex justify-start   w-full max-w-[350px] px-2 rounded-full bg-[#27272a]"
+      className="items-center  flex justify-start   w-full  px-2 rounded-full bg-[#27272a]"
     >
       <input
         value={searchQuery || ""}
