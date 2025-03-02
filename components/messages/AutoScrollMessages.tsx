@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useRef } from "react";
+import { type ReactNode, useEffect, useRef } from "react";
 
 const AutoScrollMessages = ({ children }: { children: ReactNode }) => {
   const messagesContainer = useRef<HTMLDivElement>(null);
@@ -14,12 +14,12 @@ const AutoScrollMessages = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     scroll();
-  }, [children]);
+  }, []);
 
   return (
     <div
       ref={messagesContainer}
-      className="mt-20 max-h-[calc(100vh-80px)] overflow-y-auto custom-scrollbar  "
+      className="flex-grow overflow-y-auto custom-scrollbar"
     >
       {children}
     </div>

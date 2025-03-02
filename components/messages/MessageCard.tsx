@@ -1,6 +1,6 @@
 "use client";
 
-import { IMessage } from "@/interfaces/message.interface";
+import type { IMessage } from "@/interfaces/message.interface";
 import { formatMessageCreatedAt } from "@/utils/formatTimestamp";
 import Image from "next/image";
 import MoreButton from "../buttons/moreButton/MoreButton";
@@ -14,53 +14,51 @@ const MessageCard = ({
 }) => {
   return (
     <div
-      className={`flex mt-4 group px-2 md:px-3  ${
-        isCurrentUserSender ? "justify-end " : "justify-start"
+      className={`flex group ${
+        isCurrentUserSender ? "justify-end" : "justify-start"
       }`}
     >
-      <div>
+      <div
+        className={`max-w-[70%] ${
+          isCurrentUserSender ? "items-end" : "items-start"
+        }`}
+      >
         {message.image && (
           <Image
-            src={message.image}
-            alt="Image"
+            src={message.image || "/placeholder.svg"}
+            alt="Message image"
             width={270}
             height={270}
-            className={`rounded-lg flex justify-end ${
-              isCurrentUserSender ? "ml-auto" : ""
-            }`}
+            className="rounded-lg mb-2"
           />
         )}
-        <div className="flex items-center   gap-2">
-          <div className="relative ">
+        {message.content && (
+          <div className="flex relative items-center gap-2">
             {isCurrentUserSender && (
               <MoreButton
-                messageId={message._id.toString() as string}
+                messageId={message._id.toString()}
                 message={message}
               />
             )}
-          </div>
-          {message.content && (
             <div
-              className={`bg-blue-500 max-w-[290px]  rounded-xl px-2 py-1 my-2 text-[15px] ${
-                isCurrentUserSender ? "ml-auto" : "bg-zinc-900"
+              className={`rounded-2xl px-4 py-2 mb-1 ${
+                isCurrentUserSender
+                  ? "bg-blue-500 text-white"
+                  : "bg-neutral-800 text-white"
               }`}
             >
-              <h3 style={{ overflowWrap: "anywhere" }}>{message.content}</h3>
+              <p className="break-words">{message.content}</p>
             </div>
-          )}
-        </div>
+          </div>
+        )}
         <div
-          className={`flex gap-1 items-center text-[13px] text-zinc-600  ${
-            isCurrentUserSender ? "ml-auto flex justify-end" : ""
-          }`}
+          className={`flex mt-1 items-center ${
+            isCurrentUserSender ? "justify-end" : "justify-start"
+          } gap-2 text-xs text-neutral-500`}
         >
-          <p>{formatMessageCreatedAt(message.createdAt)}</p>
-          {message.isEdited && (
-            <>
-              <span className="text-sm">&middot;</span>
-              <p>Edited</p>
-            </>
-          )}
+          {message.isEdited && <span>• Edited</span>}
+
+          <span>{formatMessageCreatedAt(message.createdAt)}</span>
         </div>
       </div>
     </div>

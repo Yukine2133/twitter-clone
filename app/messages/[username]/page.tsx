@@ -1,4 +1,4 @@
-import { IMessage } from "@/interfaces/message.interface";
+import type { IMessage } from "@/interfaces/message.interface";
 import Image from "next/image";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { getMessages } from "@/actions/message.actions";
@@ -15,7 +15,7 @@ export const generateMetadata = async ({
   params: { username: string };
 }) => {
   return {
-    title: params.username + " - Messages",
+    title: `${params.username} - Messages`,
   };
 };
 
@@ -35,42 +35,39 @@ const MessageWithTheUser = async ({
   const messages = (await getMessages(recipient._id)) as IMessage[];
 
   return (
-    <div className="mb-20 h-[400px] ">
-      <div className=" bg-black px-2 md:px-4 border-b pb-2 border-[#2f3336]  sticky top-0 z-10  pt-4 flex items-center gap-3">
+    <div className="flex flex-col  h-screen">
+      <header className="bg-black px-4 py-3 border-b border-neutral-800 sticky top-0 z-10 flex items-center gap-4">
         <GoBackButton />
-
         <Link
-          className="flex items-center gap-3"
+          className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           href={`/profile/${recipient.username}`}
         >
           <Image
-            src={recipient.avatar}
-            alt="Recipient avatar"
-            width={50}
-            height={50}
-            className="rounded-full max-h-12 object-cover"
+            src={recipient.avatar || "/placeholder.svg"}
+            alt={recipient.displayName}
+            width={40}
+            height={40}
+            className="rounded-full max-h-10 object-cover"
           />
           <div>
-            <h2 className="font-semibold mb-1">{recipient.displayName}</h2>
-            <h2 className="text-gray-500 text-sm">@{recipient.username}</h2>
+            <h2 className="font-bold text-lg">{recipient.displayName}</h2>
+            <p className="text-neutral-500 text-sm">@{recipient.username}</p>
           </div>
         </Link>
-      </div>
+      </header>
+
       <AutoScrollMessages>
-        <div className="mb-20">
-          {messages.map((message: IMessage) => {
-            const isCurrentUserSender =
-              message.sender.userId === currentUser?.id;
-            return (
-              <MessageCard
-                key={message._id}
-                message={message}
-                isCurrentUserSender={isCurrentUserSender}
-              />
-            );
-          })}
+        <div className="flex-grow p-4 space-y-4">
+          {messages.map((message: IMessage) => (
+            <MessageCard
+              key={message._id}
+              message={message}
+              isCurrentUserSender={message.sender.userId === currentUser?.id}
+            />
+          ))}
         </div>
       </AutoScrollMessages>
+
       <MessageForm recipientUserId={recipient._id} />
     </div>
   );

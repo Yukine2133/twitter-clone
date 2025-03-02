@@ -22,7 +22,7 @@ export interface ProfileDataProps {
   following: string[];
   followersOfTheUser: IUser[];
   followingsOfTheUser: IUser[];
-  username: string;
+  // username: string;
   isFollowing: boolean;
   currentUser: IUser;
   combinedPosts: ITweet[] | [];

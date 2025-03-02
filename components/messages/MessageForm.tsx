@@ -5,7 +5,6 @@ import {
   PhotoIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import React from "react";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
 import Modal from "../tweets/Modal";
@@ -24,41 +23,51 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
     handleSubmit,
     handleKeyDown,
   } = useMessageForm({ recipientUserId });
+
   return (
     <>
-      <div className="px-2 md:px-4 fixed bottom-12 min-[800px]:bottom-0 w-full pb-2 sm:w-[635px]  z-10  bg-black border-t border-[#2f3336]  pt-4">
-        <form className="bg-[#202327]  w-full rounded-xl p-3">
+      <div className="sticky bottom-0  bg-black border-t border-neutral-800 pb-[calc(1rem+60px)] min-[800px]:p-4">
+        <form className="bg-neutral-900 rounded-2xl p-3">
           {imageUrl && (
-            <div className="my-4 relative flex items-center">
-              <button className="absolute -top-6 -left-2">
-                <XMarkIcon
-                  onClick={() => setImageUrl(null)}
-                  className="h-5 w-5"
-                />
+            <div className="relative mb-3">
+              <button
+                type="button"
+                onClick={() => setImageUrl(null)}
+                className="absolute -top-2 -left-2 bg-neutral-800 rounded-full p-1"
+              >
+                <XMarkIcon className="h-4 w-4 text-white" />
               </button>
               <Image
-                className="rounded-lg w-fit object-cover"
-                src={imageUrl}
-                alt="Uploaded image "
-                width={150}
-                height={150}
+                src={imageUrl || "/placeholder.svg"}
+                alt="Upload preview"
+                width={100}
+                height={100}
+                className="rounded-lg object-cover"
               />
             </div>
           )}
-          <div className="flex gap-2 justify-between items-center">
-            <button type="button" onClick={() => setIsOpen(!isOpen)}>
-              <PhotoIcon className="h-5 w-5 text-blue-500" />
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-blue-500 hover:bg-blue-500/10 rounded-full p-2 transition-colors"
+            >
+              <PhotoIcon className="h-5 w-5" />
             </button>
             <ReactTextareaAutosize
               maxRows={5}
               value={content}
               onChange={(e) => setContent(e.target.value)}
               onKeyDown={handleKeyDown}
-              className="bg-transparent h-6 outline-none w-full resize-none placeholder:text-zinc-500"
+              className="bg-transparent flex-grow outline-none resize-none placeholder:text-neutral-500"
               placeholder="Send a message"
             />
-            <button type="button" onClick={handleSubmit}>
-              <PaperAirplaneIcon className="text-blue-500 h-5 w-5" />
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="text-blue-500 hover:bg-blue-500/10 rounded-full p-2 transition-colors"
+            >
+              <PaperAirplaneIcon className="h-5 w-5" />
             </button>
           </div>
         </form>
@@ -66,7 +75,7 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
       {isOpen && (
         <Modal isModalOpen={isOpen} toggleModal={setIsOpen}>
           <UploadDropzone
-            endpoint={"messageMedia"}
+            endpoint="messageMedia"
             onClientUploadComplete={(res) => {
               if (res?.[0].url) {
                 setImageUrl(res[0].url);
