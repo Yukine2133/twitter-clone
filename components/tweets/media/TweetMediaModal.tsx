@@ -18,7 +18,7 @@ const TweetMediaModal = ({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#242d34] bg-opacity-65 px-7"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950/60 backdrop-blur-sm"
       onClick={onClose}
     >
       <div className="relative">

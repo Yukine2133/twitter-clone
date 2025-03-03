@@ -10,7 +10,7 @@ import { IUser } from "@/interfaces/user.interface";
 import { createNotification } from "./notification.actions";
 import { parseJSON } from "@/utils/parseJSON";
 
-export const fetchUser = async (userId: string | null) => {
+export const fetchUser = async (userId: string | null | undefined) => {
   try {
     await connectDb();
 

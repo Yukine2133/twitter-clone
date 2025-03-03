@@ -6,7 +6,7 @@ import { ITweetProps } from "@/interfaces/tweet.interface";
 import MoreButton from "../buttons/moreButton/MoreButton";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
 import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/outline";
-import HoverUserInfo from "../HoverUserInfo";
+import HoverUserInfo from "./HoverUserInfo";
 import TweetMedia from "./media/TweetMedia";
 import useTweetCard from "@/hooks/tweetsLogic/useTweetCard";
 import { renderTweetTextWithHashtags } from "@/utils/formatTweetText";

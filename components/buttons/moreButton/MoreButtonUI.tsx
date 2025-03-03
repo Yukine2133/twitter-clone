@@ -6,29 +6,9 @@ import {
 } from "@heroicons/react/24/outline";
 import Modal from "../../tweets/Modal";
 import ReactTextareaAutosize from "react-textarea-autosize";
-import { MutableRefObject } from "react";
 import MoreButtonMediaUpload from "./MoreButtonTweetMediaUpload";
 import MoreButtonMessageMediaUpload from "./MoreButtonMessageMediaUpload";
-
-interface IMoreButtonUIProps {
-  isOwner: true | string | undefined;
-  buttonRef: MutableRefObject<HTMLButtonElement | null>;
-  setIsOpen: (arg0: boolean) => void;
-  isOpen: boolean;
-  setEdit: (arg0: boolean) => void;
-  edit: boolean;
-  handleDelete: () => void;
-  text: string | null;
-  setText: (arg0: string) => void;
-  setImageUrl: (arg0: string) => void;
-  imageUrl: string | null;
-  handleSubmit: () => void;
-  messageId: string | undefined;
-  tweetImageUrls: string[];
-  setTweetImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
-  tweetVideoUrls: string[];
-  setTweetVideoUrls: React.Dispatch<React.SetStateAction<string[]>>;
-}
+import { IMoreButtonUIProps } from "@/interfaces/tweet.interface";
 
 const MoreButtonUI = ({
   isOwner,
