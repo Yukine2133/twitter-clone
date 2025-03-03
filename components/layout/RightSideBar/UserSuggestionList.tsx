@@ -1,5 +1,5 @@
-import UserCard from "./search/UserCard";
-import FollowButton from "./buttons/FollowButton";
+import UserCard from "../../search/UserCard";
+import FollowButton from "../../buttons/FollowButton";
 import { fetchUsers } from "@/actions/user.actions";
 import { parseJSON } from "@/utils/parseJSON";
 import { useGetCurrentUser } from "@/hooks/useGetCurrentUser";

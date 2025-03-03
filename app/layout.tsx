@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import LeftSideBar from "@/components/layout/LeftSiderBar/LeftSideBar";
-import RightSideBar from "@/components/layout/RightSideBar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BottomBar from "@/components/layout/BottomBar";
@@ -10,6 +9,7 @@ import UserDetails from "@/components/layout/UserDetails";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
+import RightSideBar from "@/components/layout/RightSideBar/RightSideBar";
 
 const poppins = Poppins({
   subsets: ["latin"],

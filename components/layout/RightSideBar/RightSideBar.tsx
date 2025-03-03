@@ -1,8 +1,8 @@
 import dynamic from "next/dynamic";
-import PopularHashtags from "../PopularHashtags";
-import FollowSuggestions from "../follow/FollowSuggestions";
+import PopularHashtags from "./PopularHashtags";
+import FollowSuggestions from "@/components/follow/FollowSuggestions";
 
-const SearchInput = dynamic(() => import("../search/SearchInput"), {
+const SearchInput = dynamic(() => import("../../search/SearchInput"), {
   ssr: false, //  disables SSR for SearchInput
 });
 

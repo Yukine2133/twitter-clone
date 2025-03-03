@@ -4,7 +4,7 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import UserSuggestionList from "@/components/UserSuggestionList";
+import UserSuggestionList from "@/components/layout/RightSideBar/UserSuggestionList";
 
 const ConnectPage = () => {
   // const [searchQuery, setSearchQuery] = useState("");
