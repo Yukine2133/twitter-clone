@@ -8,14 +8,22 @@ import { revalidatePath } from "next/cache";
 import { User } from "@/models/user.model";
 import { parseJSON } from "@/utils/parseJSON";
 
+import Pusher from "pusher";
+
+const pusher = new Pusher({
+  appId: process.env.PUSHER_APP_ID!,
+  key: process.env.NEXT_PUBLIC_PUSHER_KEY!,
+  secret: process.env.PUSHER_SECRET!,
+  cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+  useTLS: true,
+});
+
 export const sendMessage = async (recipientId: string, formData: FormData) => {
   try {
     await connectDb();
 
     const { getUser } = getKindeServerSession();
-
     const user = await getUser();
-
     const currentUser = await fetchUser(user?.id);
 
     const content = formData.get("content");
@@ -29,8 +37,23 @@ export const sendMessage = async (recipientId: string, formData: FormData) => {
     });
 
     await message.save();
+
+    // Populate the sender field
+    const populatedMessage = await Message.findById(message._id).populate(
+      "sender"
+    );
+
+    // Create a shared channel name
+    const channelName = [currentUser._id, recipientId].sort().join("-");
+
+    // Trigger Pusher event
+    await pusher.trigger(`chat-${channelName}`, "new-message", {
+      message: parseJSON(populatedMessage),
+    });
+
     revalidatePath("/messages");
   } catch (error) {
+    console.error("Error in sendMessage:", error);
     return { message: `Failed to send message: ${error}` };
   }
 };
@@ -42,15 +65,13 @@ export const getMessages = async (userId: string) => {
     const user = await getUser();
 
     const currentUser = await fetchUser(user?.id);
-    // Retrieve messages where the user is either the sender or the recipient,
-    // and where the sender matches the specified senderId
     const messages = await Message.find({
       $or: [
         { sender: userId, recipient: currentUser._id },
         { sender: currentUser._id, recipient: userId },
       ],
     })
-      .sort({ createdAt: 1 }) // Sort messages by createdAt timestamp in ascending order
+      .sort({ createdAt: 1 })
       .populate("sender");
 
     return parseJSON(messages);
