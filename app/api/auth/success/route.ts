@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
-function generateUsername(user: any): string {
+function generateUsername(user: any) {
   if (user?.given_name && user?.family_name) {
     return `${user.given_name}${user.family_name}`.toLowerCase();
   }
@@ -14,7 +14,6 @@ function generateUsername(user: any): string {
     const emailUsername = user.email.split("@")[0];
     return emailUsername.toLowerCase();
   }
-  return `user_${Math.floor(Math.random() * 10000)}`; // Last fallback
 }
 
 export async function GET(req: Request, res: Response) {

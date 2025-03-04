@@ -64,7 +64,7 @@ const ProfileData = ({
         />
       </div>
 
-      <div className="mt-16 px-4 flex items-center justify-end gap-4">
+      <div className="mt-4 px-4 flex items-center justify-end gap-4">
         {!isOwner && (
           <>
             <Link
@@ -84,7 +84,7 @@ const ProfileData = ({
         {isOwner && <EditProfileButton user={user} />}
       </div>
 
-      <div className="mt-5 px-4">
+      <div className="mt-3 px-4">
         <div className="flex justify-between items-center my-2">
           <div className="mt-4">
             <h2 className="font-bold text-xl mb-1">{user.displayName}</h2>

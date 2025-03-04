@@ -23,6 +23,7 @@ export const fetchUser = async (userId: string | null | undefined) => {
 };
 
 export const updateUser = async ({
+  username,
   userId,
   bio,
   location,
@@ -32,7 +33,7 @@ export const updateUser = async ({
   private: privateUser,
 }: Omit<
   IUser,
-  "displayName" | "username" | "_id" | "followers" | "following" | "createdAt"
+  "displayName" | "_id" | "followers" | "following" | "createdAt"
 > & { name: string }) => {
   try {
     await connectDb();
@@ -51,6 +52,7 @@ export const updateUser = async ({
     if (!existingUser) return { message: "This User does not exist." };
 
     existingUser.displayName = name;
+    existingUser.username = username;
     existingUser.avatar = avatar;
     existingUser.bio = bio;
     existingUser.location = location;

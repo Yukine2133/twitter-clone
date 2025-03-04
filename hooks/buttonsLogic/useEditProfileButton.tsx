@@ -5,6 +5,7 @@ import { bioSchema, locationSchema, nameSchema } from "@/utils/lib/validation";
 import { toast } from "react-toastify";
 import { IUser } from "@/interfaces/user.interface";
 const useEditProfileButton = ({ user }: { user: IUser }) => {
+  const [username, setUsername] = useState(user.username ? user.username : "");
   const [name, setName] = useState(user.displayName ? user.displayName : "");
   const [bio, setBio] = useState(user.bio ? user.bio : "");
   const [location, setLocation] = useState(user.location ? user.location : "");
@@ -25,16 +26,13 @@ const useEditProfileButton = ({ user }: { user: IUser }) => {
     try {
       e.preventDefault();
 
-      // Validate name
+      // Validation
       nameSchema.parse(name);
-
-      // Validate bio
       bioSchema.parse(bio);
-
-      // Validate location
       locationSchema.parse(location);
 
       const res = await updateUser({
+        username,
         userId,
         location,
         bio,
@@ -63,6 +61,8 @@ const useEditProfileButton = ({ user }: { user: IUser }) => {
   return {
     toggleModal,
     isModalOpen,
+    username,
+    setUsername,
     name,
     setName,
     bio,

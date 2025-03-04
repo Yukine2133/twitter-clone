@@ -14,3 +14,6 @@ export const bioSchema = z
 export const locationSchema = z
   .string()
   .max(30, "Location must be at most 30 characters long");
+export const usernameSchema = z
+  .string()
+  .max(20, "Username must be at most 20 characters long");

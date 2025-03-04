@@ -16,6 +16,8 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
     isModalOpen,
     name,
     setName,
+    username,
+    setUsername,
     bio,
     setBio,
     location,
@@ -135,7 +137,23 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
 
               <div className="space-y-4 pt-14">
                 <div className="group relative rounded-md border border-neutral-800 px-3 py-2 focus-within:border-blue-500">
-                  <label className="block text-xs text-neutral-500">Name</label>
+                  <label className="block text-xs text-neutral-500">
+                    Username
+                  </label>
+                  <input
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    maxLength={20}
+                    className="mt-1 w-full bg-transparent text-base outline-none"
+                  />
+                  <span className="absolute right-3 top-3 text-xs text-neutral-500">
+                    {username.length}/20
+                  </span>
+                </div>
+                <div className="group relative rounded-md border border-neutral-800 px-3 py-2 focus-within:border-blue-500">
+                  <label className="block text-xs text-neutral-500">
+                    Display Name
+                  </label>
                   <input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
