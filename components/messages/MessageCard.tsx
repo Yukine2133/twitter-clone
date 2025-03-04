@@ -47,7 +47,9 @@ const MessageCard = ({
                   : "bg-neutral-800 text-white"
               }`}
             >
-              <p className="break-words">{message.content}</p>
+              <p style={{ overflowWrap: "anywhere" }} className="break-words">
+                {message.content}
+              </p>
             </div>
           </div>
         )}
