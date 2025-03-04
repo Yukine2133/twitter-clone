@@ -4,6 +4,7 @@ import TweetForm from "@/components/tweets/tweetForm/TweetForm";
 import { ITweet } from "@/interfaces/tweet.interface";
 import ClientOnly from "../components/ClientOnly";
 import { useGetCurrentUser } from "@/hooks/useGetCurrentUser";
+import { parseJSON } from "@/utils/parseJSON";
 
 export default async function Home() {
   const tweets = await fetchTweets();
@@ -12,7 +13,7 @@ export default async function Home() {
 
   return (
     <div>
-      <TweetForm user={currentUser} />
+      <TweetForm user={parseJSON(currentUser)} />
       <ClientOnly>
         {tweets &&
           tweets?.map((tweet) => {
