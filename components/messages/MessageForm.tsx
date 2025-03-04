@@ -30,37 +30,8 @@ const MessageForm = ({
     setIsOpen,
     handleSubmit,
     handleKeyDown,
-  } = useMessageForm({ recipientUserId });
-
-  const [isTyping, setIsTyping] = useState(false);
-  const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
-    null
-  );
-
-  // Create the shared channel name
-  const channelName = [currentUserId, recipientUserId].sort().join("-");
-
-  const handleTyping = () => {
-    if (!isTyping) {
-      setIsTyping(true);
-      // Trigger "typing" event via server action
-      triggerTypingEvent(channelName, currentUserId, true);
-    }
-
-    // Clear the previous timeout
-    if (typingTimeout) {
-      clearTimeout(typingTimeout);
-    }
-
-    // Set a new timeout to trigger "stopped typing" after 2 seconds of inactivity
-    setTypingTimeout(
-      setTimeout(() => {
-        setIsTyping(false);
-        // Trigger "stopped typing" event via server action
-        triggerTypingEvent(channelName, currentUserId, false);
-      }, 2000)
-    );
-  };
+    handleTyping,
+  } = useMessageForm({ recipientUserId, currentUserId });
 
   return (
     <>
@@ -97,7 +68,7 @@ const MessageForm = ({
               value={content}
               onChange={(e) => {
                 setContent(e.target.value);
-                handleTyping(); // Trigger typing event
+                handleTyping();
               }}
               onKeyDown={handleKeyDown}
               className="bg-transparent flex-grow outline-none resize-none placeholder:text-neutral-500"
