@@ -11,8 +11,16 @@ import Modal from "../tweets/Modal";
 import { UploadDropzone } from "@/utils/lib/uploadthing";
 import Image from "next/image";
 import useMessageForm from "@/hooks/useMessageForm";
+import { useEffect, useState } from "react";
+import { triggerTypingEvent } from "@/actions/message.actions";
 
-const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
+const MessageForm = ({
+  recipientUserId,
+  currentUserId,
+}: {
+  recipientUserId: string;
+  currentUserId: string;
+}) => {
   const {
     content,
     setContent,
@@ -22,11 +30,12 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
     setIsOpen,
     handleSubmit,
     handleKeyDown,
-  } = useMessageForm({ recipientUserId });
+    handleTyping,
+  } = useMessageForm({ recipientUserId, currentUserId });
 
   return (
     <>
-      <div className="sticky bottom-0  bg-black border-t border-neutral-800 pb-[calc(1rem+60px)] min-[800px]:p-4">
+      <div className="sticky bottom-0 bg-black border-t border-neutral-800 pb-[calc(1rem+60px)] min-[800px]:p-4">
         <form className="bg-neutral-900 rounded-2xl p-3">
           {imageUrl && (
             <div className="relative mb-3">
@@ -57,7 +66,10 @@ const MessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
             <ReactTextareaAutosize
               maxRows={5}
               value={content}
-              onChange={(e) => setContent(e.target.value)}
+              onChange={(e) => {
+                setContent(e.target.value);
+                handleTyping();
+              }}
               onKeyDown={handleKeyDown}
               className="bg-transparent flex-grow outline-none resize-none placeholder:text-neutral-500"
               placeholder="Send a message"

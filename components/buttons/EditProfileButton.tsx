@@ -8,7 +8,7 @@ import { IUser } from "@/interfaces/user.interface";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { CameraIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import useEditProfileButton from "@/hooks/buttonsLogic/useEditProfileButton";
-import { useRef, useState } from "react";
+import { RefObject, useRef, useState } from "react";
 
 const UpdateProfileButton = ({ user }: { user: IUser }) => {
   const {
@@ -16,6 +16,8 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
     isModalOpen,
     name,
     setName,
+    username,
+    setUsername,
     bio,
     setBio,
     location,
@@ -27,23 +29,10 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
     handleSubmit,
     isPrivate,
     setIsPrivate,
+    uploadAvatarButtonRef,
+    uploadBackgroundButtonRef,
+    handleImageClick,
   } = useEditProfileButton({ user });
-
-  const [isHovered, setIsHovered] = useState(false);
-
-  const uploadButtonRef = useRef<HTMLDivElement>(null);
-
-  const handleImageClick = () => {
-    const uploadDiv = uploadButtonRef.current;
-    if (uploadDiv) {
-      const input = uploadDiv.querySelector(
-        "input[type='file']"
-      ) as HTMLDivElement;
-      if (input) {
-        input.click();
-      }
-    }
-  };
 
   return (
     <>
@@ -74,7 +63,7 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
 
             <form onSubmit={handleSubmit} className="space-y-6 p-4">
               <div className="relative">
-                <div className="relative h-48 w-full bg-neutral-800">
+                <div className="relative group cursor-pointer h-48 w-full bg-neutral-800">
                   {backgroundImage && (
                     <Image
                       src={backgroundImage || "/placeholder.svg"}
@@ -83,25 +72,30 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
                       className="object-cover"
                     />
                   )}
-                  <div className="absolute inset-0 flex items-center justify-center gap-4 bg-black/50">
-                    <UploadButton
-                      className="ut-button:bg-black/50 ut-button:rounded-full ut-button:p-2 ut-button:transition-colors ut-button:hover:bg-black/70"
-                      endpoint="messageMedia"
-                      onClientUploadComplete={(res: any) => {
-                        if (res?.[0].url) setBackgroundImage(res[0].url);
-                      }}
-                      onUploadError={(error: Error) => {
-                        toast.error(`Upload error: ${error.message}`);
-                      }}
-                    />
+                  <div
+                    className="absolute inset-0 flex items-center justify-center gap-4 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    onClick={() => handleImageClick(uploadBackgroundButtonRef)}
+                  >
+                    <CameraIcon className="h-8 w-8 text-white" />
                   </div>
+                </div>
+
+                <div ref={uploadBackgroundButtonRef}>
+                  <UploadButton
+                    className="hidden"
+                    endpoint="messageMedia"
+                    onClientUploadComplete={(res: any) => {
+                      if (res?.[0].url) setBackgroundImage(res[0].url);
+                    }}
+                    onUploadError={(error: Error) => {
+                      toast.error(`Upload error: ${error.message}`);
+                    }}
+                  />
                 </div>
 
                 <div
                   className="absolute -bottom-16 left-4 group cursor-pointer"
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                  onClick={handleImageClick}
+                  onClick={() => handleImageClick(uploadAvatarButtonRef)}
                 >
                   <div className="relative h-28 w-28">
                     <Image
@@ -111,14 +105,12 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
                       height={112}
                       className="rounded-full max-h-28 border-4 border-black object-cover"
                     />
-                    {isHovered && (
-                      <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/60 transition-all">
-                        <CameraIcon className="h-8 w-8 text-white" />
-                      </div>
-                    )}
+                    <div className="absolute  inset-0 flex items-center justify-center rounded-full bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <CameraIcon className="h-8 w-8 text-white" />
+                    </div>
                   </div>
 
-                  <div ref={uploadButtonRef}>
+                  <div ref={uploadAvatarButtonRef}>
                     <UploadButton
                       className="hidden"
                       endpoint="messageMedia"
@@ -135,7 +127,23 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
 
               <div className="space-y-4 pt-14">
                 <div className="group relative rounded-md border border-neutral-800 px-3 py-2 focus-within:border-blue-500">
-                  <label className="block text-xs text-neutral-500">Name</label>
+                  <label className="block text-xs text-neutral-500">
+                    Username
+                  </label>
+                  <input
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    maxLength={20}
+                    className="mt-1 w-full bg-transparent text-base outline-none"
+                  />
+                  <span className="absolute right-3 top-3 text-xs text-neutral-500">
+                    {username.length}/20
+                  </span>
+                </div>
+                <div className="group relative rounded-md border border-neutral-800 px-3 py-2 focus-within:border-blue-500">
+                  <label className="block text-xs text-neutral-500">
+                    Display Name
+                  </label>
                   <input
                     value={name}
                     onChange={(e) => setName(e.target.value)}

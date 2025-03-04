@@ -1,11 +1,22 @@
-import { sendMessage } from "@/actions/message.actions";
+import { sendMessage, triggerTypingEvent } from "@/actions/message.actions";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-const useMessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
+const useMessageForm = ({
+  recipientUserId,
+  currentUserId,
+}: {
+  recipientUserId: string;
+  currentUserId: string;
+}) => {
   const [content, setContent] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string | null>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const [isTyping, setIsTyping] = useState(false);
+  const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
+    null
+  );
 
   const handleSubmit = async () => {
     try {
@@ -42,6 +53,27 @@ const useMessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
       handleSubmit();
     }
   };
+
+  const channelName = [currentUserId, recipientUserId].sort().join("-");
+
+  const handleTyping = () => {
+    if (!isTyping) {
+      setIsTyping(true);
+      triggerTypingEvent(channelName, currentUserId, true);
+    }
+
+    if (typingTimeout) {
+      clearTimeout(typingTimeout);
+    }
+
+    setTypingTimeout(
+      setTimeout(() => {
+        setIsTyping(false);
+        triggerTypingEvent(channelName, currentUserId, false);
+      }, 1000)
+    );
+  };
+
   return {
     content,
     setContent,
@@ -51,6 +83,7 @@ const useMessageForm = ({ recipientUserId }: { recipientUserId: string }) => {
     setIsOpen,
     handleSubmit,
     handleKeyDown,
+    handleTyping,
   };
 };
 

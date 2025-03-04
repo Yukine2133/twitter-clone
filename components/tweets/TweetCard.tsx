@@ -37,15 +37,13 @@ const TweetCard = async ({
             </div>
           )}
           <div className="flex gap-2 items-start">
-            <HoverUserInfo user={owner}>
-              <Image
-                src={owner.avatar}
-                alt={owner.username}
-                width={42}
-                height={42}
-                className="rounded-full max-w-14 max-h-10 object-cover"
-              />
-            </HoverUserInfo>
+            <Image
+              src={owner.avatar}
+              alt={owner.username}
+              width={42}
+              height={42}
+              className="rounded-full max-w-14 max-h-10 object-cover"
+            />
 
             <div>
               <div className="flex items-center w-full gap-2">

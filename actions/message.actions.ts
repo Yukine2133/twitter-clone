@@ -81,6 +81,24 @@ export const getMessages = async (userId: string) => {
   }
 };
 
+export const triggerTypingEvent = async (
+  channelName: string,
+  senderId: string,
+  isTyping: boolean
+) => {
+  try {
+    await pusher.trigger(`chat-${channelName}`, "typing", {
+      senderId,
+      isTyping,
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error triggering typing event:", error);
+    return { success: false, error: "Failed to trigger typing event" };
+  }
+};
+
 export const deleteMessage = async (messageId: string) => {
   try {
     await connectDb();
