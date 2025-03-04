@@ -10,6 +10,7 @@ const useRealTimeMessages = (
   currentUserId: string
 ) => {
   const [messages, setMessages] = useState<IMessage[]>(initialMessages);
+  const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
     const channelName = [currentUserId, recipientId].sort().join("-");
@@ -24,12 +25,18 @@ const useRealTimeMessages = (
       setMessages((prevMessages) => [...prevMessages, newMessage.message]);
     });
 
+    channel.bind("typing", (data: { senderId: string; isTyping: boolean }) => {
+      if (data.senderId !== currentUserId) {
+        setIsTyping(data.isTyping);
+      }
+    });
+
     return () => {
       pusher.unsubscribe(`chat-${channelName}`);
     };
   }, [recipientId, currentUserId]);
 
-  return messages;
+  return { messages, isTyping };
 };
 
 export default useRealTimeMessages;

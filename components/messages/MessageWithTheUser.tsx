@@ -21,7 +21,7 @@ const MessageWithTheUser = ({
   currentUser: IUser;
   recipient: IUser;
 }) => {
-  const messages = useRealTimeMessages(
+  const { messages, isTyping } = useRealTimeMessages(
     initialMessages,
     recipientId,
     currentUser._id
@@ -61,10 +61,18 @@ const MessageWithTheUser = ({
               />
             );
           })}
+          {isTyping && (
+            <div className="text-neutral-500 text-sm">
+              {recipient.displayName} is typing...
+            </div>
+          )}
         </div>
       </AutoScrollMessages>
 
-      <MessageForm recipientUserId={recipientId} />
+      <MessageForm
+        currentUserId={currentUser._id}
+        recipientUserId={recipientId}
+      />
     </div>
   );
 };
