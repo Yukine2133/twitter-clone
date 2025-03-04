@@ -1,6 +1,11 @@
-const Loading = () => {
+import { cn } from "@/utils/cn";
+
+const Loading = ({ className }: { className?: string }) => {
   return (
-    <div className="flex justify-center items-center mt-10" role="status">
+    <div
+      className={cn("flex justify-center items-center mt-10", className)}
+      role="status"
+    >
       <svg
         aria-hidden="true"
         className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"

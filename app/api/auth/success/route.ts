@@ -1,20 +1,23 @@
 import { connectDb } from "@/utils/connectDb";
 import { User } from "@/models/user.model";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-
+import { combineUsername } from "@/utils/combineUsername";
 import { NextResponse } from "next/server";
 
-const isDevelopment = process.env.NODE_ENV === "development";
-
-function generateUsername(user: any) {
-  if (user?.given_name && user?.family_name) {
-    return `${user.given_name}${user.family_name}`.toLowerCase();
-  }
-  if (user?.email) {
-    const emailUsername = user.email.split("@")[0];
-    return emailUsername.toLowerCase();
-  }
+function isValidUsername(username: string): boolean {
+  const alphanumericRegex = /^[a-zA-Z0-9]+$/;
+  return alphanumericRegex.test(username);
 }
+
+function getUsernameFromEmail(email: string | any): string {
+  const atIndex = email.indexOf("@");
+  if (atIndex !== -1) {
+    return email.substring(0, atIndex);
+  }
+  return email;
+}
+
+const isDevelopment = process.env.NODE_ENV === "development";
 
 export async function GET(req: Request, res: Response) {
   try {
@@ -22,12 +25,13 @@ export async function GET(req: Request, res: Response) {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
-    const username = generateUsername(user);
+    let username = combineUsername(user?.given_name!, user?.family_name!);
 
-    let dbUser;
-    if (user) {
-      dbUser = await User.findOne({ userId: user.id });
+    if (!isValidUsername(username)) {
+      username = getUsernameFromEmail(user?.email);
     }
+
+    let dbUser = await User.findOne({ userId: user?.id });
 
     if (!dbUser) {
       dbUser = await User.create({

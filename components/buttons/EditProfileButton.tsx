@@ -8,7 +8,7 @@ import { IUser } from "@/interfaces/user.interface";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { CameraIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import useEditProfileButton from "@/hooks/buttonsLogic/useEditProfileButton";
-import { RefObject, useRef, useState } from "react";
+import Loading from "../Loading";
 
 const UpdateProfileButton = ({ user }: { user: IUser }) => {
   const {
@@ -32,6 +32,10 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
     uploadAvatarButtonRef,
     uploadBackgroundButtonRef,
     handleImageClick,
+    backgroundProgress,
+    setBackgroundProgress,
+    avatarProgress,
+    setAvatarProgress,
   } = useEditProfileButton({ user });
 
   return (
@@ -73,10 +77,17 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
                     />
                   )}
                   <div
-                    className="absolute inset-0 flex items-center justify-center gap-4 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    className={`absolute inset-0 flex items-center justify-center gap-4 bg-black/60 ${
+                      !backgroundProgress &&
+                      "opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    }`}
                     onClick={() => handleImageClick(uploadBackgroundButtonRef)}
                   >
-                    <CameraIcon className="h-8 w-8 text-white" />
+                    {backgroundProgress > 0 ? (
+                      <Loading className="mt-0" />
+                    ) : (
+                      <CameraIcon className="h-8 w-8 text-white" />
+                    )}
                   </div>
                 </div>
 
@@ -86,7 +97,9 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
                     endpoint="messageMedia"
                     onClientUploadComplete={(res: any) => {
                       if (res?.[0].url) setBackgroundImage(res[0].url);
+                      setBackgroundProgress(0);
                     }}
+                    onUploadProgress={setBackgroundProgress}
                     onUploadError={(error: Error) => {
                       toast.error(`Upload error: ${error.message}`);
                     }}
@@ -105,8 +118,17 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
                       height={112}
                       className="rounded-full max-h-28 border-4 border-black object-cover"
                     />
-                    <div className="absolute  inset-0 flex items-center justify-center rounded-full bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <CameraIcon className="h-8 w-8 text-white" />
+                    <div
+                      className={`absolute inset-0 flex items-center justify-center rounded-full bg-black/60 ${
+                        !avatarProgress &&
+                        "opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      } `}
+                    >
+                      {avatarProgress > 0 ? (
+                        <Loading className="mt-0" />
+                      ) : (
+                        <CameraIcon className="h-8 w-8 text-white" />
+                      )}
                     </div>
                   </div>
 
@@ -116,7 +138,9 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
                       endpoint="messageMedia"
                       onClientUploadComplete={(res: any) => {
                         if (res?.[0].url) setAvatar(res[0].url);
+                        setAvatarProgress(0);
                       }}
+                      onUploadProgress={setAvatarProgress}
                       onUploadError={(error: Error) => {
                         toast.error(`Upload error: ${error.message}`);
                       }}

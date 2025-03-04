@@ -16,6 +16,9 @@ const useEditProfileButton = ({ user }: { user: IUser }) => {
   const [isPrivate, setIsPrivate] = useState(user.private);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [avatarProgress, setAvatarProgress] = useState(0);
+  const [backgroundProgress, setBackgroundProgress] = useState(0);
+
   const userId = user.userId;
 
   const uploadAvatarButtonRef = useRef<HTMLDivElement>(null);
@@ -93,6 +96,10 @@ const useEditProfileButton = ({ user }: { user: IUser }) => {
     uploadAvatarButtonRef,
     uploadBackgroundButtonRef,
     handleImageClick,
+    backgroundProgress,
+    setBackgroundProgress,
+    avatarProgress,
+    setAvatarProgress,
   };
 };
 
