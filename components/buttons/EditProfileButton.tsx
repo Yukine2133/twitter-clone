@@ -29,24 +29,10 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
     handleSubmit,
     isPrivate,
     setIsPrivate,
+    uploadAvatarButtonRef,
+    uploadBackgroundButtonRef,
+    handleImageClick,
   } = useEditProfileButton({ user });
-
-  const [isHovered, setIsHovered] = useState(false);
-
-  const uploadAvatarButtonRef = useRef<HTMLDivElement>(null);
-  const uploadBackgroundButtonRef = useRef<HTMLDivElement>(null);
-
-  const handleImageClick = (uploadButtonRef: RefObject<HTMLDivElement>) => {
-    const uploadDiv = uploadButtonRef.current;
-    if (uploadDiv) {
-      const input = uploadDiv.querySelector(
-        "input[type='file']"
-      ) as HTMLInputElement;
-      if (input) {
-        input.click();
-      }
-    }
-  };
 
   return (
     <>
@@ -109,8 +95,6 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
 
                 <div
                   className="absolute -bottom-16 left-4 group cursor-pointer"
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
                   onClick={() => handleImageClick(uploadAvatarButtonRef)}
                 >
                   <div className="relative h-28 w-28">
@@ -121,11 +105,9 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
                       height={112}
                       className="rounded-full max-h-28 border-4 border-black object-cover"
                     />
-                    {isHovered && (
-                      <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/60 transition-all">
-                        <CameraIcon className="h-8 w-8 text-white" />
-                      </div>
-                    )}
+                    <div className="absolute  inset-0 flex items-center justify-center rounded-full bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <CameraIcon className="h-8 w-8 text-white" />
+                    </div>
                   </div>
 
                   <div ref={uploadAvatarButtonRef}>

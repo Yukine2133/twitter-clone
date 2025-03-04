@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, RefObject, useRef, useState } from "react";
 import { z } from "zod";
 import { updateUser } from "@/actions/user.actions";
 import { bioSchema, locationSchema, nameSchema } from "@/utils/lib/validation";
@@ -18,10 +18,24 @@ const useEditProfileButton = ({ user }: { user: IUser }) => {
 
   const userId = user.userId;
 
+  const uploadAvatarButtonRef = useRef<HTMLDivElement>(null);
+  const uploadBackgroundButtonRef = useRef<HTMLDivElement>(null);
+
+  const handleImageClick = (uploadButtonRef: RefObject<HTMLDivElement>) => {
+    const uploadDiv = uploadButtonRef.current;
+    if (uploadDiv) {
+      const input = uploadDiv.querySelector(
+        "input[type='file']"
+      ) as HTMLInputElement;
+      if (input) {
+        input.click();
+      }
+    }
+  };
+
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-
   const handleSubmit = async (e: FormEvent) => {
     try {
       e.preventDefault();
@@ -76,6 +90,9 @@ const useEditProfileButton = ({ user }: { user: IUser }) => {
     handleSubmit,
     isPrivate,
     setIsPrivate,
+    uploadAvatarButtonRef,
+    uploadBackgroundButtonRef,
+    handleImageClick,
   };
 };
 
