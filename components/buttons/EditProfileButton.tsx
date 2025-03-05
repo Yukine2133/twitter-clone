@@ -1,15 +1,11 @@
 "use client";
 
-import { toast } from "react-toastify";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import Modal from "../tweets/Modal";
-import Image from "next/image";
-import { UploadButton } from "@/utils/lib/uploadthing";
 import { IUser } from "@/interfaces/user.interface";
-import ReactTextareaAutosize from "react-textarea-autosize";
-import { CameraIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import useEditProfileButton from "@/hooks/buttonsLogic/useEditProfileButton";
-import Loading from "../Loading";
 import EditProfileFormInput from "../profile/EditProfileFormInput";
+import { EditProfileImageUpload } from "../profile/EditProfileImageUpload";
 
 const UpdateProfileButton = ({ user }: { user: IUser }) => {
   const {
@@ -67,88 +63,19 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6 p-4">
-              <div className="relative">
-                <div className="relative group cursor-pointer h-48 w-full bg-neutral-800">
-                  {backgroundImage && (
-                    <Image
-                      src={backgroundImage || "/placeholder.svg"}
-                      alt="Background"
-                      fill
-                      className="object-cover"
-                    />
-                  )}
-                  <div
-                    className={`absolute inset-0 flex items-center justify-center gap-4 bg-black/60 ${
-                      !backgroundProgress &&
-                      "opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    }`}
-                    onClick={() => handleImageClick(uploadBackgroundButtonRef)}
-                  >
-                    {backgroundProgress > 0 ? (
-                      <Loading className="mt-0" />
-                    ) : (
-                      <CameraIcon className="h-8 w-8 text-white" />
-                    )}
-                  </div>
-                </div>
-
-                <div ref={uploadBackgroundButtonRef}>
-                  <UploadButton
-                    className="hidden"
-                    endpoint="messageMedia"
-                    onClientUploadComplete={(res: any) => {
-                      if (res?.[0].url) setBackgroundImage(res[0].url);
-                      setBackgroundProgress(0);
-                    }}
-                    onUploadProgress={setBackgroundProgress}
-                    onUploadError={(error: Error) => {
-                      toast.error(`Upload error: ${error.message}`);
-                    }}
-                  />
-                </div>
-
-                <div
-                  className="absolute -bottom-16 left-4 group cursor-pointer"
-                  onClick={() => handleImageClick(uploadAvatarButtonRef)}
-                >
-                  <div className="relative h-28 w-28">
-                    <Image
-                      src={avatar || "/placeholder.svg"}
-                      alt="Avatar"
-                      width={112}
-                      height={112}
-                      className="rounded-full max-h-28 border-4 border-black object-cover"
-                    />
-                    <div
-                      className={`absolute inset-0 flex items-center justify-center rounded-full bg-black/60 ${
-                        !avatarProgress &&
-                        "opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      } `}
-                    >
-                      {avatarProgress > 0 ? (
-                        <Loading className="mt-0" />
-                      ) : (
-                        <CameraIcon className="h-8 w-8 text-white" />
-                      )}
-                    </div>
-                  </div>
-
-                  <div ref={uploadAvatarButtonRef}>
-                    <UploadButton
-                      className="hidden"
-                      endpoint="messageMedia"
-                      onClientUploadComplete={(res: any) => {
-                        if (res?.[0].url) setAvatar(res[0].url);
-                        setAvatarProgress(0);
-                      }}
-                      onUploadProgress={setAvatarProgress}
-                      onUploadError={(error: Error) => {
-                        toast.error(`Upload error: ${error.message}`);
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
+              <EditProfileImageUpload
+                avatar={avatar}
+                avatarProgress={avatarProgress}
+                backgroundImage={backgroundImage}
+                backgroundProgress={backgroundProgress}
+                handleImageClick={handleImageClick}
+                uploadAvatarButtonRef={uploadAvatarButtonRef}
+                uploadBackgroundButtonRef={uploadBackgroundButtonRef}
+                setBackgroundImage={setBackgroundImage}
+                setAvatar={setAvatar}
+                setAvatarProgress={setAvatarProgress}
+                setBackgroundProgress={setBackgroundProgress}
+              />
 
               <div className="space-y-4 pt-14">
                 <EditProfileFormInput
