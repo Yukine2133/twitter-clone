@@ -9,6 +9,7 @@ import ReactTextareaAutosize from "react-textarea-autosize";
 import { CameraIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import useEditProfileButton from "@/hooks/buttonsLogic/useEditProfileButton";
 import Loading from "../Loading";
+import EditProfileFormInput from "../profile/EditProfileFormInput";
 
 const UpdateProfileButton = ({ user }: { user: IUser }) => {
   const {
@@ -150,62 +151,31 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
               </div>
 
               <div className="space-y-4 pt-14">
-                <div className="group relative rounded-md border border-neutral-800 px-3 py-2 focus-within:border-blue-500">
-                  <label className="block text-xs text-neutral-500">
-                    Username
-                  </label>
-                  <input
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    maxLength={20}
-                    className="mt-1 w-full bg-transparent text-base outline-none"
-                  />
-                  <span className="absolute right-3 top-3 text-xs text-neutral-500">
-                    {username.length}/20
-                  </span>
-                </div>
-                <div className="group relative rounded-md border border-neutral-800 px-3 py-2 focus-within:border-blue-500">
-                  <label className="block text-xs text-neutral-500">
-                    Display Name
-                  </label>
-                  <input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    maxLength={50}
-                    className="mt-1 w-full bg-transparent text-base outline-none"
-                  />
-                  <span className="absolute right-3 top-3 text-xs text-neutral-500">
-                    {name.length}/50
-                  </span>
-                </div>
-
-                <div className="group relative rounded-md border border-neutral-800 px-3 py-2 focus-within:border-blue-500">
-                  <label className="block text-xs text-neutral-500">Bio</label>
-                  <ReactTextareaAutosize
-                    value={bio}
-                    onChange={(e) => setBio(e.target.value)}
-                    maxLength={160}
-                    className="mt-1 w-full resize-none bg-transparent text-base outline-none"
-                  />
-                  <span className="absolute right-3 top-3 text-xs text-neutral-500">
-                    {bio.length}/160
-                  </span>
-                </div>
-
-                <div className="group relative rounded-md border border-neutral-800 px-3 py-2 focus-within:border-blue-500">
-                  <label className="block text-xs text-neutral-500">
-                    Location
-                  </label>
-                  <input
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    maxLength={30}
-                    className="mt-1 w-full bg-transparent text-base outline-none"
-                  />
-                  <span className="absolute right-3 top-3 text-xs text-neutral-500">
-                    {location.length}/30
-                  </span>
-                </div>
+                <EditProfileFormInput
+                  label="Username"
+                  value={username}
+                  onChange={setUsername}
+                  maxLength={20}
+                />
+                <EditProfileFormInput
+                  label="Display Name"
+                  value={name}
+                  onChange={setName}
+                  maxLength={50}
+                />
+                <EditProfileFormInput
+                  label="Bio"
+                  value={bio}
+                  onChange={setBio}
+                  maxLength={160}
+                  isTextarea
+                />
+                <EditProfileFormInput
+                  label="Location"
+                  value={location}
+                  onChange={setLocation}
+                  maxLength={30}
+                />
 
                 <div className="flex items-center justify-between rounded-md border border-neutral-800 px-3 py-3">
                   <span className="text-sm">Private profile</span>
