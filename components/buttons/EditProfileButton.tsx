@@ -6,6 +6,7 @@ import { IUser } from "@/interfaces/user.interface";
 import useEditProfileButton from "@/hooks/buttonsLogic/useEditProfileButton";
 import EditProfileFormInput from "../profile/EditProfileFormInput";
 import { EditProfileImageUpload } from "../profile/EditProfileImageUpload";
+import EditPrivateProfileToggle from "../profile/EditPrivateProfileToggle";
 
 const UpdateProfileButton = ({ user }: { user: IUser }) => {
   const {
@@ -104,24 +105,10 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
                   maxLength={30}
                 />
 
-                <div className="flex items-center justify-between rounded-md border border-neutral-800 px-3 py-3">
-                  <span className="text-sm">Private profile</span>
-                  <button
-                    type="button"
-                    role="switch"
-                    aria-checked={isPrivate}
-                    onClick={() => setIsPrivate(!isPrivate)}
-                    className={`relative h-6 w-11 rounded-full transition-colors ${
-                      isPrivate ? "bg-blue-500" : "bg-neutral-700"
-                    }`}
-                  >
-                    <span
-                      className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition-transform ${
-                        isPrivate ? "translate-x-5" : "translate-x-0"
-                      }`}
-                    />
-                  </button>
-                </div>
+                <EditPrivateProfileToggle
+                  isPrivate={isPrivate}
+                  setIsPrivate={setIsPrivate}
+                />
               </div>
             </form>
           </div>
