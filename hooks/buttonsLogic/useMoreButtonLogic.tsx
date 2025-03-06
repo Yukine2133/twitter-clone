@@ -1,13 +1,13 @@
 import { deleteReply, editReply } from "@/actions/reply.actions";
 import { deleteTweet, updateTweet } from "@/actions/tweet.actions";
 import { IMoreButtonProps } from "@/interfaces/tweet.interface";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { toast } from "react-toastify";
 import { tweetTextSchema } from "@/utils/lib/validation";
 import { z } from "zod";
 import { deleteMessage, editMessage } from "@/actions/message.actions";
 import { useMoreButtonClickOutside } from "../useClickOutisde";
+import { useUser } from "@clerk/nextjs";
 
 const useMoreButtonLogic = ({
   id,
@@ -41,7 +41,7 @@ const useMoreButtonLogic = ({
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
-  const { user } = useKindeBrowserClient();
+  const { user } = useUser();
 
   useMoreButtonClickOutside(buttonRef, setIsOpen);
 

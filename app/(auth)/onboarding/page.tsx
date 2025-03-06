@@ -1,14 +1,13 @@
 import OnboardingForm from "@/components/onboarding/OnboardingForm";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { fetchUser } from "@/actions/user.actions";
+import { currentUser } from "@clerk/nextjs/server";
 
 export default async function OnboardingPage() {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await currentUser();
 
   if (!user) {
-    redirect("/api/auth/login");
+    redirect("/sign-in");
   }
 
   const dbUser = await fetchUser(user.id);

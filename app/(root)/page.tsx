@@ -9,11 +9,11 @@ import { parseJSON } from "@/utils/parseJSON";
 export default async function Home() {
   const tweets = await fetchTweets();
 
-  const { currentUser } = await useGetCurrentUser();
+  const { currentDbUser } = await useGetCurrentUser();
 
   return (
     <div>
-      <TweetForm user={parseJSON(currentUser)} />
+      <TweetForm user={parseJSON(currentDbUser)} />
       <ClientOnly>
         {tweets &&
           tweets?.map((tweet) => {

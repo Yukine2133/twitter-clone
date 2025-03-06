@@ -1,9 +1,9 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import TweetCard from "@/components/tweets/TweetCard";
 import { Metadata } from "next";
 import { ITweet } from "@/interfaces/tweet.interface";
 import { getUserBookmarks } from "@/actions/bookmark.actions";
 import ClientOnly from "@/components/ClientOnly";
+import { currentUser } from "@clerk/nextjs/server";
 
 export const metadata: Metadata = {
   title: "All Bookmarks",
@@ -11,8 +11,7 @@ export const metadata: Metadata = {
 };
 
 const AllBookmarks = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await currentUser();
   const bookmarks = await getUserBookmarks(user?.id as string);
 
   if (bookmarks?.length === 0) {

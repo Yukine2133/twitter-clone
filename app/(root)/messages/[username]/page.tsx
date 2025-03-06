@@ -21,7 +21,7 @@ const MessageWithTheUserPage = async ({
     userId: string;
   };
 }) => {
-  const { currentUser } = await useGetCurrentUser();
+  const { currentDbUser } = await useGetCurrentUser();
 
   const userId = searchParams.userId;
   const recipient = await fetchUser(userId);
@@ -32,7 +32,7 @@ const MessageWithTheUserPage = async ({
     <MessageWithTheUser
       initialMessages={initialMessages}
       recipientId={recipient._id}
-      currentUser={currentUser}
+      currentUser={currentDbUser}
       recipient={recipient}
     />
   );

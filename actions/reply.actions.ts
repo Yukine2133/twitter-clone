@@ -2,17 +2,16 @@
 
 import { connectDb } from "../utils/connectDb";
 import { Tweet } from "../models/tweet.model";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 import { Reply } from "@/models/reply.model";
 import { createNotification } from "./notification.actions";
 import { parseJSON } from "@/utils/parseJSON";
+import { currentUser } from "@clerk/nextjs/server";
 
 export const replyTweet = async (formData: FormData, tweetId: string) => {
   try {
-    const { getUser } = getKindeServerSession();
     await connectDb();
-    const user = await getUser();
+    const user = await currentUser();
 
     const existingTweet = await Tweet.findById(tweetId);
     if (existingTweet) {
@@ -78,9 +77,7 @@ export const fetchTweetReplies = async (tweetId: string) => {
 export const deleteReply = async (tweetId: string, replyId: string) => {
   try {
     await connectDb();
-
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
+    const user = await currentUser();
 
     if (!user) {
       return { message: "You need to be logged in to delete the reply" };
@@ -117,8 +114,7 @@ export const editReply = async (
 ) => {
   try {
     await connectDb();
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
+    const user = await currentUser();
 
     if (!user) {
       return { message: "You need to be logged in to edit the reply" };

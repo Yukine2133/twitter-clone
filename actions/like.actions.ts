@@ -2,15 +2,14 @@
 
 import { connectDb } from "../utils/connectDb";
 import { Tweet } from "../models/tweet.model";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { revalidatePath } from "next/cache";
+
 import { Like } from "@/models/like.model";
 import { createNotification } from "./notification.actions";
+import { currentUser } from "@clerk/nextjs/server";
 
 export const likeTweet = async (id: string) => {
   try {
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
+    const user = await currentUser();
 
     if (!user) {
       return { message: "You need to be logged in to like a tweet." };

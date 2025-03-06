@@ -7,7 +7,7 @@ import { getUserBookmarkFolders } from "@/actions/bookmark.actions";
 
 import { useGetCurrentUser } from "../useGetCurrentUser";
 const useTweetCard = async ({ tweetId }: { tweetId: string }) => {
-  const { currentUser, user } = await useGetCurrentUser();
+  const { currentDbUser, user } = await useGetCurrentUser();
 
   const isLiked = await useFetchLikesForTweet(tweetId, user?.id);
   const isBookmarked = await useFetchBookmarksForTweet(tweetId, user?.id);
@@ -16,7 +16,7 @@ const useTweetCard = async ({ tweetId }: { tweetId: string }) => {
   const userBookmarkFolders = await getUserBookmarkFolders(user?.id as string);
 
   return {
-    currentUser,
+    currentDbUser,
     isLiked,
     isBookmarked,
     isRetweeted,

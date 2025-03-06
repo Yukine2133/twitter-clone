@@ -18,7 +18,7 @@ const SingleTweetPage = async ({ params }: { params: { id: string } }) => {
   const {
     owner,
     singleTweet,
-    currentUser,
+    currentDbUser,
     isBookmarked,
     isLiked,
     isRetweeted,
@@ -28,7 +28,7 @@ const SingleTweetPage = async ({ params }: { params: { id: string } }) => {
     <SingleTweet
       owner={owner}
       singleTweet={singleTweet}
-      currentUser={currentUser}
+      currentUser={currentDbUser}
       isBookmarked={isBookmarked}
       isLiked={isLiked}
       isRetweeted={isRetweeted}

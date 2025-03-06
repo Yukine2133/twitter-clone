@@ -28,21 +28,22 @@ const ProfilePage = async ({
     followingsOfTheUser,
     isFollowing,
     isOwner,
-    user,
+    dbUser,
+    currentDbUser,
     combinedPosts,
     privateProfile,
   } = await useGetProfileData(searchParams.userId);
 
   return (
     <ProfileData
-      user={user}
+      user={dbUser}
       isOwner={isOwner}
       followers={followers}
       following={following}
       followersOfTheUser={parseJSON(followersOfTheUser)}
       followingsOfTheUser={parseJSON(followingsOfTheUser)}
       isFollowing={isFollowing}
-      currentUser={currentUser}
+      currentUser={currentDbUser}
       combinedPosts={parseJSON(combinedPosts)}
       privateProfile={privateProfile}
     />
