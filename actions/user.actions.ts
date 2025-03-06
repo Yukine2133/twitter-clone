@@ -31,6 +31,7 @@ export const updateUser = async ({
   name,
   backgroundImage,
   private: privateUser,
+  onboarded,
 }: Omit<
   IUser,
   "displayName" | "_id" | "followers" | "following" | "createdAt"
@@ -58,6 +59,7 @@ export const updateUser = async ({
     existingUser.location = location;
     existingUser.backgroundImage = backgroundImage;
     existingUser.private = privateUser;
+    existingUser.onboarded = onboarded;
 
     await existingUser.save();
     revalidatePath(`/profile/${existingUser.username}`);

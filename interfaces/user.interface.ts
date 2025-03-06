@@ -13,6 +13,7 @@ export interface IUser {
   createdAt: string;
   backgroundImage: string;
   private: boolean;
+  onboarded: boolean;
 }
 
 export interface ProfileDataProps {
