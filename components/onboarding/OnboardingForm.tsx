@@ -2,58 +2,33 @@
 
 import type React from "react";
 
-import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { toast } from "react-toastify";
-import { UploadButton } from "@/utils/lib/uploadthing";
-import { updateUser } from "@/actions/user.actions";
 import { IUser } from "@/interfaces/user.interface";
-import ReactTextareaAutosize from "react-textarea-autosize";
+
 import EditProfileFormInput from "../profile/EditProfileFormInput";
 import { AvatarUpload } from "../profile/AvatarUpload";
+import { useOnboardingForm } from "@/hooks/useOnboardingForm";
 
 interface OnboardingFormProps {
-  userId: string;
   dbUser: IUser;
 }
 
-const OnboardingForm = ({ userId, dbUser }: OnboardingFormProps) => {
-  const router = useRouter();
-  const [avatar, setAvatar] = useState(dbUser ? dbUser.avatar : "");
-  const [avatarProgress, setAvatarProgress] = useState(0);
-  const [username, setUsername] = useState(dbUser ? dbUser.username : "");
-  const [name, setName] = useState(dbUser ? dbUser.displayName : "");
-  const [location, setLocation] = useState("");
-  const [bio, setBio] = useState("");
-
-  const uploadAvatarButtonRef = useRef<HTMLDivElement>(null);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!username || !name) {
-      toast.error("Username and display name are required.");
-      return;
-    }
-    try {
-      await updateUser({
-        userId,
-        username,
-        name,
-        avatar,
-        location,
-        bio,
-        onboarded: true,
-        backgroundImage: "",
-        private: false,
-      });
-      toast.success("Profile updated successfully!");
-      router.push("/");
-    } catch (error) {
-      toast.error("Error updating profile. Please try again.");
-    }
-  };
-
+const OnboardingForm = ({ dbUser }: OnboardingFormProps) => {
+  const {
+    avatar,
+    setAvatar,
+    avatarProgress,
+    setAvatarProgress,
+    username,
+    setUsername,
+    name,
+    setName,
+    location,
+    setLocation,
+    bio,
+    setBio,
+    uploadAvatarButtonRef,
+    handleSubmit,
+  } = useOnboardingForm(dbUser);
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <AvatarUpload

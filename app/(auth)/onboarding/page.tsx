@@ -23,7 +23,7 @@ export default async function OnboardingPage() {
         <h1 className="text-3xl font-bold mb-6 text-center">
           Welcome to Tweeter
         </h1>
-        <OnboardingForm dbUser={dbUser} userId={user.id} />
+        <OnboardingForm dbUser={dbUser} />
       </div>
     </div>
   );
