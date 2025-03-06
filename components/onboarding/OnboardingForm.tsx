@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { toast } from "react-toastify";
@@ -10,6 +10,8 @@ import { UploadButton } from "@/utils/lib/uploadthing";
 import { updateUser } from "@/actions/user.actions";
 import { IUser } from "@/interfaces/user.interface";
 import ReactTextareaAutosize from "react-textarea-autosize";
+import EditProfileFormInput from "../profile/EditProfileFormInput";
+import { AvatarUpload } from "../profile/AvatarUpload";
 
 interface OnboardingFormProps {
   userId: string;
@@ -19,10 +21,13 @@ interface OnboardingFormProps {
 const OnboardingForm = ({ userId, dbUser }: OnboardingFormProps) => {
   const router = useRouter();
   const [avatar, setAvatar] = useState(dbUser ? dbUser.avatar : "");
+  const [avatarProgress, setAvatarProgress] = useState(0);
   const [username, setUsername] = useState(dbUser ? dbUser.username : "");
   const [name, setName] = useState(dbUser ? dbUser.displayName : "");
   const [location, setLocation] = useState("");
   const [bio, setBio] = useState("");
+
+  const uploadAvatarButtonRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,80 +56,50 @@ const OnboardingForm = ({ userId, dbUser }: OnboardingFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="flex flex-col items-center">
-        <div className="relative w-32 h-32 mb-4">
-          <Image
-            src={avatar || "/placeholder.svg"}
-            alt="Avatar"
-            fill
-            className="rounded-full object-cover"
-          />
-        </div>
-        <UploadButton
-          endpoint="messageMedia"
-          onClientUploadComplete={(res) => {
-            setAvatar(res?.[0]?.url || "");
-            toast.success("Avatar uploaded!");
-          }}
-          onUploadError={(error: Error) => {
-            toast.error(`ERROR! ${error.message}`);
-          }}
-        />
-      </div>
+      <AvatarUpload
+        avatar={avatar}
+        setAvatar={setAvatar}
+        avatarProgress={avatarProgress}
+        setAvatarProgress={setAvatarProgress}
+        uploadAvatarButtonRef={uploadAvatarButtonRef}
+        className="flex justify-center items-center"
+      />
 
-      <div>
-        <label htmlFor="username" className="block text-sm font-medium mb-2">
-          Username
-        </label>
-        <input
-          type="text"
-          id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full px-3 py-2 bg-neutral-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-      </div>
+      <EditProfileFormInput
+        label="Username"
+        value={username}
+        onChange={(value) => setUsername(value)}
+        maxLength={20}
+        placeholder="Username"
+        isTextarea={false}
+      />
 
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium mb-2">
-          Display Name
-        </label>
-        <input
-          type="text"
-          id="displayName"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full px-3 py-2 bg-neutral-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-      </div>
+      <EditProfileFormInput
+        label="Display Name"
+        value={name}
+        onChange={(value) => setName(value)}
+        maxLength={20}
+        placeholder="Display Name"
+        isTextarea={false}
+      />
 
-      <div>
-        <label htmlFor="location" className="block text-sm font-medium mb-2">
-          Location
-        </label>
-        <input
-          type="text"
-          id="location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          className="w-full px-3 py-2 bg-neutral-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
+      <EditProfileFormInput
+        label="Location"
+        value={location}
+        onChange={(value) => setLocation(value)}
+        maxLength={50}
+        placeholder="Location"
+        isTextarea={false}
+      />
 
-      <div>
-        <label htmlFor="bio" className="block text-sm font-medium mb-2">
-          Bio
-        </label>
-        <ReactTextareaAutosize
-          id="bio"
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-          className="w-full px-3 max-h-20 py-2 bg-neutral-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-          rows={4}
-        />
-      </div>
+      <EditProfileFormInput
+        label="Bio"
+        value={bio}
+        onChange={(value) => setBio(value)}
+        maxLength={160}
+        placeholder="Bio"
+        isTextarea={true}
+      />
 
       <button
         type="submit"

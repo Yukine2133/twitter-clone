@@ -1,5 +1,5 @@
 "use client";
-
+import ReactTextareaAutosize from "react-textarea-autosize";
 interface EditProfileFormInput {
   label: string;
   value: string;
@@ -21,9 +21,10 @@ const EditProfileFormInput = ({
     <div className="group relative rounded-md border border-neutral-800 px-3 py-2 focus-within:border-blue-500">
       <label className="block text-xs text-neutral-500">{label}</label>
       {isTextarea ? (
-        <textarea
+        <ReactTextareaAutosize
           value={value}
           onChange={(e) => onChange(e.target.value)}
+          cols={3}
           maxLength={maxLength}
           placeholder={placeholder}
           className="mt-1 w-full resize-none bg-transparent text-base outline-none"
