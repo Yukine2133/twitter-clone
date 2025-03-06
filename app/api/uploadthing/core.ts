@@ -1,10 +1,6 @@
+import { currentUser } from "@clerk/nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-
-const { getUser } = getKindeServerSession();
-
-const currentUser = async () => await getUser();
 
 const f = createUploadthing();
 

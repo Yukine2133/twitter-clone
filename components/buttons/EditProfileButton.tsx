@@ -29,7 +29,7 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
     setIsPrivate,
     uploadAvatarButtonRef,
     uploadBackgroundButtonRef,
-    handleImageClick,
+
     backgroundProgress,
     setBackgroundProgress,
     avatarProgress,
@@ -69,7 +69,6 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
                 avatarProgress={avatarProgress}
                 backgroundImage={backgroundImage}
                 backgroundProgress={backgroundProgress}
-                handleImageClick={handleImageClick}
                 uploadAvatarButtonRef={uploadAvatarButtonRef}
                 uploadBackgroundButtonRef={uploadBackgroundButtonRef}
                 setBackgroundImage={setBackgroundImage}

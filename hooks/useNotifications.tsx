@@ -6,12 +6,11 @@ import { fetchUser } from "@/actions/user.actions";
 import NotificationCard from "@/components/notifications/NotificationCard";
 import { INotification } from "@/interfaces/notification.interface";
 import { IUser } from "@/interfaces/user.interface";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 
 const useNotifications = async () => {
-  const { getUser } = getKindeServerSession();
-  const currentUser = await getUser();
-  const notifications = (await getNotifications(currentUser?.id)) || [];
+  const user = await currentUser();
+  const notifications = (await getNotifications(user?.id)) || [];
 
   notifications.forEach(async (notification) => {
     if (!notification.read) {

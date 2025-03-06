@@ -7,7 +7,11 @@ const userSchema = new mongoose.Schema(
       unique: true,
       required: true,
     },
-    displayName: String,
+    displayName: {
+      type: String,
+      required: true,
+    },
+    onboarded: { type: Boolean, default: false },
     bio: String,
     location: String,
     avatar: String,

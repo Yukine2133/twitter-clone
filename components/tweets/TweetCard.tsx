@@ -18,7 +18,7 @@ const TweetCard = async ({
   retweetedUser,
 }: ITweetProps) => {
   const {
-    currentUser,
+    currentDbUser,
     isLiked,
     isBookmarked,
     isRetweeted,
@@ -87,7 +87,7 @@ const TweetCard = async ({
         id={tweet._id.toString()}
         owner={owner}
         tweet={tweet}
-        user={currentUser!}
+        user={currentDbUser!}
         userBookmarkFolders={userBookmarkFolders}
       />
     </div>

@@ -1,47 +1,39 @@
+export const dynamic = "force-dynamic";
+
 import { connectDb } from "@/utils/connectDb";
 import { User } from "@/models/user.model";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 import { NextResponse } from "next/server";
+import { currentUser } from "@clerk/nextjs/server";
 
 const isDevelopment = process.env.NODE_ENV === "development";
+const PRODUCTION_URL = "https://twitter-clone-213.vercel.app";
+const BASE_URL = isDevelopment ? "http://localhost:3000" : PRODUCTION_URL;
 
-function generateUsername(user: any): string {
-  if (user?.given_name && user?.family_name) {
-    return `${user.given_name}${user.family_name}`.toLowerCase();
-  }
-  if (user?.email) {
-    const emailUsername = user.email.split("@")[0];
-    return emailUsername.toLowerCase();
-  }
-  return `user_${Math.floor(Math.random() * 10000)}`; // Last fallback
-}
-
-export async function GET(req: Request, res: Response) {
+export async function GET() {
   try {
     await connectDb();
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
+    const user = await currentUser();
 
-    const username = generateUsername(user);
+    const username = user?.firstName;
 
-    let dbUser;
-    if (user) {
-      dbUser = await User.findOne({ userId: user.id });
-    }
+    let dbUser = await User.findOne({ userId: user?.id });
 
     if (!dbUser) {
       dbUser = await User.create({
-        displayName: `${user?.given_name ?? ""} ${user?.family_name ?? ""}`,
         username,
-        avatar: user?.picture,
+        displayName: `${user?.firstName ?? ""} ${user?.lastName ?? ""}`,
+        avatar: user?.imageUrl,
         userId: user?.id,
       });
     }
+    switch (true) {
+      case dbUser.onboarded === false:
+        return NextResponse.redirect(`${BASE_URL}/onboarding`);
 
-    if (isDevelopment) return NextResponse.redirect("http://localhost:3000");
-
-    return NextResponse.redirect("https://twitter-clone-213.vercel.app");
+      default:
+        return NextResponse.redirect(`${BASE_URL}`);
+    }
   } catch (error) {
     console.error(error);
     return new Response(String(error));

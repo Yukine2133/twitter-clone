@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getUserConversations } from "@/actions/message.actions";
 import UserConversationsCard from "@/components/messages/UserConversationsCard";
 import type { IUserConversations } from "@/interfaces/message.interface";

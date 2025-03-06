@@ -4,19 +4,17 @@ import {
   fetchUserById,
   fetchUserTweets,
 } from "@/actions/user.actions";
-
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 
 const useGetProfileData = async (userId: string) => {
-  const { getUser } = getKindeServerSession();
-  const currentSessionUser = await getUser();
-  const user = await fetchUser(userId);
+  const user = await currentUser();
+  const dbUser = await fetchUser(userId);
 
   if (!user) {
     throw new Error("User doesn't exist.");
   }
-  const currentUser = await fetchUser(currentSessionUser?.id as string);
-  const tweets = await fetchUserTweets(user.userId);
+  const currentDbUser = await fetchUser(user?.id as string);
+  const tweets = await fetchUserTweets(dbUser.userId);
 
   const retweets = await fetchUserRetweets();
 
@@ -37,8 +35,8 @@ const useGetProfileData = async (userId: string) => {
     return dateB - dateA;
   });
 
-  const followers = user.followers;
-  const following = user.following;
+  const followers = dbUser.followers;
+  const following = dbUser.following;
 
   const followersOfTheUser = await Promise.all(
     followers.map(async (follower: string) => await fetchUser(follower))
@@ -47,13 +45,13 @@ const useGetProfileData = async (userId: string) => {
     following.map(async (following: string) => await fetchUserById(following))
   );
 
-  const isFollowing = followers?.includes(currentSessionUser?.id as string);
-  const isOwner = user.userId === currentUser.userId;
+  const isFollowing = followers?.includes(user?.id as string);
+  const isOwner = dbUser.userId === currentDbUser.userId;
 
   const privateProfile =
-    user.private === true &&
+    dbUser.private === true &&
     !isOwner &&
-    !user.following?.includes(currentUser?._id as string);
+    !dbUser.following?.includes(currentDbUser?._id as string);
 
   return {
     currentUser,
@@ -64,7 +62,8 @@ const useGetProfileData = async (userId: string) => {
     followingsOfTheUser,
     isFollowing,
     isOwner,
-    user,
+    dbUser,
+    currentDbUser,
     privateProfile,
   };
 };

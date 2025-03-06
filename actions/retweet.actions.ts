@@ -3,16 +3,14 @@
 import { Retweet } from "@/models/retweet.model";
 import { Tweet } from "@/models/tweet.model";
 import { connectDb } from "@/utils/connectDb";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { revalidatePath } from "next/cache";
+
 import { createNotification } from "./notification.actions";
+import { currentUser } from "@clerk/nextjs/server";
 
 export const saveRetweet = async (tweetId: string) => {
   try {
     await connectDb();
-
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
+    const user = await currentUser();
 
     const existingRetweet = await Retweet.findOne({
       userId: user?.id,
@@ -61,8 +59,7 @@ export const fetchUserRetweets = async () => {
   try {
     await connectDb();
 
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
+    const user = await currentUser();
 
     // Find retweets by user ID
     const retweets = await Retweet.find({ userId: user?.id })

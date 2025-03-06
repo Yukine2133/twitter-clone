@@ -7,9 +7,9 @@ import BookmarkFolderItem from "@/components/bookmarks/BookmarkFolderItem";
 import { useGetCurrentUser } from "@/hooks/useGetCurrentUser";
 
 const Bookmarks = async () => {
-  const { currentUser } = await useGetCurrentUser();
+  const { currentDbUser } = await useGetCurrentUser();
   const userBookmarkFolders = await getUserBookmarkFolders(
-    currentUser.userId as string
+    currentDbUser.userId as string
   );
   return (
     <div>
@@ -17,7 +17,7 @@ const Bookmarks = async () => {
         <div className="">
           <h2 className="font-semibold text-xl">Bookmarks</h2>
           <span className="text-gray-500 text-sm mt-1">
-            @{currentUser?.username}
+            @{currentDbUser?.username}
           </span>
         </div>
         <AddOrEditBookmarkFolderButton />

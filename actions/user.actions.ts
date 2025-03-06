@@ -1,7 +1,5 @@
 "use server";
 
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-
 import { connectDb } from "../utils/connectDb";
 import { User } from "../models/user.model";
 import { Tweet } from "../models/tweet.model";
@@ -9,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import { IUser } from "@/interfaces/user.interface";
 import { createNotification } from "./notification.actions";
 import { parseJSON } from "@/utils/parseJSON";
+import { currentUser } from "@clerk/nextjs/server";
 
 export const fetchUser = async (userId: string | null | undefined) => {
   try {
@@ -31,14 +30,14 @@ export const updateUser = async ({
   name,
   backgroundImage,
   private: privateUser,
+  onboarded,
 }: Omit<
   IUser,
   "displayName" | "_id" | "followers" | "following" | "createdAt"
 > & { name: string }) => {
   try {
     await connectDb();
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
+    const user = await currentUser();
 
     if (!user) {
       return { message: "You need to be logged in to update the profile." };
@@ -58,6 +57,7 @@ export const updateUser = async ({
     existingUser.location = location;
     existingUser.backgroundImage = backgroundImage;
     existingUser.private = privateUser;
+    existingUser.onboarded = onboarded;
 
     await existingUser.save();
     revalidatePath(`/profile/${existingUser.username}`);
@@ -99,8 +99,7 @@ export const followUser = async (
 ) => {
   try {
     await connectDb();
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
+    const user = await currentUser();
 
     if (!user) {
       return { message: "You need to be logged in to follow a user." };
@@ -121,11 +120,11 @@ export const followUser = async (
       return { message: "User not found." };
     }
     // Ensure that user.id is the correct _id of the current user
-    const currentUser = await User.findById(currentUserId);
+    const currentDbUser = await User.findById(currentUserId);
 
     // Update the followers and following arrays
     const userIndex = existingUser.followers.indexOf(user.id);
-    const followingIndex = currentUser.following.indexOf(userId);
+    const followingIndex = currentDbUser.following.indexOf(userId);
 
     if (userIndex !== -1) {
       // If the user has already followed the user, remove their follow
@@ -137,15 +136,15 @@ export const followUser = async (
 
     if (followingIndex !== -1) {
       // If the current user is already following the user, remove their follow
-      currentUser.following.splice(followingIndex, 1);
+      currentDbUser.following.splice(followingIndex, 1);
     } else {
       // If the current user is not already following the user, add their follow
-      currentUser.following.push(userId);
+      currentDbUser.following.push(userId);
     }
 
     // Save both users
     await existingUser.save();
-    await currentUser.save();
+    await currentDbUser.save();
   } catch (error) {
     console.error(error);
   }

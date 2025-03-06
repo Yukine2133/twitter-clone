@@ -2,16 +2,15 @@
 
 import { connectDb } from "../utils/connectDb";
 import { Tweet } from "../models/tweet.model";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache";
 import { Bookmark } from "@/models/bookmark.model";
 import { BookmarkFolder } from "@/models/bookmarkFolder.model";
 import { parseJSON } from "@/utils/parseJSON";
+import { currentUser } from "@clerk/nextjs/server";
 
 export const bookMarkTweet = async (id: string) => {
   try {
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
+    const user = await currentUser();
 
     if (!user) {
       return { message: "You need to be logged in to bookmark" };
@@ -89,8 +88,7 @@ export const fetchBookmarksForTweet = async (tweetId: string) => {
 export const addBookmarkFolder = async (name: string) => {
   try {
     await connectDb();
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
+    const user = await currentUser();
     const userId = user?.id;
     await BookmarkFolder.create({
       name,
@@ -136,9 +134,7 @@ export const getBookmarksFromFolder = async (name: string) => {
   try {
     await connectDb();
 
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
-
+    const user = await currentUser();
     const bookmarksFromFolder = await BookmarkFolder.find({
       userId: user?.id,
       name,

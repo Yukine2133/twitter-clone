@@ -56,7 +56,7 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
             <Image
               src={user?.avatar!}
               alt={user?.username!}
-              width={48}
+              width={40}
               height={48}
               className="rounded-full max-h-10 object-cover"
             />
