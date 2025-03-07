@@ -78,6 +78,16 @@ export const getMessages = async (userId: string) => {
   }
 };
 
+export const markMessageAsRead = async (messageId: string) => {
+  try {
+    await connectDb();
+
+    await Message.findByIdAndUpdate(messageId, { read: true });
+  } catch (error) {
+    console.error("Error marking notification as read:", error);
+  }
+};
+
 export const triggerTypingEvent = async (
   channelName: string,
   senderId: string,

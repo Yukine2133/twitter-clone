@@ -9,6 +9,7 @@ export interface IMessage {
   createdAt: Date;
   updatedAt: Date;
   isEdited: boolean;
+  read: boolean;
 }
 
 export interface IUserConversations {
