@@ -162,11 +162,16 @@ export const searchUsers = async (q: string | null) => {
     console.error(error);
   }
 };
-
 export const fetchUsers = async (currentUserId: string) => {
   await connectDb();
-  const users = await User.find({ _id: { $ne: currentUserId } }).sort({
-    displayName: 1,
-  });
+
+  // Fetch the current user's data to get their `following` list
+  const currentUser = await User.findById(currentUserId).select("following");
+
+  // Fetch users who are not the current user and not in the `following` list
+  const users = await User.find({
+    _id: { $ne: currentUserId, $nin: currentUser?.following || [] },
+  }).sort({ displayName: 1 });
+
   return users;
 };
