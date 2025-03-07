@@ -24,7 +24,9 @@ const MessageCard = ({
       }`}
     >
       <div
-        className={`group ${isCurrentUserSender ? "items-end" : "items-start"}`}
+        className={`group flex flex-col ${
+          isCurrentUserSender ? "items-end" : "items-start"
+        }`}
       >
         {message.image && (
           <Image
