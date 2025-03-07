@@ -22,5 +22,5 @@ export const useFollowSuggestions = async () => {
 
   const { randomUsersData, currentUserData } =
     (await fetchData()) as IUsersData;
-  return { randomUsersData, currentUserData, currentUser };
+  return { randomUsersData, currentUserData, user };
 };

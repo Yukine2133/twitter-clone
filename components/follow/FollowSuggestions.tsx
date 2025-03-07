@@ -4,7 +4,7 @@ import { useFollowSuggestions } from "@/hooks/useFollowSuggestions";
 import Link from "next/link";
 
 const FollowSuggestions = async () => {
-  const { randomUsersData, currentUserData, currentUser } =
+  const { randomUsersData, currentUserData, user } =
     await useFollowSuggestions();
 
   return (
@@ -13,7 +13,7 @@ const FollowSuggestions = async () => {
       <div className="divide-y divide-gray-800">
         {randomUsersData.map((randomUser: any) => {
           const isFollowing = randomUser.followers?.includes(
-            currentUser?.id as string
+            user?.id as string
           );
 
           return (
