@@ -83,8 +83,20 @@ export const markMessageAsRead = async (messageId: string) => {
     await connectDb();
 
     await Message.findByIdAndUpdate(messageId, { read: true });
+    revalidatePath("/messages");
   } catch (error) {
     console.error("Error marking notification as read:", error);
+  }
+};
+
+export const fetchUnreadMessages = async (userId: string) => {
+  try {
+    await connectDb();
+
+    const messages = await Message.find({ recipient: userId, read: false });
+    return messages.length;
+  } catch (error) {
+    console.error("Error fetching unread messages:", error);
   }
 };
 
