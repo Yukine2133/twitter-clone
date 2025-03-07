@@ -15,22 +15,13 @@ const useMoreButtonLogic = ({
   tweet,
   replyId,
   replyTweet,
-  messageId,
-  message,
 }: IMoreButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [text, setText] = useState<string | null>(
-    replyTweet
-      ? replyTweet
-      : message
-      ? message.content
-      : (tweet?.text as string)
+    replyTweet ? replyTweet : (tweet?.text as string)
   );
 
   const [edit, setEdit] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string | null>(
-    message ? message.image : null
-  );
 
   const [tweetImageUrls, setTweetImageUrls] = useState<
     string[] | undefined | any
@@ -47,7 +38,6 @@ const useMoreButtonLogic = ({
 
   const handleEdit = async (tweetId: string, text: string) => {
     try {
-      // If the replyId passed, edit the reply
       if (replyId) {
         const res = await editReply(
           replyId as string,
@@ -60,17 +50,7 @@ const useMoreButtonLogic = ({
         } else {
           toast.success("Reply was updated.");
         }
-      } else if (messageId) {
-        // If the MessageId passed, edit the message
-        const res = await editMessage(messageId, text, imageUrl as string);
-        if (res?.message) {
-          toast.error(res.message);
-        } else {
-          toast.success("Message was updated.");
-        }
       } else {
-        // If there's neither replyId nor messageId, edit the tweet
-
         // If there's neither text nor image, throw an error
         if (!text && !tweetImageUrls) {
           throw new Error("Tweet must contain text or an image.");
@@ -109,7 +89,6 @@ const useMoreButtonLogic = ({
   };
 
   const handleDelete = async () => {
-    // If the replyId passed, delete the reply
     if (replyId) {
       const res = await deleteReply(id as string, replyId);
       if (res?.message) {
@@ -117,20 +96,7 @@ const useMoreButtonLogic = ({
       } else {
         toast.success("Reply was deleted.");
       }
-    } else if (messageId) {
-      // If the messageId passed, delete the message
-      try {
-        const res = await deleteMessage(messageId);
-        if (res?.message) {
-          toast.error(res.message);
-        } else {
-          toast.success("Message deleted successfully");
-        }
-      } catch (error) {
-        console.error(error);
-      }
     } else {
-      // If there's neither replyId nor messageId, delete the tweet
       const res = await deleteTweet(id as string);
       if (res?.message) {
         toast.error(res.message);
@@ -140,8 +106,7 @@ const useMoreButtonLogic = ({
     }
   };
 
-  const isOwner =
-    user?.id === tweet?.userId || reply?.userId || message?.sender.userId;
+  const isOwner = user?.id === tweet?.userId || reply?.userId;
 
   return {
     isOwner,
@@ -153,8 +118,6 @@ const useMoreButtonLogic = ({
     handleDelete,
     text,
     setText,
-    setImageUrl,
-    imageUrl,
     handleSubmit,
     setTweetImageUrls,
     tweetImageUrls,

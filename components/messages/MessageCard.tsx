@@ -4,6 +4,7 @@ import type { IMessage } from "@/interfaces/message.interface";
 import { formatMessageCreatedAt } from "@/utils/formatTimestamp";
 import Image from "next/image";
 import MoreButton from "../buttons/moreButton/MoreButton";
+import MoreButtonMessage from "../buttons/moreButton/MoreButtonMessage";
 
 const MessageCard = ({
   message,
@@ -35,7 +36,7 @@ const MessageCard = ({
         {message.content && (
           <div className="flex relative items-center gap-2">
             {isCurrentUserSender && (
-              <MoreButton
+              <MoreButtonMessage
                 messageId={message._id.toString()}
                 message={message}
               />

@@ -88,8 +88,6 @@ export interface IMoreButtonProps {
   reply?: IReply;
   replyId?: string;
   replyTweet?: string;
-  messageId?: string;
-  message?: IMessage;
 }
 
 export interface IMoreButtonUIProps {
@@ -102,10 +100,7 @@ export interface IMoreButtonUIProps {
   handleDelete: () => void;
   text: string | null;
   setText: (arg0: string) => void;
-  setImageUrl: (arg0: string) => void;
-  imageUrl: string | null;
   handleSubmit: () => void;
-  messageId: string | undefined;
   tweetImageUrls: string[];
   setTweetImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
   tweetVideoUrls: string[];
