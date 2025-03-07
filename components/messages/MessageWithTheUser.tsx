@@ -55,6 +55,8 @@ const MessageWithTheUser = ({
               <MessageCard
                 key={message._id}
                 message={message}
+                recipientId={recipientId}
+                currentUserId={currentUser._id}
                 isCurrentUserSender={
                   message.sender.userId === currentUser?.userId
                 }

@@ -16,9 +16,16 @@ import { useMoreButtonClickOutside } from "@/hooks/useClickOutisde";
 interface IMoreButtonMessageProps {
   messageId: string;
   message: IMessage;
+  recipientId: string;
+  currentUserId: string;
 }
 
-const MoreButtonMessage = ({ messageId, message }: IMoreButtonMessageProps) => {
+const MoreButtonMessage = ({
+  messageId,
+  message,
+  recipientId,
+  currentUserId,
+}: IMoreButtonMessageProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [edit, setEdit] = useState(false);
   const [text, setText] = useState(message?.content || "");
@@ -32,7 +39,7 @@ const MoreButtonMessage = ({ messageId, message }: IMoreButtonMessageProps) => {
 
   const handleDelete = async () => {
     try {
-      const res = await deleteMessage(messageId);
+      const res = await deleteMessage(messageId, recipientId, currentUserId);
       if (res?.message) {
         toast.error(res.message);
       } else {
@@ -45,7 +52,13 @@ const MoreButtonMessage = ({ messageId, message }: IMoreButtonMessageProps) => {
 
   const handleSubmit = async () => {
     try {
-      const res = await editMessage(messageId, text, imageUrl);
+      const res = await editMessage(
+        messageId,
+        text,
+        imageUrl,
+        recipientId,
+        currentUserId
+      );
       if (res?.message) {
         toast.error(res.message);
       } else {

@@ -118,7 +118,11 @@ export const triggerTypingEvent = async (
   }
 };
 
-export const deleteMessage = async (messageId: string) => {
+export const deleteMessage = async (
+  messageId: string,
+  recipientId: string,
+  currentUserId: string
+) => {
   try {
     await connectDb();
 
@@ -138,6 +142,9 @@ export const deleteMessage = async (messageId: string) => {
 
     await Message.findByIdAndDelete(messageId);
 
+    const channelName = [currentUserId, recipientId].sort().join("-");
+    pusher.trigger(`chat-${channelName}`, "message-deleted", { messageId });
+
     revalidatePath("/messages");
   } catch (error) {
     console.error("Error deleting message:", error);
@@ -148,7 +155,9 @@ export const deleteMessage = async (messageId: string) => {
 export const editMessage = async (
   messageId: string,
   content: string,
-  image: string
+  image: string,
+  recipientId: string,
+  currentUserId: string
 ) => {
   try {
     await connectDb();
@@ -158,11 +167,12 @@ export const editMessage = async (
     if (!user) {
       return { message: "You need to be logged in to update message." };
     }
+
     const existingMessage = await Message.findById(messageId).populate(
       "sender"
     );
 
-    if (existingMessage.sender.userId != user?.id) {
+    if (existingMessage.sender.userId !== user?.id) {
       return { message: "You cannot edit someone else's message." };
     }
 
@@ -173,6 +183,12 @@ export const editMessage = async (
     existingMessage.isEdited = true;
 
     await existingMessage.save();
+
+    const channelName = [currentUserId, recipientId].sort().join("-");
+    pusher.trigger(`chat-${channelName}`, "message-edited", {
+      message: existingMessage,
+    });
+
     revalidatePath(`/`);
   } catch (error) {
     console.error(error);

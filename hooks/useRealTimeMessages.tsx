@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import Pusher from "pusher-js";
 import { IMessage } from "@/interfaces/message.interface";
@@ -21,6 +19,7 @@ const useRealTimeMessages = (
     });
 
     const channel = pusher.subscribe(`chat-${channelName}`);
+
     channel.bind("new-message", (newMessage: { message: IMessage }) => {
       setMessages((prevMessages) => [...prevMessages, newMessage.message]);
     });
@@ -29,6 +28,20 @@ const useRealTimeMessages = (
       if (data.senderId !== currentUserId) {
         setIsTyping(data.isTyping);
       }
+    });
+
+    channel.bind("message-deleted", (deletedMessage: { messageId: string }) => {
+      setMessages((prevMessages) =>
+        prevMessages.filter((msg) => msg._id !== deletedMessage.messageId)
+      );
+    });
+
+    channel.bind("message-edited", (editedMessage: { message: IMessage }) => {
+      setMessages((prevMessages) =>
+        prevMessages.map((msg) =>
+          msg._id === editedMessage.message._id ? editedMessage.message : msg
+        )
+      );
     });
 
     return () => {

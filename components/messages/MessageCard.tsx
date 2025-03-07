@@ -9,9 +9,13 @@ import MoreButtonMessage from "../buttons/moreButton/MoreButtonMessage";
 const MessageCard = ({
   message,
   isCurrentUserSender,
+  recipientId,
+  currentUserId,
 }: {
   message: IMessage;
   isCurrentUserSender: boolean;
+  recipientId: string;
+  currentUserId: string;
 }) => {
   return (
     <div
@@ -39,6 +43,8 @@ const MessageCard = ({
               <MoreButtonMessage
                 messageId={message._id.toString()}
                 message={message}
+                recipientId={recipientId}
+                currentUserId={currentUserId}
               />
             )}
             <div
