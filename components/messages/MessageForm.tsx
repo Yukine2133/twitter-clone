@@ -7,12 +7,11 @@ import {
 } from "@heroicons/react/24/outline";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
-import Modal from "../tweets/Modal";
-import { UploadDropzone } from "@/utils/lib/uploadthing";
+import { UploadButton } from "@/utils/lib/uploadthing";
 import Image from "next/image";
 import useMessageForm from "@/hooks/useMessageForm";
-import { useEffect, useState } from "react";
-import { triggerTypingEvent } from "@/actions/message.actions";
+import { handleImageClick } from "@/utils/handleImageClick";
+import Loading from "../Loading";
 
 const MessageForm = ({
   recipientUserId,
@@ -26,8 +25,9 @@ const MessageForm = ({
     setContent,
     imageUrl,
     setImageUrl,
-    isOpen,
-    setIsOpen,
+    imageProgress,
+    setImageProgress,
+    uploadImageButtonRef,
     handleSubmit,
     handleKeyDown,
     handleTyping,
@@ -55,10 +55,15 @@ const MessageForm = ({
               />
             </div>
           )}
+          {imageProgress > 0 && (
+            <div className="size-24">
+              <Loading />
+            </div>
+          )}
           <div className="flex items-center gap-3">
             <button
               type="button"
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => handleImageClick(uploadImageButtonRef)}
               className="text-blue-500 hover:bg-blue-500/10 rounded-full p-2 transition-colors"
             >
               <PhotoIcon className="h-5 w-5" />
@@ -84,23 +89,20 @@ const MessageForm = ({
           </div>
         </form>
       </div>
-      {isOpen && (
-        <Modal isModalOpen={isOpen} toggleModal={setIsOpen}>
-          <UploadDropzone
-            endpoint="messageMedia"
-            onClientUploadComplete={(res) => {
-              if (res?.[0].url) {
-                setImageUrl(res[0].url);
-                setIsOpen(false);
-                toast.success("Image was added successfully.");
-              }
-            }}
-            onUploadError={(error: Error) => {
-              toast.error(String(error));
-            }}
-          />
-        </Modal>
-      )}
+      <div ref={uploadImageButtonRef}>
+        <UploadButton
+          className="hidden"
+          endpoint="messageMedia"
+          onClientUploadComplete={(res: any) => {
+            if (res?.[0].url) setImageUrl(res[0].url);
+            setImageProgress(0);
+          }}
+          onUploadProgress={setImageProgress}
+          onUploadError={(error: Error) => {
+            toast.error(`Upload error: ${error.message}`);
+          }}
+        />
+      </div>
     </>
   );
 };

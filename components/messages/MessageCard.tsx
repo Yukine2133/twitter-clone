@@ -19,14 +19,12 @@ const MessageCard = ({
 }) => {
   return (
     <div
-      className={`flex group ${
+      className={`flex  ${
         isCurrentUserSender ? "justify-end" : "justify-start"
       }`}
     >
       <div
-        className={`max-w-[70%] ${
-          isCurrentUserSender ? "items-end" : "items-start"
-        }`}
+        className={`group ${isCurrentUserSender ? "items-end" : "items-start"}`}
       >
         {message.image && (
           <Image

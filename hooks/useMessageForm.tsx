@@ -1,5 +1,5 @@
 import { sendMessage, triggerTypingEvent } from "@/actions/message.actions";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 const useMessageForm = ({
@@ -11,12 +11,14 @@ const useMessageForm = ({
 }) => {
   const [content, setContent] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string | null>("");
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [imageProgress, setImageProgress] = useState(0);
 
   const [isTyping, setIsTyping] = useState(false);
   const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
     null
   );
+
+  const uploadImageButtonRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = async () => {
     try {
@@ -79,8 +81,9 @@ const useMessageForm = ({
     setContent,
     imageUrl,
     setImageUrl,
-    isOpen,
-    setIsOpen,
+    uploadImageButtonRef,
+    imageProgress,
+    setImageProgress,
     handleSubmit,
     handleKeyDown,
     handleTyping,
