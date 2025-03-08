@@ -15,6 +15,8 @@ import type { ProfileDataProps } from "@/interfaces/user.interface";
 import Link from "next/link";
 import ClientOnly from "../ClientOnly";
 import { ProfileHeader } from "./ProfileHeader";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
+import { VerifiedBadge } from "../premium/VerifiedBadge";
 
 const ProfileData = ({
   user,
@@ -87,7 +89,10 @@ const ProfileData = ({
       <div className="mt-3 px-4">
         <div className="flex justify-between items-center my-2">
           <div className="mt-4">
-            <h2 className="font-bold text-xl mb-1">{user.displayName}</h2>
+            <div className="flex items-center gap-2">
+              <h2 className="font-bold text-xl mb-1">{user.displayName}</h2>
+              <VerifiedBadge isSubscribed={user.isSubscribed} profileLink />
+            </div>
             <h2 className="text-neutral-500">@{user.username}</h2>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import OpenEllipsisButton from "../buttons/OpenEllipsisButton";
 import { useGetCurrentUser } from "@/hooks/useGetCurrentUser";
+import { VerifiedBadge } from "../premium/VerifiedBadge";
 
 const UserDetails = async () => {
   const { currentDbUser } = await useGetCurrentUser();
@@ -18,9 +19,12 @@ const UserDetails = async () => {
           />
         </div>
         <div className="hidden flex-grow lg:block">
-          <p className="truncate text-sm font-bold leading-tight">
-            {currentDbUser?.displayName}
-          </p>
+          <div className="flex items-center gap-1">
+            <p className="truncate text-sm font-bold leading-tight">
+              {currentDbUser?.displayName}
+            </p>
+            <VerifiedBadge isSubscribed={currentDbUser.isSubscribed} />
+          </div>
           <p className="truncate text-sm text-gray-500 leading-tight">
             @{currentDbUser?.username}
           </p>

@@ -2,6 +2,7 @@ import { INotification } from "@/interfaces/notification.interface";
 import { IUser } from "@/interfaces/user.interface";
 import Image from "next/image";
 import Link from "next/link";
+import { VerifiedBadge } from "../premium/VerifiedBadge";
 
 interface INotificationCardProps {
   notification: INotification;
@@ -29,7 +30,10 @@ const NotificationCard = ({
           className="rounded-full object-cover h-auto"
         />
         <div className="">
-          <h2 className="font-semibold ">{owner.displayName}</h2>
+          <div className="flex items-center gap-1">
+            <h2 className="font-semibold ">{owner.displayName}</h2>
+            <VerifiedBadge isSubscribed={owner.isSubscribed} />
+          </div>
           <h2 className="text-gray-500 text-sm">@{owner.username}</h2>
         </div>
       </Link>

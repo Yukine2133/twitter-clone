@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema(
     followers: [{ type: String }],
     following: [{ type: String }],
     private: { type: Boolean, default: false },
+    isSubscribed: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

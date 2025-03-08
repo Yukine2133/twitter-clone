@@ -10,6 +10,7 @@ import HoverUserInfo from "./HoverUserInfo";
 import TweetMedia from "./media/TweetMedia";
 import useTweetCard from "@/hooks/tweetsLogic/useTweetCard";
 import { renderTweetTextWithHashtags } from "@/utils/formatTweetText";
+import { VerifiedBadge } from "../premium/VerifiedBadge";
 
 const TweetCard = async ({
   tweet,
@@ -32,7 +33,10 @@ const TweetCard = async ({
           {type && type === "retweet" && (
             <div className="flex items-center gap-3 pl-4 mb-3 text-gray-500 ">
               <ArrowPathRoundedSquareIcon className="w-5 h-5" />
-              <h4>{retweetedUser?.displayName}</h4>
+              <div className="flex items-center gap-2">
+                <h4>{retweetedUser?.displayName}</h4>
+                <VerifiedBadge isSubscribed={owner.isSubscribed} />
+              </div>
               <span>Retweeted</span>
             </div>
           )}
@@ -52,9 +56,12 @@ const TweetCard = async ({
                     className="flex items-center gap-2"
                     href={`/profile/${owner.username}?userId=${owner.userId}`}
                   >
-                    <span className="font-semibold w-[100px] truncate sm:w-fit">
-                      {owner.displayName}
-                    </span>
+                    <div className="flex items-center gap-1">
+                      <span className="font-semibold w-[100px] truncate sm:w-fit">
+                        {owner.displayName}
+                      </span>
+                      <VerifiedBadge isSubscribed={owner.isSubscribed} />
+                    </div>
                     <span className="text-gray-500 text-[15px] w-[100px] truncate sm:w-fit ">
                       @{owner.username}
                     </span>

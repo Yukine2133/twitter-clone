@@ -61,3 +61,34 @@ export const sidebarLinks = [
     label: "Profile",
   },
 ];
+
+export const premiumFeatures = [
+  {
+    name: "Half Ads in For You and Following",
+    tooltip: "See 50% fewer ads in your For You and Following timelines",
+  },
+  {
+    name: "Larger reply boost",
+    tooltip: "Your replies will be boosted in conversations",
+  },
+  {
+    name: "Get paid to post",
+    tooltip: "Earn money from your posts through our creator program",
+  },
+  {
+    name: "Checkmark",
+    tooltip: "Get the blue checkmark after verification",
+  },
+  {
+    name: "Grok with increased limits",
+    tooltip: "Access to AI with higher usage limits",
+  },
+  {
+    name: "X Pro, Analytics, Media Studio",
+    tooltip: "Access to professional tools and analytics",
+  },
+  {
+    name: "Creator Subscriptions",
+    tooltip: "Ability to offer subscriptions to your followers",
+  },
+];
