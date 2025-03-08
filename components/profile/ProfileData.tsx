@@ -15,6 +15,7 @@ import type { ProfileDataProps } from "@/interfaces/user.interface";
 import Link from "next/link";
 import ClientOnly from "../ClientOnly";
 import { ProfileHeader } from "./ProfileHeader";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 
 const ProfileData = ({
   user,
@@ -87,7 +88,16 @@ const ProfileData = ({
       <div className="mt-3 px-4">
         <div className="flex justify-between items-center my-2">
           <div className="mt-4">
-            <h2 className="font-bold text-xl mb-1">{user.displayName}</h2>
+            <div className="flex items-center gap-2">
+              <h2 className="font-bold text-xl mb-1">{user.displayName}</h2>
+              <Link
+                href={`/premium`}
+                className="flex items-center gap-1 px-2 py-0.5 bg-[#16181c] rounded-full text-[13px] text-blue-500 hover:bg-[#1d1f23] transition-colors"
+              >
+                <CheckBadgeIcon className="h-4 w-4" />
+                Get verified
+              </Link>
+            </div>
             <h2 className="text-neutral-500">@{user.username}</h2>
           </div>
         </div>
