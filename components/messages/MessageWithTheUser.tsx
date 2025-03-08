@@ -9,6 +9,7 @@ import MessageCard from "@/components/messages/MessageCard";
 import AutoScrollMessages from "@/components/messages/AutoScrollMessages";
 import { IUser } from "@/interfaces/user.interface";
 import useRealTimeMessages from "@/hooks/useRealTimeMessages";
+import { VerifiedBadge } from "../premium/VerifiedBadge";
 
 const MessageWithTheUser = ({
   initialMessages,
@@ -42,7 +43,10 @@ const MessageWithTheUser = ({
             className="rounded-full max-h-10 object-cover"
           />
           <div>
-            <h2 className="font-bold text-lg">{recipient.displayName}</h2>
+            <div className="flex items-center gap-1">
+              <h2 className="font-bold text-lg">{recipient.displayName}</h2>
+              <VerifiedBadge isSubscribed={recipient.isSubscribed} />
+            </div>
             <p className="text-neutral-500 text-sm">@{recipient.username}</p>
           </div>
         </Link>

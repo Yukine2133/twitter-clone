@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ReactNode } from "react";
 import Link from "next/link";
 import { IUser } from "@/interfaces/user.interface";
+import { VerifiedBadge } from "../premium/VerifiedBadge";
 
 interface IHoverUserInfoProps {
   children: ReactNode;
@@ -40,9 +41,12 @@ const HoverUserInfo = ({ children, user }: IHoverUserInfoProps) => {
           </div>
           <div className="w-fit px-4 -translate-y-4">
             <Link className="flex flex-col" href={`/profile/${user.username}`}>
-              <span className="font-semibold hover:underline w-[100px] truncate sm:w-fit">
-                {user.displayName}
-              </span>
+              <div className="flex items-center gap-1">
+                <span className="font-semibold hover:underline w-[100px] truncate sm:w-fit">
+                  {user.displayName}
+                </span>
+                <VerifiedBadge isSubscribed={user.isSubscribed} />
+              </div>
               <span className="text-gray-500 text-[15px] w-[100px] truncate sm:w-fit">
                 @{user.username}
               </span>

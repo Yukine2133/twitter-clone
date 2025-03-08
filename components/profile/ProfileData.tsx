@@ -16,6 +16,7 @@ import Link from "next/link";
 import ClientOnly from "../ClientOnly";
 import { ProfileHeader } from "./ProfileHeader";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
+import { VerifiedBadge } from "../premium/VerifiedBadge";
 
 const ProfileData = ({
   user,
@@ -90,17 +91,7 @@ const ProfileData = ({
           <div className="mt-4">
             <div className="flex items-center gap-2">
               <h2 className="font-bold text-xl mb-1">{user.displayName}</h2>
-              {user.isSubscribed ? (
-                <CheckBadgeIcon className="h-5 w-5 text-blue-500" />
-              ) : (
-                <Link
-                  href={`/premium`}
-                  className="flex items-center gap-1 px-2 py-0.5 bg-[#16181c] rounded-full text-[13px]  hover:bg-[#1d1f23] transition-colors"
-                >
-                  <CheckBadgeIcon className="h-4 w-4 text-blue-500" />
-                  Get verified
-                </Link>
-              )}
+              <VerifiedBadge isSubscribed={user.isSubscribed} profileLink />
             </div>
             <h2 className="text-neutral-500">@{user.username}</h2>
           </div>
