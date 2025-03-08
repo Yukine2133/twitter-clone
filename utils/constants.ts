@@ -6,6 +6,7 @@ import {
   HashtagIcon,
   HomeIcon,
   UserCircleIcon,
+  CheckBadgeIcon,
 } from "@heroicons/react/24/outline";
 import * as SolidIcons from "@heroicons/react/24/solid";
 
@@ -16,6 +17,7 @@ const SolidUserCircleIcon = SolidIcons.UserCircleIcon as any;
 const SolidBellIcon = SolidIcons.BellIcon as any;
 const SolidBars3BottomLeftIcon = SolidIcons.Bars3BottomLeftIcon as any;
 const SolidEnvelope = SolidIcons.EnvelopeIcon as any;
+const SolidCheckBadge = SolidIcons.CheckBadgeIcon as any;
 
 export const sidebarLinks = [
   {
@@ -53,6 +55,12 @@ export const sidebarLinks = [
     SolidIcon: SolidBars3BottomLeftIcon,
     route: "/lists",
     label: "Lists",
+  },
+  {
+    Icon: CheckBadgeIcon,
+    SolidIcon: SolidCheckBadge,
+    route: "/premium",
+    label: "Premium",
   },
   {
     Icon: UserCircleIcon,
