@@ -165,7 +165,6 @@ export const searchUsers = async (q: string | null) => {
 export const fetchUsers = async (currentUserId: string) => {
   await connectDb();
 
-  // Fetch the current user's data to get their `following` list
   const currentUser = await User.findById(currentUserId).select("following");
 
   // Fetch users who are not the current user and not in the `following` list

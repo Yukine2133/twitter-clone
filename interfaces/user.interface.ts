@@ -14,6 +14,7 @@ export interface IUser {
   backgroundImage: string;
   private: boolean;
   onboarded: boolean;
+  isSubscribed: boolean;
 }
 
 export interface ProfileDataProps {

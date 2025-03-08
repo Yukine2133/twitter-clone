@@ -28,8 +28,6 @@ export async function POST(req: Request) {
       client_reference_id: user?.id,
     });
 
-    console.log(session);
-
     return NextResponse.json({ sessionId: session.id });
   } catch (error) {
     console.error(error);

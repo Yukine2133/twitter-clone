@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { buffer } from "micro";
 import { stripe } from "@/utils/stripe";
 import { connectDb } from "@/utils/connectDb";
 import { User } from "@/models/user.model";
@@ -31,8 +30,6 @@ export async function POST(req: Request) {
         { $set: { isSubscribed: true } },
         { new: true }
       );
-
-      console.log(`✅ User ${userId} marked as subscribed`);
     }
 
     return NextResponse.json({ received: true });
