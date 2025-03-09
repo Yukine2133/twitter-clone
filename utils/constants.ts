@@ -7,6 +7,7 @@ import {
   HomeIcon,
   UserCircleIcon,
   CheckBadgeIcon,
+  ChatBubbleBottomCenterTextIcon,
 } from "@heroicons/react/24/outline";
 import * as SolidIcons from "@heroicons/react/24/solid";
 
@@ -18,6 +19,8 @@ const SolidBellIcon = SolidIcons.BellIcon as any;
 const SolidBars3BottomLeftIcon = SolidIcons.Bars3BottomLeftIcon as any;
 const SolidEnvelope = SolidIcons.EnvelopeIcon as any;
 const SolidCheckBadge = SolidIcons.CheckBadgeIcon as any;
+const SolidBubbleBottomCenterText =
+  SolidIcons.ChatBubbleBottomCenterTextIcon as any;
 
 export const sidebarLinks = [
   {
@@ -43,6 +46,12 @@ export const sidebarLinks = [
     SolidIcon: SolidEnvelope,
     route: "/messages",
     label: "Messages",
+  },
+  {
+    Icon: ChatBubbleBottomCenterTextIcon,
+    SolidIcon: SolidBubbleBottomCenterText,
+    route: "/grokky",
+    label: "Grokky",
   },
   {
     Icon: BookmarkIcon,
