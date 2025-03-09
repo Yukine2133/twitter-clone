@@ -71,7 +71,7 @@ const TweetMedia = ({
           data.videos.map((video, index) => (
             <video
               key={video}
-              className="rounded-lg md:h-[300px] md:max-w-[545px] cursor-pointer"
+              className="rounded-lg md:h-[300px] md:max-w-[525px] cursor-pointer"
               controls
               src={video}
               onClick={(e) => handleVideoClick(index, e)}
