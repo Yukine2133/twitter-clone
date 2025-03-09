@@ -20,7 +20,7 @@ export const GrokkyLoadingCard = () => {
           </div>
           <span className="font-bold text-sm">Grok</span>
         </div>
-        <div className="flex space-x-2">
+        <div className="flex mt-6 space-x-2">
           <div
             className="h-2 w-2 bg-neutral-400 rounded-full animate-bounce"
             style={{ animationDelay: "0ms" }}
