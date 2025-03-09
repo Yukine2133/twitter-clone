@@ -5,6 +5,7 @@ import {
   ClipboardDocumentIcon,
   EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
+import ReactMarkdown from "react-markdown";
 
 interface IGrokkyMessageCard {
   messageRole: string;
@@ -42,7 +43,7 @@ export const GrokkyMessageCard = ({
             <span className="font-bold text-sm">Grok</span>
           </div>
         )}
-        <p className="whitespace-pre-wrap">{messageContent}</p>
+        <ReactMarkdown>{messageContent}</ReactMarkdown>
 
         {messageRole === "assistant" && (
           <div className="flex items-center gap-2 mt-3 text-neutral-400">
