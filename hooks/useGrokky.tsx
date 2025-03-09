@@ -1,14 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { fetchAIResponse, fetchUserMessages } from "@/actions/grok.actions";
 
+interface IGrokkyMessage {
+  role: string;
+  content: string;
+}
+
 export const useGrokky = () => {
-  const [messages, setMessages] = useState([
-    {
-      role: "assistant",
-      content:
-        "I'm Grok, your AI assistant. I'm designed to be helpful, harmless, and honest. How can I assist you today?",
-    },
-  ]);
+  const [messages, setMessages] = useState<IGrokkyMessage[]>([]); // Start with an empty array
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -24,11 +23,23 @@ export const useGrokky = () => {
   useEffect(() => {
     const loadMessages = async () => {
       const previousMessages = await fetchUserMessages();
-      setMessages(previousMessages.length > 0 ? previousMessages : messages);
+
+      // If no previous messages exist, add the default assistant message
+      if (previousMessages.length === 0) {
+        setMessages([
+          {
+            role: "assistant",
+            content:
+              "I'm Grok, your AI assistant. I'm designed to be helpful, harmless, and honest. How can I assist you today?",
+          },
+        ]);
+      } else {
+        setMessages(previousMessages);
+      }
     };
 
     loadMessages();
-  }, [messages]);
+  }, []);
 
   const handleSendMessage = async (e?: React.FormEvent) => {
     e?.preventDefault();
@@ -53,6 +64,7 @@ export const useGrokky = () => {
       handleSendMessage();
     }
   };
+
   return {
     messages,
     input,

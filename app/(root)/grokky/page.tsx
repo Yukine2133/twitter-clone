@@ -8,6 +8,8 @@ import { useGrokky } from "@/hooks/useGrokky";
 import { GrokkyMessageCard } from "@/components/grokky/GrokkyMessageCard";
 import { GrokkyLoadingCard } from "@/components/grokky/GrokkyLoadingCard";
 import { GrokkyMessageForm } from "@/components/grokky/GrokkyMessageForm";
+import AutoScrollMessages from "@/components/messages/AutoScrollMessages";
+import Loading from "@/components/Loading";
 
 const GrokkyPage = () => {
   const {
@@ -42,17 +44,19 @@ const GrokkyPage = () => {
           <ArrowPathIcon className="h-5 w-5" />
         </button>
       </header>
-      <div className="flex-grow overflow-y-auto p-4 space-y-6">
-        {messages.map((message, index) => (
-          <GrokkyMessageCard
-            messageContent={message.content}
-            messageRole={message.role}
-            key={index}
-          />
-        ))}
-        {isLoading && <GrokkyLoadingCard />}
-        {/* <div ref={messagesEndRef} /> */}
-      </div>
+      <AutoScrollMessages>
+        <div className="flex-grow overflow-y-auto p-4 space-y-6">
+          {messages.map((message, index) => (
+            <GrokkyMessageCard
+              messageContent={message.content}
+              messageRole={message.role}
+              key={index}
+            />
+          ))}
+          {!messages.length && <Loading />}
+          {isLoading && <GrokkyLoadingCard />}
+        </div>
+      </AutoScrollMessages>
       <GrokkyMessageForm
         handleSendMessage={handleSendMessage}
         input={input}
