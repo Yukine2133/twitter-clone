@@ -22,13 +22,16 @@ const TweetForm = ({
     setImageUrls,
     videoUrls,
     setVideoUrls,
-    setIsOpen,
-    isOpen,
-    setIsOpenVideo,
-    isOpenVideo,
+
     loading,
     text,
     setText,
+    uploadImageButtonRef,
+    uploadVideoButtonRef,
+    imageProgress,
+    setImageProgress,
+    videoProgress,
+    setVideoProgress,
   } = useTweetFormLogic({ toggleModal, id, ref });
 
   return (
@@ -39,15 +42,17 @@ const TweetForm = ({
       setImageUrls={setImageUrls!}
       videoUrls={videoUrls}
       setVideoUrls={setVideoUrls}
-      setIsOpen={setIsOpen}
-      isOpen={isOpen}
       loading={loading}
-      isOpenVideo={isOpenVideo}
-      setIsOpenVideo={setIsOpenVideo}
       ref={ref}
       user={user}
       text={text}
       setText={setText}
+      uploadImageButtonRef={uploadImageButtonRef}
+      uploadVideoButtonRef={uploadVideoButtonRef}
+      imageProgress={imageProgress}
+      setImageProgress={setImageProgress}
+      videoProgress={videoProgress}
+      setVideoProgress={setVideoProgress}
     />
   );
 };

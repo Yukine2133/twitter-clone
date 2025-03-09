@@ -17,11 +17,15 @@ const useTweetFormLogic = ({
   ref: RefObject<HTMLFormElement>;
 }) => {
   const [loading, setLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenVideo, setIsOpenVideo] = useState(false);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [videoUrls, setVideoUrls] = useState<string[]>([]);
   const [text, setText] = useState<string | null>(null);
+
+  const [imageProgress, setImageProgress] = useState(0);
+  const [videoProgress, setVideoProgress] = useState(0);
+
+  const uploadImageButtonRef = useRef<HTMLDivElement>(null);
+  const uploadVideoButtonRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -85,13 +89,15 @@ const useTweetFormLogic = ({
     setImageUrls,
     videoUrls,
     setVideoUrls,
-    setIsOpen,
-    isOpen,
-    setIsOpenVideo,
-    isOpenVideo,
     loading,
     setText,
     text,
+    uploadImageButtonRef,
+    uploadVideoButtonRef,
+    imageProgress,
+    setImageProgress,
+    videoProgress,
+    setVideoProgress,
   };
 };
 

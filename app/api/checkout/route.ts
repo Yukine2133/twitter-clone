@@ -1,4 +1,4 @@
-import { stripe } from "@/utils/stripe";
+import { stripe } from "@/utils/lib/stripe";
 import { currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 

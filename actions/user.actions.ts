@@ -33,7 +33,12 @@ export const updateUser = async ({
   onboarded,
 }: Omit<
   IUser,
-  "displayName" | "_id" | "followers" | "following" | "createdAt"
+  | "displayName"
+  | "_id"
+  | "followers"
+  | "following"
+  | "createdAt"
+  | "isSubscribed"
 > & { name: string }) => {
   try {
     await connectDb();

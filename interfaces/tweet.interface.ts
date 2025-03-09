@@ -60,15 +60,17 @@ export interface ITweetFormUIProps {
   setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
   videoUrls: string[];
   setVideoUrls: React.Dispatch<React.SetStateAction<string[]>>;
-  setIsOpen: (arg0: boolean) => void;
-  isOpen: boolean;
-  setIsOpenVideo: (arg0: boolean) => void;
-  isOpenVideo: boolean;
   loading: boolean;
   user: IUser;
   id: string | undefined;
   text: string | null;
   setText: (arg0: string | null) => void;
+  uploadVideoButtonRef: MutableRefObject<HTMLDivElement | null>;
+  uploadImageButtonRef: MutableRefObject<HTMLDivElement | null>;
+  imageProgress: number;
+  setImageProgress: React.Dispatch<React.SetStateAction<number>>;
+  videoProgress: number;
+  setVideoProgress: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export interface IReply {

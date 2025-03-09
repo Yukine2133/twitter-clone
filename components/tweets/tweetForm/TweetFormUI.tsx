@@ -6,10 +6,14 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import ReactTextareaAutosize from "react-textarea-autosize";
-import Modal from "../Modal";
-import MediaUploadDropZone from "../media/MediaUploadDropZone";
+
 import { usePathname } from "next/navigation";
 import { ITweetFormUIProps } from "@/interfaces/tweet.interface";
+import { UploadButton } from "@/utils/lib/uploadthing";
+import { toast } from "react-toastify";
+import { handleImageClick } from "@/utils/handleImageClick";
+import { handleUploadComplete } from "@/utils/handleUploadComplete";
+import Loading from "@/components/Loading";
 
 const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
   function TweetFormUI(
@@ -19,15 +23,17 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
       setImageUrls,
       videoUrls,
       setVideoUrls,
-      setIsOpen,
-      isOpen,
-      setIsOpenVideo,
-      isOpenVideo,
       loading,
       user,
       id,
       text,
       setText,
+      uploadVideoButtonRef,
+      uploadImageButtonRef,
+      imageProgress,
+      setImageProgress,
+      videoProgress,
+      setVideoProgress,
     },
     ref
   ) {
@@ -97,6 +103,11 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
               />
             </div>
           ))}
+          {imageProgress > 0 && (
+            <div className="size-24">
+              <Loading />
+            </div>
+          )}
         </div>
         <div className="grid grid-cols-2  gap-1">
           {videoUrls &&
@@ -123,15 +134,26 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
                 />
               </div>
             ))}
+          {videoProgress > 0 && (
+            <div className="size-24">
+              <Loading />
+            </div>
+          )}
         </div>
 
         {/* Handle tweet buttons */}
         <div className="mt-2 flex justify-between items-center px-6">
           <div className="flex gap-2 items-center">
-            <button type="button" onClick={() => setIsOpen(!isOpen)}>
+            <button
+              type="button"
+              onClick={() => handleImageClick(uploadImageButtonRef)}
+            >
               <PhotoIcon className="h-5 w-5 text-blue-500" />
             </button>
-            <button type="button" onClick={() => setIsOpenVideo(true)}>
+            <button
+              type="button"
+              onClick={() => handleImageClick(uploadVideoButtonRef)}
+            >
               <VideoCameraIcon className="h-5 w-5 text-blue-500" />
             </button>
           </div>
@@ -143,28 +165,44 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
             {id ? "Reply" : "Tweet"}
           </button>
         </div>
-        {/* Handle modal rendering */}
-        {isOpen && (
-          <Modal isModalOpen={isOpen} toggleModal={setIsOpen}>
-            <MediaUploadDropZone
-              endpoint="media"
-              setStateFunction={setImageUrls}
-              toastMsgTypeMedia="Images"
-              onClose={setIsOpen}
-            />
-          </Modal>
-        )}
 
-        {isOpenVideo && (
-          <Modal isModalOpen={isOpenVideo} toggleModal={setIsOpenVideo}>
-            <MediaUploadDropZone
-              endpoint="video"
-              setStateFunction={setVideoUrls}
-              toastMsgTypeMedia="Videos"
-              onClose={setIsOpenVideo}
-            />
-          </Modal>
-        )}
+        {/* Upload Buttons for media */}
+        <div ref={uploadImageButtonRef}>
+          <UploadButton
+            className="hidden"
+            endpoint="media"
+            onClientUploadComplete={(res: any) => {
+              handleUploadComplete({
+                res,
+                setStateFunction: setImageUrls,
+                toastMsgTypeMedia: "Images",
+              });
+              setImageProgress(0);
+            }}
+            onUploadProgress={setImageProgress}
+            onUploadError={(error: Error) => {
+              toast.error(`Upload error: ${error.message}`);
+            }}
+          />
+        </div>
+        <div ref={uploadVideoButtonRef}>
+          <UploadButton
+            className="hidden"
+            endpoint="video"
+            onClientUploadComplete={(res: any) => {
+              handleUploadComplete({
+                res,
+                setStateFunction: setVideoUrls,
+                toastMsgTypeMedia: "Videos",
+              });
+              setVideoProgress(0);
+            }}
+            onUploadProgress={setVideoProgress}
+            onUploadError={(error: Error) => {
+              toast.error(`Upload error: ${error.message}`);
+            }}
+          />
+        </div>
       </form>
     );
   }

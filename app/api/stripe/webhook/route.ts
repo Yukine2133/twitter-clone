@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { stripe } from "@/utils/stripe";
+import { stripe } from "@/utils/lib/stripe";
 import { connectDb } from "@/utils/connectDb";
 import { User } from "@/models/user.model";
 
