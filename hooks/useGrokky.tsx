@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { fetchAIResponse } from "@/actions/grok.actions";
+import { fetchAIResponse, fetchUserMessages } from "@/actions/grok.actions";
 
 export const useGrokky = () => {
   const [messages, setMessages] = useState([
@@ -19,6 +19,15 @@ export const useGrokky = () => {
 
   useEffect(() => {
     scrollToBottom();
+  }, [messages]);
+
+  useEffect(() => {
+    const loadMessages = async () => {
+      const previousMessages = await fetchUserMessages();
+      setMessages(previousMessages.length > 0 ? previousMessages : messages);
+    };
+
+    loadMessages();
   }, [messages]);
 
   const handleSendMessage = async (e?: React.FormEvent) => {

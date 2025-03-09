@@ -51,7 +51,7 @@ const GrokkyPage = () => {
           />
         ))}
         {isLoading && <GrokkyLoadingCard />}
-        <div ref={messagesEndRef} />
+        {/* <div ref={messagesEndRef} /> */}
       </div>
       <GrokkyMessageForm
         handleSendMessage={handleSendMessage}
