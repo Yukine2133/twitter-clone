@@ -114,3 +114,12 @@ export interface IMediaUploadDropZone {
   setStateFunction: React.Dispatch<React.SetStateAction<string[]>>;
   toastMsgTypeMedia: "Videos" | "Images";
 }
+
+export interface ITweetFormMediaUploadProps {
+  setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
+  setVideoUrls: React.Dispatch<React.SetStateAction<string[]>>;
+  setImageProgress: React.Dispatch<React.SetStateAction<number>>;
+  setVideoProgress: React.Dispatch<React.SetStateAction<number>>;
+  uploadImageButtonRef: MutableRefObject<HTMLDivElement | null>;
+  uploadVideoButtonRef: MutableRefObject<HTMLDivElement | null>;
+}
