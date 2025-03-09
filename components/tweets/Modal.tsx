@@ -27,7 +27,7 @@ const Modal = ({
             ref={ref}
             className={cn(
               "w-full max-w-[700px] min-h-[200px] max-h-[900px] rounded-2xl bg-black",
-              "mx-4    overflow-hidden",
+              "mx-4    overflow-y-auto",
               className
             )}
           >

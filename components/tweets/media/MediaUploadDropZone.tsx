@@ -2,23 +2,23 @@ import React from "react";
 import { UploadDropzone } from "@/utils/lib/uploadthing";
 import { toast } from "react-toastify";
 import { IMediaUploadDropZone } from "@/interfaces/tweet.interface";
-import useMediaUploadDropZone from "@/hooks/useMediaUploadDropZone";
+import { handleUploadComplete } from "@/utils/handleUploadComplete";
 
 const MediaUploadDropZone = ({
   endpoint,
   setStateFunction,
   toastMsgTypeMedia,
-  onClose,
 }: IMediaUploadDropZone) => {
-  const { handleUploadComplete } = useMediaUploadDropZone({
-    setStateFunction,
-    toastMsgTypeMedia,
-    onClose,
-  });
   return (
     <UploadDropzone
       endpoint={endpoint as "video" | "media"}
-      onClientUploadComplete={handleUploadComplete}
+      onClientUploadComplete={(res: any) => {
+        handleUploadComplete({
+          res,
+          setStateFunction,
+          toastMsgTypeMedia,
+        });
+      }}
       onUploadError={(error: Error) => {
         toast.error(String(error));
       }}

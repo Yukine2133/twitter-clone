@@ -113,5 +113,4 @@ export interface IMediaUploadDropZone {
   endpoint?: "video" | "media";
   setStateFunction: React.Dispatch<React.SetStateAction<string[]>>;
   toastMsgTypeMedia: "Videos" | "Images";
-  onClose?: (arg0: boolean) => void | undefined;
 }
