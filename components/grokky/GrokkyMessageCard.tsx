@@ -7,7 +7,8 @@ import {
 } from "@heroicons/react/24/outline";
 import ReactMarkdown from "react-markdown";
 import { toast } from "react-toastify";
-
+import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from "react-tooltip";
 interface IGrokkyMessageCard {
   messageRole: string;
   messageContent: string;
@@ -52,19 +53,38 @@ export const GrokkyMessageCard = ({
 
         {messageRole === "assistant" && (
           <div className="flex items-center gap-2 mt-3 text-neutral-400">
-            <button className="hover:text-white p-1 rounded-full hover:bg-neutral-700 transition-colors">
+            {/* Good response */}
+            <Tooltip id="thumb-up-tooltip" content="Good Response" />
+            <button
+              data-tooltip-id="thumb-up-tooltip"
+              className="hover:text-white p-1 rounded-full hover:bg-neutral-700 transition-colors"
+            >
               <HandThumbUpIcon className="h-4 w-4" />
             </button>
-            <button className="hover:text-white p-1 rounded-full hover:bg-neutral-700 transition-colors">
+            {/* Bad Response */}
+            <Tooltip id="thumb-down-tooltip" content="Bad Response" />
+            <button
+              data-tooltip-id="thumb-down-tooltip"
+              className="hover:text-white p-1 rounded-full hover:bg-neutral-700 transition-colors"
+            >
               <HandThumbDownIcon className="h-4 w-4" />
             </button>
+            {/* Copy to clipboard  */}
+            <Tooltip id="clipboard-tooltip" content="Copy to clipboard" />
             <button
+              data-tooltip-id="clipboard-tooltip"
               onClick={copyToClipboard}
               className="hover:text-white p-1 rounded-full hover:bg-neutral-700 transition-colors"
             >
               <ClipboardDocumentIcon className="h-4 w-4" />
             </button>
-            <button className="hover:text-white p-1 rounded-full hover:bg-neutral-700 transition-colors">
+
+            {/* More */}
+            <Tooltip id="more-tooltip" content="More" />
+            <button
+              data-tooltip-id="more-tooltip"
+              className="hover:text-white p-1 rounded-full hover:bg-neutral-700 transition-colors"
+            >
               <EllipsisHorizontalIcon className="h-4 w-4" />
             </button>
           </div>
