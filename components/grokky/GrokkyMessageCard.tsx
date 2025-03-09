@@ -6,6 +6,7 @@ import {
   EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
 import ReactMarkdown from "react-markdown";
+import { toast } from "react-toastify";
 
 interface IGrokkyMessageCard {
   messageRole: string;
@@ -16,6 +17,10 @@ export const GrokkyMessageCard = ({
   messageRole,
   messageContent,
 }: IGrokkyMessageCard) => {
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(messageContent);
+    toast.success("Copied to clipboard");
+  };
   return (
     <div
       className={`flex ${
@@ -53,7 +58,10 @@ export const GrokkyMessageCard = ({
             <button className="hover:text-white p-1 rounded-full hover:bg-neutral-700 transition-colors">
               <HandThumbDownIcon className="h-4 w-4" />
             </button>
-            <button className="hover:text-white p-1 rounded-full hover:bg-neutral-700 transition-colors">
+            <button
+              onClick={copyToClipboard}
+              className="hover:text-white p-1 rounded-full hover:bg-neutral-700 transition-colors"
+            >
               <ClipboardDocumentIcon className="h-4 w-4" />
             </button>
             <button className="hover:text-white p-1 rounded-full hover:bg-neutral-700 transition-colors">
