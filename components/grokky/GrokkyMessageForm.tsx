@@ -1,4 +1,5 @@
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
+import ReactTextareaAutosize from "react-textarea-autosize";
 
 interface IGrokkyMessageFormProps {
   handleSendMessage: (e?: React.FormEvent) => void;
@@ -19,12 +20,12 @@ export const GrokkyMessageForm = ({
     <div className="border-t border-neutral-800 p-4 bg-black">
       <form onSubmit={handleSendMessage} className="relative">
         <div className="flex items-center bg-neutral-800 rounded-2xl px-4 py-3">
-          <textarea
+          <ReactTextareaAutosize
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Message Grok..."
-            className="flex-grow bg-transparent outline-none resize-none max-h-32"
+            className="flex-grow bg-transparent outline-none resize-none max-h-32 remove-scrollbar"
             rows={1}
           />
           <button
