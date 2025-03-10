@@ -108,7 +108,10 @@ const TweetActions = ({
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <button className="justify-end flex" onClick={() => addBookmark(id)}>
+        <button
+          className="justify-end flex text-gray-500"
+          onClick={() => addBookmark(id)}
+        >
           {localIsBookmarked ? (
             <SolidBookmarkIcon className="text-blue-500 h-5 w-5" />
           ) : (
