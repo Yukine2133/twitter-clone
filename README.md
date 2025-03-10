@@ -14,7 +14,11 @@ Welcome to my Twitter Clone project! This full-stack web application replicates 
 
 **Hashtag System**: Displays trending hashtags based on tweet usage, making it easy to explore popular topics and discussions.
 
-**Direct Messaging**: Send and receive direct messages, including images. Messages can be updated or deleted.
+**Real-time Messaging**: Send and receive direct messages instantly with real-time updates powered by WebSockets (Pusher), including support for images. Messages can be updated or deleted.
+
+**AI Chatbot**: Integrated AI chatbot using the Gemini API for enhanced user interactions.
+
+**Premium Subscription**: A Stripe-powered premium system that unlocks exclusive features.
 
 **Notifications**: Receive notifications for likes, retweets, replies, and new followers to stay up to date with all interactions.
 
@@ -25,7 +29,7 @@ Welcome to my Twitter Clone project! This full-stack web application replicates 
 - **React-Toastify**
 - **Zod**
 - **Mongoose**
-- **Kinde Auth**
+- **Clerk Auth**
 - **Hero Icons**
 
 ## Getting Started
@@ -48,18 +52,33 @@ Welcome to my Twitter Clone project! This full-stack web application replicates 
    ```
 
 3. **Set up environment variables**:
-   Create a `.env` file in the root directory and add the following variables:
+   Create a `.env.local` file in the root directory and add the following variables:
 
    ```env
-   KINDE_CLIENT_ID=Kinde Client ID
-   KINDE_CLIENT_SECRET=Kinde Client Secret
-   KINDE_ISSUER_URL=Kinde Issuer URL
-   KINDE_SITE_URL=http://localhost:3000
-   KINDE_POST_LOGOUT_REDIRECT_URL=http://localhost:3000
-   KINDE_POST_LOGIN_REDIRECT_URL=http://localhost:3000/api/auth/success
-   MONGODB_URL=MongoDB Connection URL
-   UPLOADTHING_SECRET=Uploadthing secret
-   UPLOADTHING_APP_ID=Uploadthing App ID
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+   CLERK_SECRET_KEY=
+   NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+   NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+   NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL=/api/auth/success
+   NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=/api/auth/success
+
+   MONGODB_URL=
+
+   UPLOADTHING_SECRET=
+   UPLOADTHING_APP_ID=
+
+   PUSHER_APP_ID=
+   NEXT_PUBLIC_PUSHER_KEY=
+   PUSHER_SECRET=
+   NEXT_PUBLIC_PUSHER_CLUSTER=
+
+   STRIPE_SECRET_KEY=
+   STRIPE_PRICE_MONTHLY=
+   STRIPE_PRICE_YEARLY=
+   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+   STRIPE_WEBHOOK_SECRET=
+
+   GEMINI_API_KEY=
    ```
 
 4. **Run the development server**:
