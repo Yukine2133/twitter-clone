@@ -5,9 +5,8 @@ import ReactTextareaAutosize from "react-textarea-autosize";
 
 import { usePathname } from "next/navigation";
 import { ITweetFormUIProps } from "@/interfaces/tweet.interface";
-
-import Loading from "@/components/Loading";
 import { TweetFormMediaUpload } from "./TweetFormMediaUpload";
+import { MediaSkeleton } from "@/components/loaders/MediaSkeleton";
 
 const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
   function TweetFormUI(
@@ -98,8 +97,8 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
             </div>
           ))}
           {imageProgress > 0 && (
-            <div className="size-24">
-              <Loading />
+            <div>
+              <MediaSkeleton image />
             </div>
           )}
         </div>
@@ -129,8 +128,8 @@ const TweetFormUI = forwardRef<HTMLFormElement, ITweetFormUIProps>(
               </div>
             ))}
           {videoProgress > 0 && (
-            <div className="size-24">
-              <Loading />
+            <div>
+              <MediaSkeleton />
             </div>
           )}
         </div>

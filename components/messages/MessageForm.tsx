@@ -11,7 +11,7 @@ import { UploadButton } from "@/utils/lib/uploadthing";
 import Image from "next/image";
 import useMessageForm from "@/hooks/useMessageForm";
 import { handleImageClick } from "@/utils/handleImageClick";
-import Loading from "../Loading";
+import Loading from "../loaders/Loading";
 
 const MessageForm = ({
   recipientUserId,

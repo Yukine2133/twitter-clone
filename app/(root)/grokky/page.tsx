@@ -9,7 +9,7 @@ import { GrokkyMessageCard } from "@/components/grokky/GrokkyMessageCard";
 import { GrokkyLoadingCard } from "@/components/grokky/GrokkyLoadingCard";
 import { GrokkyMessageForm } from "@/components/grokky/GrokkyMessageForm";
 import AutoScrollMessages from "@/components/messages/AutoScrollMessages";
-import Loading from "@/components/Loading";
+import Loading from "@/components/loaders/Loading";
 
 const GrokkyPage = () => {
   const {
