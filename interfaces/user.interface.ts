@@ -40,6 +40,6 @@ export interface IProfileHeaderProps {
 }
 
 export interface IUsersData {
-  randomUsersData: IUser[];
-  currentUserData: IUser;
+  parsedJSONRandomUsersData: IUser[];
+  parsedJSONCurrentUserData: IUser;
 }

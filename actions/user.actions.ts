@@ -8,6 +8,7 @@ import { IUser } from "@/interfaces/user.interface";
 import { createNotification } from "./notification.actions";
 import { parseJSON } from "@/utils/parseJSON";
 import { currentUser } from "@clerk/nextjs/server";
+import { shuffleArray } from "@/utils/shuffleArray";
 
 export const fetchUser = async (userId: string | null | undefined) => {
   try {
@@ -178,4 +179,21 @@ export const fetchUsers = async (currentUserId: string) => {
   }).sort({ displayName: 1 });
 
   return users;
+};
+
+export const fetchFollowSuggestions = async (userId: string) => {
+  try {
+    const currentUserData = await fetchUser(userId);
+
+    const usersData: any = await fetchUsers(currentUserData?._id);
+    const shuffledUsers = shuffleArray(usersData);
+    const randomUsersData = shuffledUsers.slice(0, 3);
+
+    const parsedJSONCurrentUserData = parseJSON(currentUserData);
+    const parsedJSONRandomUsersData = parseJSON(randomUsersData);
+
+    return { parsedJSONCurrentUserData, parsedJSONRandomUsersData };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
 };

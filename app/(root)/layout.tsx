@@ -12,6 +12,7 @@ import { ourFileRouter } from "@/app/api/uploadthing/core";
 import RightSideBar from "@/components/layout/RightSideBar/RightSideBar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Auth } from "@/components/Auth";
+import QueryProvider from "@/components/layout/QueryProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -31,41 +32,45 @@ export default async function RootLayout({
   return (
     <ClerkProvider>
       <Auth>
-        <html suppressHydrationWarning={true} lang="en">
-          <body
-            className={`${poppins.className} bg-black text-white custom-scrollbar`}
-          >
-            <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-            <ToastContainer
-              position="bottom-right"
-              autoClose={2000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              theme="dark"
-            />
-            <main className="flex justify-center mx-auto">
-              <div className="flex w-full max-w-[1300px] justify-center gap-0 lg:gap-4">
-                <div className="w-[68px] max-[800px]:hidden  min-[800px]:w-[88px] lg:w-[275px]">
-                  <LeftSideBar />
-                  <UserDetails />
-                </div>
-
-                <section className="w-full min-[600px]:w-[600px] border-x border-[#2f3336] min-h-screen">
-                  <div className="w-full mb-10 min-[800px]:mb-0">
-                    {children}
+        <QueryProvider>
+          <html suppressHydrationWarning={true} lang="en">
+            <body
+              className={`${poppins.className} bg-black text-white custom-scrollbar`}
+            >
+              <NextSSRPlugin
+                routerConfig={extractRouterConfig(ourFileRouter)}
+              />
+              <ToastContainer
+                position="bottom-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                theme="dark"
+              />
+              <main className="flex justify-center mx-auto">
+                <div className="flex w-full max-w-[1300px] justify-center gap-0 lg:gap-4">
+                  <div className="w-[68px] max-[800px]:hidden  min-[800px]:w-[88px] lg:w-[275px]">
+                    <LeftSideBar />
+                    <UserDetails />
                   </div>
-                  <BottomBar />
-                </section>
 
-                <div className="hidden lg:block w-[350px]">
-                  <RightSideBar />
+                  <section className="w-full min-[600px]:w-[600px] border-x border-[#2f3336] min-h-screen">
+                    <div className="w-full mb-10 min-[800px]:mb-0">
+                      {children}
+                    </div>
+                    <BottomBar />
+                  </section>
+
+                  <div className="hidden lg:block w-[350px]">
+                    <RightSideBar />
+                  </div>
                 </div>
-              </div>
-            </main>
-          </body>
-        </html>
+              </main>
+            </body>
+          </html>
+        </QueryProvider>
       </Auth>
     </ClerkProvider>
   );

@@ -20,7 +20,7 @@ export const useFollowSuggestions = async () => {
     }
   };
 
-  const { randomUsersData, currentUserData } =
-    (await fetchData()) as IUsersData;
-  return { randomUsersData, currentUserData, user };
+  // const { randomUsersData, currentUserData } =
+  //   (await fetchData()) as IUsersData;
+  return { fetchData, user };
 };
