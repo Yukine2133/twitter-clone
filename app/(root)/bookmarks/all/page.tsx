@@ -2,8 +2,8 @@ import TweetCard from "@/components/tweets/TweetCard";
 import { Metadata } from "next";
 import { ITweet } from "@/interfaces/tweet.interface";
 import { getUserBookmarks } from "@/actions/bookmark.actions";
-import ClientOnly from "@/components/ClientOnly";
 import { currentUser } from "@clerk/nextjs/server";
+import ClientOnly from "@/components/loaders/ClientOnly";
 
 export const metadata: Metadata = {
   title: "All Bookmarks",

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import TweetCard from "@/components/tweets/TweetCard";
-import GoBackButton from "@/components/buttons/GoBackButton";
 import FollowButton from "@/components/buttons/FollowButton";
 import Follow from "@/components/follow/Follow";
 import EditProfileButton from "@/components/buttons/EditProfileButton";
@@ -13,10 +12,9 @@ import {
 import { formatJoinedDate } from "@/utils/formatTimestamp";
 import type { ProfileDataProps } from "@/interfaces/user.interface";
 import Link from "next/link";
-import ClientOnly from "../ClientOnly";
 import { ProfileHeader } from "./ProfileHeader";
-import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { VerifiedBadge } from "../premium/VerifiedBadge";
+import ClientOnly from "../loaders/ClientOnly";
 
 const ProfileData = ({
   user,

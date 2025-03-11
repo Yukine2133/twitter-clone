@@ -1,7 +1,7 @@
 import { getBookmarksFromFolder } from "@/actions/bookmark.actions";
 import GoBackButton from "@/components/buttons/GoBackButton";
 import MoreButtonBookmarkFolder from "@/components/buttons/moreButton/MoreButtonBookmarkFolder";
-import ClientOnly from "@/components/ClientOnly";
+import ClientOnly from "@/components/loaders/ClientOnly";
 import TweetCard from "@/components/tweets/TweetCard";
 import React from "react";
 

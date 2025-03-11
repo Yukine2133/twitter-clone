@@ -1,6 +1,6 @@
 import Link from "next/link";
 import SearchInput from "@/components/search/SearchInput";
-import ClientOnly from "../ClientOnly";
+import ClientOnly from "../loaders/ClientOnly";
 
 const Tabs = ({ path }: { path: string }) => {
   return (

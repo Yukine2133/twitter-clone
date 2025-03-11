@@ -1,5 +1,5 @@
 import { searchTweets } from "@/actions/tweet.actions";
-import ClientOnly from "@/components/ClientOnly";
+import ClientOnly from "@/components/loaders/ClientOnly";
 import TweetCard from "@/components/tweets/TweetCard";
 import { ITweet } from "@/interfaces/tweet.interface";
 

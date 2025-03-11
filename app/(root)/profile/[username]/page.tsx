@@ -1,4 +1,3 @@
-import { fetchUser } from "@/actions/user.actions";
 import ProfileData from "@/components/profile/ProfileData";
 import useGetProfileData from "@/hooks/useGetProfileData";
 import { parseJSON } from "@/utils/parseJSON";
