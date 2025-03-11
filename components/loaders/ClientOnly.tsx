@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Loading from "./loaders/Loading";
+import Loading from "./Loading";
 
 export default function ClientOnly({
   children,
