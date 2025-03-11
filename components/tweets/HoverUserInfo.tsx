@@ -19,7 +19,7 @@ const HoverUserInfo = ({ children, user }: IHoverUserInfoProps) => {
     let timer: NodeJS.Timeout;
 
     if (isHovered) {
-      timer = setTimeout(() => setIsVisible(true), 250);
+      timer = setTimeout(() => setIsVisible(true), 500);
     } else {
       setIsVisible(false);
     }
