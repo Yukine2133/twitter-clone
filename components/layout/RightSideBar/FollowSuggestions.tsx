@@ -1,13 +1,13 @@
-import { useFollowSuggestions } from "@/hooks/useFollowSuggestions";
 import Link from "next/link";
 import { getQueryClient } from "@/utils/lib/getQueryClient";
 import { fetchFollowSuggestions } from "@/actions/user.actions";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { FollowSuggestionCard } from "../layout/RightSideBar/FollowSuggestionCard";
-import ClientOnly from "../loaders/ClientOnly";
+import { FollowSuggestionCard } from "./FollowSuggestionCard";
+import ClientOnly from "../../loaders/ClientOnly";
+import { currentUser } from "@clerk/nextjs/server";
 
 const FollowSuggestions = async () => {
-  const { user } = await useFollowSuggestions();
+  const user = await currentUser();
 
   const queryClient = getQueryClient();
 
