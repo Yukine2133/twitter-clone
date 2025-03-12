@@ -4,13 +4,15 @@ import Link from "next/link";
 interface IVerifiedBadgeProps {
   isSubscribed: boolean;
   profileLink?: boolean;
+  isOwner?: boolean;
 }
 
 export const VerifiedBadge = ({
   isSubscribed,
   profileLink,
+  isOwner,
 }: IVerifiedBadgeProps) => {
-  if (profileLink && !isSubscribed) {
+  if (profileLink && !isSubscribed && isOwner) {
     return (
       <Link
         href={`/premium`}

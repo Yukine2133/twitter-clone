@@ -89,7 +89,11 @@ const ProfileData = ({
           <div className="mt-4">
             <div className="flex items-center gap-2">
               <h2 className="font-bold text-xl mb-1">{user.displayName}</h2>
-              <VerifiedBadge isSubscribed={user.isSubscribed} profileLink />
+              <VerifiedBadge
+                isOwner={isOwner}
+                isSubscribed={user.isSubscribed}
+                profileLink
+              />
             </div>
             <h2 className="text-neutral-500">@{user.username}</h2>
           </div>
