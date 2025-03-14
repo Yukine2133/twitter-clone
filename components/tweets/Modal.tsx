@@ -22,7 +22,7 @@ const Modal = ({
   return (
     <>
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950/50 backdrop-blur-sm">
           <div
             ref={ref}
             className={cn(

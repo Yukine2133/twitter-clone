@@ -126,6 +126,8 @@ const TweetActions = ({
         isModalOpen={isModalOpen}
         owner={owner}
         tweetText={tweet.text}
+        tweetImages={tweet.images}
+        tweetVideos={tweet.videos}
         user={user}
       />
 
