@@ -1,9 +1,10 @@
 export const dynamic = "force-dynamic";
 
 import { getUserConversations } from "@/actions/message.actions";
+import { StartConversationModal } from "@/components/messages/StartConversationModal";
 import UserConversationsCard from "@/components/messages/UserConversationsCard";
 import type { IUserConversations } from "@/interfaces/message.interface";
-import { InboxIcon } from "@heroicons/react/24/outline";
+import { ChatBubbleLeftIcon, InboxIcon } from "@heroicons/react/24/outline";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,10 +16,11 @@ const MessagePage = async () => {
   const messages = await getUserConversations();
 
   return (
-    <div className="min-h-screen border-x border-neutral-800">
-      <div className="sticky top-0 z-10 backdrop-blur-xl bg-black/60 border-b border-neutral-800">
-        <div className="px-4 py-3">
+    <div className="border-x border-neutral-800">
+      <div className="  bg-black/60 border-b border-neutral-800">
+        <div className="px-4 py-3 flex items-center justify-between">
           <h1 className="text-xl font-bold">Messages</h1>
+          <StartConversationModal />
         </div>
       </div>
 
@@ -30,7 +32,7 @@ const MessagePage = async () => {
           <h2 className="mb-2 text-2xl font-bold">Welcome to your inbox!</h2>
           <p className="text-neutral-500">
             Drop a line, share posts and more with private conversations between
-            you and others on Twitter.
+            you and others on Tweeter.
           </p>
         </div>
       ) : (

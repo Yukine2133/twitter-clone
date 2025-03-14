@@ -5,7 +5,7 @@ import { VerifiedBadge } from "../premium/VerifiedBadge";
 
 const UserCard = ({ user }: { user: IUser }) => {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 ">
       <Image
         src={user.avatar || "/placeholder.svg"}
         alt={user.username}
