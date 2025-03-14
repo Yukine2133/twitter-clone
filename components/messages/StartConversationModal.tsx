@@ -1,54 +1,27 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Modal from "../tweets/Modal";
 import {
   ChatBubbleLeftIcon,
   MagnifyingGlassIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { searchUsers } from "@/actions/user.actions";
-import { IUser } from "@/interfaces/user.interface";
-import Image from "next/image";
+
 import UserCard from "../search/UserCard";
+import { useStartConversationModal } from "@/hooks/messages/useStartConversationModal";
 import { useRouter } from "next/navigation";
 
 export const StartConversationModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchedUsers, setSearchUsers] = useState<IUser[]>([]);
-  const [loading, setLoading] = useState(false);
+  const {
+    isModalOpen,
+    toggleModal,
+    searchQuery,
+    setSearchQuery,
+    searchedUsers,
+    loading,
+  } = useStartConversationModal();
 
   const router = useRouter();
-
-  const toggleModal = (state: boolean) => {
-    setIsModalOpen(state);
-    if (!state) {
-      setSearchQuery("");
-      setSearchUsers([]);
-    }
-  };
-
-  useEffect(() => {
-    if (!searchQuery.trim()) {
-      setSearchUsers([]);
-      return;
-    }
-
-    const delaySearch = setTimeout(async () => {
-      setLoading(true);
-      try {
-        const users = (await searchUsers(searchQuery)) as IUser[];
-        setSearchUsers(users);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    }, 500);
-
-    return () => clearTimeout(delaySearch);
-  }, [searchQuery]);
 
   return (
     <>
