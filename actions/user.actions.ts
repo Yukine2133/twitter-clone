@@ -50,8 +50,9 @@ export const updateUser = async ({
       return { message: "You need to be logged in to update the profile." };
     }
     const existingUser = await User.findOne({ userId });
+    const currentDbUser = await User.findOne({ userId: user.id });
 
-    if (existingUser.userId != user?.id) {
+    if (existingUser.userId != user?.id && !currentDbUser.isAdmin) {
       return { message: "You cannot edit someone else's profile." };
     }
 

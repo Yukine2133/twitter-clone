@@ -82,7 +82,7 @@ const ProfileData = ({
             />
           </>
         )}
-        {isOwner && <EditProfileButton user={user} />}
+        {(isOwner || currentUser.isAdmin) && <EditProfileButton user={user} />}
       </div>
 
       <div className="mt-3 px-4">
