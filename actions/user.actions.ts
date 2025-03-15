@@ -40,6 +40,7 @@ export const updateUser = async ({
   | "following"
   | "createdAt"
   | "isSubscribed"
+  | "isAdmin"
 > & { name: string }) => {
   try {
     await connectDb();

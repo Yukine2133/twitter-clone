@@ -15,6 +15,7 @@ export interface IUser {
   private: boolean;
   onboarded: boolean;
   isSubscribed: boolean;
+  isAdmin: boolean;
 }
 
 export interface ProfileDataProps {

@@ -15,6 +15,7 @@ import Link from "next/link";
 import { ProfileHeader } from "./ProfileHeader";
 import { VerifiedBadge } from "../premium/VerifiedBadge";
 import ClientOnly from "../loaders/ClientOnly";
+import AdminBadge from "../badges/AdminBadge";
 
 const ProfileData = ({
   user,
@@ -87,8 +88,9 @@ const ProfileData = ({
       <div className="mt-3 px-4">
         <div className="flex justify-between items-center my-2">
           <div className="mt-4">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
               <h2 className="font-bold text-xl mb-1">{user.displayName}</h2>
+              {user.isAdmin && <AdminBadge />}
               <VerifiedBadge
                 isOwner={isOwner}
                 isSubscribed={user.isSubscribed}

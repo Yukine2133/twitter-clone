@@ -18,8 +18,7 @@ export const ProfileHeader = ({
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show follow button after scrolling past the profile section
-      const scrollThreshold = 300; // Adjust this value based on your layout
+      const scrollThreshold = 300;
       setShowFollowButton(window.scrollY > scrollThreshold);
     };
 

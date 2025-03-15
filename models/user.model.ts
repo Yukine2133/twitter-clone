@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema(
     following: [{ type: String }],
     private: { type: Boolean, default: false },
     isSubscribed: { type: Boolean, default: false },
+    isAdmin: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
