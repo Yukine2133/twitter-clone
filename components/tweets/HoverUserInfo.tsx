@@ -5,6 +5,7 @@ import { ReactNode, useState, useEffect } from "react";
 import Link from "next/link";
 import { IUser } from "@/interfaces/user.interface";
 import { VerifiedBadge } from "../premium/VerifiedBadge";
+import AdminBadge from "../badges/AdminBadge";
 
 interface IHoverUserInfoProps {
   children: ReactNode;
@@ -68,7 +69,10 @@ const HoverUserInfo = ({ children, user }: IHoverUserInfoProps) => {
                   <span className="font-semibold hover:underline w-[100px] truncate sm:w-fit">
                     {user.displayName}
                   </span>
-                  <VerifiedBadge isSubscribed={user.isSubscribed} />
+                  {user.isAdmin && <AdminBadge />}
+                  {!user.isAdmin && (
+                    <VerifiedBadge isSubscribed={user.isSubscribed} />
+                  )}
                 </div>
                 <span className="text-gray-500 text-[15px] w-[100px] truncate sm:w-fit">
                   @{user.username}

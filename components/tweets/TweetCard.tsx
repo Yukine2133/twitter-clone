@@ -11,6 +11,7 @@ import TweetMedia from "./media/TweetMedia";
 import useTweetCard from "@/hooks/tweetsLogic/useTweetCard";
 import { renderTweetTextWithHashtags } from "@/utils/formatTweetText";
 import { VerifiedBadge } from "../premium/VerifiedBadge";
+import AdminBadge from "../badges/AdminBadge";
 
 const TweetCard = async ({
   tweet,
@@ -35,6 +36,7 @@ const TweetCard = async ({
               <ArrowPathRoundedSquareIcon className="w-5 h-5" />
               <div className="flex items-center gap-2">
                 <h4>{retweetedUser?.displayName}</h4>
+                {owner.isAdmin && <AdminBadge />}
                 <VerifiedBadge isSubscribed={owner.isSubscribed} />
               </div>
               <span>Retweeted</span>
@@ -58,11 +60,14 @@ const TweetCard = async ({
                     className="flex items-center gap-2"
                     href={`/profile/${owner.username}?userId=${owner.userId}`}
                   >
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-2">
                       <span className="font-semibold w-[100px] truncate sm:w-fit">
                         {owner.displayName}
                       </span>
-                      <VerifiedBadge isSubscribed={owner.isSubscribed} />
+                      {owner.isAdmin && <AdminBadge />}
+                      {!owner.isAdmin && (
+                        <VerifiedBadge isSubscribed={owner.isSubscribed} />
+                      )}
                     </div>
                     <span className="text-gray-500 text-[15px] w-[100px] truncate sm:w-fit ">
                       @{owner.username}

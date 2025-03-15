@@ -7,6 +7,7 @@ import Link from "next/link";
 import TweetForm from "./tweetForm/TweetForm";
 import type { IUser } from "@/interfaces/user.interface";
 import { VerifiedBadge } from "../premium/VerifiedBadge";
+import AdminBadge from "../badges/AdminBadge";
 
 interface IReplyModalProps {
   id: string;
@@ -61,7 +62,8 @@ export const ReplyModal = ({
                 >
                   {owner.displayName || owner.username}
                 </Link>
-                {owner.isSubscribed && (
+                {owner.isAdmin && <AdminBadge />}
+                {!owner.isAdmin && (
                   <VerifiedBadge isSubscribed={owner.isSubscribed} />
                 )}
               </div>

@@ -3,6 +3,7 @@ import { formatCreatedAt } from "@/utils/formatTimestamp";
 import Image from "next/image";
 import Link from "next/link";
 import { VerifiedBadge } from "../premium/VerifiedBadge";
+import AdminBadge from "../badges/AdminBadge";
 
 const UserConversationsCard = ({
   message,
@@ -27,7 +28,10 @@ const UserConversationsCard = ({
             <span className="font-bold truncate">
               {message.user.displayName}
             </span>
-            <VerifiedBadge isSubscribed={message.user.isSubscribed} />
+            {message.user.isAdmin && <AdminBadge />}
+            {!message.user.isAdmin && (
+              <VerifiedBadge isSubscribed={message.user.isSubscribed} />
+            )}
             <span className="text-neutral-500">@{message.user.username}</span>
             <span className="text-neutral-500">&middot;</span>
             <span className="text-neutral-500 text-sm">

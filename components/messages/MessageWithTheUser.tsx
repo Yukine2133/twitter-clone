@@ -10,6 +10,7 @@ import AutoScrollMessages from "@/components/messages/AutoScrollMessages";
 import { IUser } from "@/interfaces/user.interface";
 import useRealTimeMessages from "@/hooks/useRealTimeMessages";
 import { VerifiedBadge } from "../premium/VerifiedBadge";
+import AdminBadge from "../badges/AdminBadge";
 
 const MessageWithTheUser = ({
   initialMessages,
@@ -33,7 +34,7 @@ const MessageWithTheUser = ({
         <GoBackButton />
         <Link
           className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-          href={`/profile/${recipient.username}`}
+          href={`/profile/${recipient.username}?userId=${recipient.userId}`}
         >
           <Image
             src={recipient.avatar}
@@ -45,7 +46,10 @@ const MessageWithTheUser = ({
           <div>
             <div className="flex items-center gap-1">
               <h2 className="font-bold text-lg">{recipient.displayName}</h2>
-              <VerifiedBadge isSubscribed={recipient.isSubscribed} />
+              {recipient.isAdmin && <AdminBadge />}
+              {!recipient.isAdmin && (
+                <VerifiedBadge isSubscribed={recipient.isSubscribed} />
+              )}
             </div>
             <p className="text-neutral-500 text-sm">@{recipient.username}</p>
           </div>
