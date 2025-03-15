@@ -10,6 +10,7 @@ const MoreButton = ({
   tweet,
   replyId,
   replyTweet,
+  isAdmin,
 }: IMoreButtonProps) => {
   const {
     isOwner,
@@ -35,6 +36,7 @@ const MoreButton = ({
   });
   return (
     <MoreButtonUI
+      isAdmin={isAdmin}
       isOwner={isOwner}
       buttonRef={buttonRef}
       setIsOpen={setIsOpen}

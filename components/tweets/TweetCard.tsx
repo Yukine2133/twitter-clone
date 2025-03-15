@@ -91,7 +91,11 @@ const TweetCard = async ({
         </Link>
         <TweetMedia neededMarginLeft data={tweet} />
         <div className="absolute right-2 top-2 ">
-          <MoreButton tweet={tweet} id={tweet._id} />
+          <MoreButton
+            isAdmin={currentDbUser.isAdmin}
+            tweet={tweet}
+            id={tweet._id}
+          />
         </div>
       </div>
       <TweetActions

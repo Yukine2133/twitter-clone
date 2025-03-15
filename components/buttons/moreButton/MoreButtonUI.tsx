@@ -20,7 +20,7 @@ const MoreButtonUI = ({
   handleDelete,
   text,
   setText,
-
+  isAdmin,
   handleSubmit,
 
   setTweetImageUrls,
@@ -30,7 +30,7 @@ const MoreButtonUI = ({
 }: IMoreButtonUIProps) => {
   return (
     <>
-      {isOwner && (
+      {(isOwner || isAdmin) && (
         <>
           <button
             ref={buttonRef}

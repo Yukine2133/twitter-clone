@@ -7,6 +7,7 @@ import { Reply } from "@/models/reply.model";
 import { createNotification } from "./notification.actions";
 import { parseJSON } from "@/utils/parseJSON";
 import { currentUser } from "@clerk/nextjs/server";
+import { User } from "@/models/user.model";
 
 export const replyTweet = async (formData: FormData, tweetId: string) => {
   try {
@@ -121,8 +122,9 @@ export const editReply = async (
     }
 
     const reply = await Reply.findById(replyId);
+    const currentDbUser = await User.findOne({ userId: user.id });
 
-    if (reply.userId != user?.id) {
+    if (reply.userId != user?.id && !currentDbUser.isAdmin) {
       return { message: "You cannot edit someone else's tweet." };
     }
 

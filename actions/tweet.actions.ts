@@ -13,6 +13,7 @@ import { Reply } from "@/models/reply.model";
 import { Bookmark } from "@/models/bookmark.model";
 import { parseJSON } from "@/utils/parseJSON";
 import { currentUser } from "@clerk/nextjs/server";
+import { User } from "@/models/user.model";
 
 export const createTweet = async (formData: FormData) => {
   try {
@@ -98,7 +99,9 @@ export const deleteTweet = async (id: string) => {
 
     if (!tweet) return { message: "Tweet not found." };
 
-    if (tweet.userId != user?.id) {
+    const currentDbUser = await User.findOne({ userId: user.id });
+
+    if (tweet.userId != user?.id && !currentDbUser.isAdmin) {
       return { message: "You cannot delete someone else's tweet." };
     }
     revalidatePath("/");
@@ -121,8 +124,9 @@ export const updateTweet = async (
       return { message: "You need to be logged in to update tweet." };
     }
     const existingTweet = await Tweet.findById(id);
+    const currentDbUser = await User.findOne({ userId: user.id });
 
-    if (existingTweet.userId != user?.id) {
+    if (existingTweet.userId != user?.id && !currentDbUser.isAdmin) {
       return { message: "You cannot edit someone else's tweet." };
     }
 

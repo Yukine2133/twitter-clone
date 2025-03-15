@@ -52,7 +52,11 @@ const SingleTweet = ({
                 </Link>
               </div>
             </div>
-            <MoreButton tweet={singleTweet} id={singleTweetId} />
+            <MoreButton
+              isAdmin={currentUser.isAdmin}
+              tweet={singleTweet}
+              id={singleTweetId}
+            />
           </div>
         </div>
 

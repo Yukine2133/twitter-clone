@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { fetchTweetReplies } from "@/actions/reply.actions";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
 import TweetMedia from "./media/TweetMedia";
+import { useGetCurrentUser } from "@/hooks/useGetCurrentUser";
 
 const ReplyTweets = async ({
   tweetId,
@@ -17,6 +18,7 @@ const ReplyTweets = async ({
   tweet: any;
 }) => {
   const replies = await fetchTweetReplies(tweetId);
+  const { currentDbUser } = await useGetCurrentUser();
 
   // Fix: Property 'map' does not exist on type 'any[] | { error: string; }'.
   if (!Array.isArray(replies)) {
@@ -60,6 +62,7 @@ const ReplyTweets = async ({
               </div>
               <div className="absolute right-2 ">
                 <MoreButton
+                  isAdmin={currentDbUser.isAdmin}
                   replyId={reply._id}
                   tweet={tweet}
                   reply={reply}

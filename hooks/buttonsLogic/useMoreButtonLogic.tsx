@@ -5,7 +5,6 @@ import { useState, useRef } from "react";
 import { toast } from "react-toastify";
 import { tweetTextSchema } from "@/utils/lib/validation";
 import { z } from "zod";
-import { deleteMessage, editMessage } from "@/actions/message.actions";
 import { useMoreButtonClickOutside } from "../useClickOutisde";
 import { useUser } from "@clerk/nextjs";
 
@@ -15,7 +14,7 @@ const useMoreButtonLogic = ({
   tweet,
   replyId,
   replyTweet,
-}: IMoreButtonProps) => {
+}: Omit<IMoreButtonProps, "isAdmin">) => {
   const [isOpen, setIsOpen] = useState(false);
   const [text, setText] = useState<string | null>(
     replyTweet ? replyTweet : (tweet?.text as string)

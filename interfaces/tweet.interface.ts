@@ -90,6 +90,7 @@ export interface IMoreButtonProps {
   reply?: IReply;
   replyId?: string;
   replyTweet?: string;
+  isAdmin: boolean;
 }
 
 export interface IMoreButtonUIProps {
@@ -107,6 +108,7 @@ export interface IMoreButtonUIProps {
   setTweetImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
   tweetVideoUrls: string[];
   setTweetVideoUrls: React.Dispatch<React.SetStateAction<string[]>>;
+  isAdmin: boolean;
 }
 
 export interface IMediaUploadDropZone {
