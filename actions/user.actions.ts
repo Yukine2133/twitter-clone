@@ -163,7 +163,7 @@ export const searchUsers = async (q: string | null) => {
       username: { $regex: new RegExp(q || "", "i") },
     });
 
-    return users;
+    return parseJSON(users);
   } catch (error) {
     console.error(error);
   }
