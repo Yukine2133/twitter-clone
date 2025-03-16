@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import TweetForm from "./tweetForm/TweetForm";
 import type { IUser } from "@/interfaces/user.interface";
-import { VerifiedBadge } from "../premium/VerifiedBadge";
+import { VerifiedBadge } from "../badges/VerifiedBadge";
 import AdminBadge from "../badges/AdminBadge";
 
 interface IReplyModalProps {

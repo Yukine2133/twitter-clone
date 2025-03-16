@@ -2,7 +2,7 @@ import type { IUserConversations } from "@/interfaces/message.interface";
 import { formatCreatedAt } from "@/utils/formatTimestamp";
 import Image from "next/image";
 import Link from "next/link";
-import { VerifiedBadge } from "../premium/VerifiedBadge";
+import { VerifiedBadge } from "../badges/VerifiedBadge";
 import AdminBadge from "../badges/AdminBadge";
 
 const UserConversationsCard = ({

@@ -9,7 +9,7 @@ import MessageCard from "@/components/messages/MessageCard";
 import AutoScrollMessages from "@/components/messages/AutoScrollMessages";
 import { IUser } from "@/interfaces/user.interface";
 import useRealTimeMessages from "@/hooks/useRealTimeMessages";
-import { VerifiedBadge } from "../premium/VerifiedBadge";
+import { VerifiedBadge } from "../badges/VerifiedBadge";
 import AdminBadge from "../badges/AdminBadge";
 
 const MessageWithTheUser = ({

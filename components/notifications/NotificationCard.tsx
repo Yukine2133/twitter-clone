@@ -2,7 +2,7 @@ import { INotification } from "@/interfaces/notification.interface";
 import { IUser } from "@/interfaces/user.interface";
 import Image from "next/image";
 import Link from "next/link";
-import { VerifiedBadge } from "../premium/VerifiedBadge";
+import { VerifiedBadge } from "../badges/VerifiedBadge";
 import AdminBadge from "../badges/AdminBadge";
 
 interface INotificationCardProps {

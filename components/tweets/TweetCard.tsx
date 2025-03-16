@@ -10,7 +10,7 @@ import HoverUserInfo from "./HoverUserInfo";
 import TweetMedia from "./media/TweetMedia";
 import useTweetCard from "@/hooks/tweetsLogic/useTweetCard";
 import { renderTweetTextWithHashtags } from "@/utils/formatTweetText";
-import { VerifiedBadge } from "../premium/VerifiedBadge";
+import { VerifiedBadge } from "../badges/VerifiedBadge";
 import AdminBadge from "../badges/AdminBadge";
 
 const TweetCard = async ({

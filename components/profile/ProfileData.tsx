@@ -13,7 +13,7 @@ import { formatJoinedDate } from "@/utils/formatTimestamp";
 import type { ProfileDataProps } from "@/interfaces/user.interface";
 import Link from "next/link";
 import { ProfileHeader } from "./ProfileHeader";
-import { VerifiedBadge } from "../premium/VerifiedBadge";
+import { VerifiedBadge } from "../badges/VerifiedBadge";
 import ClientOnly from "../loaders/ClientOnly";
 import AdminBadge from "../badges/AdminBadge";
 

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import OpenEllipsisButton from "../buttons/OpenEllipsisButton";
 import { useGetCurrentUser } from "@/hooks/useGetCurrentUser";
-import { VerifiedBadge } from "../premium/VerifiedBadge";
+import { VerifiedBadge } from "../badges/VerifiedBadge";
 import AdminBadge from "../badges/AdminBadge";
 
 const UserDetails = async () => {

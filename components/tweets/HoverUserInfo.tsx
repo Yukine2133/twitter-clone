@@ -4,7 +4,7 @@ import Image from "next/image";
 import { ReactNode, useState, useEffect } from "react";
 import Link from "next/link";
 import { IUser } from "@/interfaces/user.interface";
-import { VerifiedBadge } from "../premium/VerifiedBadge";
+import { VerifiedBadge } from "../badges/VerifiedBadge";
 import AdminBadge from "../badges/AdminBadge";
 
 interface IHoverUserInfoProps {
