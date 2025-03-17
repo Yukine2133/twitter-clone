@@ -17,6 +17,7 @@ import { ProfileHeader } from "./ProfileHeader";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
 import ClientOnly from "../loaders/ClientOnly";
 import AdminBadge from "../badges/AdminBadge";
+import { MoreButtonProfile } from "../buttons/moreButton/MoreButtonProfile";
 
 const ProfileData = ({
   user,
@@ -67,6 +68,7 @@ const ProfileData = ({
       </div>
 
       <div className="mt-4 px-4 flex items-center justify-end gap-4">
+        {currentUser.isAdmin && <MoreButtonProfile />}
         {!isOwner && (
           <>
             <Link
