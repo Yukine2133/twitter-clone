@@ -1,14 +1,11 @@
 "use client";
-import {
-  EllipsisHorizontalIcon,
-  PencilIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Modal from "../../tweets/Modal";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import MoreButtonMediaUpload from "./MoreButtonTweetMediaUpload";
-import MoreButtonMessageMediaUpload from "./MoreButtonMessageMediaUpload";
 import { IMoreButtonUIProps } from "@/interfaces/tweet.interface";
+import MoreButtonEllipsis from "./MoreButtonEllipsis";
+import MoreButtonDropdown from "./MoreButtonDropdown";
 
 const MoreButtonUI = ({
   isOwner,
@@ -32,17 +29,15 @@ const MoreButtonUI = ({
     <>
       {(isOwner || isAdmin) && (
         <>
-          <button
+          <MoreButtonEllipsis
             ref={buttonRef}
             onClick={() => setIsOpen(!isOpen)}
-            className="relative rounded-full p-2 text-neutral-500 transition-colors hover:bg-blue-500/10 hover:text-blue-500 lg:opacity-0 group-hover:opacity-100"
-          >
-            <EllipsisHorizontalIcon className="h-5 w-5" />
-          </button>
+          />
           {isOpen && (
-            <div
-              className={`absolute z-10 min-w-[180px] rounded-xl bg-black shadow-lg ring-1 ring-white/10 right-0 top-0 `}
-            >
+            // <div
+            //   className={`absolute z-10 min-w-[180px] rounded-xl bg-black shadow-lg ring-1 ring-white/10 right-0 top-0 `}
+            // >
+            <MoreButtonDropdown isOpen={isOpen}>
               <div className="py-1">
                 <button
                   onClick={() => {
@@ -62,7 +57,8 @@ const MoreButtonUI = ({
                   <span className="text-red-500">Delete</span>
                 </button>
               </div>
-            </div>
+            </MoreButtonDropdown>
+            // </div>
           )}
           {edit && (
             <Modal isModalOpen={edit} toggleModal={setEdit}>
