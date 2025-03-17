@@ -11,6 +11,7 @@ import { IUser } from "@/interfaces/user.interface";
 import useRealTimeMessages from "@/hooks/useRealTimeMessages";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
 import AdminBadge from "../badges/AdminBadge";
+import { EnvelopeIcon } from "@heroicons/react/24/solid";
 
 const MessageWithTheUser = ({
   initialMessages,
@@ -58,19 +59,32 @@ const MessageWithTheUser = ({
 
       <AutoScrollMessages>
         <div className="flex-grow p-4 space-y-4">
-          {messages.map((message: IMessage) => {
-            return (
-              <MessageCard
-                key={message._id}
-                message={message}
-                recipientId={recipientId}
-                currentUserId={currentUser._id}
-                isCurrentUserSender={
-                  message.sender.userId === currentUser?.userId
-                }
-              />
-            );
-          })}
+          {messages.length > 0 ? (
+            <>
+              {messages.map((message: IMessage) => (
+                <MessageCard
+                  key={message._id}
+                  message={message}
+                  recipientId={recipientId}
+                  currentUserId={currentUser._id}
+                  isCurrentUserSender={
+                    message.sender.userId === currentUser?.userId
+                  }
+                />
+              ))}
+            </>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-64 text-center">
+              <div className="bg-blue-500/10 p-4 rounded-full mb-4">
+                <EnvelopeIcon className="size-8 text-blue-500" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">No messages yet</h3>
+              <p className="text-neutral-500 max-w-sm">
+                Start a conversation with {recipient.displayName}. Say hello or
+                share something interesting!
+              </p>
+            </div>
+          )}
           {isTyping && (
             <div className="text-neutral-500 text-sm">
               {recipient.displayName} is typing...
