@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import Modal from "../tweets/Modal";
 import { IUser } from "@/interfaces/user.interface";
 import { updateUser } from "@/actions/user.actions";
+import { usernameSchema } from "@/utils/lib/validation";
+import { z } from "zod";
 
 interface OnboardingModalProps {
   user: IUser;
@@ -16,11 +18,14 @@ const OnboardingModal = ({ user }: OnboardingModalProps) => {
   const [username, setUsername] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(user.onboarded ? false : true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
 
   const handleSubmit = async () => {
     if (!username.trim()) {
       toast.error("Username cannot be empty");
+      return;
+    }
+    if (username === user.username) {
+      toast.error("Username cannot be the same as your current username");
       return;
     }
 
