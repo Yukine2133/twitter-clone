@@ -84,11 +84,12 @@ export const updateBanStatus = async (
   try {
     await connectDb();
 
-    await User.findOneAndUpdate(
+    const res = await User.findOneAndUpdate(
       { userId },
       { $set: { isBanned, banReason: isBanned ? banReason : "" } },
       { new: true }
     );
+    revalidatePath(`/profile/${res.username}?userId=${userId}`);
   } catch (error) {
     console.error(error);
   }
