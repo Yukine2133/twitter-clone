@@ -41,6 +41,8 @@ export const updateUser = async ({
   | "createdAt"
   | "isSubscribed"
   | "isAdmin"
+  | "isBanned"
+  | "banReason"
 > & { name: string }) => {
   try {
     await connectDb();

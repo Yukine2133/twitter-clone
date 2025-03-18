@@ -22,6 +22,8 @@ const userSchema = new mongoose.Schema(
     private: { type: Boolean, default: false },
     isSubscribed: { type: Boolean, default: false },
     isAdmin: { type: Boolean, default: false },
+    isBanned: { type: Boolean, default: false },
+    banReason: { type: String, default: "" },
   },
   { timestamps: true }
 );

@@ -16,6 +16,8 @@ export interface IUser {
   onboarded: boolean;
   isSubscribed: boolean;
   isAdmin: boolean;
+  isBanned: boolean;
+  banReason: string;
 }
 
 export interface ProfileDataProps {
