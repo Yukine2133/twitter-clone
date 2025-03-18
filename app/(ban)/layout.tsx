@@ -16,7 +16,7 @@ export default async function BanLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${poppins.className} bg-black text-white custom-scrollbar`}
+          className={`${poppins.className} bg-black text-white overflow-hidden `}
         >
           {children}
         </body>
