@@ -76,13 +76,17 @@ export const updateUser = async ({
   }
 };
 
-export const banUser = async (userId: string, banReason: string) => {
+export const updateBanStatus = async (
+  userId: string,
+  isBanned: boolean,
+  banReason: string = ""
+) => {
   try {
     await connectDb();
 
     await User.findOneAndUpdate(
       { userId },
-      { $set: { isBanned: true, banReason } },
+      { $set: { isBanned, banReason: isBanned ? banReason : "" } },
       { new: true }
     );
   } catch (error) {

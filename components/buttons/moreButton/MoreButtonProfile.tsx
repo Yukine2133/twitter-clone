@@ -7,10 +7,18 @@ import { useMoreButtonClickOutside } from "@/hooks/useClickOutisde";
 import { NoSymbolIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Modal from "@/components/tweets/Modal";
 import ReactTextareaAutosize from "react-textarea-autosize";
-import { banUser } from "@/actions/user.actions";
+import { updateBanStatus } from "@/actions/user.actions";
 import { toast } from "react-toastify";
 
-export const MoreButtonProfile = ({ userId }: { userId: string }) => {
+export interface IMoreButtonProfileProps {
+  userId: string;
+  isBanned: boolean;
+}
+
+export const MoreButtonProfile = ({
+  userId,
+  isBanned,
+}: IMoreButtonProfileProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isBanModalOpen, setIsBanModalOpen] = useState(false);
   const [banReason, setBanReason] = useState("");
@@ -21,13 +29,23 @@ export const MoreButtonProfile = ({ userId }: { userId: string }) => {
 
   const handleBanSubmit = async () => {
     try {
-      await banUser(userId, banReason);
+      await updateBanStatus(userId, true, banReason);
 
       toast.success("User has been successfully banned.");
     } catch (error) {
     } finally {
       setIsBanModalOpen(false);
       setBanReason("");
+    }
+  };
+
+  const handleUnBan = async () => {
+    try {
+      await updateBanStatus(userId, false);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsBanModalOpen(false);
     }
   };
   return (
@@ -41,13 +59,23 @@ export const MoreButtonProfile = ({ userId }: { userId: string }) => {
         {isOpen && (
           <MoreButtonDropdown className="top-2" isOpen={isOpen}>
             <div className="py-1">
-              <button
-                onClick={() => setIsBanModalOpen(true)}
-                className="flex w-full items-center gap-2 px-4 py-3 text-left text-[15px] transition-colors hover:bg-white/10 text-red-500"
-              >
-                <NoSymbolIcon className="size-5 " />
-                <span>Ban</span>
-              </button>
+              {isBanned ? (
+                <button
+                  onClick={handleUnBan}
+                  className="flex w-full items-center gap-2 px-4 py-3 text-left text-[15px] transition-colors hover:bg-white/10 text-blue-500"
+                >
+                  <NoSymbolIcon className="size-5 " />
+                  <span>Unban</span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => setIsBanModalOpen(true)}
+                  className="flex w-full items-center gap-2 px-4 py-3 text-left text-[15px] transition-colors hover:bg-white/10 text-red-500"
+                >
+                  <NoSymbolIcon className="size-5 " />
+                  <span>Ban</span>
+                </button>
+              )}
             </div>
           </MoreButtonDropdown>
         )}
