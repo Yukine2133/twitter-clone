@@ -76,6 +76,20 @@ export const updateUser = async ({
   }
 };
 
+export const banUser = async (userId: string, banReason: string) => {
+  try {
+    await connectDb();
+
+    await User.findOneAndUpdate(
+      { userId },
+      { $set: { isBanned: true, banReason } },
+      { new: true }
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const fetchUserById = async (id: string | null) => {
   try {
     await connectDb();

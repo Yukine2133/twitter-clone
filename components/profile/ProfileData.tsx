@@ -68,7 +68,7 @@ const ProfileData = ({
       </div>
 
       <div className="mt-4 px-4 flex items-center justify-end gap-4">
-        {currentUser.isAdmin && <MoreButtonProfile />}
+        {currentUser.isAdmin && <MoreButtonProfile userId={user.userId} />}
         {!isOwner && (
           <>
             <Link
