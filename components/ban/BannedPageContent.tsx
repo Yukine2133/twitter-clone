@@ -5,7 +5,6 @@ import type React from "react";
 import {
   NoSymbolIcon,
   ExclamationTriangleIcon,
-  ArrowPathIcon,
 } from "@heroicons/react/24/solid";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import Image from "next/image";
@@ -23,8 +22,6 @@ const BannedPageContent = ({ username, banReason }: BannedPageContentProps) => {
 
   const handleSubmitAppeal = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would implement the actual appeal submission logic
-    // For now, we'll just simulate a successful submission
     setIsAppealSubmitted(true);
   };
 

@@ -5,12 +5,10 @@ import React from "react";
 const BannedPage = async () => {
   const { currentDbUser } = await useGetCurrentUser();
   return (
-    <>
-      <BannedPageContent
-        username={currentDbUser.username}
-        banReason={currentDbUser.banReason}
-      />
-    </>
+    <BannedPageContent
+      username={currentDbUser.username}
+      banReason={currentDbUser.banReason}
+    />
   );
 };
 
