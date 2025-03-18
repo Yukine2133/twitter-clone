@@ -72,7 +72,7 @@ const ProfileData = ({
         {currentUser.isAdmin && (
           <MoreButtonProfile userId={user.userId} isBanned={user.isBanned} />
         )}
-        {!isOwner && (
+        {!isOwner && !user.isBanned && (
           <>
             <Link
               className="p-2 border border-neutral-700 rounded-full hover:bg-neutral-900 transition-colors"
