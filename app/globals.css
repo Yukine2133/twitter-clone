@@ -20,3 +20,46 @@
 .custom-scrollbar::-webkit-scrollbar-track {
   background: #1b1b1b;
 }
+
+@layer base {
+  :root {
+    --background: 225 10% 8%;
+    --foreground: 210 40% 98%;
+
+    --card: 225 10% 12%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 225 10% 12%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 206 100% 50%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 225 10% 15%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 225 10% 15%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 206 100% 50%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 225 10% 20%;
+    --input: 225 10% 20%;
+    --ring: 206 100% 50%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
