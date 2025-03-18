@@ -18,6 +18,7 @@ import { VerifiedBadge } from "../badges/VerifiedBadge";
 import ClientOnly from "../loaders/ClientOnly";
 import AdminBadge from "../badges/AdminBadge";
 import { MoreButtonProfile } from "../buttons/moreButton/MoreButtonProfile";
+import BannedUserMessage from "./BannedUserMessage";
 
 const ProfileData = ({
   user,
@@ -134,7 +135,7 @@ const ProfileData = ({
         </div>
       </div>
 
-      {privateProfile && !currentUser.isAdmin ? (
+      {privateProfile && !currentUser.isAdmin && (
         <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
           <div className="mb-6 rounded-full bg-neutral-800 p-5">
             <LockClosedIcon className="h-8 w-8 text-neutral-400" />
@@ -144,11 +145,12 @@ const ProfileData = ({
             Only users followed by @{user.username}&apos;s can see posts.
           </p>
         </div>
-      ) : (
+      )}
+      {!user.isBanned && (isOwner || currentUser.isAdmin) && (
         <>
           <h4 className="mt-10 px-4">Tweets:</h4>
           <ClientOnly>
-            {combinedPosts?.length > 0 &&
+            {combinedPosts?.length > 0 ? (
               combinedPosts.map((post: ITweet | any) => (
                 <TweetCard
                   type={post.type}
@@ -157,17 +159,23 @@ const ProfileData = ({
                   owner={post._doc.user}
                   retweetedUser={user}
                 />
-              ))}
+              ))
+            ) : (
+              <div className="text-center mt-16">
+                <h2 className="text-3xl font-bold">{`@${user.username} hasn't posted.`}</h2>
+                <p className="text-neutral-500 mt-2">
+                  When they do, their posts will show up here.
+                </p>
+              </div>
+            )}
           </ClientOnly>
-          {combinedPosts.length === 0 && (
-            <div className="text-center mt-16">
-              <h2 className="text-3xl font-bold">{`@${user.username} hasn't posted.`}</h2>
-              <p className="text-neutral-500 mt-2">
-                When they do, their posts will show up here.
-              </p>
-            </div>
-          )}
         </>
+      )}
+      {user.isBanned && (
+        <BannedUserMessage
+          username={user.username}
+          banReason={user.banReason}
+        />
       )}
     </div>
   );
