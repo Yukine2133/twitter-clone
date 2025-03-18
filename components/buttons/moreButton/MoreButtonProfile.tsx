@@ -1,14 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
 import MoreButtonEllipsis from "./MoreButtonEllipsis";
 import MoreButtonDropdown from "./MoreButtonDropdown";
-import { useMoreButtonClickOutside } from "@/hooks/useClickOutisde";
 import { NoSymbolIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Modal from "@/components/tweets/Modal";
 import ReactTextareaAutosize from "react-textarea-autosize";
-import { updateBanStatus } from "@/actions/user.actions";
-import { toast } from "react-toastify";
+import { useMoreButtonProfile } from "@/hooks/profile/useMoreButtonProfile";
 
 export interface IMoreButtonProfileProps {
   userId: string;
@@ -19,35 +16,17 @@ export const MoreButtonProfile = ({
   userId,
   isBanned,
 }: IMoreButtonProfileProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isBanModalOpen, setIsBanModalOpen] = useState(false);
-  const [banReason, setBanReason] = useState("");
-
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
-
-  useMoreButtonClickOutside(buttonRef, setIsOpen);
-
-  const handleBanSubmit = async () => {
-    try {
-      await updateBanStatus(userId, true, banReason);
-
-      toast.success("User has been successfully banned.");
-    } catch (error) {
-    } finally {
-      setIsBanModalOpen(false);
-      setBanReason("");
-    }
-  };
-
-  const handleUnBan = async () => {
-    try {
-      await updateBanStatus(userId, false);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsBanModalOpen(false);
-    }
-  };
+  const {
+    isOpen,
+    setIsOpen,
+    isBanModalOpen,
+    setIsBanModalOpen,
+    banReason,
+    setBanReason,
+    buttonRef,
+    handleBanSubmit,
+    handleUnBan,
+  } = useMoreButtonProfile(userId);
   return (
     <>
       <div className="relative inline-block">
