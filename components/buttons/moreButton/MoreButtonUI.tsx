@@ -19,7 +19,6 @@ const MoreButtonUI = ({
   setText,
   isAdmin,
   handleSubmit,
-
   setTweetImageUrls,
   tweetImageUrls,
   tweetVideoUrls,
@@ -34,28 +33,14 @@ const MoreButtonUI = ({
             onClick={() => setIsOpen(!isOpen)}
           />
           {isOpen && (
-            <MoreButtonDropdown isOpen={isOpen}>
-              <div className="py-1">
-                <button
-                  onClick={() => {
-                    setEdit(!edit);
-                    setIsOpen(false);
-                  }}
-                  className="flex w-full items-center gap-3 px-4 py-3 text-left text-[15px] transition-colors hover:bg-white/10"
-                >
-                  <PencilIcon className="h-5 w-5 text-blue-500" />
-                  <span className="text-white">Edit</span>
-                </button>
-                <button
-                  onClick={handleDelete}
-                  className="flex w-full items-center gap-3 px-4 py-3 text-left text-[15px] transition-colors hover:bg-white/10"
-                >
-                  <TrashIcon className="h-5 w-5 text-red-500" />
-                  <span className="text-red-500">Delete</span>
-                </button>
-              </div>
-            </MoreButtonDropdown>
-            // </div>
+            <MoreButtonDropdown
+              isOpen={isOpen}
+              handleDelete={handleDelete}
+              handleEdit={() => {
+                setEdit(!edit);
+                setIsOpen(false);
+              }}
+            />
           )}
           {edit && (
             <Modal isModalOpen={edit} toggleModal={setEdit}>
