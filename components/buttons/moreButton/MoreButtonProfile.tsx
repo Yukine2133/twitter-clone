@@ -2,7 +2,7 @@
 
 import MoreButtonEllipsis from "./MoreButtonEllipsis";
 import MoreButtonDropdown from "./MoreButtonDropdown";
-import { NoSymbolIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import Modal from "@/components/tweets/Modal";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { useMoreButtonProfile } from "@/hooks/profile/useMoreButtonProfile";
@@ -36,27 +36,14 @@ export const MoreButtonProfile = ({
           onClick={() => setIsOpen(!isOpen)}
         />
         {isOpen && (
-          <MoreButtonDropdown className="top-2" isOpen={isOpen}>
-            <div className="py-1">
-              {isBanned ? (
-                <button
-                  onClick={handleUnBan}
-                  className="flex w-full items-center gap-2 px-4 py-3 text-left text-[15px] transition-colors hover:bg-white/10 text-blue-500"
-                >
-                  <NoSymbolIcon className="size-5 " />
-                  <span>Unban</span>
-                </button>
-              ) : (
-                <button
-                  onClick={() => setIsBanModalOpen(true)}
-                  className="flex w-full items-center gap-2 px-4 py-3 text-left text-[15px] transition-colors hover:bg-white/10 text-red-500"
-                >
-                  <NoSymbolIcon className="size-5 " />
-                  <span>Ban</span>
-                </button>
-              )}
-            </div>
-          </MoreButtonDropdown>
+          <MoreButtonDropdown
+            className="top-2"
+            isOpen={isOpen}
+            profile
+            handleUnBan={handleUnBan}
+            isBanned={isBanned}
+            setIsBanModalOpen={setIsBanModalOpen}
+          />
         )}
       </div>
       {isBanModalOpen && (
