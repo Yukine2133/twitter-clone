@@ -21,7 +21,7 @@ const MoreButtonDropdown = ({
   className,
   handleEdit,
   handleDelete,
-  profile,
+  profile = false,
   isBanned,
   setIsBanModalOpen,
   handleUnBan,
@@ -52,25 +52,26 @@ const MoreButtonDropdown = ({
             </button>
           </>
         )}
-
         {/* If used for profile */}
-        {profile && isBanned ? (
-          <button
-            onClick={handleUnBan}
-            className="flex w-full items-center gap-2 px-4 py-3 text-left text-[15px] transition-colors hover:bg-white/10 text-blue-500"
-          >
-            <NoSymbolIcon className="size-5 " />
-            <span>Unban</span>
-          </button>
-        ) : (
-          <button
-            onClick={() => setIsBanModalOpen?.(true)}
-            className="flex w-full items-center gap-2 px-4 py-3 text-left text-[15px] transition-colors hover:bg-white/10 text-red-500"
-          >
-            <NoSymbolIcon className="size-5 " />
-            <span>Ban</span>
-          </button>
-        )}
+        {profile ? (
+          isBanned ? (
+            <button
+              onClick={handleUnBan}
+              className="flex w-full items-center gap-2 px-4 py-3 text-left text-[15px] transition-colors hover:bg-white/10 text-blue-500"
+            >
+              <NoSymbolIcon className="size-5 " />
+              <span>Unban</span>
+            </button>
+          ) : (
+            <button
+              onClick={() => setIsBanModalOpen?.(true)}
+              className="flex w-full items-center gap-2 px-4 py-3 text-left text-[15px] transition-colors hover:bg-white/10 text-red-500"
+            >
+              <NoSymbolIcon className="size-5 " />
+              <span>Ban</span>
+            </button>
+          )
+        ) : null}
       </div>
     </div>
   );
