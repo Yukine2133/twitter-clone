@@ -3,9 +3,9 @@ import React from "react";
 import { toast } from "react-toastify";
 import { UploadButton } from "@/utils/lib/uploadthing";
 import Image from "next/image";
-import Loading from "../loaders/Loading";
+import Loading from "../../loaders/Loading";
 import { CameraIcon } from "@heroicons/react/24/outline";
-import { AvatarUpload } from "./AvatarUpload";
+import { AvatarUpload } from "../AvatarUpload";
 import { handleImageClick } from "@/utils/handleImageClick";
 
 interface EditProfileImageUploadProps {

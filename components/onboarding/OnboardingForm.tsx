@@ -4,7 +4,7 @@ import type React from "react";
 
 import { IUser } from "@/interfaces/user.interface";
 
-import EditProfileFormInput from "../profile/EditProfileFormInput";
+import EditProfileFormInput from "../profile/editProfile/EditProfileFormInput";
 import { AvatarUpload } from "../profile/AvatarUpload";
 import { useOnboardingForm } from "@/hooks/useOnboardingForm";
 

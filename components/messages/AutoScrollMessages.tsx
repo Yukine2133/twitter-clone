@@ -13,11 +13,11 @@ const AutoScrollMessages = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    scroll(); // Scroll on mount
+    scroll();
   }, []);
 
   useEffect(() => {
-    scroll(); // Scroll when children change (new messages)
+    scroll();
   }, [children]);
 
   return (

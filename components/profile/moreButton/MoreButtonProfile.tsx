@@ -1,10 +1,9 @@
 "use client";
 
-import MoreButtonEllipsis from "../buttons/moreButton/MoreButtonEllipsis";
-import MoreButtonDropdown from "../buttons/moreButton/MoreButtonDropdown";
-
 import { useMoreButtonProfile } from "@/hooks/profile/useMoreButtonProfile";
 import { MoreButtonProfileModal } from "./MoreButtonProfileModal";
+import MoreButtonEllipsis from "@/components/buttons/moreButton/MoreButtonEllipsis";
+import MoreButtonDropdown from "@/components/buttons/moreButton/MoreButtonDropdown";
 
 export interface IMoreButtonProfileProps {
   userId: string;

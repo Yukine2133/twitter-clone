@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "../../tweets/Modal";
 import ReactTextareaAutosize from "react-textarea-autosize";
-import MoreButtonMessageMediaUpload from "../../buttons/moreButton/MoreButtonMessageMediaUpload";
+import MoreButtonMessageMediaUpload from "./MoreButtonMessageMediaUpload";
 
 interface IMoreButtonMessageModal {
   edit: boolean;
