@@ -17,3 +17,10 @@ export interface IUserConversations {
   lastMessage: string;
   lastMessageCreatedAt: Date;
 }
+
+export interface IMoreButtonMessageProps {
+  messageId: string;
+  message: IMessage;
+  recipientId: string;
+  currentUserId: string;
+}
