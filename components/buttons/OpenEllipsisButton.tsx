@@ -1,6 +1,6 @@
 "use client";
 
-import useClickOutside from "@/hooks/useClickOutisde";
+import useClickOutside from "@/hooks/useClickOutside";
 import { SignOutButton } from "@clerk/nextjs";
 import {
   ArrowRightStartOnRectangleIcon,

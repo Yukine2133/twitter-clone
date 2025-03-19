@@ -2,7 +2,7 @@ import React from "react";
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { deleteMessage, editMessage } from "@/actions/message.actions";
-import { useMoreButtonClickOutside } from "@/hooks/useClickOutisde";
+import { useMoreButtonClickOutside } from "@/hooks/useClickOutside";
 import { useUser } from "@clerk/nextjs";
 import { IMoreButtonMessageProps } from "@/interfaces/message.interface";
 export const useMoreButtonMessage = ({

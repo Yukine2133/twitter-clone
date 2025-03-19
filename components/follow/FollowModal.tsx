@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import UserCard from "../search/UserCard";
-import useClickOutside from "@/hooks/useClickOutisde";
+import useClickOutside from "@/hooks/useClickOutside";
 import { IFollowModal } from "@/interfaces/follow.interface";
 
 const FollowModal = ({

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { updateBanStatus } from "@/actions/user.actions";
 import { toast } from "react-toastify";
-import { useMoreButtonClickOutside } from "@/hooks/useClickOutisde";
+import { useMoreButtonClickOutside } from "@/hooks/useClickOutside";
 export const useMoreButtonProfile = (userId: string) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isBanModalOpen, setIsBanModalOpen] = useState(false);

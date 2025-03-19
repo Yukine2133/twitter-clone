@@ -5,7 +5,7 @@ import { useState, useRef } from "react";
 import { toast } from "react-toastify";
 import { tweetTextSchema } from "@/utils/lib/validation";
 import { z } from "zod";
-import { useMoreButtonClickOutside } from "../useClickOutisde";
+import { useMoreButtonClickOutside } from "../useClickOutside";
 import { useUser } from "@clerk/nextjs";
 
 const useMoreButtonLogic = ({

@@ -1,7 +1,7 @@
 "use client";
 
 import { deleteBookmarkFolder } from "@/actions/bookmark.actions";
-import { useMoreButtonClickOutside } from "@/hooks/useClickOutisde";
+import { useMoreButtonClickOutside } from "@/hooks/useClickOutside";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
@@ -36,23 +36,14 @@ const MoreButtonBookmarkFolder = ({ name }: { name: string }) => {
         onClick={() => setIsOpen(!isOpen)}
       />
       {isOpen && (
-        <MoreButtonDropdown className="top-2" isOpen={isOpen}>
-          <button
-            onClick={() => {
-              setEdit(!edit);
-              setIsOpen(false);
-            }}
-            className="flex w-full text-blue-500 items-center gap-3 px-4 py-3 text-left text-[15px] transition-colors hover:bg-white/10"
-          >
-            <PencilIcon className="h-5 w-5" /> Edit
-          </button>
-          <button
-            onClick={handleDelete}
-            className="text-red-500 flex w-full items-center gap-3 px-4 py-3 text-left text-[15px] transition-colors hover:bg-white/10"
-          >
-            <TrashIcon className="h-5 w-5" /> Delete
-          </button>
-        </MoreButtonDropdown>
+        <MoreButtonDropdown
+          isOpen={isOpen}
+          handleDelete={handleDelete}
+          handleEdit={() => {
+            setEdit(!edit);
+            setIsOpen(false);
+          }}
+        />
       )}
       {edit && (
         <AddOrEditBookmarkFolderButton
