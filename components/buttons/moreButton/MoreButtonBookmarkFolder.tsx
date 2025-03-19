@@ -6,6 +6,8 @@ import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import AddOrEditBookmarkFolderButton from "../AddOrEditBookmarkFolderButton";
+import MoreButtonEllipsis from "./MoreButtonEllipsis";
+import MoreButtonDropdown from "./MoreButtonDropdown";
 
 const MoreButtonBookmarkFolder = ({ name }: { name: string }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,34 +30,29 @@ const MoreButtonBookmarkFolder = ({ name }: { name: string }) => {
 
   return (
     <div className="relative">
-      <button
+      <MoreButtonEllipsis
+        className="lg:opacity-100"
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
-        className="rotate-90 text-gray-500 hover:text-blue-400 duration-300 transition-all  "
-      >
-        &#10247;
-      </button>
+      />
       {isOpen && (
-        <div
-          className="top-2 right-3
-               absolute p-3 z-10 bg-black"
-        >
+        <MoreButtonDropdown className="top-2" isOpen={isOpen}>
           <button
             onClick={() => {
               setEdit(!edit);
               setIsOpen(false);
             }}
-            className="text-blue-500 flex items-center gap-2"
+            className="flex w-full text-blue-500 items-center gap-3 px-4 py-3 text-left text-[15px] transition-colors hover:bg-white/10"
           >
             <PencilIcon className="h-5 w-5" /> Edit
           </button>
           <button
             onClick={handleDelete}
-            className="text-red-500 flex items-center gap-2"
+            className="text-red-500 flex w-full items-center gap-3 px-4 py-3 text-left text-[15px] transition-colors hover:bg-white/10"
           >
             <TrashIcon className="h-5 w-5" /> Delete
           </button>
-        </div>
+        </MoreButtonDropdown>
       )}
       {edit && (
         <AddOrEditBookmarkFolderButton

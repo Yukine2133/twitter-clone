@@ -34,9 +34,6 @@ const MoreButtonUI = ({
             onClick={() => setIsOpen(!isOpen)}
           />
           {isOpen && (
-            // <div
-            //   className={`absolute z-10 min-w-[180px] rounded-xl bg-black shadow-lg ring-1 ring-white/10 right-0 top-0 `}
-            // >
             <MoreButtonDropdown isOpen={isOpen}>
               <div className="py-1">
                 <button
