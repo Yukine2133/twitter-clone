@@ -3,7 +3,7 @@
 import type { IMessage } from "@/interfaces/message.interface";
 import { formatMessageCreatedAt } from "@/utils/formatTimestamp";
 import Image from "next/image";
-import MoreButtonMessage from "../buttons/moreButton/MoreButtonMessage";
+import MoreButtonMessage from "./moreButton/MoreButtonMessage";
 
 const MessageCard = ({
   message,
