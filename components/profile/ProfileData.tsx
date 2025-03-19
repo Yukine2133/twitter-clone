@@ -17,7 +17,7 @@ import { ProfileHeader } from "./ProfileHeader";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
 import ClientOnly from "../loaders/ClientOnly";
 import AdminBadge from "../badges/AdminBadge";
-import { MoreButtonProfile } from "../buttons/moreButton/MoreButtonProfile";
+import { MoreButtonProfile } from "./MoreButtonProfile";
 import BannedUserMessage from "./BannedUserMessage";
 
 const ProfileData = ({
