@@ -4,9 +4,9 @@ import { deleteBookmarkFolder } from "@/actions/bookmark.actions";
 import { useMoreButtonClickOutside } from "@/hooks/useClickOutside";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import AddOrEditBookmarkFolderButton from "../AddOrEditBookmarkFolderButton";
-import MoreButtonEllipsis from "./MoreButtonEllipsis";
-import MoreButtonDropdown from "./MoreButtonDropdown";
+import AddOrEditBookmarkFolderButton from "../buttons/AddOrEditBookmarkFolderButton";
+import MoreButtonEllipsis from "../buttons/moreButton/MoreButtonEllipsis";
+import MoreButtonDropdown from "../buttons/moreButton/MoreButtonDropdown";
 
 const MoreButtonBookmarkFolder = ({ name }: { name: string }) => {
   const [isOpen, setIsOpen] = useState(false);
