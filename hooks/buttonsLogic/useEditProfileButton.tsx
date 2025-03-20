@@ -1,7 +1,12 @@
 import { FormEvent, useRef, useState } from "react";
 import { z } from "zod";
 import { updateUser } from "@/actions/user.actions";
-import { bioSchema, locationSchema, nameSchema } from "@/utils/lib/validation";
+import {
+  bioSchema,
+  locationSchema,
+  nameSchema,
+  usernameSchema,
+} from "@/utils/lib/validation";
 import { toast } from "react-toastify";
 import { IUser } from "@/interfaces/user.interface";
 const useEditProfileButton = ({ user }: { user: IUser }) => {
@@ -32,6 +37,7 @@ const useEditProfileButton = ({ user }: { user: IUser }) => {
       e.preventDefault();
 
       // Validation
+      usernameSchema.parse(username);
       nameSchema.parse(name);
       bioSchema.parse(bio);
       locationSchema.parse(location);

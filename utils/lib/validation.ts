@@ -7,6 +7,7 @@ export const tweetTextSchema = z
 
 export const nameSchema = z
   .string()
+  .min(1, "Name must be at least 1 characters long")
   .max(50, "Name must be at most 50 characters long.");
 export const bioSchema = z
   .string()
@@ -16,6 +17,7 @@ export const locationSchema = z
   .max(30, "Location must be at most 30 characters long.");
 export const usernameSchema = z
   .string()
+  .min(3, "Username must be at least 3 characters long")
   .max(20, "Username must be at most 20 characters long.");
 export const banReasonSchema = z
   .string()
