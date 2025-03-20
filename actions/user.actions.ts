@@ -180,9 +180,16 @@ export const fetchUsers = async (currentUserId: string) => {
 
   const currentUser = await User.findById(currentUserId).select("following");
 
-  // Fetch users who are not the current user and not in the `following` list
+  if (!currentUser || currentUser.isBanned) {
+    return [];
+  }
+
   const users = await User.find({
-    _id: { $ne: currentUserId, $nin: currentUser?.following || [] },
+    _id: {
+      $ne: currentUserId,
+      $nin: currentUser?.following || [],
+    },
+    isBanned: false,
   }).sort({ displayName: 1 });
 
   return users;
