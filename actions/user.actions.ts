@@ -110,11 +110,7 @@ export const fetchUserTweets = async (userId?: string | null) => {
   }
 };
 
-export const followUser = async (
-  userId: string,
-  username: string,
-  currentUserId: string
-) => {
+export const followUser = async (userId: string, currentUserId: string) => {
   try {
     await connectDb();
     const user = await currentUser();
@@ -123,12 +119,10 @@ export const followUser = async (
       return { message: "You need to be logged in to follow a user." };
     }
 
-    // Check if the userId is the same as the currentUserId
     if (userId === currentUserId) {
       return { message: "You cannot follow yourself." };
     }
 
-    // Find the user to follow by the provided userId
     const existingUser = await User.findById(userId);
     if (existingUser) {
       await createNotification("follow", user.id, existingUser.userId);
@@ -137,7 +131,7 @@ export const followUser = async (
     if (!existingUser) {
       return { message: "User not found." };
     }
-    // Ensure that user.id is the correct _id of the current user
+
     const currentDbUser = await User.findById(currentUserId);
 
     // Update the followers and following arrays
@@ -163,6 +157,7 @@ export const followUser = async (
     // Save both users
     await existingUser.save();
     await currentDbUser.save();
+    revalidatePath(`/profile/${existingUser.username}`);
   } catch (error) {
     console.error(error);
   }

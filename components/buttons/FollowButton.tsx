@@ -22,7 +22,7 @@ const FollowButton = ({
   const handleFollowUser = async () => {
     try {
       setFollowing(!following);
-      const res = await followUser(userId, username, currentUserId);
+      const res = await followUser(userId, currentUserId);
       if (res?.message) {
         toast.error(res.message);
         setFollowing(following); // Revert on error
