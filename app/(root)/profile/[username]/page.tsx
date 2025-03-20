@@ -20,7 +20,6 @@ const ProfilePage = async ({
   };
 }) => {
   const {
-    currentUser,
     followers,
     following,
     followersOfTheUser,

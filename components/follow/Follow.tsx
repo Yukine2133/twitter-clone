@@ -28,7 +28,7 @@ const Follow = ({
   };
 
   return (
-    <>
+    <div className="flex items-center gap-4 px-4 mt-2">
       <button
         onClick={() => toggleFollow("following")}
         className="text-slate-500 hover:underline decoration-white cursor-pointer"
@@ -63,7 +63,7 @@ const Follow = ({
           username={username}
         />
       )}
-    </>
+    </div>
   );
 };
 

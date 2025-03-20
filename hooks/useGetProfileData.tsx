@@ -54,7 +54,6 @@ const useGetProfileData = async (userId: string) => {
     !dbUser.following?.includes(currentDbUser?._id as string);
 
   return {
-    currentUser,
     combinedPosts,
     followers,
     following,
