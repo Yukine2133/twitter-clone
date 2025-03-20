@@ -69,9 +69,10 @@ const ProfileData = ({
       {privateProfile && !currentUser.isAdmin && (
         <PrivateProfileMessage username={user.username} />
       )}
-      {!user.isBanned && (isOwner || currentUser.isAdmin) && (
-        <ProfileTweets combinedPosts={combinedPosts} user={user} />
-      )}
+      {!user.isBanned &&
+        (!privateProfile || isOwner || currentUser.isAdmin) && (
+          <ProfileTweets combinedPosts={combinedPosts} user={user} />
+        )}
       {user.isBanned && (
         <BannedUserMessage
           username={user.username}
