@@ -53,8 +53,18 @@ export const createTweet = async (formData: FormData) => {
 export const fetchTweets = async () => {
   try {
     await connectDb();
-    const tweets = await Tweet.find().sort({ createdAt: -1 }).populate("user"); // Sort in the descending order
-    return parseJSON(tweets);
+
+    const tweets = await Tweet.find()
+      .populate({
+        path: "user",
+        match: { isBanned: false }, // Exclude tweets where the user is banned
+      })
+      .sort({ createdAt: -1 });
+
+    // Remove tweets where the user was null (banned users)
+    const filteredTweets = tweets.filter((tweet) => tweet.user !== null);
+
+    return parseJSON(filteredTweets);
   } catch (error) {
     console.error(error);
   }
