@@ -52,11 +52,12 @@ export const MoreButtonProfileModal = ({
                   onChange={(e) => setBanReason(e.target.value)}
                   placeholder="Explain why this user is being banned..."
                   minRows={3}
+                  maxLength={160}
                   maxRows={6}
                   className="w-full bg-black border border-neutral-800 rounded-md p-3 resize-none focus:border-blue-500 focus:outline-none transition-colors"
                 />
                 <div className="absolute bottom-2 right-2 text-xs text-neutral-500">
-                  {banReason.length}/280
+                  {banReason.length}/160
                 </div>
               </div>
             </div>
