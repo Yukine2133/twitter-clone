@@ -4,7 +4,7 @@ import { connectDb } from "../utils/connectDb";
 import { User } from "../models/user.model";
 import { Tweet } from "../models/tweet.model";
 import { revalidatePath } from "next/cache";
-import { IUser } from "@/interfaces/user.interface";
+import { IUser, OmittedUserData } from "@/interfaces/user.interface";
 import { createNotification } from "./notification.actions";
 import { parseJSON } from "@/utils/parseJSON";
 import { currentUser } from "@clerk/nextjs/server";
@@ -32,18 +32,7 @@ export const updateUser = async ({
   backgroundImage,
   private: privateUser,
   onboarded,
-}: Omit<
-  IUser,
-  | "displayName"
-  | "_id"
-  | "followers"
-  | "following"
-  | "createdAt"
-  | "isSubscribed"
-  | "isAdmin"
-  | "isBanned"
-  | "banReason"
-> & { name: string }) => {
+}: OmittedUserData) => {
   try {
     await connectDb();
     const user = await currentUser();

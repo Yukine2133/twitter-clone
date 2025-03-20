@@ -20,6 +20,19 @@ export interface IUser {
   banReason: string;
 }
 
+export type OmittedUserData = Omit<
+  IUser,
+  | "displayName"
+  | "_id"
+  | "followers"
+  | "following"
+  | "createdAt"
+  | "isSubscribed"
+  | "isAdmin"
+  | "isBanned"
+  | "banReason"
+> & { name: string };
+
 export interface ProfileDataProps {
   user: IUser;
   isOwner: boolean;
