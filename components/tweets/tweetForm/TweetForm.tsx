@@ -22,7 +22,6 @@ const TweetForm = ({
     setImageUrls,
     videoUrls,
     setVideoUrls,
-
     loading,
     text,
     setText,

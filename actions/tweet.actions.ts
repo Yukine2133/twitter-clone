@@ -14,6 +14,7 @@ import { Bookmark } from "@/models/bookmark.model";
 import { parseJSON } from "@/utils/parseJSON";
 import { currentUser } from "@clerk/nextjs/server";
 import { User } from "@/models/user.model";
+import { containsBadWords } from "@/utils/containsBadWords";
 
 export const createTweet = async (formData: FormData) => {
   try {
@@ -26,6 +27,13 @@ export const createTweet = async (formData: FormData) => {
     const text = formData.get("text");
     const images = formData.getAll("images");
     const videos = formData.getAll("videos");
+
+    if (containsBadWords(text as string)) {
+      return {
+        error:
+          "Your tweet contains inappropriate language and cannot be posted.",
+      };
+    }
 
     if (!user) {
       return { error: "You need to be logged in to tweet." };

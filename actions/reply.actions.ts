@@ -8,6 +8,7 @@ import { createNotification } from "./notification.actions";
 import { parseJSON } from "@/utils/parseJSON";
 import { currentUser } from "@clerk/nextjs/server";
 import { User } from "@/models/user.model";
+import { containsBadWords } from "@/utils/containsBadWords";
 
 export const replyTweet = async (formData: FormData, tweetId: string) => {
   try {
@@ -27,6 +28,13 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
     const text = formData.get("text");
     const images = formData.getAll("images");
     const videos = formData.getAll("videos");
+
+    if (containsBadWords(text as string)) {
+      return {
+        error:
+          "Your reply contains inappropriate language and cannot be posted.",
+      };
+    }
 
     if (!existingTweet) {
       return { error: "Tweet not found" };
