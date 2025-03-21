@@ -3,6 +3,7 @@
 import { Notification } from "@/models/notification.model";
 
 import { connectDb } from "@/utils/connectDb";
+import { revalidatePath } from "next/cache";
 
 export const createNotification = async (
   type: string,
@@ -63,5 +64,19 @@ export const markNotificationAsRead = async (notificationId: string) => {
     await Notification.findByIdAndUpdate(notificationId, { read: true });
   } catch (error) {
     console.error("Error marking notification as read:", error);
+  }
+};
+
+export const fetchUnreadNotifications = async (userId: string) => {
+  try {
+    await connectDb();
+
+    const res = await Notification.find({
+      affectedUserId: userId,
+      read: false,
+    });
+    return res.length;
+  } catch (error) {
+    console.error(error);
   }
 };

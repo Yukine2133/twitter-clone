@@ -2,10 +2,14 @@ import { SidebarLinkCard } from "./SidebarLinkCard";
 import { LeftSideBarButtons } from "./LeftSideBarButtons";
 import { useGetCurrentUser } from "@/hooks/useGetCurrentUser";
 import { fetchUnreadMessages } from "@/actions/message.actions";
+import { fetchUnreadNotifications } from "@/actions/notification.actions";
 
 const LeftSideBar = async () => {
   const { currentDbUser } = await useGetCurrentUser();
   const unreadMessages = await fetchUnreadMessages(currentDbUser._id);
+  const unreadNotifications = await fetchUnreadNotifications(
+    currentDbUser.userId
+  );
 
   return (
     <>
@@ -15,6 +19,7 @@ const LeftSideBar = async () => {
             userId={currentDbUser.userId}
             username={currentDbUser?.username}
             unreadMessages={unreadMessages}
+            unreadNotifications={unreadNotifications}
           />
 
           <LeftSideBarButtons currentUser={currentDbUser} />

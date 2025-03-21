@@ -9,6 +9,7 @@ interface ISidebarLinkCardProps {
   isMobile?: boolean;
   userId: string;
   unreadMessages?: number;
+  unreadNotifications?: number;
 }
 
 export const SidebarLinkCard = ({
@@ -16,9 +17,11 @@ export const SidebarLinkCard = ({
   isMobile = false,
   userId,
   unreadMessages = 0,
+  unreadNotifications = 0,
 }: ISidebarLinkCardProps) => {
   const pathname = usePathname();
 
+  console.log(unreadNotifications);
   return (
     <>
       {sidebarLinks.map((link) => {
@@ -50,6 +53,11 @@ export const SidebarLinkCard = ({
               {label === "Messages" && unreadMessages > 0 && (
                 <span className="absolute -top-1 -left-2.5 flex justify-center items-center text-xs text-white bg-red-500 rounded-full w-5 h-5">
                   {unreadMessages}
+                </span>
+              )}
+              {label === "Notifications" && unreadNotifications > 0 && (
+                <span className="absolute -top-1 -left-2.5 flex justify-center items-center text-xs text-white bg-red-500 rounded-full w-5 h-5">
+                  {unreadNotifications}
                 </span>
               )}
             </div>
