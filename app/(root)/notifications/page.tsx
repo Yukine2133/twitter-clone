@@ -1,5 +1,5 @@
 import useNotifications from "@/hooks/useNotifications";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Notifications",
@@ -11,17 +11,31 @@ const NotificationsPage = async () => {
     await useNotifications();
 
   return (
-    <div className="">
-      <h2 className="text-xl my-2 font-semibold px-2 md:px-4">Notifications</h2>
-      {notifications?.length === 0 && (
-        <p className="text-2xl mt-8 px-2 md:px-4">No notifications.</p>
-      )}
+    <div className="min-h-screen">
+      <div className="sticky top-0 z-10 backdrop-blur-md bg-black/80 border-b border-[#2f3336]">
+        <h2 className="text-xl py-3 font-bold px-4">Notifications</h2>
+      </div>
 
-      {notificationsWithUsers.map((notification: any) => (
-        <div key={notification._id} className="py-2">
-          {renderNotificationCard(notification._doc, notification.owner)}
+      {notifications?.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
+          <h3 className="text-2xl font-bold mb-2">No notifications yet</h3>
+          <p className="text-gray-500 max-w-md">
+            When someone interacts with your Tweets or follows you, it&apos;ll
+            show up here.
+          </p>
         </div>
-      ))}
+      ) : (
+        <div>
+          {notificationsWithUsers.map((notification: any) => (
+            <div key={notification._id || notification._doc?._id}>
+              {renderNotificationCard(
+                notification._doc || notification,
+                notification.owner
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
