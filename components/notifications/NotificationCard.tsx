@@ -50,11 +50,11 @@ const NotificationCard = ({
         <div className="mr-3 mt-1">{getNotificationIcon()}</div>
         <div className="flex-1">
           <Link
-            href={`/profile/${owner.username}`}
+            href={`/profile/${owner.username}?userId=${owner.userId}`}
             className="flex items-start gap-3"
           >
             <Image
-              src={owner.avatar || "/placeholder.svg"}
+              src={owner.avatar}
               alt="Avatar"
               width={40}
               height={40}
