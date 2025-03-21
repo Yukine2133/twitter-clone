@@ -16,7 +16,7 @@ const useGetProfileData = async (userId: string) => {
   const currentDbUser = await fetchUser(user?.id as string);
   const tweets = await fetchUserTweets(dbUser.userId);
 
-  const retweets = await fetchUserRetweets();
+  const retweets = await fetchUserRetweets(dbUser.userId);
 
   // Mark tweets and retweets
   const markedTweets = tweets?.map((tweet) => ({ ...tweet, type: "tweet" }));

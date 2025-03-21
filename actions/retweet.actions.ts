@@ -55,14 +55,12 @@ export const saveRetweet = async (tweetId: string) => {
   }
 };
 
-export const fetchUserRetweets = async () => {
+export const fetchUserRetweets = async (userId: string) => {
   try {
     await connectDb();
 
-    const user = await currentUser();
-
     // Find retweets by user ID
-    const retweets = await Retweet.find({ userId: user?.id })
+    const retweets = await Retweet.find({ userId })
       .populate({
         path: "tweetId",
         populate: { path: "user" },
