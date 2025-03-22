@@ -36,7 +36,6 @@ const TweetCard = async ({
               <ArrowPathRoundedSquareIcon className="w-5 h-5" />
               <div className="flex items-center gap-2">
                 <h4>{retweetedUser?.displayName}</h4>
-
                 <VerifiedBadge isSubscribed={owner.isSubscribed} />
               </div>
               <span>Retweeted</span>
