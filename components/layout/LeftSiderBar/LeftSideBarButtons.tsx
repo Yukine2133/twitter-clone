@@ -29,13 +29,16 @@ export const LeftSideBarButtons = ({ currentUser }: { currentUser: IUser }) => {
         <PencilIcon className="h-5 w-5" />
       </button>
 
-      {/* Render the modal outside of the sidebar using createPortal */}
       {isModalOpen &&
         createPortal(
-          <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>
+          <Modal
+            className="pt-6"
+            isModalOpen={isModalOpen}
+            toggleModal={toggleModal}
+          >
             <TweetForm user={currentUser} toggleModal={toggleModal} />
           </Modal>,
-          document.body // Append to the body to avoid fixed positioning issues
+          document.body
         )}
     </>
   );
