@@ -5,7 +5,7 @@ import EditProfileFormInput from "./EditProfileFormInput";
 import EditPrivateProfileToggle from "./EditPrivateProfileToggle";
 import { FormEvent } from "react";
 
-interface IEditProfileModalProps {
+export interface IEditProfileModalProps {
   isModalOpen: boolean;
   toggleModal: () => void;
   name: string;
@@ -25,7 +25,6 @@ interface IEditProfileModalProps {
   setIsPrivate: (isPrivate: boolean) => void;
   uploadAvatarButtonRef: React.RefObject<HTMLDivElement>;
   uploadBackgroundButtonRef: React.RefObject<HTMLDivElement>;
-
   backgroundProgress: number;
   setBackgroundProgress: React.Dispatch<React.SetStateAction<number>>;
   avatarProgress: number;
@@ -52,7 +51,6 @@ export const EditProfileModal = ({
   setIsPrivate,
   uploadAvatarButtonRef,
   uploadBackgroundButtonRef,
-
   backgroundProgress,
   setBackgroundProgress,
   avatarProgress,

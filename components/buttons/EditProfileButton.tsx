@@ -1,12 +1,7 @@
 "use client";
 
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import Modal from "../tweets/Modal";
 import { IUser } from "@/interfaces/user.interface";
 import useEditProfileButton from "@/hooks/buttonsLogic/useEditProfileButton";
-import EditProfileFormInput from "../profile/editProfile/EditProfileFormInput";
-import { EditProfileImageUpload } from "../profile/editProfile/EditProfileImageUpload";
-import EditPrivateProfileToggle from "../profile/editProfile/EditPrivateProfileToggle";
 import { EditProfileModal } from "../profile/editProfile/EditProfileModal";
 
 const UpdateProfileButton = ({ user }: { user: IUser }) => {
@@ -30,7 +25,6 @@ const UpdateProfileButton = ({ user }: { user: IUser }) => {
     setIsPrivate,
     uploadAvatarButtonRef,
     uploadBackgroundButtonRef,
-
     backgroundProgress,
     setBackgroundProgress,
     avatarProgress,
