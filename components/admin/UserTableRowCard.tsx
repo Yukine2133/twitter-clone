@@ -64,28 +64,26 @@ export const UserTableRowCard = ({ user }: IUserTableRowCardProps) => {
           </div>
         </TableCell>
         <TableCell>
-          {/* {user.status === "active" ? (
-                       <span className="inline-flex items-center rounded-full border border-[#333] px-2.5 py-0.5 text-xs font-semibold text-gray-200">
-                         Active
-                       </span>
-                     ) : (
-                       <span className="inline-flex items-center rounded-full bg-red-500/10 px-2.5 py-0.5 text-xs font-semibold text-red-500">
-                         Banned
-                       </span>
-                     )} */}
-          Normalno vse
+          {user.isBanned === false ? (
+            <span className="inline-flex items-center rounded-full border border-[#333] px-2.5 py-0.5 text-xs font-semibold text-gray-200">
+              Active
+            </span>
+          ) : (
+            <span className="inline-flex items-center rounded-full bg-red-500/10 px-2.5 py-0.5 text-xs font-semibold text-red-500">
+              Banned
+            </span>
+          )}
         </TableCell>
         <TableCell>
-          {/* {user.role === "admin" ? (
-                       <span className="inline-flex items-center rounded-full bg-[#1d9bf0] px-2.5 py-0.5 text-xs font-semibold text-white">
-                         Admin
-                       </span>
-                     ) : (
-                       <span className="inline-flex items-center rounded-full bg-[#333] px-2.5 py-0.5 text-xs font-semibold text-white">
-                         User
-                       </span>
-                     )} */}
-          Idk
+          {user.isAdmin === true ? (
+            <span className="inline-flex items-center rounded-full bg-[#1d9bf0] px-2.5 py-0.5 text-xs font-semibold text-white">
+              Admin
+            </span>
+          ) : (
+            <span className="inline-flex items-center rounded-full bg-[#333] px-2.5 py-0.5 text-xs font-semibold text-white">
+              User
+            </span>
+          )}
         </TableCell>
         <TableCell>{formatJoinedDate(user.createdAt)}</TableCell>
         <TableCell className="text-right">
