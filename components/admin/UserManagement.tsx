@@ -55,6 +55,7 @@ import {
   UserCog,
   X,
 } from "lucide-react";
+import { MoreButtonProfileModal } from "../profile/moreButton/MoreButtonProfileModal";
 
 // Mock data for users
 const users = [
@@ -113,7 +114,8 @@ const users = [
 export function UserManagement() {
   const [searchQuery, setSearchQuery] = useState("");
   const [editUser, setEditUser] = useState<any>(null);
-  const [banUser, setBanUser] = useState<any>(null);
+  const [isBanModalOpen, setIsBanModalOpen] = useState(false);
+  const [banReason, setBanReason] = useState("");
   const [deleteUser, setDeleteUser] = useState<any>(null);
 
   const filteredUsers = users.filter(
@@ -122,6 +124,8 @@ export function UserManagement() {
       user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const handleBanSubmit = async () => {};
 
   return (
     <div className="space-y-4">
@@ -136,10 +140,6 @@ export function UserManagement() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <Button className="bg-[#222] hover:bg-[#333] text-white">
-          <UserCog className="mr-2 h-4 w-4" />
-          Add New User
-        </Button>
       </div>
 
       <div className="rounded-md border border-[#333]">
@@ -147,7 +147,6 @@ export function UserManagement() {
           <TableHeader className="bg-[#111]">
             <TableRow className="border-b-[#333] hover:bg-[#222]">
               <TableHead className="text-gray-400">User</TableHead>
-              <TableHead className="text-gray-400">Email</TableHead>
               <TableHead className="text-gray-400">Status</TableHead>
               <TableHead className="text-gray-400">Role</TableHead>
               <TableHead className="text-gray-400">Join Date</TableHead>
@@ -178,7 +177,6 @@ export function UserManagement() {
                     </div>
                   </div>
                 </TableCell>
-                <TableCell>{user.email}</TableCell>
                 <TableCell>
                   {user.status === "active" ? (
                     <span className="inline-flex items-center rounded-full border border-[#333] px-2.5 py-0.5 text-xs font-semibold text-gray-200">
@@ -226,7 +224,7 @@ export function UserManagement() {
                       </DropdownMenuItem>
                       {user.status === "active" ? (
                         <DropdownMenuItem
-                          onClick={() => setBanUser(user)}
+                          onClick={() => setIsBanModalOpen(!isBanModalOpen)}
                           className="hover:bg-[#333] focus:bg-[#333]"
                         >
                           <Ban className="mr-2 h-4 w-4" />
@@ -351,135 +349,15 @@ export function UserManagement() {
       </Dialog>
 
       {/* Ban User Dialog */}
-      <Dialog
-        open={!!banUser}
-        onOpenChange={(open) => !open && setBanUser(null)}
-      >
-        <DialogContent className="bg-[#222] text-white border-[#333]">
-          <DialogHeader>
-            <DialogTitle>Ban User</DialogTitle>
-            <DialogDescription className="text-gray-400">
-              Specify the reason and duration for banning this user.
-            </DialogDescription>
-          </DialogHeader>
-          {banUser && (
-            <div className="grid gap-4 py-4">
-              <div className="flex items-center gap-4">
-                <Avatar className="h-10 w-10">
-                  <AvatarImage src={banUser.avatar} alt={banUser.name} />
-                  <AvatarFallback className="bg-[#333] text-white">
-                    {banUser.name.substring(0, 2)}
-                  </AvatarFallback>
-                </Avatar>
-                <div>
-                  <div className="font-medium">{banUser.name}</div>
-                  <div className="text-sm text-gray-400">
-                    {banUser.username}
-                  </div>
-                </div>
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="reason">Reason</Label>
-                <Select defaultValue="violation">
-                  <SelectTrigger className="bg-[#333] border-[#444] text-white">
-                    <SelectValue placeholder="Select a reason" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[#333] border-[#444] text-white">
-                    <SelectItem
-                      value="violation"
-                      className="focus:bg-[#444] focus:text-white"
-                    >
-                      Community Guidelines Violation
-                    </SelectItem>
-                    <SelectItem
-                      value="harassment"
-                      className="focus:bg-[#444] focus:text-white"
-                    >
-                      Harassment
-                    </SelectItem>
-                    <SelectItem
-                      value="spam"
-                      className="focus:bg-[#444] focus:text-white"
-                    >
-                      Spam
-                    </SelectItem>
-                    <SelectItem
-                      value="impersonation"
-                      className="focus:bg-[#444] focus:text-white"
-                    >
-                      Impersonation
-                    </SelectItem>
-                    <SelectItem
-                      value="other"
-                      className="focus:bg-[#444] focus:text-white"
-                    >
-                      Other
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="duration">Duration</Label>
-                <Select defaultValue="7days">
-                  <SelectTrigger className="bg-[#333] border-[#444] text-white">
-                    <SelectValue placeholder="Select duration" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[#333] border-[#444] text-white">
-                    <SelectItem
-                      value="24hours"
-                      className="focus:bg-[#444] focus:text-white"
-                    >
-                      24 Hours
-                    </SelectItem>
-                    <SelectItem
-                      value="7days"
-                      className="focus:bg-[#444] focus:text-white"
-                    >
-                      7 Days
-                    </SelectItem>
-                    <SelectItem
-                      value="30days"
-                      className="focus:bg-[#444] focus:text-white"
-                    >
-                      30 Days
-                    </SelectItem>
-                    <SelectItem
-                      value="permanent"
-                      className="focus:bg-[#444] focus:text-white"
-                    >
-                      Permanent
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="notes">Additional Notes</Label>
-                <Input
-                  id="notes"
-                  placeholder="Add any additional details..."
-                  className="bg-[#333] border-[#444] text-white"
-                />
-              </div>
-            </div>
-          )}
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setBanUser(null)}
-              className="bg-transparent border-[#444] text-white hover:bg-[#333] hover:text-white"
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="destructive"
-              onClick={() => setBanUser(null)}
-              className="bg-red-500 text-white hover:bg-red-600"
-            >
-              Ban User
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      {isBanModalOpen && (
+        <MoreButtonProfileModal
+          banReason={banReason}
+          setBanReason={setBanReason}
+          isBanModalOpen={isBanModalOpen}
+          setIsBanModalOpen={setIsBanModalOpen}
+          handleBanSubmit={handleBanSubmit}
+        />
+      )}
 
       {/* Delete User Confirmation */}
       <AlertDialog

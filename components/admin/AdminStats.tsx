@@ -1,4 +1,4 @@
-import { AlertTriangle, Ban, Flag, Users } from "lucide-react";
+import { AlertTriangle, Ban, Users } from "lucide-react";
 
 export function AdminStats() {
   return (
