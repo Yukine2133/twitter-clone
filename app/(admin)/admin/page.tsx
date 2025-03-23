@@ -1,10 +1,13 @@
+import { fetchAllUsers } from "@/actions/user.actions";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { AdminStats } from "@/components/admin/AdminStats";
 import { BanAppeals } from "@/components/admin/BanAppeals";
 import { UserManagement } from "@/components/admin/UserManagement";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { IUser } from "@/interfaces/user.interface";
 
-export default function AdminDashboard() {
+export default async function AdminDashboard() {
+  const users = await fetchAllUsers();
   return (
     <div className="flex min-h-screen flex-col bg-black text-white">
       <AdminHeader />
@@ -27,7 +30,7 @@ export default function AdminDashboard() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="users" className="mt-0">
-              <UserManagement />
+              <UserManagement users={users as IUser[]} />
             </TabsContent>
             <TabsContent value="appeals" className="mt-0">
               <BanAppeals />

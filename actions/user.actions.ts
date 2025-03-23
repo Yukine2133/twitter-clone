@@ -9,6 +9,7 @@ import { createNotification } from "./notification.actions";
 import { parseJSON } from "@/utils/parseJSON";
 import { currentUser } from "@clerk/nextjs/server";
 import { shuffleArray } from "@/utils/shuffleArray";
+import { errorMonitor } from "stream";
 
 export const fetchUser = async (userId: string | null | undefined) => {
   try {
@@ -193,6 +194,16 @@ export const fetchUsers = async (currentUserId: string) => {
   }).sort({ displayName: 1 });
 
   return users;
+};
+
+export const fetchAllUsers = async () => {
+  try {
+    await connectDb();
+    const users = await User.find().sort({ displayName: 1 });
+    return parseJSON(users);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const fetchFollowSuggestions = async (userId: string) => {

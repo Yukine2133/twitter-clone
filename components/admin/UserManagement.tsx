@@ -45,73 +45,13 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Ban,
-  Check,
-  Edit,
-  MoreHorizontal,
-  Search,
-  Trash,
-  UserCog,
-  X,
-} from "lucide-react";
+import { Ban, Check, MoreHorizontal, Search, Trash } from "lucide-react";
 import { MoreButtonProfileModal } from "../profile/moreButton/MoreButtonProfileModal";
+import UpdateProfileButton from "../buttons/EditProfileButton";
+import { IUser } from "@/interfaces/user.interface";
+import { formatJoinedDate } from "@/utils/formatTimestamp";
 
-// Mock data for users
-const users = [
-  {
-    id: "1",
-    name: "Yukine213",
-    username: "@yukine213",
-    email: "yukine213@example.com",
-    status: "active",
-    role: "admin",
-    joinDate: "Mar 20, 2023",
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: "2",
-    name: "Edge Lord",
-    username: "@womp.womp",
-    email: "edgelord@example.com",
-    status: "active",
-    role: "user",
-    joinDate: "Apr 15, 2023",
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: "3",
-    name: "Bruh",
-    username: "@yukineyukine",
-    email: "bruh@example.com",
-    status: "active",
-    role: "user",
-    joinDate: "May 3, 2023",
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: "4",
-    name: "ZXC",
-    username: "@zxc",
-    email: "zxc@example.com",
-    status: "active",
-    role: "user",
-    joinDate: "Jun 12, 2023",
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: "5",
-    name: "John Doe",
-    username: "@johndoe",
-    email: "john@example.com",
-    status: "banned",
-    role: "user",
-    joinDate: "Feb 8, 2023",
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-];
-
-export function UserManagement() {
+export function UserManagement({ users }: { users: IUser[] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [editUser, setEditUser] = useState<any>(null);
   const [isBanModalOpen, setIsBanModalOpen] = useState(false);
@@ -120,9 +60,8 @@ export function UserManagement() {
 
   const filteredUsers = users.filter(
     (user) =>
-      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchQuery.toLowerCase())
+      user.displayName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleBanSubmit = async () => {};
@@ -158,19 +97,19 @@ export function UserManagement() {
           <TableBody>
             {filteredUsers.map((user) => (
               <TableRow
-                key={user.id}
+                key={user._id}
                 className="border-b-[#333] hover:bg-[#222]"
               >
                 <TableCell className="font-medium">
                   <div className="flex items-center gap-2">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={user.avatar} alt={user.name} />
+                      <AvatarImage src={user.avatar} alt={user.displayName} />
                       <AvatarFallback className="bg-[#333] text-white">
-                        {user.name.substring(0, 2)}
+                        {user.displayName.substring(0, 2)}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <div className="font-medium">{user.name}</div>
+                      <div className="font-medium">{user.displayName}</div>
                       <div className="text-xs text-gray-400">
                         {user.username}
                       </div>
@@ -178,7 +117,7 @@ export function UserManagement() {
                   </div>
                 </TableCell>
                 <TableCell>
-                  {user.status === "active" ? (
+                  {/* {user.status === "active" ? (
                     <span className="inline-flex items-center rounded-full border border-[#333] px-2.5 py-0.5 text-xs font-semibold text-gray-200">
                       Active
                     </span>
@@ -186,10 +125,11 @@ export function UserManagement() {
                     <span className="inline-flex items-center rounded-full bg-red-500/10 px-2.5 py-0.5 text-xs font-semibold text-red-500">
                       Banned
                     </span>
-                  )}
+                  )} */}
+                  Normalno vse
                 </TableCell>
                 <TableCell>
-                  {user.role === "admin" ? (
+                  {/* {user.role === "admin" ? (
                     <span className="inline-flex items-center rounded-full bg-[#1d9bf0] px-2.5 py-0.5 text-xs font-semibold text-white">
                       Admin
                     </span>
@@ -197,9 +137,10 @@ export function UserManagement() {
                     <span className="inline-flex items-center rounded-full bg-[#333] px-2.5 py-0.5 text-xs font-semibold text-white">
                       User
                     </span>
-                  )}
+                  )} */}
+                  Idk
                 </TableCell>
-                <TableCell>{user.joinDate}</TableCell>
+                <TableCell>{formatJoinedDate(user.createdAt)}</TableCell>
                 <TableCell className="text-right">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -216,13 +157,12 @@ export function UserManagement() {
                       className="bg-[#222] border-[#333] text-white"
                     >
                       <DropdownMenuItem
-                        onClick={() => setEditUser(user)}
-                        className="hover:bg-[#333] focus:bg-[#333]"
+                        // onClick={() => setEditUser(user)}
+                        className="hover:bg-[#333]  focus:bg-[#333]"
                       >
-                        <Edit className="mr-2 h-4 w-4" />
-                        Edit
+                        {/* <UpdateProfileButton isDashboard user={user} /> */}
                       </DropdownMenuItem>
-                      {user.status === "active" ? (
+                      {/* {user.status === "active" ? (
                         <DropdownMenuItem
                           onClick={() => setIsBanModalOpen(!isBanModalOpen)}
                           className="hover:bg-[#333] focus:bg-[#333]"
@@ -235,7 +175,8 @@ export function UserManagement() {
                           <Check className="mr-2 h-4 w-4" />
                           Unban User
                         </DropdownMenuItem>
-                      )}
+                      )} */}{" "}
+                      Ban
                       <DropdownMenuSeparator className="bg-[#333]" />
                       <DropdownMenuItem
                         className="text-red-500 hover:bg-[#333] focus:bg-[#333]"
