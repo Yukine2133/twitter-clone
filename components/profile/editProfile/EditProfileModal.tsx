@@ -3,33 +3,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { EditProfileImageUpload } from "./EditProfileImageUpload";
 import EditProfileFormInput from "./EditProfileFormInput";
 import EditPrivateProfileToggle from "./EditPrivateProfileToggle";
-import { FormEvent } from "react";
-
-export interface IEditProfileModalProps {
-  isModalOpen: boolean;
-  toggleModal: () => void;
-  name: string;
-  setName: (arg0: string) => void;
-  username: string;
-  setUsername: (arg0: string) => void;
-  bio: string;
-  setBio: (arg0: string) => void;
-  location: string;
-  setLocation: (arg0: string) => void;
-  avatar: string;
-  setAvatar: React.Dispatch<React.SetStateAction<string>>;
-  backgroundImage: string;
-  setBackgroundImage: React.Dispatch<React.SetStateAction<string>>;
-  handleSubmit: (e: FormEvent) => void;
-  isPrivate: boolean;
-  setIsPrivate: (isPrivate: boolean) => void;
-  uploadAvatarButtonRef: React.RefObject<HTMLDivElement>;
-  uploadBackgroundButtonRef: React.RefObject<HTMLDivElement>;
-  backgroundProgress: number;
-  setBackgroundProgress: React.Dispatch<React.SetStateAction<number>>;
-  avatarProgress: number;
-  setAvatarProgress: React.Dispatch<React.SetStateAction<number>>;
-}
+import { IEditProfileModalProps } from "@/interfaces/props.interface";
 
 export const EditProfileModal = ({
   toggleModal,

@@ -10,41 +10,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { FormEvent } from "react";
+import { IDropdownActionsModalRenderingProps } from "@/interfaces/props.interface";
 
-interface IDropdownActionsModalRenderingProps {
-  toggleModal: () => void;
-  isModalOpen: boolean;
-  name: string;
-  setName: (arg0: string) => void;
-  username: string;
-  setUsername: (arg0: string) => void;
-  bio: string;
-  setBio: (arg0: string) => void;
-  location: string;
-  setLocation: (arg0: string) => void;
-  avatar: string;
-  setAvatar: React.Dispatch<React.SetStateAction<string>>;
-  backgroundImage: string;
-  setBackgroundImage: React.Dispatch<React.SetStateAction<string>>;
-  handleSubmit: (e: FormEvent) => void;
-  isPrivate: boolean;
-  setIsPrivate: (isPrivate: boolean) => void;
-  uploadAvatarButtonRef: React.RefObject<HTMLDivElement>;
-  uploadBackgroundButtonRef: React.RefObject<HTMLDivElement>;
-  avatarProgress: number;
-  setAvatarProgress: React.Dispatch<React.SetStateAction<number>>;
-  backgroundProgress: number;
-  setBackgroundProgress: React.Dispatch<React.SetStateAction<number>>;
-  isBanModalOpen: boolean;
-  setIsBanModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  banReason: string;
-  setBanReason: React.Dispatch<React.SetStateAction<string>>;
-  handleBanSubmit: () => void;
-  isDeleteModalOpen: boolean;
-  setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  handleDeleteSubmit: () => void;
-}
 export const DropdownActionsModalRendering = ({
   avatar,
   avatarProgress,
