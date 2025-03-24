@@ -9,12 +9,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Ban, Check, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { Button } from "../ui/button";
 import { formatJoinedDate } from "@/utils/formatTimestamp";
 import useEditProfileButton from "@/hooks/buttonsLogic/useEditProfileButton";
 import { EditProfileModal } from "../profile/editProfile/EditProfileModal";
-import UpdateProfileButton from "../buttons/EditProfileButton";
+import { useHandleBanning } from "@/hooks/profile/useHandleBanning";
+import { MoreButtonProfileModal } from "../profile/moreButton/MoreButtonProfileModal";
 
 export interface IUserTableRowCardProps {
   user: IUser;
@@ -40,12 +41,19 @@ export const UserTableRowCard = ({ user }: IUserTableRowCardProps) => {
     setIsPrivate,
     uploadAvatarButtonRef,
     uploadBackgroundButtonRef,
-
     backgroundProgress,
     setBackgroundProgress,
     avatarProgress,
     setAvatarProgress,
   } = useEditProfileButton({ user });
+  const {
+    handleBanSubmit,
+    handleUnBan,
+    isBanModalOpen,
+    setIsBanModalOpen,
+    banReason,
+    setBanReason,
+  } = useHandleBanning(user.userId);
   return (
     <>
       <TableRow className="border-b-[#333] hover:bg-[#222]">
@@ -103,30 +111,31 @@ export const UserTableRowCard = ({ user }: IUserTableRowCardProps) => {
             >
               <DropdownMenuItem
                 onClick={toggleModal}
-                className="hover:bg-[#333]  focus:bg-[#333]"
+                className="hover:bg-[#333]  focus:bg-[#333] cursor-pointer"
               >
-                <Edit className="mr-2 h-4 w-4" />
+                <Edit className="mr-2 h-4 w-4 text-blue-500" />
                 Edit
-                {/* <UpdateProfileButton user={user} /> */}
               </DropdownMenuItem>
-              {/* {user.status === "active" ? (
-                           <DropdownMenuItem
-                             onClick={() => setIsBanModalOpen(!isBanModalOpen)}
-                             className="hover:bg-[#333] focus:bg-[#333]"
-                           >
-                             <Ban className="mr-2 h-4 w-4" />
-                             Ban User
-                           </DropdownMenuItem>
-                         ) : (
-                           <DropdownMenuItem className="hover:bg-[#333] focus:bg-[#333]">
-                             <Check className="mr-2 h-4 w-4" />
-                             Unban User
-                           </DropdownMenuItem>
-                         )} */}{" "}
-              Ban
+              {user.isBanned === false ? (
+                <DropdownMenuItem
+                  onClick={() => setIsBanModalOpen(!isBanModalOpen)}
+                  className="hover:bg-[#333] focus:bg-[#333] cursor-pointer"
+                >
+                  <Ban className="mr-2 h-4 w-4 text-red-500" />
+                  Ban User
+                </DropdownMenuItem>
+              ) : (
+                <DropdownMenuItem
+                  onClick={() => handleUnBan()}
+                  className="hover:bg-[#333] focus:bg-[#333] cursor-pointer"
+                >
+                  <Check className="mr-2 h-4 w-4 text-blue-500" />
+                  Unban User
+                </DropdownMenuItem>
+              )}
               <DropdownMenuSeparator className="bg-[#333]" />
               <DropdownMenuItem
-                className="text-red-500 hover:bg-[#333] focus:bg-[#333]"
+                className="text-red-500 hover:bg-[#333] focus:bg-[#333] cursor-pointer"
                 // onClick={() => setDeleteUser(user)}
               >
                 <Trash className="mr-2 h-4 w-4" />
@@ -162,6 +171,15 @@ export const UserTableRowCard = ({ user }: IUserTableRowCardProps) => {
         backgroundProgress={backgroundProgress}
         setBackgroundProgress={setBackgroundProgress}
       />
+      {isBanModalOpen && (
+        <MoreButtonProfileModal
+          banReason={banReason}
+          setBanReason={setBanReason}
+          isBanModalOpen={isBanModalOpen}
+          setIsBanModalOpen={setIsBanModalOpen}
+          handleBanSubmit={handleBanSubmit}
+        />
+      )}
     </>
   );
 };

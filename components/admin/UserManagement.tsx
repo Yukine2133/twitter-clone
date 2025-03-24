@@ -20,14 +20,12 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Search } from "lucide-react";
-import { MoreButtonProfileModal } from "../profile/moreButton/MoreButtonProfileModal";
 import { IUser } from "@/interfaces/user.interface";
 import { UserTableRowCard } from "./UserTableRowCard";
 
 export function UserManagement({ users }: { users: IUser[] }) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [isBanModalOpen, setIsBanModalOpen] = useState(false);
-  const [banReason, setBanReason] = useState("");
+
   const [deleteUser, setDeleteUser] = useState<any>(null);
 
   const filteredUsers = users.filter(
@@ -35,8 +33,6 @@ export function UserManagement({ users }: { users: IUser[] }) {
       user.displayName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-  const handleBanSubmit = async () => {};
 
   return (
     <div className="space-y-4">
@@ -73,17 +69,6 @@ export function UserManagement({ users }: { users: IUser[] }) {
           </TableBody>
         </Table>
       </div>
-
-      {/* Ban User Dialog */}
-      {isBanModalOpen && (
-        <MoreButtonProfileModal
-          banReason={banReason}
-          setBanReason={setBanReason}
-          isBanModalOpen={isBanModalOpen}
-          setIsBanModalOpen={setIsBanModalOpen}
-          handleBanSubmit={handleBanSubmit}
-        />
-      )}
 
       {/* Delete User Confirmation */}
       <AlertDialog
