@@ -13,6 +13,8 @@ import { useHandleBanning } from "@/hooks/profile/useHandleBanning";
 import { IUser } from "@/interfaces/user.interface";
 import { useState } from "react";
 import { DropdownActionsModalRendering } from "./dropdown/DropdownActionsModalRendering";
+import { deleteUser } from "@/actions/user.actions";
+import { toast } from "react-toastify";
 export const DropdownActions = ({ user }: { user: IUser }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const {
@@ -48,6 +50,15 @@ export const DropdownActions = ({ user }: { user: IUser }) => {
     banReason,
     setBanReason,
   } = useHandleBanning(user.userId);
+  const handleDeleteSubmit = async () => {
+    try {
+      await deleteUser(user.userId);
+      setIsDeleteModalOpen(false);
+      toast.success("User deleted successfully.");
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <>
       <DropdownMenu>
@@ -130,7 +141,7 @@ export const DropdownActions = ({ user }: { user: IUser }) => {
         setBackgroundProgress={setBackgroundProgress}
         avatarProgress={avatarProgress}
         setAvatarProgress={setAvatarProgress}
-        handleDeleteSubmit={() => {}}
+        handleDeleteSubmit={handleDeleteSubmit}
       />
     </>
   );

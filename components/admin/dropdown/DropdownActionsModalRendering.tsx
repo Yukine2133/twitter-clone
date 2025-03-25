@@ -47,6 +47,7 @@ export const DropdownActionsModalRendering = ({
 }: IDropdownActionsModalRenderingProps) => {
   return (
     <>
+      {/* Edit profile modal */}
       <EditProfileModal
         toggleModal={toggleModal}
         isModalOpen={isModalOpen}
@@ -72,6 +73,8 @@ export const DropdownActionsModalRendering = ({
         backgroundProgress={backgroundProgress}
         setBackgroundProgress={setBackgroundProgress}
       />
+
+      {/* Ban modal */}
       {isBanModalOpen && (
         <MoreButtonProfileModal
           banReason={banReason}
@@ -82,7 +85,7 @@ export const DropdownActionsModalRendering = ({
         />
       )}
 
-      {/* Delete User Confirmation */}
+      {/* Delete User Modal */}
       <AlertDialog
         open={!!isDeleteModalOpen}
         onOpenChange={(open) => !open && setIsDeleteModalOpen(false)}
@@ -100,7 +103,7 @@ export const DropdownActionsModalRendering = ({
             </AlertDialogCancel>
             <AlertDialogAction
               className="bg-red-500 text-white hover:bg-red-600"
-              onClick={() => {}}
+              onClick={handleDeleteSubmit}
             >
               Delete
             </AlertDialogAction>

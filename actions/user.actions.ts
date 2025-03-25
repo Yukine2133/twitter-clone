@@ -66,6 +66,16 @@ export const updateUser = async ({
   }
 };
 
+export const deleteUser = async (userId: string) => {
+  try {
+    await connectDb();
+    await User.deleteOne({ userId });
+    revalidatePath("/admin");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const updateBanStatus = async (
   userId: string,
   isBanned: boolean,
