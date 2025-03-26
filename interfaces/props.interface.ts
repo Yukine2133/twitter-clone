@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { IAppeal } from "./appeal.interface";
+import { AppealStatus, IAppeal } from "./appeal.interface";
 import { IUser } from "./user.interface";
 
 export interface IDropdownActionsModalRenderingProps {
@@ -84,4 +84,9 @@ export interface IAppealCardProps {
 export interface IAppealModalProps {
   selectedAppeal: any;
   setSelectedAppeal: React.Dispatch<React.SetStateAction<IAppeal | null>>;
+}
+
+export interface IAppealSelectProps {
+  filter: "All" | AppealStatus;
+  setFilter: React.Dispatch<React.SetStateAction<"All" | AppealStatus>>;
 }
