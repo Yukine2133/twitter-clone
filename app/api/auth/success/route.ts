@@ -27,13 +27,8 @@ export async function GET() {
         userId: user?.id,
       });
     }
-    switch (true) {
-      case dbUser.onboarded === false:
-        return NextResponse.redirect(`${BASE_URL}/onboarding`);
 
-      default:
-        return NextResponse.redirect(`${BASE_URL}`);
-    }
+    return NextResponse.redirect(`${BASE_URL}`);
   } catch (error) {
     console.error(error);
     return new Response(String(error));
