@@ -5,7 +5,6 @@ import { ITweet } from "@/interfaces/tweet.interface";
 import { useGetCurrentUser } from "@/hooks/useGetCurrentUser";
 import { parseJSON } from "@/utils/parseJSON";
 import ClientOnly from "@/components/loaders/ClientOnly";
-import OnboardingModal from "@/components/onboarding/OnboardingModal";
 
 export default async function Home() {
   const tweets = await fetchTweets();
@@ -14,7 +13,6 @@ export default async function Home() {
 
   return (
     <div>
-      <OnboardingModal user={currentDbUser} />
       <TweetForm user={parseJSON(currentDbUser)} />
       <ClientOnly>
         {tweets &&
