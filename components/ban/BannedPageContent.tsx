@@ -17,8 +17,10 @@ const BannedPageContent = ({
   username,
   banReason,
   userId,
+  isAppealSubmitted: initialAppealState,
 }: IBannedPageContentProps) => {
-  const [isAppealSubmitted, setIsAppealSubmitted] = useState(false);
+  const [isAppealSubmitted, setIsAppealSubmitted] =
+    useState(initialAppealState);
   const [appealText, setAppealText] = useState("");
 
   const handleSubmitAppeal = async (e: React.FormEvent) => {

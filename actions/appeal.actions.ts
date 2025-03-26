@@ -12,3 +12,14 @@ export const addAppeal = async ({ user, banReason, text }: IAppeal) => {
     console.error(error);
   }
 };
+
+export const fetchAppeal = async (userId: string) => {
+  try {
+    await connectDb();
+    const appeal = await Appeal.findOne({ user: userId });
+
+    return appeal || null;
+  } catch (error) {
+    console.error(error);
+  }
+};

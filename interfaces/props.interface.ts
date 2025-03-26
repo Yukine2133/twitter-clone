@@ -70,4 +70,5 @@ export interface IBannedPageContentProps {
   username: string;
   banReason: string;
   userId: string;
+  isAppealSubmitted: boolean;
 }
