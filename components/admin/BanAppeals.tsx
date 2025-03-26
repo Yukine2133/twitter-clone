@@ -208,8 +208,7 @@ export function BanAppeals() {
                 <div>{appeal.reason}</div>
                 <div className="text-gray-400">Ban Date:</div>
                 <div>{appeal.banDate}</div>
-                <div className="text-gray-400">Duration:</div>
-                <div>{appeal.duration}</div>
+
                 <div className="text-gray-400">Appeal Date:</div>
                 <div>{appeal.appealDate}</div>
               </div>
@@ -219,12 +218,6 @@ export function BanAppeals() {
                   {appeal.appealText}
                 </p>
               </div>
-              {appeal.responseText && (
-                <div className="text-sm mt-2 p-2 bg-[#222] rounded-md">
-                  <div className="font-medium mb-1">Response:</div>
-                  <p className="text-gray-300">{appeal.responseText}</p>
-                </div>
-              )}
             </div>
             <div className="p-4 pt-2 border-t border-[#222]">
               {appeal.status === "pending" ? (
@@ -254,7 +247,7 @@ export function BanAppeals() {
         open={!!selectedAppeal}
         onOpenChange={(open) => !open && setSelectedAppeal(null)}
       >
-        <DialogContent className="max-w-md bg-[#222] text-white border-[#333]">
+        <DialogContent className="max-w-lg bg-[#222] text-white border-[#333]">
           <DialogHeader>
             <DialogTitle>
               {selectedAppeal?.status === "pending"
@@ -292,8 +285,7 @@ export function BanAppeals() {
                 <div>{selectedAppeal.reason}</div>
                 <div className="text-gray-400">Ban Date:</div>
                 <div>{selectedAppeal.banDate}</div>
-                <div className="text-gray-400">Duration:</div>
-                <div>{selectedAppeal.duration}</div>
+
                 <div className="text-gray-400">Appeal Date:</div>
                 <div>{selectedAppeal.appealDate}</div>
               </div>
@@ -305,7 +297,7 @@ export function BanAppeals() {
                 </div>
               </div>
 
-              {selectedAppeal.status === "pending" ? (
+              {/* {selectedAppeal.status === "pending" ? (
                 <div className="space-y-2">
                   <Label htmlFor="response">Your Response:</Label>
                   <Textarea
@@ -324,7 +316,7 @@ export function BanAppeals() {
                     {selectedAppeal.responseText}
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
           )}
           <DialogFooter>
