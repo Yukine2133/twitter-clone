@@ -110,7 +110,7 @@ export const fetchUserTweets = async (userId?: string | null) => {
     await connectDb();
     const tweets = await Tweet.find({ userId })
       .sort({ createdAt: -1 })
-      .populate("user"); // Sort in the descending order
+      .populate("user");
 
     if (!tweets) {
       throw new Error("Failed to fetch tweets.");
