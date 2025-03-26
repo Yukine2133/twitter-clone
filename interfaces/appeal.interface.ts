@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { IUser } from "./user.interface";
 
 export interface IAppeal {
@@ -5,4 +6,5 @@ export interface IAppeal {
   banReason: string;
   text: string;
   status: "Pending" | "Approved" | "Rejected";
+  createdAt: string;
 }

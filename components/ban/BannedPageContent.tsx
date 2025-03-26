@@ -32,7 +32,6 @@ const BannedPageContent = ({
         user: userId,
         banReason,
         text: appealText,
-        status: "Pending",
       });
     } catch (error) {
     } finally {
