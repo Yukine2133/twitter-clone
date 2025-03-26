@@ -1,4 +1,6 @@
 import { FormEvent } from "react";
+import { IAppeal } from "./appeal.interface";
+import { IUser } from "./user.interface";
 
 export interface IDropdownActionsModalRenderingProps {
   toggleModal: () => void;
@@ -71,4 +73,10 @@ export interface IBannedPageContentProps {
   banReason: string;
   userId: string;
   isAppealSubmitted: boolean;
+}
+
+export interface IAppealCardProps {
+  appeal: IAppeal;
+  user: IUser;
+  setSelectedAppeal: React.Dispatch<React.SetStateAction<IAppeal | null>>;
 }
