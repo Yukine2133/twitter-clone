@@ -80,3 +80,8 @@ export interface IAppealCardProps {
   user: IUser;
   setSelectedAppeal: React.Dispatch<React.SetStateAction<IAppeal | null>>;
 }
+
+export interface IAppealModalProps {
+  selectedAppeal: any;
+  setSelectedAppeal: React.Dispatch<React.SetStateAction<IAppeal | null>>;
+}
