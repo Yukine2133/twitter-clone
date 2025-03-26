@@ -11,6 +11,7 @@ const BannedPage = async () => {
     <BannedPageContent
       username={currentDbUser.username}
       banReason={currentDbUser.banReason}
+      userId={currentDbUser._id}
     />
   );
 };

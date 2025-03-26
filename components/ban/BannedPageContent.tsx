@@ -10,19 +10,32 @@ import ReactTextareaAutosize from "react-textarea-autosize";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { IBannedPageContentProps } from "@/interfaces/props.interface";
+import { addAppeal } from "@/actions/appeal.actions";
 
-interface BannedPageContentProps {
-  username: string;
-  banReason: string;
-}
-
-const BannedPageContent = ({ username, banReason }: BannedPageContentProps) => {
+const BannedPageContent = ({
+  username,
+  banReason,
+  userId,
+}: IBannedPageContentProps) => {
   const [isAppealSubmitted, setIsAppealSubmitted] = useState(false);
   const [appealText, setAppealText] = useState("");
 
-  const handleSubmitAppeal = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsAppealSubmitted(true);
+  const handleSubmitAppeal = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      if (!appealText) return;
+
+      await addAppeal({
+        user: userId,
+        banReason,
+        text: appealText,
+        status: "Pending",
+      });
+    } catch (error) {
+    } finally {
+      setIsAppealSubmitted(true);
+    }
   };
 
   return (

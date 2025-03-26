@@ -65,3 +65,9 @@ export interface IDeleteUserModalProps {
   setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleDeleteSubmit: () => void;
 }
+
+export interface IBannedPageContentProps {
+  username: string;
+  banReason: string;
+  userId: string;
+}

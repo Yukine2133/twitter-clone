@@ -8,7 +8,7 @@ const appealSchema = new Schema(
     status: {
       type: String,
       enum: ["Pending", "Approved", "Rejected"],
-      required: true,
+      default: "Pending",
     },
   },
   {
