@@ -59,3 +59,9 @@ export interface IEditProfileModalProps {
   avatarProgress: number;
   setAvatarProgress: React.Dispatch<React.SetStateAction<number>>;
 }
+
+export interface IDeleteUserModalProps {
+  isDeleteModalOpen: boolean;
+  setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleDeleteSubmit: () => void;
+}
