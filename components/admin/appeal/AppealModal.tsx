@@ -96,27 +96,40 @@ export const AppealModal = ({
                 {selectedAppeal.text}
               </div>
             </div>
-
-            {/* {selectedAppeal.status === "pending" ? (
-            <div className="space-y-2">
-              <Label htmlFor="response">Your Response:</Label>
-              <Textarea
-                id="response"
-                placeholder="Enter your response to this appeal..."
-                value={responseText}
-                onChange={(e) => setResponseText(e.target.value)}
-                rows={4}
-                className="bg-[#333] border-[#444] text-white"
-              />
+            <div
+              className={`p-4 rounded-md text-sm flex items-center gap-3 ${
+                selectedAppeal.status === "Approved"
+                  ? "bg-[#0c2d48] border border-[#1d9bf0]/30"
+                  : "bg-[#3a0a0a] border border-red-500/30"
+              }`}
+            >
+              {selectedAppeal.status === "Approved" ? (
+                <>
+                  <div className="bg-[#1d9bf0] rounded-full p-1.5 flex-shrink-0">
+                    <Check className="h-4 w-4 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-white">Appeal Approved</p>
+                    <p className="text-gray-300 mt-1">
+                      This user&apos;s ban has been lifted and they can now
+                      access their account again.
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="bg-red-500 rounded-full p-1.5 flex-shrink-0">
+                    <X className="h-4 w-4 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-white">Appeal Rejected</p>
+                    <p className="text-gray-300 mt-1">
+                      This user&apos;s ban remains in effect.
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
-          ) : (
-            <div className="space-y-2">
-              <Label>Admin Response:</Label>
-              <div className="p-3 bg-[#333] rounded-md text-sm">
-                {selectedAppeal.responseText}
-              </div>
-            </div>
-          )} */}
           </div>
         )}
         <DialogFooter>
