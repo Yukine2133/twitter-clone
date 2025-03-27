@@ -11,11 +11,12 @@ import { IUser } from "@/interfaces/user.interface";
 export default async function AdminDashboard() {
   const users = await fetchAllUsers();
   const appeals = await fetchAppeals();
+
   return (
     <div className="flex min-h-screen flex-col bg-black text-white">
       <AdminHeader />
       <div className="container mx-auto py-6 px-4 md:px-6">
-        <AdminStats users={users as IUser[]} />
+        <AdminStats appeals={appeals as IAppeal[]} users={users as IUser[]} />
         <div className="mt-6 bg-[#111] rounded-lg p-4">
           <Tabs defaultValue="users" className="w-full">
             <TabsList className="grid w-full grid-cols-2 bg-[#222] mb-4">

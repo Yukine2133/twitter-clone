@@ -1,8 +1,11 @@
-import { IUser } from "@/interfaces/user.interface";
+import { IAdminStatsProps } from "@/interfaces/props.interface";
 import { AlertTriangle, Ban, Users } from "lucide-react";
 
-export function AdminStats({ users }: { users: IUser[] }) {
+export function AdminStats({ users, appeals }: IAdminStatsProps) {
   const bannedUsers = users.filter((user) => user.isBanned);
+  const pendingAppeals = appeals.filter(
+    (appeal) => appeal.status === "Pending"
+  );
   return (
     <div className="grid  gap-4 lg:grid-cols-3">
       <div className="bg-[#111] border border-[#222] rounded-lg p-4">
@@ -26,7 +29,7 @@ export function AdminStats({ users }: { users: IUser[] }) {
           </div>
           <AlertTriangle className="h-4 w-4 text-gray-400" />
         </div>
-        <div className="text-2xl font-bold">18</div>
+        <div className="text-2xl font-bold">{pendingAppeals.length}</div>
       </div>
     </div>
   );

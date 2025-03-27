@@ -97,3 +97,8 @@ export interface IBannedPageAppealFormProps {
   appealText: string;
   setAppealText: React.Dispatch<React.SetStateAction<string>>;
 }
+
+export interface IAdminStatsProps {
+  users: IUser[];
+  appeals: IAppeal[];
+}
