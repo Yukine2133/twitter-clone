@@ -96,40 +96,43 @@ export const AppealModal = ({
                 {selectedAppeal.text}
               </div>
             </div>
-            <div
-              className={`p-4 rounded-md text-sm flex items-center gap-3 ${
-                selectedAppeal.status === "Approved"
-                  ? "bg-[#0c2d48] border border-[#1d9bf0]/30"
-                  : "bg-[#3a0a0a] border border-red-500/30"
-              }`}
-            >
-              {selectedAppeal.status === "Approved" ? (
-                <>
-                  <div className="bg-[#1d9bf0] rounded-full p-1.5 flex-shrink-0">
-                    <Check className="h-4 w-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-white">Appeal Approved</p>
-                    <p className="text-gray-300 mt-1">
-                      This user&apos;s ban has been lifted and they can now
-                      access their account again.
-                    </p>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="bg-red-500 rounded-full p-1.5 flex-shrink-0">
-                    <X className="h-4 w-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-white">Appeal Rejected</p>
-                    <p className="text-gray-300 mt-1">
-                      This user&apos;s ban remains in effect.
-                    </p>
-                  </div>
-                </>
-              )}
-            </div>
+            {selectedAppeal.status != "Pending" && (
+              <div
+                className={`p-4 rounded-md text-sm flex items-center gap-3 ${
+                  selectedAppeal.status === "Approved"
+                    ? "bg-[#0c2d48] border border-[#1d9bf0]/30"
+                    : "bg-[#3a0a0a] border border-red-500/30"
+                } `}
+              >
+                {selectedAppeal.status === "Approved" && (
+                  <>
+                    <div className="bg-[#1d9bf0] rounded-full p-1.5 flex-shrink-0">
+                      <Check className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-white">Appeal Approved</p>
+                      <p className="text-gray-300 mt-1">
+                        This user&apos;s ban has been lifted and they can now
+                        access their account again.
+                      </p>
+                    </div>
+                  </>
+                )}
+                {selectedAppeal.status === "Rejected" && (
+                  <>
+                    <div className="bg-red-500 rounded-full p-1.5 flex-shrink-0">
+                      <X className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-white">Appeal Rejected</p>
+                      <p className="text-gray-300 mt-1">
+                        This user&apos;s ban remains in effect.
+                      </p>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         )}
         <DialogFooter>
