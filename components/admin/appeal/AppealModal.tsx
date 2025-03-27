@@ -33,6 +33,7 @@ export const AppealModal = ({
 
   const handleReject = async (status: string) => {
     try {
+      await updateAppeal(selectedAppeal._id, status);
     } catch (error) {
       console.error(error);
     } finally {
