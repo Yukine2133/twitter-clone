@@ -73,6 +73,7 @@ export interface IBannedPageContentProps {
   banReason: string;
   userId: string;
   isAppealSubmitted: boolean;
+  rejectedAppeal: boolean;
 }
 
 export interface IAppealCardProps {

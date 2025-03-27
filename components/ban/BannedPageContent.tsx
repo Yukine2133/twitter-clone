@@ -12,12 +12,14 @@ import Link from "next/link";
 import { useState } from "react";
 import { IBannedPageContentProps } from "@/interfaces/props.interface";
 import { addAppeal } from "@/actions/appeal.actions";
+import { Check, XCircleIcon } from "lucide-react";
 
 const BannedPageContent = ({
   username,
   banReason,
   userId,
   isAppealSubmitted: initialAppealState,
+  rejectedAppeal,
 }: IBannedPageContentProps) => {
   const [isAppealSubmitted, setIsAppealSubmitted] =
     useState(initialAppealState);
@@ -72,7 +74,7 @@ const BannedPageContent = ({
             <p className="text-neutral-300">{banReason}</p>
           </div>
 
-          {!isAppealSubmitted ? (
+          {!isAppealSubmitted && (
             <div className="mb-6">
               <h2 className="text-lg font-bold mb-3">Appeal this suspension</h2>
               <p className="text-neutral-400 mb-4">
@@ -106,27 +108,31 @@ const BannedPageContent = ({
                 </button>
               </form>
             </div>
-          ) : (
+          )}
+
+          {isAppealSubmitted && !rejectedAppeal && (
             <div className="bg-green-900/20 rounded-lg p-5 mb-6 border border-green-900/30">
               <div className="flex items-start gap-3">
-                <svg
-                  className="h-5 w-5 text-green-500 mt-0.5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
+                <Check className="size-5 text-green-500 mt-0.5" />
                 <div>
                   <h2 className="text-lg font-bold mb-1">Appeal Submitted</h2>
                   <p className="text-neutral-300">
                     We&apos;ve received your appeal and will review it as soon
                     as possible. We&apos;ll notify you of our decision.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {rejectedAppeal && (
+            <div className="bg-red-900/20 rounded-lg p-5 mb-6 border border-red-900/30">
+              <div className="flex items-start gap-3">
+                <XCircleIcon className="size-5 text-red-500 mt-0.5" />
+                <div>
+                  <h2 className="text-lg font-bold mb-1">Appeal Rejected</h2>
+                  <p className="text-neutral-300">
+                    Your appeal has been rejected.
                   </p>
                 </div>
               </div>
