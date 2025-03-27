@@ -15,6 +15,7 @@ import { Check, X } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { updateAppeal } from "@/actions/appeal.actions";
 import { updateBanStatus } from "@/actions/user.actions";
+import { formatDate } from "@/utils/formatTimestamp";
 
 export const AppealModal = ({
   selectedAppeal,
@@ -83,11 +84,10 @@ export const AppealModal = ({
             <div className="grid grid-cols-2 gap-1 text-sm">
               <div className="text-gray-400">Ban Reason:</div>
               <div>{selectedAppeal.banReason}</div>
-              {/* <div className="text-gray-400">Ban Date:</div>
-            <div>{selectedAppeal.banDate}</div> */}
-
               <div className="text-gray-400">Appeal Date:</div>
-              <div>{selectedAppeal.createdAt}</div>
+              <div>
+                {formatDate(selectedAppeal.createdAt as unknown as Date)}
+              </div>
             </div>
 
             <div className="space-y-2">

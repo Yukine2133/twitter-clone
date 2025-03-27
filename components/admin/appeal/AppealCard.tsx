@@ -51,9 +51,6 @@ export const AppealCard = ({
         <div className="grid grid-cols-2 gap-1 text-sm mb-2">
           <div className="text-gray-400">Ban Reason:</div>
           <div>{appeal.banReason}</div>
-          {/* <div className="text-gray-400">Ban Date:</div>
-                      <div>{appeal.createdAt}</div> */}
-
           <div className="text-gray-400">Appeal Date:</div>
           <div>{formatDate(appeal.createdAt as unknown as Date)}</div>
         </div>
