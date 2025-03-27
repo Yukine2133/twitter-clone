@@ -91,3 +91,9 @@ export interface IAppealSelectProps {
   filter: "All" | AppealStatus;
   setFilter: React.Dispatch<React.SetStateAction<"All" | AppealStatus>>;
 }
+
+export interface IBannedPageAppealFormProps {
+  handleSubmitAppeal: (e: React.FormEvent) => void;
+  appealText: string;
+  setAppealText: React.Dispatch<React.SetStateAction<string>>;
+}
