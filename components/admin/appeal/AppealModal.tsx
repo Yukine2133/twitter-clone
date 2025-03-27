@@ -13,11 +13,32 @@ import { Button } from "@/components/ui/button";
 import { IAppealModalProps } from "@/interfaces/props.interface";
 import { Check, X } from "lucide-react";
 import { Label } from "@/components/ui/label";
+import { updateAppeal } from "@/actions/appeal.actions";
+import { updateBanStatus } from "@/actions/user.actions";
 
 export const AppealModal = ({
   selectedAppeal,
   setSelectedAppeal,
 }: IAppealModalProps) => {
+  const handleApprove = async (status: string) => {
+    try {
+      await updateAppeal(selectedAppeal._id, status);
+      await updateBanStatus(selectedAppeal.user.userId, false);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSelectedAppeal(null);
+    }
+  };
+
+  const handleReject = async (status: string) => {
+    try {
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSelectedAppeal(null);
+    }
+  };
   return (
     <Dialog
       open={!!selectedAppeal}
@@ -108,14 +129,14 @@ export const AppealModal = ({
               </Button>
               <Button
                 className="bg-red-500 text-white hover:bg-red-600"
-                // onClick={handleReject}
+                onClick={() => handleReject("Rejected")}
               >
                 <X className="mr-2 h-4 w-4" />
                 Reject
               </Button>
               <Button
                 className="bg-[#1d9bf0] text-white hover:bg-[#1a8cd8]"
-                // onClick={handleApprove}
+                onClick={() => handleApprove("Approved")}
               >
                 <Check className="mr-2 h-4 w-4" />
                 Approve

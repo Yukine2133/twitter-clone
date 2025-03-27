@@ -4,6 +4,7 @@ import { IAppeal } from "@/interfaces/appeal.interface";
 import { Appeal } from "@/models/appeal.model";
 import { connectDb } from "@/utils/connectDb";
 import { parseJSON } from "@/utils/parseJSON";
+import { revalidatePath } from "next/cache";
 
 export const addAppeal = async ({
   user,
@@ -34,6 +35,16 @@ export const fetchAppeals = async () => {
     const appeals = await Appeal.find().populate("user");
 
     return parseJSON(appeals) || null;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updateAppeal = async (id: string, status: string) => {
+  try {
+    await connectDb();
+    await Appeal.findByIdAndUpdate(id, { status });
+    revalidatePath("/admin");
   } catch (error) {
     console.error(error);
   }

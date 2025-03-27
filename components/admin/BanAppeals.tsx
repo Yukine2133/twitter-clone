@@ -17,14 +17,6 @@ export function BanAppeals({ appeals }: { appeals: IAppeal[] }) {
       ? appeals
       : appeals.filter((appeal) => appeal.status === filter);
 
-  const handleApprove = () => {
-    setSelectedAppeal(null);
-  };
-
-  const handleReject = () => {
-    setSelectedAppeal(null);
-  };
-
   return (
     <div className="space-y-4">
       <AppealSelect filter={filter} setFilter={setFilter} />
