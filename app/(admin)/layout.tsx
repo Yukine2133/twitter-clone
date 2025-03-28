@@ -1,8 +1,9 @@
 import type React from "react";
 import "@/app/globals.css";
+import { AdminProvider } from "@/components/admin/AdminProvider";
 
 export const metadata = {
-  title: "Twitter Clone Admin Dashboard",
+  title: "Tweeter Admin Dashboard",
   description: "Admin dashboard for managing users and ban appeals",
 };
 
@@ -13,7 +14,9 @@ export default function AdminLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-black text-white">{children}</body>
+      <body className="bg-black text-white">
+        <AdminProvider>{children}</AdminProvider>
+      </body>
     </html>
   );
 }
