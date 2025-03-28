@@ -7,18 +7,9 @@ interface IGrokkyMessage {
 }
 
 export const useGrokky = () => {
-  const [messages, setMessages] = useState<IGrokkyMessage[]>([]); // Start with an empty array
+  const [messages, setMessages] = useState<IGrokkyMessage[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
 
   useEffect(() => {
     const loadMessages = async () => {
@@ -70,7 +61,6 @@ export const useGrokky = () => {
     input,
     setInput,
     isLoading,
-    messagesEndRef,
     handleSendMessage,
     handleKeyDown,
   };

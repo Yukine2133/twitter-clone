@@ -2,8 +2,6 @@
 
 import type React from "react";
 
-import { SparklesIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
-import Image from "next/image";
 import { useGrokky } from "@/hooks/useGrokky";
 import { GrokkyMessageCard } from "@/components/grokky/GrokkyMessageCard";
 import { GrokkyLoadingCard } from "@/components/grokky/GrokkyLoadingCard";
@@ -18,7 +16,6 @@ const GrokkyPage = () => {
     input,
     setInput,
     isLoading,
-    messagesEndRef,
     handleSendMessage,
     handleKeyDown,
   } = useGrokky();
