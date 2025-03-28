@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 
-import { Search } from "lucide-react";
 import { IUser } from "@/interfaces/user.interface";
 import { UserTableRowCard } from "./UserTableRowCard";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export function UserManagement({ users }: { users: IUser[] }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -27,7 +27,7 @@ export function UserManagement({ users }: { users: IUser[] }) {
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row justify-between gap-4">
         <div className="relative w-full sm:w-96">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+          <MagnifyingGlassIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
           <Input
             type="search"
             placeholder="Search users..."

@@ -11,8 +11,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { IBannedPageContentProps } from "@/interfaces/props.interface";
 import { addAppeal } from "@/actions/appeal.actions";
-import { Check, XCircleIcon } from "lucide-react";
 import { BannedPageAppealForm } from "./BannedPageAppealForm";
+import { CheckIcon, XCircleIcon } from "@heroicons/react/24/outline";
 
 const BannedPageContent = ({
   username,
@@ -85,7 +85,7 @@ const BannedPageContent = ({
           {isAppealSubmitted && !rejectedAppeal && (
             <div className="bg-green-900/20 rounded-lg p-5 mb-6 border border-green-900/30">
               <div className="flex items-start gap-3">
-                <Check className="size-5 text-green-500 mt-0.5" />
+                <CheckIcon className="size-5 text-green-500 mt-0.5" />
                 <div>
                   <h2 className="text-lg font-bold mb-1">Appeal Submitted</h2>
                   <p className="text-neutral-300">

@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { IAppealCardProps } from "@/interfaces/props.interface";
 import { formatDate } from "@/utils/formatTimestamp";
-import { Check, Clock, X } from "lucide-react";
+import { CheckIcon, ClockIcon, XMarkIcon } from "@heroicons/react/24/outline";
 export const AppealCard = ({
   appeal,
   user,
@@ -29,19 +29,19 @@ export const AppealCard = ({
           </div>
           {appeal.status === "Pending" && (
             <span className="inline-flex items-center rounded-full border border-[#333] px-2.5 py-0.5 text-xs font-semibold text-gray-200">
-              <Clock className="mr-1 h-3 w-3" />
+              <ClockIcon className="mr-1 h-3 w-3" />
               Pending
             </span>
           )}
           {appeal.status === "Approved" && (
             <span className="inline-flex items-center rounded-full bg-[#1d9bf0] px-2.5 py-0.5 text-xs font-semibold text-white">
-              <Check className="mr-1 h-3 w-3" />
+              <CheckIcon className="mr-1 h-3 w-3" />
               Approved
             </span>
           )}
           {appeal.status === "Rejected" && (
             <span className="inline-flex items-center rounded-full bg-red-500 px-2.5 py-0.5 text-xs font-semibold text-white">
-              <X className="mr-1 h-3 w-3" />
+              <XMarkIcon className="mr-1 h-3 w-3" />
               Rejected
             </span>
           )}

@@ -5,7 +5,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Ban, Check, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { Button } from "../ui/button";
 import useEditProfileButton from "@/hooks/buttonsLogic/useEditProfileButton";
 import { useHandleBanning } from "@/hooks/profile/useHandleBanning";
@@ -15,6 +14,13 @@ import { useState } from "react";
 import { DropdownActionsModalRendering } from "./dropdown/DropdownActionsModalRendering";
 import { deleteUser } from "@/actions/user.actions";
 import { toast } from "react-toastify";
+import {
+  CheckIcon,
+  EllipsisHorizontalIcon,
+  NoSymbolIcon,
+  PencilIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
 export const DropdownActions = ({ user }: { user: IUser }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const {
@@ -68,7 +74,7 @@ export const DropdownActions = ({ user }: { user: IUser }) => {
             size="sm"
             className="h-8 w-8 p-0 text-gray-400 hover:text-white hover:bg-[#333]"
           >
-            <MoreHorizontal className="h-4 w-4" />
+            <EllipsisHorizontalIcon className="size-5" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
@@ -79,7 +85,7 @@ export const DropdownActions = ({ user }: { user: IUser }) => {
             onClick={toggleModal}
             className="hover:bg-[#333]  focus:bg-[#333] cursor-pointer"
           >
-            <Edit className="mr-2 h-4 w-4 text-blue-500" />
+            <PencilIcon className="mr-2 h-4 w-4 text-blue-500" />
             Edit
           </DropdownMenuItem>
           {user.isBanned === false ? (
@@ -87,7 +93,7 @@ export const DropdownActions = ({ user }: { user: IUser }) => {
               onClick={() => setIsBanModalOpen(!isBanModalOpen)}
               className="hover:bg-[#333] focus:bg-[#333] cursor-pointer"
             >
-              <Ban className="mr-2 h-4 w-4 text-red-500" />
+              <NoSymbolIcon className="mr-2 h-4 w-4 text-red-500" />
               Ban User
             </DropdownMenuItem>
           ) : (
@@ -95,7 +101,7 @@ export const DropdownActions = ({ user }: { user: IUser }) => {
               onClick={() => handleUnBan()}
               className="hover:bg-[#333] focus:bg-[#333] cursor-pointer"
             >
-              <Check className="mr-2 h-4 w-4 text-blue-500" />
+              <CheckIcon className="mr-2 h-4 w-4 text-blue-500" />
               Unban User
             </DropdownMenuItem>
           )}
@@ -104,7 +110,7 @@ export const DropdownActions = ({ user }: { user: IUser }) => {
             className="text-red-500 hover:bg-[#333] focus:bg-[#333] cursor-pointer"
             onClick={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
           >
-            <Trash className="mr-2 h-4 w-4" />
+            <TrashIcon className="mr-2 h-4 w-4" />
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>

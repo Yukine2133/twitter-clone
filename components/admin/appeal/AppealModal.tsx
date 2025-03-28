@@ -11,11 +11,11 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { IAppealModalProps } from "@/interfaces/props.interface";
-import { Check, X } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { updateAppeal } from "@/actions/appeal.actions";
 import { updateBanStatus } from "@/actions/user.actions";
 import { formatDate } from "@/utils/formatTimestamp";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 export const AppealModal = ({
   selectedAppeal,
@@ -107,7 +107,7 @@ export const AppealModal = ({
                 {selectedAppeal.status === "Approved" && (
                   <>
                     <div className="bg-[#1d9bf0] rounded-full p-1.5 flex-shrink-0">
-                      <Check className="h-4 w-4 text-white" />
+                      <CheckIcon className="h-4 w-4 text-white" />
                     </div>
                     <div>
                       <p className="font-medium text-white">Appeal Approved</p>
@@ -121,7 +121,7 @@ export const AppealModal = ({
                 {selectedAppeal.status === "Rejected" && (
                   <>
                     <div className="bg-red-500 rounded-full p-1.5 flex-shrink-0">
-                      <X className="h-4 w-4 text-white" />
+                      <XMarkIcon className="h-4 w-4 text-white" />
                     </div>
                     <div>
                       <p className="font-medium text-white">Appeal Rejected</p>
@@ -148,14 +148,14 @@ export const AppealModal = ({
                 className="bg-red-500 text-white hover:bg-red-600"
                 onClick={() => handleReject("Rejected")}
               >
-                <X className="mr-2 h-4 w-4" />
+                <XMarkIcon className="mr-2 h-4 w-4" />
                 Reject
               </Button>
               <Button
                 className="bg-[#1d9bf0] text-white hover:bg-[#1a8cd8]"
                 onClick={() => handleApprove("Approved")}
               >
-                <Check className="mr-2 h-4 w-4" />
+                <CheckIcon className="mr-2 h-4 w-4" />
                 Approve
               </Button>
             </>

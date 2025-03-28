@@ -2,7 +2,7 @@ import { IUser } from "@/interfaces/user.interface";
 import AdminBadge from "../badges/AdminBadge";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
 import { formatJoinedDate } from "@/utils/formatTimestamp";
-import { CalendarDays, MapPin } from "lucide-react";
+import { CalendarDaysIcon, MapPinIcon } from "@heroicons/react/24/outline";
 
 export const ProfileInfo = ({
   user,
@@ -34,12 +34,12 @@ export const ProfileInfo = ({
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
           {user.location && (
             <div className="flex items-center gap-1 text-neutral-500">
-              <MapPin className="h-5 w-5" />
+              <MapPinIcon className="h-5 w-5" />
               <h3>{user.location}</h3>
             </div>
           )}
           <div className="text-neutral-500 flex items-center gap-2">
-            <CalendarDays className="h-5 w-5" />
+            <CalendarDaysIcon className="h-5 w-5" />
             <h3>{formatJoinedDate(user.createdAt)}</h3>
           </div>
         </div>
