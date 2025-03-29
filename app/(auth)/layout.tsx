@@ -5,6 +5,11 @@ import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "../api/uploadthing/core";
 import { ClerkProvider } from "@clerk/nextjs";
 
+export const metadata = {
+  title: "Sign in",
+  description: "Tweeter sign in page",
+};
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],

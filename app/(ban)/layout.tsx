@@ -2,6 +2,11 @@ import { Poppins } from "next/font/google";
 import "@/app/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 
+export const metadata = {
+  title: "Banned",
+  description: "Tweeter banned page",
+};
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],

@@ -7,7 +7,7 @@ import ClientOnly from "@/components/loaders/ClientOnly";
 
 export const metadata: Metadata = {
   title: "All Bookmarks",
-  description: "Tweeter Bookmarks",
+  description: "Tweeter All Bookmarks",
 };
 
 const AllBookmarks = async () => {

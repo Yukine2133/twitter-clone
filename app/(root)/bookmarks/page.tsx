@@ -6,6 +6,11 @@ import AddOrEditBookmarkFolderButton from "@/components/buttons/AddOrEditBookmar
 import BookmarkFolderItem from "@/components/bookmarks/BookmarkFolderItem";
 import { useGetCurrentUser } from "@/hooks/useGetCurrentUser";
 
+export const metadata = {
+  title: "Bookmarks",
+  description: "Tweeter Bookmarks page",
+};
+
 const Bookmarks = async () => {
   const { currentDbUser } = await useGetCurrentUser();
   const userBookmarkFolders = await getUserBookmarkFolders(

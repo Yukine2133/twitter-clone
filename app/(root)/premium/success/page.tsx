@@ -2,6 +2,11 @@ import Link from "next/link";
 
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
+export const metadata = {
+  title: "Premium success",
+  description: "Tweeter Premium success page",
+};
+
 const SuccessPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 py-12">

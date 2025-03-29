@@ -3,7 +3,7 @@ import "@/app/globals.css";
 import { AdminProvider } from "@/components/admin/AdminProvider";
 
 export const metadata = {
-  title: "Tweeter Admin Dashboard",
+  title: "Admin Dashboard",
   description: "Admin dashboard for managing users and ban appeals",
 };
 

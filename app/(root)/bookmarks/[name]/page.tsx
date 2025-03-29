@@ -5,6 +5,13 @@ import ClientOnly from "@/components/loaders/ClientOnly";
 import TweetCard from "@/components/tweets/TweetCard";
 import React from "react";
 
+export const generateMetadata = ({ params }: { params: { name: string } }) => {
+  const name = params.name.replace(/-/g, " ");
+  return {
+    title: `Bookmark Folder: ${name}`,
+  };
+};
+
 const BookmarkFolder = async ({
   params,
 }: {

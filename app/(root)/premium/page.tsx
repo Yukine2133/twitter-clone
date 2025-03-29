@@ -3,7 +3,7 @@ import PricingCard from "@/components/premium/PricingCard";
 
 export const metadata: Metadata = {
   title: "Premium",
-  description: "Subscribe to Twitter Premium",
+  description: "Subscribe to Tweeter Premium",
 };
 
 export default function PremiumPage() {

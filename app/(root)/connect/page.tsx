@@ -6,6 +6,11 @@ import {
 import Link from "next/link";
 import UserSuggestionList from "@/components/layout/RightSideBar/UserSuggestionList";
 
+export const metadata = {
+  title: "Connect",
+  description: "Tweeter Connect page",
+};
+
 const ConnectPage = () => {
   // const [searchQuery, setSearchQuery] = useState("");
 
