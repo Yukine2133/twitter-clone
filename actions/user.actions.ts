@@ -9,7 +9,12 @@ import { createNotification } from "./notification.actions";
 import { parseJSON } from "@/utils/parseJSON";
 import { currentUser } from "@clerk/nextjs/server";
 import { shuffleArray } from "@/utils/shuffleArray";
-import { errorMonitor } from "stream";
+import { Like } from "@/models/like.model";
+import { Reply } from "@/models/reply.model";
+import { Bookmark } from "@/models/bookmark.model";
+import { Retweet } from "@/models/retweet.model";
+import { Notification } from "@/models/notification.model";
+import { Appeal } from "@/models/appeal.model";
 
 export const fetchUser = async (userId: string | null | undefined) => {
   try {
@@ -70,6 +75,13 @@ export const deleteUser = async (userId: string) => {
   try {
     await connectDb();
     await User.deleteOne({ userId });
+    await Tweet.deleteMany({ userId });
+    await Like.deleteMany({ userId });
+    await Reply.deleteMany({ userId });
+    await Bookmark.deleteMany({ userId });
+    await Retweet.deleteMany({ userId });
+    await Notification.deleteMany({ userId });
+
     revalidatePath("/admin");
   } catch (error) {
     console.error(error);
