@@ -21,7 +21,6 @@ export const SidebarLinkCard = ({
 }: ISidebarLinkCardProps) => {
   const pathname = usePathname();
 
-  console.log(unreadNotifications);
   return (
     <>
       {sidebarLinks.map((link) => {

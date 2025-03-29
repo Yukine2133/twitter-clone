@@ -53,7 +53,7 @@ export const getNotifications = async (userId: string | undefined) => {
       .sort({ createdAt: -1 });
     return res;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

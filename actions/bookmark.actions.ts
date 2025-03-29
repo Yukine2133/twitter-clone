@@ -172,8 +172,6 @@ export const editBookmarkFolder = async (folderName: string, name: string) => {
     await connectDb();
     const folder = await BookmarkFolder.findOne({ name: folderName });
 
-    console.log(folder);
-
     folder.name = name;
     await folder.save();
     revalidatePath(`/bookmarks/${name}`);

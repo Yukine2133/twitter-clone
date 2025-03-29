@@ -20,7 +20,6 @@ const MoreButtonBookmarkFolder = ({ name }: { name: string }) => {
   const handleDelete = async () => {
     try {
       const res = await deleteBookmarkFolder(name);
-      console.log(res);
       router.push("/bookmarks");
     } catch (error) {
       console.error(error);
