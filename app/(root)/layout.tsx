@@ -20,8 +20,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Home",
-  description: "Tweeter Home",
+  title: "Grokky",
+  description: "Tweeter Grokky AI Chatbot",
 };
 
 export default async function RootLayout({

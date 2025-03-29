@@ -6,6 +6,11 @@ import { useGetCurrentUser } from "@/hooks/useGetCurrentUser";
 import { parseJSON } from "@/utils/parseJSON";
 import ClientOnly from "@/components/loaders/ClientOnly";
 
+export const metadata = {
+  title: "Home",
+  description: "Tweeter Home page",
+};
+
 export default async function Home() {
   const tweets = await fetchTweets();
 
