@@ -60,7 +60,7 @@ const TweetCard = async ({
                     href={`/profile/${owner.username}?userId=${owner.userId}`}
                   >
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold w-[100px] truncate sm:w-fit">
+                      <span className="font-semibold truncate w-fit">
                         {owner.displayName}
                       </span>
                       {owner.isAdmin && <AdminBadge />}
