@@ -50,12 +50,12 @@ export const SidebarLinkCard = ({
                 <Icon className={isMobile ? "h-6 w-6" : "h-7 w-7"} />
               )}
               {label === "Messages" && unreadMessages > 0 && (
-                <span className="absolute -top-1 -left-2.5 flex justify-center items-center text-xs text-white bg-red-500 rounded-full w-5 h-5">
+                <span className="absolute -top-1 -right-1.5 flex justify-center items-center text-xs text-white bg-blue-500 rounded-full w-5 h-5">
                   {unreadMessages}
                 </span>
               )}
               {label === "Notifications" && unreadNotifications > 0 && (
-                <span className="absolute -top-1 -left-2.5 flex justify-center items-center text-xs text-white bg-red-500 rounded-full w-5 h-5">
+                <span className="absolute -top-1 -right-1.5 flex justify-center items-center text-xs text-white bg-blue-500 rounded-full w-5 h-5">
                   {unreadNotifications}
                 </span>
               )}
