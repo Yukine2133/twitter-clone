@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "@/app/globals.css";
-import LeftSideBar from "@/components/layout/LeftSiderBar/LeftSideBar";
+import LeftSideBar from "@/components/layout/LeftSideBar/LeftSideBar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import BottomBar from "@/components/layout/BottomBar";
+import BottomBar from "@/components/layout/BottomBar/BottomBar";
 import UserDetails from "@/components/layout/UserDetails";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";

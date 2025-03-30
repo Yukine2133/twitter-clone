@@ -1,13 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, Home, Hash, Bell, Mail } from "lucide-react";
-import { SidebarLinkCard } from "../LeftSiderBar/SidebarLinkCard";
+import { SidebarLinkCard } from "../LeftSideBar/SidebarLinkCard";
 import {
   ArrowRightStartOnRectangleIcon,
   Bars3BottomLeftIcon,
 } from "@heroicons/react/24/outline";
-import Link from "next/link";
 import Image from "next/image";
 import { SignOutButton } from "@clerk/nextjs";
 

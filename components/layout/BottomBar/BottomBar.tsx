@@ -1,5 +1,5 @@
 import { useGetCurrentUser } from "@/hooks/useGetCurrentUser";
-import BottomBarUI from "./BottomBar/BottomBarUI";
+import BottomBarUI from "./BottomBarUI";
 
 const BottomBar = async () => {
   const { currentDbUser } = await useGetCurrentUser();
