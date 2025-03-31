@@ -8,7 +8,7 @@ const BannedPage = async () => {
   const { currentDbUser } = await useGetCurrentUser();
   const appeal = await fetchAppeal(currentDbUser._id);
 
-  const rejectedAppeal = appeal.status === "Rejected";
+  const rejectedAppeal = appeal?.status === "Rejected";
 
   if (currentDbUser.isBanned === false) redirect("/");
   return (
