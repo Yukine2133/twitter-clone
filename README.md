@@ -20,6 +20,8 @@ Welcome to my Twitter Clone project! This full-stack web application replicates 
 
 **Premium Subscription**: A Stripe-powered premium system that unlocks exclusive features.
 
+**Admin Dashboard**: An Admin Dashboard that allows admins to manage users and appeals. Admins can edit, delete, or ban users, as well as approve or reject appeals.
+
 **Notifications**: Receive notifications for likes, retweets, replies, and new followers to stay up to date with all interactions.
 
 ## Technologies Used
@@ -29,8 +31,7 @@ Welcome to my Twitter Clone project! This full-stack web application replicates 
 - **React-Toastify**
 - **Zod**
 - **Mongoose**
-- **Clerk Auth**
-- **Hero Icons**
+- **Clerk**
 
 ## Getting Started
 
