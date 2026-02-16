@@ -3,6 +3,8 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  transpilePackages: ["uploadthing", "@uploadthing/react"],
+
   experimental: {
     missingSuspenseWithCSRBailout: false,
   },
