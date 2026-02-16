@@ -34,7 +34,7 @@ const SingleTweet = ({
           <div className="flex relative items-start justify-between gap-3">
             <div className="flex gap-3">
               <Image
-                src={owner.avatar || "/placeholder.svg"}
+                src={owner.avatar}
                 alt={owner.displayName}
                 width={48}
                 height={48}
@@ -42,7 +42,7 @@ const SingleTweet = ({
               />
               <div>
                 <Link
-                  href={`/profile/${owner.username}`}
+                  href={`/profile/${owner.username}?userId=${owner.userId}`}
                   className="group/name flex flex-col"
                 >
                   <span className="font-bold group-hover/name:underline">

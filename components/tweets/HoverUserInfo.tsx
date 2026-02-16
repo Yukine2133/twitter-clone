@@ -54,7 +54,9 @@ const HoverUserInfo = ({ children, user }: IHoverUserInfoProps) => {
               <div className="w-full h-20 rounded-b-md bg-[#333639] object-cover" />
             )}
             <div className="flex items-center justify-between px-4 pt-2">
-              <ProfileLinkWrapper href={`/profile/${user.username}`}>
+              <ProfileLinkWrapper
+                href={`/profile/${user.username}?user_id=${user.userId}`}
+              >
                 <Image
                   src={user.avatar}
                   alt="Owner avatar"
@@ -67,7 +69,7 @@ const HoverUserInfo = ({ children, user }: IHoverUserInfoProps) => {
             <div className="w-fit px-4 -translate-y-4">
               <ProfileLinkWrapper
                 className="flex flex-col"
-                href={`/profile/${user.username}`}
+                href={`/profile/${user.username}?user_id=${user.userId}`}
               >
                 <div className="flex items-center gap-1">
                   <span className="font-semibold hover:underline w-[100px] truncate sm:w-fit">

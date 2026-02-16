@@ -57,7 +57,7 @@ export const ReplyModal = ({
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1">
                 <Link
-                  href={`/profile/${owner.username}`}
+                  href={`/profile/${owner.username}?userId=${owner.userId}`}
                   className="font-bold hover:underline"
                 >
                   {owner.displayName || owner.username}
@@ -116,7 +116,7 @@ export const ReplyModal = ({
               <p className="mb-2 ml-3 text-sm text-neutral-500">
                 Replying to{" "}
                 <Link
-                  href={`/profile/${owner.username}`}
+                  href={`/profile/${owner.username}?userId=${owner.userId}`}
                   className="text-blue-500 hover:underline"
                 >
                   @{owner.username}

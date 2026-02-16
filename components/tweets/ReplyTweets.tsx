@@ -49,7 +49,9 @@ const ReplyTweets = async ({
               />
               <div>
                 <div className="flex items-center gap-2 t">
-                  <Link href={`/profile/${owner.username}`}>
+                  <Link
+                    href={`/profile/${owner.username}?userId=${owner.userId}`}
+                  >
                     <span className="font-bold ">{owner.username}</span>
                   </Link>
                   <div className="flex text-gray-500 text-sm items-center gap-1">

@@ -14,7 +14,13 @@ export const ProfileLinkWrapper = ({
 }) => {
   const router = useRouter();
   return (
-    <div className={`${className}`} onClick={() => router.push(href)}>
+    <div
+      className={`${className}`}
+      onClick={(e) => {
+        e.stopPropagation();
+        router.push(href);
+      }}
+    >
       {children}
     </div>
   );
