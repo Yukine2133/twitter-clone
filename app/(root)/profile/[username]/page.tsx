@@ -7,8 +7,9 @@ export const generateMetadata = async ({
 }: {
   params: { username: string };
 }) => {
+  const { username } = await params;
   return {
-    title: params.username,
+    title: username,
   };
 };
 
@@ -19,6 +20,7 @@ const ProfilePage = async ({
     userId: string;
   };
 }) => {
+  const { userId } = await searchParams;
   const {
     followers,
     following,
@@ -30,7 +32,7 @@ const ProfilePage = async ({
     currentDbUser,
     combinedPosts,
     privateProfile,
-  } = await useGetProfileData(searchParams.userId);
+  } = await useGetProfileData(userId);
 
   return (
     <ProfileData

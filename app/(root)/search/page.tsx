@@ -8,11 +8,12 @@ export const generateMetadata = async ({
 }: {
   searchParams: { q: string | null };
 }) => {
-  if (!searchParams.q) {
+  const { q } = await searchParams;
+  if (!q) {
     return { title: "Explore " };
   }
   return {
-    title: `${searchParams.q} - Search`,
+    title: `${q} - Search`,
   };
 };
 
@@ -21,8 +22,8 @@ const SearchPage = async ({
 }: {
   searchParams: { q: string | null };
 }) => {
-  const query = searchParams.q;
-  const tweets = await searchTweets(query);
+  const { q } = await searchParams;
+  const tweets = await searchTweets(q);
 
   const renderTweetResult = async (tweet: ITweet) => {
     return <TweetCard tweet={tweet} owner={tweet.user} key={tweet._id} />;
@@ -31,7 +32,7 @@ const SearchPage = async ({
   return (
     <SearchResults
       path="search"
-      query={query}
+      query={q}
       results={tweets!}
       renderResult={renderTweetResult}
     />

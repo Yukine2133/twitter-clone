@@ -8,11 +8,12 @@ export const generateMetadata = async ({
 }: {
   searchParams: { q: string | null };
 }) => {
-  if (!searchParams.q) {
+  const { q } = await searchParams;
+  if (!q) {
     return { title: "Explore" };
   }
   return {
-    title: `${searchParams.q} - Search`,
+    title: `${q} - Search`,
   };
 };
 
@@ -21,8 +22,8 @@ const SearchUsers = async ({
 }: {
   searchParams: { q: string | null };
 }) => {
-  const query = searchParams.q;
-  const users = await searchUsers(query);
+  const { q } = await searchParams;
+  const users = await searchUsers(q);
 
   const renderUserResult = (user: IUser) => {
     return <UserCard user={user} key={user._id} />;
@@ -31,7 +32,7 @@ const SearchUsers = async ({
   return (
     <SearchResults
       path="search/tabs/users"
-      query={query}
+      query={q}
       results={users!}
       renderResult={renderUserResult}
     />

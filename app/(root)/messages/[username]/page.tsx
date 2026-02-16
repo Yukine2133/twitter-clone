@@ -9,8 +9,9 @@ export const generateMetadata = async ({
 }: {
   params: { username: string };
 }) => {
+  const { username } = await params;
   return {
-    title: `${params.username} - Messages`,
+    title: `${username} - Messages`,
   };
 };
 
@@ -23,7 +24,7 @@ const MessageWithTheUserPage = async ({
 }) => {
   const { currentDbUser } = await useGetCurrentUser();
 
-  const userId = searchParams.userId;
+  const { userId } = await searchParams;
   const recipient = await fetchUser(userId);
 
   const initialMessages = (await getMessages(recipient._id)) as IMessage[];

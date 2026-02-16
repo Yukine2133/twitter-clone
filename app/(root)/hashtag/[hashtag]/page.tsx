@@ -3,13 +3,14 @@ import ClientOnly from "@/components/loaders/ClientOnly";
 import TweetCard from "@/components/tweets/TweetCard";
 import { ITweet } from "@/interfaces/tweet.interface";
 
-export const generateMetadata = ({
+export const generateMetadata = async ({
   params,
 }: {
   params: { hashtag: string };
 }) => {
+  const { hashtag } = await params;
   return {
-    title: `Hashtag - #${params.hashtag}`,
+    title: `Hashtag - #${hashtag}`,
   };
 };
 
@@ -20,7 +21,7 @@ const HashTagPage = async ({
     hashtag: string;
   };
 }) => {
-  const hashtag = params.hashtag;
+  const { hashtag } = await params;
   const tweets = await searchTweets(hashtag, true);
   return (
     <div className="px-4 py-3">

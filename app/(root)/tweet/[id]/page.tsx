@@ -8,13 +8,15 @@ export const generateMetadata = async ({
 }: {
   params: { id: string };
 }) => {
-  const tweet = await fetchTweet(params.id);
+  const { id } = await params;
+  const tweet = await fetchTweet(id);
   return {
     title: tweet?.text,
   };
 };
 
 const SingleTweetPage = async ({ params }: { params: { id: string } }) => {
+  const { id } = await params;
   const {
     owner,
     singleTweet,
@@ -23,7 +25,7 @@ const SingleTweetPage = async ({ params }: { params: { id: string } }) => {
     isLiked,
     isRetweeted,
     userBookmarkFolders,
-  } = await useGetSingleTweet(params.id);
+  } = await useGetSingleTweet(id);
   return (
     <SingleTweet
       owner={owner}
