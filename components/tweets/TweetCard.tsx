@@ -12,6 +12,7 @@ import useTweetCard from "@/hooks/tweetsLogic/useTweetCard";
 import { renderTweetTextWithHashtags } from "@/utils/formatTweetText";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
 import AdminBadge from "../badges/AdminBadge";
+import { ProfileLinkWrapper } from "./ProfileLinkWrapper";
 
 const TweetCard = async ({
   tweet,
@@ -55,7 +56,7 @@ const TweetCard = async ({
             <div>
               <div className="flex items-center w-full gap-2">
                 <HoverUserInfo user={owner}>
-                  <Link
+                  <ProfileLinkWrapper
                     className="flex items-center gap-2"
                     href={`/profile/${owner.username}?userId=${owner.userId}`}
                   >
@@ -71,7 +72,7 @@ const TweetCard = async ({
                     <span className="text-gray-500 text-[15px] w-[100px] truncate sm:w-fit ">
                       @{owner.username}
                     </span>
-                  </Link>
+                  </ProfileLinkWrapper>
                 </HoverUserInfo>
                 <div className="flex text-gray-500 text-[15px] items-center gap-1">
                   <span>&middot;</span>
