@@ -1,34 +1,25 @@
 "use server";
-"use server";
 
+import Groq from "groq-sdk";
 import { Chat } from "@/models/chat.model";
 import { connectDb } from "@/utils/connectDb";
 import { parseJSON } from "@/utils/parseJSON";
 import { currentUser } from "@clerk/nextjs/server";
 
 export async function fetchAIResponse(userMessage: string): Promise<string> {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey)
-    throw new Error("Missing GEMINI_API_KEY in environment variables");
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) throw new Error("Missing GROQ_API_KEY");
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+  const groq = new Groq({ apiKey });
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: userMessage }] }],
-    }),
+  const completion = await groq.chat.completions.create({
+    messages: [{ role: "user", content: userMessage }],
+    model: "llama-3.3-70b-versatile",
   });
 
-  const data = await response.json();
-  if (!response.ok)
-    throw new Error(data.error?.message || "Failed to fetch AI response");
-
   const aiResponse =
-    data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+    completion.choices[0]?.message?.content ||
     "Sorry, I couldn't generate a response.";
-
   try {
     await connectDb();
 
