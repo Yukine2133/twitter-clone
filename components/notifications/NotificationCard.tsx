@@ -22,7 +22,6 @@ const NotificationCard = ({
   owner,
   type,
 }: INotificationCardProps) => {
-  // Get the appropriate icon based on notification type
   const getNotificationIcon = () => {
     switch (type) {
       case "liked":
@@ -76,10 +75,10 @@ const NotificationCard = ({
                 {type === "followed"
                   ? "followed you"
                   : type === "liked"
-                  ? "liked your Tweet"
-                  : type === "retweeted"
-                  ? "retweeted your Tweet"
-                  : "replied to your Tweet"}
+                    ? "liked your Tweet"
+                    : type === "retweeted"
+                      ? "retweeted your Tweet"
+                      : "replied to your Tweet"}
               </p>
 
               {notification.tweetId?.text && type !== "followed" && (

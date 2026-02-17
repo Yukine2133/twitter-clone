@@ -12,7 +12,7 @@ interface IAvatarUploadProps {
   setAvatar: React.Dispatch<React.SetStateAction<string>>;
   avatarProgress: number;
   setAvatarProgress: React.Dispatch<React.SetStateAction<number>>;
-  uploadAvatarButtonRef: React.RefObject<HTMLDivElement>;
+  uploadAvatarButtonRef: React.RefObject<HTMLDivElement | null>;
   className?: string;
 }
 

@@ -4,7 +4,7 @@ import { getUserConversations } from "@/actions/message.actions";
 import { StartConversationModal } from "@/components/messages/StartConversationModal";
 import UserConversationsCard from "@/components/messages/UserConversationsCard";
 import type { IUserConversations } from "@/interfaces/message.interface";
-import { ChatBubbleLeftIcon, InboxIcon } from "@heroicons/react/24/outline";
+import { InboxIcon } from "@heroicons/react/24/outline";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

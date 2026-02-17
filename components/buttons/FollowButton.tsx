@@ -7,12 +7,10 @@ import { useState } from "react";
 const FollowButton = ({
   userId,
   isFollowing,
-  username,
   currentUserId,
 }: {
   userId: string;
   isFollowing: boolean;
-  username: string;
   currentUserId: string;
 }) => {
   const [following, setFollowing] = useState(isFollowing);
@@ -25,11 +23,11 @@ const FollowButton = ({
       const res = await followUser(userId, currentUserId);
       if (res?.message) {
         toast.error(res.message);
-        setFollowing(following); // Revert on error
+        setFollowing(following);
       }
     } catch (error) {
       toast.error(String(error));
-      setFollowing(following); // Revert on error
+      setFollowing(following);
     }
   };
 

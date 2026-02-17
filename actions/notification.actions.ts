@@ -9,16 +9,14 @@ export const createNotification = async (
   type: string,
   userId: string | undefined,
   affectedUserId: string,
-  tweetId?: string | null
+  tweetId?: string | null,
 ) => {
   try {
     await connectDb();
-    // Ensure the userId and affectedUserId are not the same
     if (userId === affectedUserId) {
       return;
     }
 
-    // Check if a notification of the same type already exists
     const existingNotification = await Notification.findOne({
       type,
       userId,
@@ -27,10 +25,8 @@ export const createNotification = async (
     });
 
     if (existingNotification) {
-      // If it exists, remove it
       await existingNotification.deleteOne();
     } else {
-      // If it doesn't exist, create a new one
       const notification = new Notification({
         type,
         userId,

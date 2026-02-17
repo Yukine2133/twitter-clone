@@ -37,15 +37,12 @@ export const sendMessage = async (recipientId: string, formData: FormData) => {
 
     await message.save();
 
-    // Populate the sender field
     const populatedMessage = await Message.findById(message._id).populate(
-      "sender"
+      "sender",
     );
 
-    // Create a shared channel name
     const channelName = [currentDbUser._id, recipientId].sort().join("-");
 
-    // Trigger Pusher event
     await pusher.trigger(`chat-${channelName}`, "new-message", {
       message: parseJSON(populatedMessage),
     });
@@ -103,7 +100,7 @@ export const fetchUnreadMessages = async (userId: string) => {
 export const triggerTypingEvent = async (
   channelName: string,
   senderId: string,
-  isTyping: boolean
+  isTyping: boolean,
 ) => {
   try {
     await pusher.trigger(`chat-${channelName}`, "typing", {
@@ -121,7 +118,7 @@ export const triggerTypingEvent = async (
 export const deleteMessage = async (
   messageId: string,
   recipientId: string,
-  currentUserId: string
+  currentUserId: string,
 ) => {
   try {
     await connectDb();
@@ -157,7 +154,7 @@ export const editMessage = async (
   content: string,
   image: string,
   recipientId: string,
-  currentUserId: string
+  currentUserId: string,
 ) => {
   try {
     await connectDb();
@@ -168,9 +165,8 @@ export const editMessage = async (
       return { message: "You need to be logged in to update message." };
     }
 
-    const existingMessage = await Message.findById(messageId).populate(
-      "sender"
-    );
+    const existingMessage =
+      await Message.findById(messageId).populate("sender");
 
     if (existingMessage.sender.userId !== user?.id) {
       return { message: "You cannot edit someone else's message." };
@@ -205,7 +201,7 @@ export const getUserConversations = async () => {
     // Find all messages involving the current user
     const messages = await Message.find({
       $or: [{ sender: currentDbUser?._id }, { recipient: currentDbUser?._id }],
-    }).sort({ createdAt: -1 }); // Sort messages in descending order by createdAt timestamp
+    }).sort({ createdAt: -1 });
 
     const lastMessagesMap = new Map(); // Map to store the last message for each conversation
 

@@ -36,7 +36,6 @@ export const FollowSuggestionCard = ({ userId }: { userId: string }) => {
                 currentUserId={currentUserData?._id}
                 isFollowing={isFollowing}
                 userId={randomUser._id.toString()}
-                username={randomUser.username}
               />
             </div>
           </div>

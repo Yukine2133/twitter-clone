@@ -1,12 +1,12 @@
 import { RefObject } from "react";
 
 export const handleImageClick = (
-  uploadButtonRef: RefObject<HTMLDivElement>
+  uploadButtonRef: RefObject<HTMLDivElement | null>,
 ) => {
   const uploadDiv = uploadButtonRef.current;
   if (uploadDiv) {
     const input = uploadDiv.querySelector(
-      "input[type='file']"
+      "input[type='file']",
     ) as HTMLInputElement;
     if (input) {
       input.click();

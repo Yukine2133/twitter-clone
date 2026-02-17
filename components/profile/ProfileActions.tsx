@@ -31,7 +31,6 @@ export const ProfileActions = ({
             <EnvelopeIcon className="h-5 w-5" />
           </Link>
           <FollowButton
-            username={user.username}
             isFollowing={isFollowing}
             userId={user._id.toString()}
             currentUserId={currentUser._id.toString()}

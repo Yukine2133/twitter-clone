@@ -13,12 +13,12 @@ interface EditProfileImageUploadProps {
   setBackgroundImage: React.Dispatch<React.SetStateAction<string>>;
   backgroundProgress: number;
   setBackgroundProgress: React.Dispatch<React.SetStateAction<number>>;
-  uploadBackgroundButtonRef: React.RefObject<HTMLDivElement>;
+  uploadBackgroundButtonRef: React.RefObject<HTMLDivElement | null>;
   avatar: string | null;
   setAvatar: React.Dispatch<React.SetStateAction<string>>;
   avatarProgress: number;
   setAvatarProgress: React.Dispatch<React.SetStateAction<number>>;
-  uploadAvatarButtonRef: React.RefObject<HTMLDivElement>;
+  uploadAvatarButtonRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export const EditProfileImageUpload = ({

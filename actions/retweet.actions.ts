@@ -24,7 +24,7 @@ export const saveRetweet = async (tweetId: string) => {
         "retweet",
         user?.id,
         tweetToUpdate.userId,
-        tweetId
+        tweetId,
       );
     }
 
@@ -33,11 +33,9 @@ export const saveRetweet = async (tweetId: string) => {
     }
 
     if (existingRetweet) {
-      // Remove the retweet and update tweet's retweet count
       await existingRetweet.deleteOne();
       tweetToUpdate.retweets.pull(existingRetweet._id);
     } else {
-      // Add the retweet and update tweet's retweet count
       const retweet = new Retweet({
         userId: user?.id,
         tweetId: tweetId,
@@ -48,8 +46,6 @@ export const saveRetweet = async (tweetId: string) => {
     }
 
     await tweetToUpdate.save();
-
-    // revalidatePath("/");
   } catch (error) {
     throw new Error("Error saving retweet.");
   }
@@ -59,7 +55,6 @@ export const fetchUserRetweets = async (userId: string) => {
   try {
     await connectDb();
 
-    // Find retweets by user ID
     const retweets = await Retweet.find({ userId })
       .populate({
         path: "tweetId",
@@ -77,12 +72,10 @@ export const fetchRetweetsForTweet = async (tweetId: string) => {
   try {
     await connectDb();
 
-    // Find all retweets for the given tweet ID
     const retweets = await Retweet.find({ tweetId });
 
     return retweets;
   } catch (error) {
     console.error(error);
-    // return { error: "An unexpected error occurred." };
   }
 };

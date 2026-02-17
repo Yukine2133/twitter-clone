@@ -5,7 +5,7 @@ import { MutableRefObject, useEffect } from "react";
 const useClickOutside = (
   isOpen: boolean,
   toggleFunction: (arg0: boolean) => void,
-  ref: React.RefObject<HTMLElement>
+  ref: React.RefObject<HTMLElement | null>,
 ) => {
   useEffect(() => {
     const handleScroll = (event: WheelEvent) => {
@@ -22,9 +22,8 @@ const useClickOutside = (
       document.removeEventListener("wheel", handleScroll);
     }
 
-    // Cleanup function to remove overflow class when unmounting or modal is closed
     return () => {
-      document.body.style.overflow = "auto"; // Reset overflow style
+      document.body.style.overflow = "auto";
       document.removeEventListener("wheel", handleScroll);
     };
   }, [isOpen, ref]);
@@ -48,7 +47,7 @@ export default useClickOutside;
 
 export const useMoreButtonClickOutside = (
   buttonRef: MutableRefObject<HTMLButtonElement | null>,
-  setIsOpen: (arg0: boolean) => void
+  setIsOpen: (arg0: boolean) => void,
 ) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

@@ -20,8 +20,8 @@ export interface IDropdownActionsModalRenderingProps {
   handleSubmit: (e: FormEvent) => void;
   isPrivate: boolean;
   setIsPrivate: (isPrivate: boolean) => void;
-  uploadAvatarButtonRef: React.RefObject<HTMLDivElement>;
-  uploadBackgroundButtonRef: React.RefObject<HTMLDivElement>;
+  uploadAvatarButtonRef: React.RefObject<HTMLDivElement | null>;
+  uploadBackgroundButtonRef: React.RefObject<HTMLDivElement | null>;
   avatarProgress: number;
   setAvatarProgress: React.Dispatch<React.SetStateAction<number>>;
   backgroundProgress: number;
@@ -54,8 +54,8 @@ export interface IEditProfileModalProps {
   handleSubmit: (e: FormEvent) => void;
   isPrivate: boolean;
   setIsPrivate: (isPrivate: boolean) => void;
-  uploadAvatarButtonRef: React.RefObject<HTMLDivElement>;
-  uploadBackgroundButtonRef: React.RefObject<HTMLDivElement>;
+  uploadAvatarButtonRef: React.RefObject<HTMLDivElement | null>;
+  uploadBackgroundButtonRef: React.RefObject<HTMLDivElement | null>;
   backgroundProgress: number;
   setBackgroundProgress: React.Dispatch<React.SetStateAction<number>>;
   avatarProgress: number;

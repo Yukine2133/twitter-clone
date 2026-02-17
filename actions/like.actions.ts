@@ -27,26 +27,21 @@ export const likeTweet = async (id: string) => {
       return { message: "Tweet not found." };
     }
 
-    // Check if the user has already liked the tweet
     const existingLike = await Like.findOne({
       tweetId: id,
       userId: user.id,
     });
 
     if (existingLike) {
-      // If the user has already liked the tweet, remove their like
       await existingLike.deleteOne();
       existingTweet.likes.pull(existingLike._id);
     } else {
-      // If the user has not liked the tweet, add their like
       const newLike = new Like({ tweetId: id, userId: user.id });
       await newLike.save();
       existingTweet.likes.push(newLike._id);
     }
 
     await existingTweet.save();
-
-    // revalidatePath("/");
   } catch (error) {
     console.error(error);
     return { error: "An unexpected error occurred." };

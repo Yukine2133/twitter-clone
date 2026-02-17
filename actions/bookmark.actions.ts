@@ -30,7 +30,6 @@ export const bookMarkTweet = async (id: string) => {
     });
 
     if (existingBookmark) {
-      // If the user has already bookmarked the tweet, remove their bookmark
       await Bookmark.deleteOne({ _id: existingBookmark._id });
       const bookmarkFolder = await BookmarkFolder.findOne({ userId: user.id });
       if (bookmarkFolder) {
@@ -38,11 +37,8 @@ export const bookMarkTweet = async (id: string) => {
         await bookmarkFolder.save();
       }
     } else {
-      // If the user has not bookmarked the tweet, add their bookmark
       await Bookmark.create({ tweetId: id, userId: user.id });
     }
-
-    // revalidatePath("/");
   } catch (error) {
     console.error(error);
   }
@@ -114,7 +110,7 @@ export const getUserBookmarkFolders = async (userId: string) => {
 export const addBookmarkToFolder = async (
   folderId: string,
   tweetId: string,
-  userId: string
+  userId: string,
 ) => {
   try {
     await connectDb();

@@ -15,7 +15,7 @@ const useMessageForm = ({
 
   const [isTyping, setIsTyping] = useState(false);
   const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
-    null
+    null,
   );
 
   const uploadImageButtonRef = useRef<HTMLDivElement>(null);
@@ -25,7 +25,6 @@ const useMessageForm = ({
       const formData = new FormData();
       const hasImageUrl = !!imageUrl;
 
-      // If there's neither text nor image, throw an error
       if (!content && !hasImageUrl) {
         throw new Error("Message must contain text or an image.");
       }
@@ -72,7 +71,7 @@ const useMessageForm = ({
       setTimeout(() => {
         setIsTyping(false);
         triggerTypingEvent(channelName, currentUserId, false);
-      }, 1000)
+      }, 1000),
     );
   };
 

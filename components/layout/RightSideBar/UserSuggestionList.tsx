@@ -12,7 +12,7 @@ const UserSuggestionList = async () => {
     <div className="space-y-4">
       {users.map((user) => {
         const isFollowing = user.followers?.includes(
-          currentDbUser?.userId as string
+          currentDbUser?.userId as string,
         );
         return (
           <div key={user._id} className="flex items-center justify-between">
@@ -21,7 +21,6 @@ const UserSuggestionList = async () => {
               currentUserId={currentDbUser?._id as string}
               isFollowing={isFollowing}
               userId={user._id.toString()}
-              username={user.username}
             />
           </div>
         );

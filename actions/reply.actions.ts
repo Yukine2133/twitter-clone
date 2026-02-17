@@ -21,7 +21,7 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
         "reply",
         user?.id,
         existingTweet.userId,
-        tweetId
+        tweetId,
       );
     }
 
@@ -44,7 +44,6 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
       return { error: "You need to be logged in to reply." };
     }
 
-    // Create a new reply instance
     const reply = new Reply({
       tweetId: tweetId,
       userId: user.id,
@@ -55,7 +54,6 @@ export const replyTweet = async (formData: FormData, tweetId: string) => {
 
     await reply.save();
 
-    // Add the reply reference to the tweet
     existingTweet.replies = existingTweet.replies || [];
     existingTweet.replies.push(reply._id);
     await existingTweet.save();
@@ -74,7 +72,7 @@ export const fetchTweetReplies = async (tweetId: string) => {
   try {
     await connectDb();
 
-    const replies = await Reply.find({ tweetId }).sort({ createdAt: -1 }); // sort in the descending order
+    const replies = await Reply.find({ tweetId }).sort({ createdAt: -1 });
 
     return parseJSON(replies);
   } catch (error) {
@@ -97,7 +95,6 @@ export const deleteReply = async (tweetId: string, replyId: string) => {
       throw new Error("Reply not found.");
     }
 
-    // Remove the reference to the deleted reply from the associated tweet
     const tweet = await Tweet.findById(tweetId);
 
     if (!tweet) {
@@ -119,7 +116,7 @@ export const editReply = async (
   replyId: string,
   tweetId: string,
   text: string,
-  images: string[]
+  images: string[],
 ) => {
   try {
     await connectDb();
