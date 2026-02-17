@@ -17,7 +17,7 @@ export const useHandleBanning = (userId: string) => {
       toast.success("User has been successfully banned.");
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const errorMessage = error.errors[0].message;
+        const errorMessage = error.issues[0].message;
         toast.error(errorMessage);
       } else {
         toast.error(String(error));

@@ -14,7 +14,7 @@ const useTweetFormLogic = ({
 }: {
   toggleModal?: (arg0: boolean) => void;
   id?: string;
-  ref: RefObject<HTMLFormElement>;
+  ref: RefObject<HTMLFormElement | null>;
 }) => {
   const [loading, setLoading] = useState(false);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
@@ -35,10 +35,10 @@ const useTweetFormLogic = ({
       setLoading(true);
       formData.append("text", text || "");
 
-      imageUrls.forEach((imageUrl, index) => {
+      imageUrls.forEach((imageUrl) => {
         formData.append(`images`, imageUrl);
       });
-      videoUrls.forEach((videoUrl, index) => {
+      videoUrls.forEach((videoUrl) => {
         formData.append(`videos`, videoUrl);
       });
 
@@ -70,7 +70,7 @@ const useTweetFormLogic = ({
       toggleModal && toggleModal(false);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const errorMessage = error.errors[0].message;
+        const errorMessage = error.issues[0].message;
         toast.error(errorMessage);
       } else {
         toast.error(String(error));

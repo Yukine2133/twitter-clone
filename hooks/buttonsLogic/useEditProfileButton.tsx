@@ -16,7 +16,7 @@ const useEditProfileButton = ({ user }: { user: IUser }) => {
   const [location, setLocation] = useState(user.location ? user.location : "");
   const [avatar, setAvatar] = useState(user.avatar ? user.avatar : "");
   const [backgroundImage, setBackgroundImage] = useState(
-    user.backgroundImage ? user.backgroundImage : ""
+    user.backgroundImage ? user.backgroundImage : "",
   );
   const [isPrivate, setIsPrivate] = useState(user.private);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,7 +63,7 @@ const useEditProfileButton = ({ user }: { user: IUser }) => {
       setIsModalOpen(false);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const errorMessage = error.errors[0].message;
+        const errorMessage = error.issues[0].message;
         toast.error(errorMessage);
       } else {
         toast.error(String(error));

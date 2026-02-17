@@ -17,7 +17,7 @@ const useMoreButtonLogic = ({
 }: Omit<IMoreButtonProps, "isAdmin">) => {
   const [isOpen, setIsOpen] = useState(false);
   const [text, setText] = useState<string | null>(
-    replyTweet ? replyTweet : (tweet?.text as string)
+    replyTweet ? replyTweet : (tweet?.text as string),
   );
 
   const [edit, setEdit] = useState(false);
@@ -42,7 +42,7 @@ const useMoreButtonLogic = ({
           replyId as string,
           tweetId,
           text,
-          tweetImageUrls as string[]
+          tweetImageUrls as string[],
         );
         if (res?.message) {
           toast.error(res.message);
@@ -64,7 +64,7 @@ const useMoreButtonLogic = ({
           tweetId,
           text,
           tweetImageUrls as string[],
-          tweetVideoUrls as string[]
+          tweetVideoUrls as string[],
         );
         if (res?.message) {
           toast.error(res.message);
@@ -75,7 +75,7 @@ const useMoreButtonLogic = ({
       setEdit(false);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const errorMessage = error.errors[0].message;
+        const errorMessage = error.issues[0].message;
         toast.error(errorMessage);
       } else {
         toast.error(String(error));
