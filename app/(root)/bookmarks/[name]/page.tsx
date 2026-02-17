@@ -5,10 +5,15 @@ import ClientOnly from "@/components/loaders/ClientOnly";
 import TweetCard from "@/components/tweets/TweetCard";
 import React from "react";
 
-export const generateMetadata = ({ params }: { params: { name: string } }) => {
-  const name = params.name.replace(/-/g, " ");
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { name: string };
+}) => {
+  const { name } = await params;
+  const folderName = name.replace(/-/g, " ");
   return {
-    title: `Bookmark Folder: ${name}`,
+    title: `Bookmark Folder: ${folderName}`,
   };
 };
 
@@ -19,9 +24,10 @@ const BookmarkFolder = async ({
     name: string;
   };
 }) => {
-  const name = params.name.replace(/-/g, " ");
+  const { name } = await params;
+  const folderName = name.replace(/-/g, " ");
 
-  const bookmarksFromFolder: any = await getBookmarksFromFolder(name);
+  const bookmarksFromFolder: any = await getBookmarksFromFolder(folderName);
 
   return (
     <div>
@@ -47,7 +53,7 @@ const BookmarkFolder = async ({
                 tweet={tweet.tweetId}
                 owner={tweet.tweetId.user}
               />
-            ))
+            )),
           )}
         </ClientOnly>
       )}
