@@ -27,13 +27,12 @@ export async function POST(req: Request) {
       cancel_url: `${BASE_URL}/premium`,
       client_reference_id: user?.id,
     });
-
-    return NextResponse.json({ sessionId: session.id });
+    return NextResponse.json({ sessionUrl: session.url });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
       { error: (error as Error).message },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

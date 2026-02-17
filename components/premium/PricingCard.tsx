@@ -6,15 +6,16 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import { cn } from "@/utils/cn";
 import { premiumFeatures } from "@/utils/constants";
 import { loadStripe } from "@stripe/stripe-js";
+import { useRouter } from "next/navigation";
 
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
 );
 
 export default function PricingCard() {
   const [isAnnual, setIsAnnual] = useState(true);
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter();
   const monthlyPrice = 7;
   const annualPrice = 84;
   const handleCheckout = async () => {
@@ -25,9 +26,11 @@ export default function PricingCard() {
       body: JSON.stringify({ isAnnual }),
     });
 
-    const { sessionId } = await res.json();
+    const { sessionUrl } = await res.json();
     const stripe = await stripePromise;
-    if (stripe) await stripe.redirectToCheckout({ sessionId });
+    if (stripe) {
+      router.push(sessionUrl);
+    }
 
     setLoading(false);
   };
@@ -44,7 +47,7 @@ export default function PricingCard() {
                   "px-4 py-1 rounded-full text-sm font-medium transition-colors",
                   isAnnual
                     ? "bg-blue-500 text-white"
-                    : "text-neutral-400 hover:text-white"
+                    : "text-neutral-400 hover:text-white",
                 )}
               >
                 Annual
@@ -58,7 +61,7 @@ export default function PricingCard() {
                   "px-4 py-1 rounded-full text-sm font-medium transition-colors",
                   !isAnnual
                     ? "bg-blue-500 text-white"
-                    : "text-neutral-400 hover:text-white"
+                    : "text-neutral-400 hover:text-white",
                 )}
               >
                 Monthly
